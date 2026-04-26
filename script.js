@@ -58,7 +58,7 @@
       definition: "A person you like and trust.",
       related: "yaar, saathi",
       example: "Tu mera dost hai. — You are my friend." },
-    { id: "v13", type: "vocab", punjabi: "school", english: "school",
+    { id: "v13", type: "vocab", punjabi: "skool", english: "school",
       definition: "A place where children learn.",
       related: "ustaad (teacher), kitaab (book)",
       example: "Main school jaanda haan. — I go to school." },
@@ -1097,7 +1097,7 @@
       definition: "Used for points in time: 'kis vele' (at what time).",
       related: "samaa",
       example: "Kis vele aaoge? — At what time will you come?" },
-    { id: "de8", type: "vocab", punjabi: "phone",
+    { id: "de8", type: "vocab", punjabi: "phon",
       english: "phone",
       definition: "Borrowed from English. 'Phone karna' = to call. 'Phone chukna' = to pick up.",
       example: "Mainu phone karo. — Call me." },
@@ -1448,7 +1448,7 @@
       definition: "Something you take to feel better when sick.",
       related: "doctor, sehat",
       example: "Dawai khaa lo. — Take your medicine." },
-    { id: "h12", type: "vocab", punjabi: "doctor", english: "doctor",
+    { id: "h12", type: "vocab", punjabi: "daktar", english: "doctor",
       definition: "A person who treats illnesses. Borrowed from English.",
       related: "dawai, hospital",
       example: "Doctor kol jaana hai. — We have to go to the doctor." },
@@ -1542,7 +1542,7 @@
       definition: "Person who runs a shop.",
       related: "dukaan, paisa",
       example: "Dukandaar bahut changa hai. — The shopkeeper is very nice." },
-    { id: "pr9", type: "vocab", punjabi: "driver", english: "driver",
+    { id: "pr9", type: "vocab", punjabi: "draivar", english: "driver",
       definition: "Person who drives a vehicle. Borrowed from English.",
       related: "gaddi, bus",
       example: "Driver sahib, ruk jao. — Driver sir, please stop." },
@@ -2069,7 +2069,7 @@
       definition: "Paper money. 'Sau da note' = a hundred-rupee note.",
       related: "rupaya, chillar",
       example: "Pachas da note. — A fifty-rupee note." },
-    { id: "mn4", type: "vocab", punjabi: "bank",    english: "bank",
+    { id: "mn4", type: "vocab", punjabi: "baink",    english: "bank",
       definition: "A place where money is kept. Borrowed from English.",
       related: "ATM, khaata",
       example: "Bank kithe hai? — Where is the bank?" },
@@ -2161,7 +2161,7 @@
       definition: "A cutting tool. Use carefully!",
       related: "chamcha, sabzi",
       example: "Chaaku tikha hai. — The knife is sharp." },
-    { id: "kc6",  type: "vocab", punjabi: "plate",    english: "plate",
+    { id: "kc6",  type: "vocab", punjabi: "plet",    english: "plate",
       definition: "Borrowed from English. Also called 'thali' (a steel plate).",
       related: "thali, bartan",
       example: "Plate vich daal. — Daal in the plate." },
@@ -2572,7 +2572,7 @@
       example: "Nikkah hoya. — The nikkah took place." },
 
     // ===== City life / transport =====
-    { id: "ct1",  type: "vocab", punjabi: "bus",          english: "bus",
+    { id: "ct1",  type: "vocab", punjabi: "bas",          english: "bus",
       definition: "Public transport vehicle. Borrowed from English.",
       related: "rail, ticket",
       example: "Bus chhutt gayi. — The bus left." },
@@ -2588,7 +2588,7 @@
       definition: "Motorized three-wheel taxi — common across India.",
       related: "rickshaw",
       example: "Auto laao. — Get an auto." },
-    { id: "ct5",  type: "vocab", punjabi: "tractor",      english: "tractor",
+    { id: "ct5",  type: "vocab", punjabi: "traiktar",     english: "tractor",
       definition: "Farm vehicle — central to Punjab's agriculture.",
       related: "khet, kisaan",
       example: "Tractor khet vich. — The tractor is in the field." },
@@ -2600,7 +2600,7 @@
       definition: "Where airplanes take off and land. Borrowed from English.",
       related: "hawai jahaaz",
       example: "Airport jaana hai. — I have to go to the airport." },
-    { id: "ct8",  type: "vocab", punjabi: "ticket",       english: "ticket",
+    { id: "ct8",  type: "vocab", punjabi: "tikat",        english: "ticket",
       definition: "A pass for travel. Borrowed from English.",
       related: "bus, rail",
       example: "Do ticket lao. — Get two tickets." },
@@ -2646,7 +2646,7 @@
       definition: "A folder of papers. Borrowed from English.",
       related: "kaagaz, daftar",
       example: "File mez te hai. — The file is on the table." },
-    { id: "wk9",  type: "vocab", punjabi: "computer", english: "computer",
+    { id: "wk9",  type: "vocab", punjabi: "kampyootar", english: "computer",
       definition: "An electronic machine for work and play. Borrowed from English.",
       related: "internet, file",
       example: "Computer chalu karo. — Turn on the computer." },
@@ -2672,11 +2672,11 @@
       definition: "A written message. Borrowed from English.",
       related: "phone, email",
       example: "Message likh do. — Type the message." },
-    { id: "tc5",  type: "vocab", punjabi: "photo",    english: "photo",
+    { id: "tc5",  type: "vocab", punjabi: "foto",     english: "photo",
       definition: "A still picture. Borrowed from English.",
       related: "camera",
       example: "Photo khich lo. — Take the photo." },
-    { id: "tc6",  type: "vocab", punjabi: "camera",   english: "camera",
+    { id: "tc6",  type: "vocab", punjabi: "kemara",   english: "camera",
       definition: "A device for taking photos. Borrowed from English.",
       related: "photo",
       example: "Camera laao. — Bring the camera." },
@@ -2684,11 +2684,11 @@
       definition: "A screen for watching shows.",
       related: "video",
       example: "TV band karo. — Turn off the TV." },
-    { id: "tc8",  type: "vocab", punjabi: "radio",    english: "radio",
+    { id: "tc8",  type: "vocab", punjabi: "redio",    english: "radio",
       definition: "A device that plays broadcast audio.",
       related: "gaana",
       example: "Radio te gaana. — A song on the radio." },
-    { id: "tc9",  type: "vocab", punjabi: "charger",  english: "charger",
+    { id: "tc9",  type: "vocab", punjabi: "chaarjar", english: "charger",
       definition: "Cable to charge devices. Borrowed from English.",
       related: "mobile, batti",
       example: "Charger laao. — Bring the charger." },
@@ -2746,7 +2746,7 @@
       definition: "Physical pain. 'Dard hona' = to be in pain.",
       related: "dukhna, dawai",
       example: "Sir vich dard. — Pain in the head." },
-    { id: "h21", type: "vocab", punjabi: "hospital", english: "hospital",
+    { id: "h21", type: "vocab", punjabi: "haspataal", english: "hospital",
       definition: "Where sick people get treatment. Borrowed from English.",
       related: "doctor, dawai",
       example: "Hospital lai chalo. — Take to the hospital." },
@@ -4349,7 +4349,7 @@
       definition: "Borrowed. 'Ikk kilo aaloo' = one kilo of potatoes.",
       related: "gram",
       example: "Do KILO atta. — Two kilos of flour." },
-    { id: "mw2",  type: "vocab", punjabi: "gram",    english: "gram",
+    { id: "mw2",  type: "vocab", punjabi: "graam",   english: "gram",
       definition: "1/1000 kilo.",
       related: "kilo",
       example: "Sau GRAM. — 100 grams." },
@@ -4357,7 +4357,7 @@
       definition: "Used for milk, oil, petrol.",
       related: "doodh",
       example: "Ikk LITRE doodh. — One liter of milk." },
-    { id: "mw4",  type: "vocab", punjabi: "meter",   english: "meter",
+    { id: "mw4",  type: "vocab", punjabi: "meetar",  english: "meter",
       definition: "Length. Borrowed.",
       related: "lamma",
       example: "Char METER kapra. — Four meters of cloth." },
@@ -4369,7 +4369,7 @@
       definition: "Any small box. 'Tiffin dabba' = lunch box.",
       related: "peti, dabbi",
       example: "Mithai da DABBA. — Box of sweets." },
-    { id: "mw7",  type: "vocab", punjabi: "packet",  english: "packet",
+    { id: "mw7",  type: "vocab", punjabi: "paiket", english: "packet",
       definition: "Borrowed.",
       related: "dabba",
       example: "Doodh da PACKET. — Milk packet." },
@@ -4398,7 +4398,7 @@
       definition: "A small water vessel — used for pouring water (esp. in bathroom or rituals).",
       related: "paani",
       example: "LOTA bhar lao. — Fill the lota." },
-    { id: "vs4", type: "vocab", punjabi: "bottle", english: "bottle",
+    { id: "vs4", type: "vocab", punjabi: "botal", english: "bottle",
       definition: "Borrowed. Water/oil bottle.",
       related: "paani",
       example: "Paani di BOTTLE. — Water bottle." },
@@ -4603,7 +4603,7 @@
       definition: "The floor of a room.",
       related: "chhat",
       example: "FARSH saaf karo. — Clean the floor." },
-    { id: "hi4",  type: "vocab", punjabi: "balcony",          english: "balcony",
+    { id: "hi4",  type: "vocab", punjabi: "balkani",         english: "balcony",
       definition: "Borrowed. A balcony or veranda.",
       related: "chhat",
       example: "BALCONY vich khade. — Standing on the balcony." },
@@ -6229,8 +6229,6 @@
 
   function pickNextCard() {
     const now = Date.now();
-    const stats = getDailyStats(now);
-    const cap = dailyNewCardLimit();
 
     // Bucket by queue.
     const learning = [];   // due learning/relearning (sub-day timing matters)
@@ -6270,8 +6268,8 @@
       return top[Math.floor(Math.random() * top.length)];
     }
 
-    // 3) New cards (respecting today's adaptive cap).
-    if (newPool.length && (stats.newIntroduced || 0) < cap) {
+    // 3) New cards (no daily limit — learners can always pull in new material).
+    if (newPool.length) {
       // Skip suspended cards (leeches).
       const live = newPool.filter(c => !state.srs[c.id]?.suspended && !isLeech(state.srs[c.id]));
       if (live.length) {
@@ -6410,11 +6408,9 @@
     }
 
     const stats = getDailyStats(now);
-    const cap = dailyNewCardLimit();
     const set = (id, v) => { const el = $(id); if (el) el.textContent = String(v); };
     set("#srsDue", dueCount);
     set("#srsNew", stats.newIntroduced || 0);
-    set("#srsNewCap", cap);
     set("#srsLearning", learningCount);
     set("#srsRelearning", relearningCount);
     set("#bdNew", bdNew);
@@ -7282,8 +7278,8 @@
         battle.startedAt = performance.now();
         // Tempo ramps with progression; bosses get extra push
         Music.setBoss(!!battle.enemy.isBoss);
-        // Lofi tempo: slow + steady, gentle climb per stage, bosses a touch slower/heavier.
-        Music.setBpm(76 + Math.min(10, battle.enemyIdx) + (battle.enemy.isBoss ? -2 : 0));
+        // Battle tempo: mid-pace cinematic, climbs per stage, bosses harder-hitting.
+        Music.setBpm(92 + Math.min(18, battle.enemyIdx * 2) + (battle.enemy.isBoss ? 4 : 0));
 
         // Pre-battle intro for next enemy, then continue
         showIntroCard(battle.enemy, battle.enemyIdx, () => {
@@ -7444,13 +7440,14 @@
 
   // ---------- Procedural Music loop -----------------------------------------
   const Music = (() => {
-    // Lofi battle theme on the "Time" (Hans Zimmer) progression:
-    // Dm – B♭ – F – C  (i – VI – III – VII in D minor).
-    // Chord-forward: warm Rhodes-style 7th chords up front, soft sine bass,
-    // gentle swung drums (muted kick / rim click / brushed hat), and a
-    // continuous vinyl-noise bed for that lofi tape vibe.
+    // Cinematic battle theme inspired by Kanye West's "Stronger" (sampling
+    // Daft Punk's "Harder Better Faster Stronger"): a driving F#-minor loop
+    // F#m – D – A – E  (i – VI – III – VII).
+    // Chord-forward Rhodes voicings, but driven on every 8th by a tight
+    // straight (no-swing) drum kit — kick on 1 & 3, snare on 2 & 4, busy
+    // hats — sub-bass pulse, and a saw-edged lead for tension.
     let timer = null;
-    let currentBpm = 78;          // lofi sits low
+    let currentBpm = 92;          // mid-tempo, walking battle pace
     let isBoss = false;
     let step = 0;                 // 16th-note step within a 4-bar loop (0..63)
     let nextNoteTime = 0;
@@ -7458,40 +7455,40 @@
     const SCHED_AHEAD = 0.15;
 
     // Bass roots, one octave below tonic.
-    const BASS_ROOTS = [73.42, 58.27, 87.31, 65.41]; // D2, B♭1, F2, C2
+    const BASS_ROOTS = [46.25, 73.42, 55.00, 82.41]; // F#1, D2, A1, E2
 
-    // Rhodes-style chord voicings — extended 7th/9th colors for that
-    // jazzy lofi mood. Mid-register so the chord is the focus.
-    // Dm9 : D F A C E
-    // B♭maj7: B♭ D F A
-    // Fmaj7 : F A C E
-    // Cmaj7 : C E G B
+    // Rhodes-style chord voicings — F#-minor family with 7th/9th colors.
+    // Mid-register so the chord stays the focus.
+    // F#m9   : F# A C# E G#
+    // Dmaj7  : D F# A C#
+    // Amaj7  : A C# E G#
+    // E7     : E G# B D
     const CHORDS = [
-      [146.83, 174.61, 220.00, 261.63, 329.63], // Dm9
-      [233.08, 293.66, 349.23, 440.00],         // B♭maj7
-      [174.61, 220.00, 261.63, 329.63],         // Fmaj7
-      [261.63, 329.63, 392.00, 493.88],         // Cmaj7
+      [185.00, 220.00, 277.18, 329.63, 415.30], // F#m9
+      [146.83, 185.00, 220.00, 277.18],         // Dmaj7
+      [220.00, 277.18, 329.63, 415.30],         // Amaj7
+      [164.81, 207.65, 246.94, 293.66],         // E7
     ];
 
-    // Soft top-voice melody — sparse, breathy. Rests drive the chord focus.
-    const D5=587.33, F5=698.46, G5=783.99, A5=880.00, C6=1046.50, D6=1174.66;
+    // Top-voice melody — F#-minor pentatonic (F# A B C# E). Driven, hooky.
+    const FS5=739.99, A5=880.00, B5=987.77, CS6=1108.73, E6=1318.51, FS6=1479.98;
     const LEAD = [
-      // Bar 1 (Dm9): single sustained call
-      [null,null,null,null, A5,null,null,null, null,null,null,null, F5,null,null,null],
-      // Bar 2 (B♭maj7): answer
-      [null,null,null,null, null,null,null,null, D6,null,null,null, C6,null,A5,null],
-      // Bar 3 (Fmaj7): peaceful peak
-      [null,null,null,null, C6,null,null,null, null,null,null,null, A5,null,G5,null],
-      // Bar 4 (Cmaj7): rest, let the chord breathe
-      [null,null,null,null, G5,null,null,null, null,null,null,null, null,null,null,null],
+      // Bar 1 (F#m9): hook on the tonic
+      [null,null,null,null, FS5,null,null,null, null,null,null,null, A5,null,CS6,null],
+      // Bar 2 (Dmaj7): lift
+      [null,null,null,null, A5,null,null,null, CS6,null,null,null, B5,null,A5,null],
+      // Bar 3 (Amaj7): peak
+      [null,null,null,null, CS6,null,null,null, E6,null,null,null, CS6,null,B5,null],
+      // Bar 4 (E7): drive home with a leading tone (G#=415 already in chord)
+      [null,null,null,null, B5,null,A5,null, null,null,null,null, FS5,null,null,null],
     ];
 
-    // Lofi drum pattern (16 sixteenths). Sparse, half-time feel.
-    // Kick on 1 and the "and of 2"; rim/click on beat 3; soft brushed hats
-    // on every 8th with a swung lift.
-    const KICK = [1,0,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,0];
-    const RIM  = [0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0];
-    const HAT  = [1,0,0,1, 1,0,0,1, 1,0,0,1, 1,0,0,1]; // soft swung 16ths
+    // Battle drum pattern (16 sixteenths). Straight, no swing.
+    // Kick on 1 + "and of 2" + 3, snare on 2 & 4, hats on every 8th
+    // with two ghosted 16ths for a driving feel.
+    const KICK  = [1,0,0,0, 0,0,1,0, 1,0,0,0, 0,0,0,0];
+    const SNARE = [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,1]; // ghost lead-in to bar
+    const HAT   = [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,1]; // open-hat lift on the 'and of 4'
 
     // Continuous vinyl/tape noise — initialized once.
     let noiseSrc = null, noiseGain = null;
@@ -7510,7 +7507,7 @@
       stopVinyl();
     }
     function setBoss(b) { isBoss = b; }
-    function setBpm(bpm) { currentBpm = Math.max(60, Math.min(110, bpm | 0)); }
+    function setBpm(bpm) { currentBpm = Math.max(75, Math.min(140, bpm | 0)); }
 
     // ---- vinyl/tape hiss bed ----
     function startVinyl() {
@@ -7584,42 +7581,54 @@
       tone(freq * 2, t0, dur * 0.7, 0.04, "triangle", 700, 0.02, 0.5);
     }
 
-    // Lead — soft, mellow sine with slight detune, no edge.
+    // Lead — mellow sine + a touch of saw for battle edge.
     function lead(freq, t0, dur) {
-      tone(freq, t0, dur, 0.06, "sine", 2400, 0.04, 0.5);
-      tone(freq * 1.005, t0, dur, 0.025, "triangle", 2400, 0.04, 0.5);
+      const cutoff = isBoss ? 3200 : 2600;
+      tone(freq, t0, dur, 0.07, "sine", cutoff, 0.02, 0.5);
+      tone(freq * 1.005, t0, dur, 0.030, "triangle", cutoff, 0.02, 0.5);
+      // Subtle saw layer adds bite without going full rock.
+      tone(freq, t0, dur * 0.85, 0.022, "sawtooth", cutoff * 0.7, 0.02, 0.6);
+      if (isBoss) tone(freq * 2, t0, dur * 0.7, 0.018, "triangle", 4200, 0.02, 0.5);
     }
 
-    // Soft muted kick — boomy and round, no click.
+    // Punchy battle kick — thicker thump with a bit of click.
     function kick(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(120, t0);
-      osc.frequency.exponentialRampToValueAtTime(38, t0 + 0.14);
-      g.gain.setValueAtTime(0.22, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.28);
+      osc.frequency.setValueAtTime(150, t0);
+      osc.frequency.exponentialRampToValueAtTime(40, t0 + 0.10);
+      g.gain.setValueAtTime(0.30, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
       osc.connect(g); g.connect(Sfx.musicGain);
-      osc.start(t0); osc.stop(t0 + 0.32);
+      osc.start(t0); osc.stop(t0 + 0.25);
     }
 
-    // Rim click — short woody tick.
-    function rim(t0) {
+    // Snare — noise burst through bandpass + tonal layer.
+    function snare(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
-      const dur = 0.05;
+      const dur = 0.16;
       const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
       const d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1);
       const src = ctx.createBufferSource(); src.buffer = buf;
-      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 2200; bp.Q.value = 4;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1700; bp.Q.value = 0.9;
       const g = ctx.createGain();
-      g.gain.setValueAtTime(0.10, t0);
+      g.gain.setValueAtTime(0.20, t0);
       g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
       src.connect(bp); bp.connect(g); g.connect(Sfx.musicGain);
       src.start(t0); src.stop(t0 + dur);
+      // Tonal thwack
+      const osc = ctx.createOscillator(); const g2 = ctx.createGain();
+      osc.type = "triangle"; osc.frequency.setValueAtTime(220, t0);
+      osc.frequency.exponentialRampToValueAtTime(150, t0 + 0.07);
+      g2.gain.setValueAtTime(0.09, t0);
+      g2.gain.exponentialRampToValueAtTime(0.001, t0 + 0.10);
+      osc.connect(g2); g2.connect(Sfx.musicGain);
+      osc.start(t0); osc.stop(t0 + 0.12);
     }
 
     // Brushed hat — short, soft noise burst, gentle high-pass.
@@ -7645,14 +7654,13 @@
       const sixteenth = 60 / currentBpm / 4;
       const beatDur = sixteenth * 4;
 
-      // Drums (sparse, half-time lofi)
-      if (KICK[inBar]) kick(t);
-      if (RIM[inBar])  rim(t);
-      if (HAT[inBar])  hat(t);
+      // Drums (driving battle kit)
+      if (KICK[inBar])  kick(t);
+      if (SNARE[inBar]) snare(t);
+      if (HAT[inBar])   hat(t);
 
-      // Bass on the downbeat + "and of 3" — minimal, lets chords breathe.
-      if (inBar === 0) bass(BASS_ROOTS[bar], t, beatDur * 1.8);
-      if (inBar === 10) bass(BASS_ROOTS[bar], t, beatDur * 1.2);
+      // Sub-bass pulse — root on every quarter note for forward motion.
+      if (inBar % 4 === 0) bass(BASS_ROOTS[bar], t, beatDur * 1.0);
 
       // === Chord emphasis ===
       const chord = CHORDS[bar];
@@ -7661,26 +7669,26 @@
       // Big sustained chord on the downbeat (strummed, slight roll).
       if (inBar === 0) {
         chord.forEach((f, i) => {
-          rhodes(f, t + i * 0.012, beatDur * 3.6, vol);
+          rhodes(f, t + i * 0.010, beatDur * 3.7, vol);
         });
       }
 
-      // Re-strike on beat 3 with shorter sustain — keeps the chord present
-      // throughout the bar without becoming muddy.
+      // Drive the chord on every off-beat (the "and" of each beat) — keeps
+      // harmonic motion present without muddying the downbeat strum.
+      if (inBar === 2 || inBar === 6 || inBar === 10 || inBar === 14) {
+        chord.forEach((f, i) => {
+          rhodes(f, t + i * 0.005, beatDur * 0.55, vol * 0.5);
+        });
+      }
+
+      // Re-strike on beat 3 with medium sustain to anchor the bar.
       if (inBar === 8) {
         chord.forEach((f, i) => {
-          rhodes(f, t + i * 0.010, beatDur * 1.7, vol * 0.7);
+          rhodes(f, t + i * 0.008, beatDur * 1.8, vol * 0.75);
         });
       }
 
-      // Gentle arpeggio on the off-beats (16ths 6 and 14) — very low volume,
-      // adds movement while the chord is held.
-      if (inBar === 6 || inBar === 14) {
-        const n = chord[(inBar === 6 ? 2 : 3) % chord.length];
-        rhodes(n, t, beatDur * 0.9, vol * 0.45);
-      }
-
-      // Soft top-line melody (sparse).
+      // Top-line melody.
       const note = LEAD[bar][inBar];
       if (note) {
         let hold = 1;
@@ -7693,11 +7701,10 @@
       const ctx = Sfx.ctx;
       if (!ctx) { timer = setTimeout(schedule, LOOKAHEAD_MS); return; }
       const sixteenth = 60 / currentBpm / 4;
-      // Light swing: shift odd 16ths slightly later for that lofi groove.
+      // Straight time — no swing, drives the battle.
       while (nextNoteTime < ctx.currentTime + SCHED_AHEAD) {
         if (nextNoteTime < ctx.currentTime) nextNoteTime = ctx.currentTime + 0.02;
-        const swung = (step % 2 === 1) ? nextNoteTime + sixteenth * 0.18 : nextNoteTime;
-        playStep(step, swung);
+        playStep(step, nextNoteTime);
         nextNoteTime += sixteenth;
         step = (step + 1) % 64;
       }
