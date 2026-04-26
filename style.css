@@ -552,7 +552,8 @@ button:focus-visible {
 .srs-row:not([hidden]) .srs:nth-child(3) { animation-delay: 0.16s; }
 .srs-row:not([hidden]) .srs:nth-child(4) { animation-delay: 0.22s; }
 .srs:active { transform: scale(0.94); filter: brightness(0.95); }
-.srs span { font-size: 11px; opacity: 0.9; font-weight: 500; }
+.srs span { font-size: 11px; opacity: 0.92; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; min-height: 13px; }
+.srs .srs-sub:empty::before { content: "\00a0"; }
 .srs.again { background: var(--bad); }
 .srs.hard  { background: #ff9500; } /* iOS orange */
 .srs.good  { background: var(--good); }
@@ -2090,6 +2091,7 @@ body.tier-slowmo .sprite { animation-duration: 4s !important; }
 .intro-card .intro-name { font-size: 22px; font-weight: 900; color: #fff; margin: 4px 0; }
 .intro-card.boss .intro-name { background: linear-gradient(135deg, #ffd23f, #ff7a1a); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 26px; }
 .intro-card .intro-flavor { font-size: 13px; color: var(--muted); max-width: 280px; margin: 0 auto 6px; }
+.intro-card .intro-quote { font-size: 13px; font-style: italic; color: #ffd23f; opacity: 0.9; max-width: 280px; margin: 0 auto 6px; }
 .intro-card .intro-meta { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* ---- Pause / confirm / coach overlays ---- */

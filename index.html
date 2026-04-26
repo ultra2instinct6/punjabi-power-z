@@ -103,10 +103,10 @@
       </div>
 
       <div class="srs-row" id="srsRow" hidden>
-        <button class="srs again"  data-grade="again">Again<span>+2 XP</span></button>
-        <button class="srs hard"   data-grade="hard">Hard<span>+5 XP</span></button>
-        <button class="srs good"   data-grade="good">Good<span>+10 XP</span></button>
-        <button class="srs easy"   data-grade="easy">Easy<span>+15 XP</span></button>
+        <button class="srs again"  data-grade="again">Again<span class="srs-sub" id="srsSubAgain"></span></button>
+        <button class="srs hard"   data-grade="hard">Hard<span class="srs-sub" id="srsSubHard"></span></button>
+        <button class="srs good"   data-grade="good">Good<span class="srs-sub" id="srsSubGood"></span></button>
+        <button class="srs easy"   data-grade="easy">Easy<span class="srs-sub" id="srsSubEasy"></span></button>
       </div>
 
       <!-- Random training interrupt event panel -->
@@ -192,6 +192,7 @@
           <div class="intro-emoji" id="introEmoji">🤖</div>
           <div class="intro-name" id="introName">Training Bot</div>
           <div class="intro-flavor" id="introFlavor">A friendly first opponent.</div>
+          <div class="intro-quote" id="introQuote" hidden></div>
           <div class="intro-meta"><span id="introHp">HP 100</span> · <span id="introTier">Minion</span></div>
         </div>
       </div>
@@ -331,18 +332,9 @@
             </label>
           </div>
 
-          <div class="setting-row column">
-            <div class="setting-main row-title-line">
-              <h3>New Cards / Day</h3>
-              <span class="value-pill" id="newPerDayLabel">5</span>
-            </div>
-            <p class="muted">Daily intro cap for brand-new words. Adapts down if backlog or recent lapses pile up.</p>
-            <input type="range" id="newPerDayBase" class="ios-slider" min="1" max="15" value="5" aria-label="New cards per day" />
-          </div>
-
           <button class="setting-row destructive-row" id="resetShakyBtn" type="button">
-            <span class="row-action-label">Reset Shaky-Card Flags</span>
-            <span class="muted small">Clear cards flagged from battle misses</span>
+            <span class="row-action-label">Reset Struggling Cards</span>
+            <span class="muted small">Clears shaky flags &amp; un-suspends leeches</span>
           </button>
         </div>
 

@@ -94,25 +94,32 @@
     // Phrases
     { id: "p1", type: "phrase", punjabi: "Tusi kive ho?",
       english: "How are you?",
-      example: "Polite greeting to ask how someone is doing." },
+      definition: "Polite greeting to ask how someone is doing.",
+      example: "Tusi kive ho? Main theek haan. — How are you? I'm good." },
     { id: "p2", type: "phrase", punjabi: "Main theek haan",
       english: "I am good.",
-      example: "A common reply to 'Tusi kive ho?'" },
+      definition: "Standard reply to 'Tusi kive ho?' (how are you).",
+      example: "Main theek haan, shukriya. — I'm good, thanks." },
     { id: "p3", type: "phrase", punjabi: "Tuhada naam ki hai?",
       english: "What is your name?",
-      example: "A polite way to ask someone's name." },
+      definition: "Polite way to ask someone's name.",
+      example: "A: Tuhada naam ki hai? B: Mera naam Ravi hai. — A: What's your name? B: My name is Ravi." },
     { id: "p4", type: "phrase", punjabi: "Mera naam ___ hai",
       english: "My name is ___.",
-      example: "Reply with your name in the blank." },
+      definition: "Reply with your name in place of the blank.",
+      example: "Mera naam Simran hai. — My name is Simran." },
     { id: "p5", type: "phrase", punjabi: "Main Punjabi sikh reha haan",
       english: "I am learning Punjabi.",
-      example: "Tell people you are studying the language." },
+      definition: "Used to tell people you're studying the language. Female speaker: 'sikh rahi haan'.",
+      example: "Main Punjabi sikh reha haan. — I'm learning Punjabi." },
     { id: "p6", type: "phrase", punjabi: "Sat sri akaal",
       english: "Hello (a respectful greeting).",
-      example: "Used at any time of day." },
+      definition: "Universal Sikh greeting (lit. 'eternal truth is the immortal Lord'). Used any time of day, hello or goodbye.",
+      example: "Sat sri akaal ji, kive ho? — Hello, how are you?" },
     { id: "p7", type: "phrase", punjabi: "Shukriya",
       english: "Thank you.",
-      example: "Used to thank someone." },
+      definition: "Common way to thank someone. Alternative: 'mehrbaani'.",
+      example: "Shukriya ji, tuhada bahut shukriya. — Thank you, thank you very much." },
 
     // Grammar / definitions
     { id: "g1", type: "grammar", punjabi: "naaon",
@@ -439,9 +446,9 @@
       related: "udna (to fly)",
       example: "Pakhi gaaonde han. — Birds sing." },
     { id: "a6", type: "vocab", punjabi: "sher",   english: "lion / tiger",
-      definition: "A large wild cat. In Punjabi 'sher' often covers both; 'baagh' is more specifically tiger.",
+      definition: "A large wild cat. In Punjabi 'sher' often covers both; 'baagh' is more specifically tiger. The Sikh surname 'Singh' literally means 'lion'.",
       related: "baagh, jangli",
-      example: "Singh = lion (also a Sikh family name)." },
+      example: "Oh sher varga bahaadar hai. — He is brave like a lion." },
 
     // ===== Places =====
     { id: "pl1", type: "vocab", punjabi: "pind",      english: "village",
@@ -659,6 +666,7 @@
       example: "Used after first introductions." },
     { id: "p17", type: "phrase", punjabi: "Tusi kithon ho?",
       english: "Where are you from?",
+      definition: "Polite question asking where someone is from. 'kithon' = from where.",
       example: "Reply: 'Main Amreeka ton haan.' — I'm from America." },
     { id: "p18", type: "phrase", punjabi: "Main Amreeka ton haan",
       english: "I am from America.",
@@ -674,6 +682,7 @@
       example: "Maaf karna, haule bolo. — Sorry, please speak slowly." },
     { id: "p21", type: "phrase", punjabi: "Phir kaho",
       english: "Say it again.",
+      definition: "Polite request to repeat what was just said. 'phir' = again, 'kaho' = say.",
       example: "Mainu samajh nahin aayi, phir kaho. — I didn't understand, say again." },
     { id: "p22", type: "phrase", punjabi: "Mainu bhukh laggi hai",
       english: "I am hungry.",
@@ -4818,18 +4827,47 @@
   // ---------- Enemies ---------------------------------------------------------
   // Tiers: 'minion' (emoji), 'elite' (emoji + purple aura), 'boss' (uses enemy.png)
   const ENEMIES = [
-    { name: "Training Bot",  emoji: "🤖", baseHp: 60,  tier: "minion", flavor: "A friendly first opponent. Warm up." },
+    { name: "Training Bot",  emoji: "🤖", baseHp: 60,  tier: "minion", flavor: "A friendly first opponent. Warm up.",
+      flavorAlts: ["Wakes up. Already disappointed in you.", "Beep boop. Boring boop."] },
     { name: "Saibaman",      emoji: "👽", baseHp: 90,  tier: "minion", flavor: "Small but tricky. Watch your timing." },
     { name: "Goblin Scout",  emoji: "👺", baseHp: 110, tier: "minion", flavor: "Fast on its feet — answer quickly." },
     { name: "Frieza Minion", emoji: "🦖", baseHp: 140, tier: "elite",  flavor: "Elite mook. Hits harder than it looks." },
-    { name: "Cell Mini-Boss",emoji: "🐉", baseHp: 220, tier: "boss",   flavor: "A perfect copy. Only perfect answers will do." },
+    { name: "Cell Mini-Boss",emoji: "🐉", baseHp: 220, tier: "boss",   flavor: "A perfect copy. Only perfect answers will do.",
+      flavorAlts: ["He copied you, then improved on it."],
+      quote: "Show me your perfect form." },
     { name: "Cell Jr.",      emoji: "🐲", baseHp: 170, tier: "minion", flavor: "Energetic and dangerous in packs." },
     { name: "Phantom Wraith",emoji: "👻", baseHp: 190, tier: "elite",  flavor: "Its telegraphs are louder. Listen." },
     { name: "Storm Djinn",   emoji: "🌪️", baseHp: 210, tier: "minion", flavor: "Whirlwind attacks come fast." },
-    { name: "Frost Lich",    emoji: "🧟", baseHp: 230, tier: "elite",  flavor: "Chills your timer. Stay sharp." },
-    { name: "Buu Spawn",     emoji: "🟣", baseHp: 270, tier: "boss",   flavor: "Stretchy and stubborn. Big reward." },
+    { name: "Frost Lich",    emoji: "🧟", baseHp: 230, tier: "elite",  flavor: "Chills your timer. Stay sharp.",
+      flavorAlts: ["Breath like January in Manali."] },
+    { name: "Buu Spawn",     emoji: "🟣", baseHp: 270, tier: "boss",   flavor: "Stretchy and stubborn. Big reward.",
+      flavorAlts: ["Pink, stretchy, rude."],
+      quote: "Mmm... candy or fight?" },
     { name: "Shadow Naga",   emoji: "🐍", baseHp: 290, tier: "minion", flavor: "Strikes from the dark." },
-    { name: "Final Tyrant",  emoji: "💀", baseHp: 380, tier: "boss",   flavor: "The end of the arena. Everything you've trained for." },
+    { name: "Final Tyrant",  emoji: "💀", baseHp: 380, tier: "boss",   flavor: "The end of the arena. Everything you've trained for.",
+      flavorAlts: ["You've trained 1,000 cards for this moment. Don't choke."],
+      quote: "Kneel, learner." },
+    // ---- New roster (Section A) ----
+    { name: "Tea Slug",          emoji: "🐌", baseHp: 75,  tier: "minion", flavor: "Slow drip, sticky leaves." },
+    { name: "Bazaar Thief",      emoji: "🦝", baseHp: 100, tier: "minion", flavor: "Snatches your focus mid-answer." },
+    { name: "Pind Crow",         emoji: "🐦", baseHp: 95,  tier: "minion", flavor: "Caws your wrong answers back at you." },
+    { name: "Mango Imp",         emoji: "🥭", baseHp: 120, tier: "minion", flavor: "Sweet outside, savage inside." },
+    { name: "Gym Bro Saiyan",    emoji: "💪", baseHp: 160, tier: "elite",  flavor: "All sets, no rest day." },
+    { name: "Frieza Lieutenant", emoji: "🦎", baseHp: 200, tier: "elite",  flavor: "Cold-blooded and well-paid." },
+    { name: "Dhol Demon",        emoji: "🥁", baseHp: 175, tier: "elite",  flavor: "Hits on every beat." },
+    { name: "Kali-Yuga Warrior", emoji: "⚔️", baseHp: 220, tier: "elite",  flavor: "Born for the worst age. Thrives in it." },
+    { name: "Jungle Tigress",    emoji: "🐅", baseHp: 240, tier: "elite",  flavor: "Stalks your hesitation." },
+    { name: "Cyber Naga",        emoji: "🐍", baseHp: 260, tier: "elite",  flavor: "Bytes harder than it bites." },
+    { name: "Ghost Pandit",      emoji: "👳", baseHp: 250, tier: "boss",   flavor: "Recites your mistakes back as mantra.",
+      quote: "Your roots forgot you." },
+    { name: "Mahishasura",       emoji: "🐃", baseHp: 320, tier: "boss",   flavor: "A bull-demon king. No mortal weapon will do.",
+      quote: "No mortal weapon. No chance." },
+    { name: "Shadow Guru",       emoji: "🕯️", baseHp: 340, tier: "boss",   flavor: "Teaches one lesson: humility.",
+      quote: "Unlearn, then bow." },
+    { name: "Cell Perfect Form", emoji: "🧬", baseHp: 360, tier: "boss",   flavor: "Every cell has improved. Yours haven't.",
+      quote: "I am completion itself." },
+    { name: "Zero Saiyan",       emoji: "🌌", baseHp: 420, tier: "boss",   flavor: "Beyond the arena. Beyond you.",
+      quote: "Beyond the arena. Beyond you." },
   ];
 
   // ---------- Tuning constants (random training interrupts) ------------------
@@ -4890,7 +4928,7 @@
   // fuzz, and a separate "shaky cards" channel fed by Battle Mode without
   // polluting review timing.
   const SRS = {
-    SCHEMA_VERSION: 2,
+    SCHEMA_VERSION: 3,
     // Learning steps for brand-new cards. Minutes.
     LEARNING_STEPS_MIN: [1, 10, 60 * 24], // 1m, 10m, 1d
     // Relearning steps after a "again" on a graduated card. Minutes.
@@ -4909,13 +4947,18 @@
     FUZZ_PCT: 0.05,
     // After a lapse, new interval = max(1, oldInterval * LAPSE_MULT).
     LAPSE_MULT: 0.5,
+    // Hard upper bound on any single interval (days). Prevents cards from
+    // disappearing into multi-year intervals.
+    MAX_INTERVAL_DAYS: 365,
     // Mastery threshold for the "Mastered" badge.
     MASTERY_INTERVAL_DAYS: 21,
     MASTERY_MAX_LAPSES: 1,
-    // New-card pacing.
+    // Adaptive new-card pacing. Not user-tunable: we want every learner on
+    // a research-backed schedule (5/day baseline, ~10 cards/day max for a
+    // language deck this size, scaled down by recent backlog/lapses).
     NEW_PER_DAY_BASE: 5,
     NEW_PER_DAY_MIN: 1,
-    NEW_PER_DAY_MAX: 15,
+    NEW_PER_DAY_MAX: 10,
     BACKLOG_SOFT_CAP: 30,           // reviews beyond this start shrinking new cap
     LAPSE_LOOKBACK_MS: 7 * 86400_000,
     // Battle soft-writeback ease deltas.
@@ -4925,6 +4968,14 @@
     BATTLE_FAST_MS: 2000,
     // Shaky-card boost: training reviews from shakyCards get sorted earlier.
     SHAKY_PRIORITY_BONUS: 1,
+    // Auto-clear shaky flag if the card hasn't been seen in this long.
+    SHAKY_DECAY_MS: 14 * 86400_000,
+    // Leech: a card with this many lapses is auto-suspended from training
+    // and battle until the user explicitly resets it.
+    LEECH_LAPSE_THRESHOLD: 8,
+    // "Day" rolls over at 4 AM local so late-night sessions stay on the
+    // same study day.
+    STUDY_DAY_OFFSET_HOURS: 4,
   };
 
   function srsHash(id) {
@@ -4933,14 +4984,19 @@
     return Math.abs(h);
   }
   function fuzzInterval(id, days) {
-    if (days < 2) return days;
+    if (days < 2) return Math.min(days, SRS.MAX_INTERVAL_DAYS);
     const h = srsHash(id);
     // Deterministic offset in [-FUZZ_PCT, +FUZZ_PCT].
     const norm = ((h % 1000) / 1000) * 2 - 1;
-    return Math.max(1, Math.round(days * (1 + SRS.FUZZ_PCT * norm)));
+    const fuzzed = Math.max(1, Math.round(days * (1 + SRS.FUZZ_PCT * norm)));
+    return Math.min(fuzzed, SRS.MAX_INTERVAL_DAYS);
+  }
+  function capInterval(days) {
+    return Math.min(Math.max(1, Math.round(days)), SRS.MAX_INTERVAL_DAYS);
   }
   function todayKey(now = Date.now()) {
-    const d = new Date(now);
+    // Subtract the offset so anything before 4 AM counts as "yesterday".
+    const d = new Date(now - SRS.STUDY_DAY_OFFSET_HOURS * 3600_000);
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
     const day = String(d.getDate()).padStart(2, "0");
@@ -4952,15 +5008,6 @@
     if (!state.dailyStats[k]) state.dailyStats[k] = { newIntroduced: 0, lapses: 0, reviews: 0 };
     return state.dailyStats[k];
   }
-  function pruneDailyStats() {
-    if (!state.dailyStats) return;
-    const cutoff = Date.now() - 30 * 86400_000;
-    for (const k of Object.keys(state.dailyStats)) {
-      // Keys are YYYY-MM-DD; convert back via Date for an approximate bound.
-      const ts = new Date(k + "T00:00:00").getTime();
-      if (!isNaN(ts) && ts < cutoff) delete state.dailyStats[k];
-    }
-  }
   function recentLapses(ms = SRS.LAPSE_LOOKBACK_MS) {
     if (!state.dailyStats) return 0;
     const cutoff = Date.now() - ms;
@@ -4971,29 +5018,32 @@
     }
     return n;
   }
+  function isLeech(s) {
+    return !!s && (s.lapses || 0) >= SRS.LEECH_LAPSE_THRESHOLD;
+  }
   function dueReviewCount(now = Date.now()) {
     let n = 0;
     for (const c of DECK) {
       const s = state.srs[c.id];
-      if (!s) continue;
+      if (!s || s.suspended || isLeech(s)) continue;
       if ((s.queue === "review" || s.queue === "relearning") && (s.due || 0) <= now) n++;
     }
     return n;
   }
   function masteryPctRaw() {
-    let mastered = 0;
+    let mastered = 0, denom = 0;
     for (const c of DECK) {
       const s = state.srs[c.id];
-      if (!s) continue;
+      if (!s || s.suspended) continue;
+      denom++;
       if (s.queue === "review" && s.interval >= SRS.MASTERY_INTERVAL_DAYS && (s.lapses || 0) <= SRS.MASTERY_MAX_LAPSES) mastered++;
     }
-    return Math.round((mastered / DECK.length) * 100);
+    return denom ? Math.round((mastered / denom) * 100) : 0;
   }
   function dailyNewCardLimit() {
-    const base = state.settings?.newPerDayBase || SRS.NEW_PER_DAY_BASE;
     const backlog = dueReviewCount();
     const lapses = recentLapses();
-    let cap = base;
+    let cap = SRS.NEW_PER_DAY_BASE;
     if (backlog > SRS.BACKLOG_SOFT_CAP) {
       cap -= Math.floor((backlog - SRS.BACKLOG_SOFT_CAP) / 10);
     }
@@ -5006,13 +5056,57 @@
     const buckets = new Array(days).fill(0);
     for (const c of DECK) {
       const s = state.srs[c.id];
-      if (!s || s.queue === "new") continue;
+      if (!s || s.queue === "new" || s.suspended || isLeech(s)) continue;
+      if ((s.due || 0) <= now) { buckets[0]++; continue; }
       const offset = Math.floor(((s.due || 0) - now) / 86400_000);
-      const i = Math.max(0, Math.min(days - 1, offset));
-      if ((s.due || 0) <= now) buckets[0]++;
-      else if (offset < days) buckets[i]++;
+      if (offset < days) buckets[offset]++;
     }
     return buckets;
+  }
+  // Sweep shaky-card flags older than SHAKY_DECAY_MS. Cheap; called on session start.
+  function decayShakyCards() {
+    if (!state.shakyCards) return;
+    const cutoff = Date.now() - SRS.SHAKY_DECAY_MS;
+    for (const [id, ts] of Object.entries(state.shakyCards)) {
+      if (!ts || ts < cutoff) delete state.shakyCards[id];
+    }
+  }
+  // Compute the interval (in days) that a given grade WOULD produce, without
+  // mutating state. Used to render preview labels on the SRS buttons.
+  function previewGradeInterval(cardId, grade) {
+    const s = state.srs[cardId];
+    if (!s) return null;
+    const min = 1, day = 1440;
+    const inLearning = s.queue === "new" || s.queue === "learning" || s.queue === "relearning";
+    if (inLearning) {
+      const steps = (s.queue === "relearning") ? SRS.RELEARNING_STEPS_MIN : SRS.LEARNING_STEPS_MIN;
+      const step = Math.min(s.step || 0, steps.length - 1);
+      switch (grade) {
+        case "again": return { minutes: steps[0] };
+        case "hard":  return { minutes: steps[step] };
+        case "good": {
+          const next = step + 1;
+          if (next >= steps.length) {
+            const days = (s.queue === "relearning") ? Math.max(1, s.interval || 1) : SRS.GRAD_INTERVAL_GOOD;
+            return { days };
+          }
+          return { minutes: steps[next] };
+        }
+        case "easy": {
+          const days = (s.queue === "relearning") ? Math.max(1, s.interval || 1) : SRS.GRAD_INTERVAL_EASY;
+          return { days };
+        }
+      }
+    }
+    // Review queue.
+    const prev = Math.max(1, s.interval || 1);
+    switch (grade) {
+      case "again": return { minutes: SRS.RELEARNING_STEPS_MIN[0] };
+      case "hard":  return { days: capInterval(Math.max(prev + 1, prev * SRS.HARD_MULT)) };
+      case "good":  return { days: capInterval(Math.max(prev + 1, prev * s.ease)) };
+      case "easy":  return { days: capInterval(Math.max(prev + 2, prev * Math.min(SRS.EASE_MAX, s.ease + 0.1) * SRS.EASY_BONUS)) };
+    }
+    return null;
   }
 
   // ---------- Haptics --------------------------------------------------------
@@ -5474,12 +5568,13 @@
     u.rate = 1.0;
     u.pitch = 1.0;
     u.volume = 1;
-    u.onstart = () => setSpeakingUI(true);
-    u.onend = () => setSpeakingUI(false);
+    u.onstart = () => { setSpeakingUI(true); try { audioDbgLog("start: \"" + (text||"").slice(0,30) + "\" voice=" + (u.voice ? u.voice.name : "(default)") + " lang=" + u.lang); } catch {} };
+    u.onend = () => { setSpeakingUI(false); try { audioDbgLog("end"); } catch {} };
     u.onerror = (e) => {
       setSpeakingUI(false);
       const errMsg = (e && (e.error || e.message)) || "unknown";
       console.warn("[PPZ TTS] utterance error:", errMsg);
+      try { audioDbgLog("error: " + errMsg); } catch {}
       if (!tts._errorShown) {
         tts._errorShown = true;
         toast("Audio error: " + errMsg, 3000);
@@ -5705,6 +5800,9 @@
       reps: 0,            // graduated reviews
       lapses: 0,
       lastResult: null,   // "again"|"hard"|"good"|"easy"|"battle-ok"|"battle-miss"
+      lastReviewAt: 0,    // ms epoch of last training grading
+      previousInterval: 0,// days; for retention analytics later
+      suspended: false,   // true => excluded from training/battle picks
       firstSeenAt: 0,
     };
     return m;
@@ -5737,7 +5835,6 @@
         direction: "en2pa",
         battleHints: true,
         confirmRetreat: true,
-        newPerDayBase: SRS.NEW_PER_DAY_BASE,
         audio: { sfx: 0.7, music: 0.4, master: 1.0, muted: false },
       },
       schemaVersion: SRS.SCHEMA_VERSION,
@@ -5785,6 +5882,9 @@
         if (s.step == null) s.step = 0;
         if (s.lastResult == null) s.lastResult = null;
         if (s.firstSeenAt == null) s.firstSeenAt = 0;
+        if (s.lastReviewAt == null) s.lastReviewAt = 0;
+        if (s.previousInterval == null) s.previousInterval = 0;
+        if (s.suspended == null) s.suspended = false;
         if (!s.queue) {
           // Infer queue from legacy data: any prior interval/seen => review.
           s.queue = (s.seen > 0 || s.interval > 0) ? "review" : "new";
@@ -5792,6 +5892,14 @@
         }
       }
       merged.schemaVersion = SRS.SCHEMA_VERSION;
+      // Trim daily-stats keys older than 30 days so the save blob stays small.
+      try {
+        const cutoff = Date.now() - 30 * 86400_000;
+        for (const k of Object.keys(merged.dailyStats)) {
+          const ts = new Date(k + "T00:00:00").getTime();
+          if (!isNaN(ts) && ts < cutoff) delete merged.dailyStats[k];
+        }
+      } catch {}
       return merged;
     } catch {
       return defaultState();
@@ -5824,6 +5932,91 @@
     t.classList.add("show");
     clearTimeout(toast._t);
     toast._t = setTimeout(() => t.classList.remove("show"), ms);
+  }
+
+  // ---- Audio Debug Panel ----------------------------------------------------
+  // Triple-tap the top HUD to open. Shows voice list + every TTS event.
+  const audioDbg = { lines: [], el: null, taps: 0, lastTap: 0 };
+  function audioDbgLog(msg) {
+    const ts = new Date().toLocaleTimeString();
+    audioDbg.lines.push(`[${ts}] ${msg}`);
+    if (audioDbg.lines.length > 60) audioDbg.lines.shift();
+    if (audioDbg.el) {
+      const log = audioDbg.el.querySelector(".dbg-log");
+      if (log) { log.textContent = audioDbg.lines.join("\n"); log.scrollTop = log.scrollHeight; }
+    }
+  }
+  function installAudioDebugPanel() {
+    // Triple-tap on rank/level area to open
+    const trigger = document.querySelector(".hud") || document.body;
+    trigger.addEventListener("click", () => {
+      const now = Date.now();
+      if (now - audioDbg.lastTap > 600) audioDbg.taps = 0;
+      audioDbg.taps++;
+      audioDbg.lastTap = now;
+      if (audioDbg.taps >= 3) { audioDbg.taps = 0; openAudioDebug(); }
+    });
+  }
+  function openAudioDebug() {
+    if (audioDbg.el) { audioDbg.el.remove(); audioDbg.el = null; return; }
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);color:#0f0;font:12px/1.4 monospace;padding:12px;z-index:99999;overflow:auto;";
+    const voices = ("speechSynthesis" in window) ? (window.speechSynthesis.getVoices() || []) : [];
+    const voicesList = voices.map(v => `${v.lang}  ${v.name}${v.localService ? " [local]" : ""}${v.default ? " [default]" : ""}`).join("\n") || "(no voices)";
+    wrap.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <button data-act="close" style="padding:8px 12px;background:#333;color:#fff;border:0;border-radius:6px;">Close</button>
+        <button data-act="test-en" style="padding:8px 12px;background:#06c;color:#fff;border:0;border-radius:6px;">Test EN</button>
+        <button data-act="test-pa" style="padding:8px 12px;background:#c60;color:#fff;border:0;border-radius:6px;">Test PA (gurmukhi)</button>
+        <button data-act="test-roman" style="padding:8px 12px;background:#a40;color:#fff;border:0;border-radius:6px;">Test PA (roman/Hindi)</button>
+        <button data-act="test-default" style="padding:8px 12px;background:#080;color:#fff;border:0;border-radius:6px;">Test default voice</button>
+        <button data-act="reload-voices" style="padding:8px 12px;background:#444;color:#fff;border:0;border-radius:6px;">Reload voices</button>
+      </div>
+      <div><b>UA:</b> ${navigator.userAgent}</div>
+      <div><b>speechSynthesis:</b> ${"speechSynthesis" in window ? "yes" : "NO"}</div>
+      <div><b>voices.length:</b> ${voices.length}</div>
+      <div><b>EN picked:</b> ${tts.voiceEnglish ? tts.voiceEnglish.name + " (" + tts.voiceEnglish.lang + ")" : "(none)"}</div>
+      <div><b>PA picked:</b> ${tts.voicePunjabi ? tts.voicePunjabi.name + " (" + tts.voicePunjabi.lang + ")" : "(none)"}</div>
+      <div><b>HI picked:</b> ${tts.voiceHindi ? tts.voiceHindi.name + " (" + tts.voiceHindi.lang + ")" : "(none)"}</div>
+      <hr style="border-color:#333;">
+      <details><summary style="cursor:pointer;">All voices (${voices.length})</summary><pre style="white-space:pre-wrap;color:#9cf;">${voicesList}</pre></details>
+      <hr style="border-color:#333;">
+      <pre class="dbg-log" style="white-space:pre-wrap;color:#0f0;max-height:50vh;overflow:auto;">${audioDbg.lines.join("\n")}</pre>
+    `;
+    document.body.appendChild(wrap);
+    audioDbg.el = wrap;
+    wrap.addEventListener("click", (e) => {
+      const act = e.target?.dataset?.act;
+      if (!act) return;
+      if (act === "close") { wrap.remove(); audioDbg.el = null; return; }
+      if (act === "test-en") { audioDbgLog("test EN: 'Hello, this is a test.'"); speakText("Hello, this is a test.", "en"); return; }
+      if (act === "test-pa") { audioDbgLog("test PA gurmukhi: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ'"); speakText({gurmukhi:"ਸਤ ਸ੍ਰੀ ਅਕਾਲ", roman:"sat sri akaal"}, "pa"); return; }
+      if (act === "test-roman") {
+        audioDbgLog("test roman direct via Hindi voice");
+        if ("speechSynthesis" in window) {
+          const u = new SpeechSynthesisUtterance("sat sri akaal, kiddan");
+          u.lang = "hi-IN";
+          if (tts.voiceHindi) u.voice = tts.voiceHindi;
+          u.onstart = () => audioDbgLog("→ start (roman/hi)");
+          u.onend = () => audioDbgLog("→ end (roman/hi)");
+          u.onerror = (e) => audioDbgLog("→ error (roman/hi): " + (e.error||"?"));
+          window.speechSynthesis.speak(u);
+        }
+        return;
+      }
+      if (act === "test-default") {
+        audioDbgLog("test default voice (no voice set)");
+        if ("speechSynthesis" in window) {
+          const u = new SpeechSynthesisUtterance("This is the default voice test.");
+          u.onstart = () => audioDbgLog("→ start (default)");
+          u.onend = () => audioDbgLog("→ end (default)");
+          u.onerror = (e) => audioDbgLog("→ error (default): " + (e.error||"?"));
+          window.speechSynthesis.speak(u);
+        }
+        return;
+      }
+      if (act === "reload-voices") { loadVoicesOnce(); audioDbgLog("reload-voices triggered"); }
+    });
   }
 
   // ---------- HUD / XP / Level -----------------------------------------------
@@ -5937,6 +6130,7 @@
       if (trainEvent) closeTrainEvent(true);
       train.eventActive = false;
     }
+    if (name !== "train") { try { TrainMusic.stop(); } catch {} }
 
     // Direction inference
     const fromIdx = SCREEN_ORDER.indexOf(currentName);
@@ -5967,7 +6161,7 @@
         if (s.dataset.screen === name) s.classList.add("active");
       });
       $("#hud").hidden = (name === "start");
-      if (name === "train")  startTrainSession();
+      if (name === "train")  { startTrainSession(); try { TrainMusic.start(); } catch {} }
       if (name === "battle") openPrebattle();
       if (name === "battle-results") renderResultsScreen();
       document.body.classList.toggle("in-battle", name === "battle");
@@ -6045,6 +6239,7 @@
     for (const c of DECK) {
       const s = state.srs[c.id];
       if (!s) continue;
+      if (s.suspended || isLeech(s)) continue;
       if (s.queue === "learning" || s.queue === "relearning") {
         if ((s.due || 0) <= now) learning.push(c);
       } else if (s.queue === "review") {
@@ -6077,13 +6272,16 @@
 
     // 3) New cards (respecting today's adaptive cap).
     if (newPool.length && (stats.newIntroduced || 0) < cap) {
-      // Prefer least-mastery, then deterministic order.
-      newPool.sort((a, b) => {
-        const sa = state.srs[a.id], sb = state.srs[b.id];
-        if (sa.mastery !== sb.mastery) return sa.mastery - sb.mastery;
-        return srsHash(a.id) - srsHash(b.id);
-      });
-      return newPool[0];
+      // Skip suspended cards (leeches).
+      const live = newPool.filter(c => !state.srs[c.id]?.suspended && !isLeech(state.srs[c.id]));
+      if (live.length) {
+        live.sort((a, b) => {
+          const sa = state.srs[a.id], sb = state.srs[b.id];
+          if (sa.mastery !== sb.mastery) return sa.mastery - sb.mastery;
+          return srsHash(a.id) - srsHash(b.id);
+        });
+        return live[0];
+      }
     }
 
     // 4) Nothing due, nothing new — preview soonest review (so the user can
@@ -6095,6 +6293,7 @@
 
   function startTrainSession() {
     state.sessionXp = 0;
+    decayShakyCards();
     train.current = pickNextCard();
     train.revealed = false;
     train.cardsSinceInterrupt = 0;
@@ -6159,6 +6358,7 @@
       front.hidden = true;
       back.hidden = false;
       srs.hidden = false;
+      renderSrsButtonHints(c.id);
     } else {
       front.hidden = false;
       back.hidden = true;
@@ -6184,30 +6384,29 @@
     $("#trainMastery").textContent = masteryPct + "%";
     $("#trainSessionXp").textContent = state.sessionXp.toString();
 
-    // Queue counters
+    // Queue counters (single pass).
     const now = Date.now();
     let dueCount = 0, learningCount = 0, relearningCount = 0;
     let bdNew = 0, bdLearn = 0, bdYoung = 0, bdMature = 0, bdMastered = 0;
     for (const c of DECK) {
       const s = state.srs[c.id];
       if (!s) continue;
-      if (s.queue === "learning") { learningCount++; bdLearn++; }
-      else if (s.queue === "relearning") { relearningCount++; bdLearn++; }
-      else if (s.queue === "review") {
-        if ((s.due || 0) <= now) dueCount++;
-        const mastered = s.interval >= SRS.MASTERY_INTERVAL_DAYS && (s.lapses || 0) <= SRS.MASTERY_MAX_LAPSES;
-        if (mastered) bdMastered++;
-        else if (s.interval >= SRS.MASTERY_INTERVAL_DAYS) bdMature++;
+      const isDue = (s.due || 0) <= now;
+      if (s.queue === "learning") {
+        learningCount++; bdLearn++;
+        if (isDue) dueCount++;
+      } else if (s.queue === "relearning") {
+        relearningCount++; bdLearn++;
+        if (isDue) dueCount++;
+      } else if (s.queue === "review") {
+        if (isDue) dueCount++;
+        const mature = s.interval >= SRS.MASTERY_INTERVAL_DAYS;
+        if (mature && (s.lapses || 0) <= SRS.MASTERY_MAX_LAPSES) bdMastered++;
+        else if (mature) bdMature++;
         else bdYoung++;
       } else {
         bdNew++;
       }
-    }
-    // Add learning/relearning due counts to the visible "due" total.
-    for (const c of DECK) {
-      const s = state.srs[c.id];
-      if (!s) continue;
-      if ((s.queue === "learning" || s.queue === "relearning") && (s.due || 0) <= now) dueCount++;
     }
 
     const stats = getDailyStats(now);
@@ -6254,12 +6453,42 @@
     if (w < 9) return `${Math.round(w)}w`;
     return `${Math.round(d / 30)}mo`;
   }
+  function formatPreview(prev) {
+    if (!prev) return "";
+    if (prev.minutes != null) {
+      if (prev.minutes < 60) return `${prev.minutes}m`;
+      const h = Math.round(prev.minutes / 60);
+      if (h < 24) return `${h}h`;
+      return `${Math.round(h / 24)}d`;
+    }
+    if (prev.days != null) {
+      if (prev.days < 14) return `${prev.days}d`;
+      if (prev.days < 60) return `${Math.round(prev.days / 7)}w`;
+      if (prev.days < 365) return `${Math.round(prev.days / 30)}mo`;
+      return `${Math.round(prev.days / 365)}y`;
+    }
+    return "";
+  }
+  function renderSrsButtonHints(cardId) {
+    const set = (sel, txt) => { const el = $(sel); if (el) el.textContent = txt || ""; };
+    if (!cardId || !state.srs[cardId]) {
+      set("#srsSubAgain", ""); set("#srsSubHard", "");
+      set("#srsSubGood", "");  set("#srsSubEasy", "");
+      return;
+    }
+    set("#srsSubAgain", formatPreview(previewGradeInterval(cardId, "again")));
+    set("#srsSubHard",  formatPreview(previewGradeInterval(cardId, "hard")));
+    set("#srsSubGood",  formatPreview(previewGradeInterval(cardId, "good")));
+    set("#srsSubEasy",  formatPreview(previewGradeInterval(cardId, "easy")));
+  }
 
   function gradeCard(grade) {
     const c = train.current;
     const srs = state.srs[c.id];
     srs.seen += 1;
     if (!srs.firstSeenAt) srs.firstSeenAt = Date.now();
+    srs.previousInterval = srs.interval || 0;
+    srs.lastReviewAt = Date.now();
     const stats = getDailyStats();
     stats.reviews = (stats.reviews || 0) + 1;
     const xp = applySrsGrade(c.id, grade);
@@ -6398,25 +6627,27 @@
         // Lapse: drop ease, half the interval (gentle), enter relearning.
         srs.ease = clamp(srs.ease - 0.20, SRS.EASE_MIN, SRS.EASE_MAX);
         srs.lapses = (srs.lapses || 0) + 1;
-        srs.interval = Math.max(1, Math.round(prevInterval * SRS.LAPSE_MULT));
+        srs.interval = capInterval(Math.max(1, Math.round(prevInterval * SRS.LAPSE_MULT)));
         srs.queue = "relearning";
         srs.step = 0;
         srs.due = now + SRS.RELEARNING_STEPS_MIN[0] * minute;
         srs.mastery = clamp(srs.mastery - 5, 0, 100);
         const stats = getDailyStats(now);
         stats.lapses = (stats.lapses || 0) + 1;
+        // Auto-suspend leeches so they stop polluting the queue.
+        if (isLeech(srs)) srs.suspended = true;
         break;
       }
       case "hard": {
         srs.ease = clamp(srs.ease - 0.05, SRS.EASE_MIN, SRS.EASE_MAX);
-        srs.interval = Math.max(prevInterval + 1, Math.round(prevInterval * SRS.HARD_MULT));
+        srs.interval = capInterval(Math.max(prevInterval + 1, prevInterval * SRS.HARD_MULT));
         srs.due = now + fuzzInterval(cardId, srs.interval) * day;
         srs.reps += 1;
         srs.mastery = clamp(srs.mastery + 3, 0, 100);
         break;
       }
       case "good": {
-        srs.interval = Math.max(prevInterval + 1, Math.round(prevInterval * srs.ease));
+        srs.interval = capInterval(Math.max(prevInterval + 1, prevInterval * srs.ease));
         srs.due = now + fuzzInterval(cardId, srs.interval) * day;
         srs.reps += 1;
         srs.mastery = clamp(srs.mastery + 8, 0, 100);
@@ -6424,7 +6655,7 @@
       }
       case "easy": {
         srs.ease = clamp(srs.ease + 0.10, SRS.EASE_MIN, SRS.EASE_MAX);
-        srs.interval = Math.max(prevInterval + 2, Math.round(prevInterval * srs.ease * SRS.EASY_BONUS));
+        srs.interval = capInterval(Math.max(prevInterval + 2, prevInterval * srs.ease * SRS.EASY_BONUS));
         srs.due = now + fuzzInterval(cardId, srs.interval) * day;
         srs.reps += 1;
         srs.mastery = clamp(srs.mastery + 14, 0, 100);
@@ -6499,6 +6730,7 @@
       pausedAt: 0,
       pausedTotal: 0,
       ended: false,
+      recentCards: [], // sliding window of last shown card ids (anti-repeat)
     };
     state.battleStats.runs = (state.battleStats.runs || 0) + 1;
     saveState();
@@ -6515,31 +6747,84 @@
   }
 
   function pickBattleCard() {
-    // Battle never advances SRS state, so we bias toward cards that NEED
-    // more practice: "shaky" cards flagged from prior battle misses, plus
-    // cards with low ease / low mastery. 60% from the weak pool, 40% random.
+    // Weighted sampling across the WHOLE deck, with bias toward cards that
+    // need practice (shaky / low-ease / low-mastery) and toward the current
+    // tier's mastery band. Hard anti-repeat via a sliding window of recently
+    // shown cards so you never see the same prompt back-to-back-to-back.
     const all = DECK.slice();
-    const shaky = [];
-    const weak = [];
-    for (const c of all) {
-      const s = state.srs[c.id];
-      if (!s) continue;
-      if (state.shakyCards && state.shakyCards[c.id]) shaky.push(c);
-      if ((s.ease || SRS.EASE_START) < SRS.EASE_START - 0.1 || (s.mastery || 0) < 40) weak.push(c);
-    }
-    const weakPool = shaky.length ? shaky : weak;
-    const useWeak = weakPool.length && Math.random() < 0.6;
-    if (useWeak) return weakPool[Math.floor(Math.random() * weakPool.length)];
-
-    // Fallback to the original mastery-band logic.
     const idx = battle?.enemyIdx ?? 0;
-    const withMastery = all.map(c => ({ c, m: state.srs[c.id]?.mastery || 0 }));
-    let pool;
-    if (idx <= 1)      pool = withMastery.filter(x => x.m < 40);
-    else if (idx <= 3) pool = withMastery.filter(x => x.m >= 20 && x.m < 80);
-    else               pool = withMastery.filter(x => x.m >= 50);
-    if (!pool.length) pool = withMastery;
-    return pool[Math.floor(Math.random() * pool.length)].c;
+    const recent = (battle && battle.recentCards) || [];
+    // Window size: ~1/3 of deck, clamped. With 305 cards this is 12; never
+    // larger than half the deck so we always have candidates.
+    const windowSize = Math.max(4, Math.min(Math.floor(all.length / 3), Math.floor(all.length / 2) - 1, 24));
+    const recentSet = new Set(recent.slice(-windowSize));
+
+    function weightFor(c) {
+      const s = state.srs[c.id];
+      if (!s) return 0.5;
+      let w = 1;
+      // Tier band bias.
+      const m = s.mastery || 0;
+      if (idx <= 1)       { if (m < 40) w *= 1.6; else if (m > 80) w *= 0.4; }
+      else if (idx <= 3)  { if (m >= 20 && m < 80) w *= 1.4; else w *= 0.6; }
+      else                { if (m >= 50) w *= 1.5; else w *= 0.5; }
+      // Weakness bias.
+      if ((s.ease || SRS.EASE_START) < SRS.EASE_START - 0.1) w *= 1.4;
+      if (m < 40) w *= 1.3;
+      // Shaky bias.
+      if (state.shakyCards && state.shakyCards[c.id]) w *= 1.8;
+      // Suspended/leech: skip entirely (training-only territory).
+      if (s.suspended) w = 0;
+      return w;
+    }
+
+    function weightedPick(pool) {
+      let total = 0;
+      for (const c of pool) total += c._w;
+      if (total <= 0) return pool[Math.floor(Math.random() * pool.length)];
+      let r = Math.random() * total;
+      for (const c of pool) { r -= c._w; if (r <= 0) return c; }
+      return pool[pool.length - 1];
+    }
+
+    // Build pool excluding recently shown.
+    let pool = [];
+    for (const c of all) {
+      const w = weightFor(c);
+      if (w <= 0) continue;
+      if (recentSet.has(c.id)) continue;
+      c._w = w;
+      pool.push(c);
+    }
+    // Safety: if anti-repeat emptied everything, drop the constraint but still
+    // forbid the immediate previous card.
+    if (!pool.length) {
+      const lastId = recent[recent.length - 1];
+      for (const c of all) {
+        const w = weightFor(c);
+        if (w <= 0) continue;
+        if (c.id === lastId) continue;
+        c._w = w;
+        pool.push(c);
+      }
+    }
+    // Final safety: pure random over all eligible cards.
+    if (!pool.length) {
+      pool = all.filter(c => !state.srs[c.id]?.suspended);
+      pool.forEach(c => { c._w = 1; });
+    }
+
+    const pick = weightedPick(pool);
+    pool.forEach(c => { delete c._w; });
+
+    if (battle) {
+      battle.recentCards = battle.recentCards || [];
+      battle.recentCards.push(pick.id);
+      if (battle.recentCards.length > windowSize * 2) {
+        battle.recentCards = battle.recentCards.slice(-windowSize * 2);
+      }
+    }
+    return pick;
   }
 
   // Battle answers never reschedule a card; they only nudge ease and toggle
@@ -6597,7 +6882,12 @@
   }
 
   function pickTelegraphLabel() {
-    const moves = ["Death Beam", "Eye Laser", "Galick Gun", "Special Beam", "Dark Wave"];
+    const moves = [
+      "Death Beam", "Eye Laser", "Galick Gun", "Special Beam", "Dark Wave",
+      "Final Flash", "Big Bang Attack", "Hellzone Grenade", "Destructo Disc", "Solar Flare",
+      "Masenko", "Burning Attack", "Crimson Lotus", "Thunder Mudra", "Naam-Bomb",
+      "Sher Strike", "Tandoor Blaze", "Sarpanch Slam", "Monsoon Surge", "Kirpan Cross-Slash"
+    ];
     return moves[Math.floor(Math.random() * moves.length)];
   }
 
@@ -6781,7 +7071,12 @@
   function playerAttack(streak) {
     let dmg = 12 + Math.floor(state.level * 0.6);
     let label = null;
-    if (streak >= 25 && streak % 25 === 0) { dmg += 80; label = "SPIRIT BOMB!"; playFx("spiritbomb"); Sfx.play("spirit"); }
+    if (streak >= 100 && streak % 100 === 0) { dmg += 250; label = "ULTIMATE FORM!"; playFx("spiritbomb"); Sfx.play("spirit"); }
+    else if (streak >= 75 && streak % 75 === 0) { dmg += 180; label = "INSTANT TRANSMISSION KAMEHAMEHA!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
+    else if (streak >= 50 && streak % 50 === 0) { dmg += 120; label = "DRAGON FIST!"; playFx("spiritbomb"); Sfx.play("spirit"); }
+    else if (streak >= 25 && streak % 25 === 0) { dmg += 80; label = "SPIRIT BOMB!"; playFx("spiritbomb"); Sfx.play("spirit"); }
+    else if (streak >= 20 && streak % 20 === 0) { dmg += 30; label = "FINAL FLASH!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
+    else if (streak >= 15 && streak % 15 === 0) { dmg += 25; label = "GALICK GUN!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
     else if (streak >= 10 && streak % 10 === 0) { dmg += 40; label = "KAMEHAMEHA!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
     else if (streak >= 5  && streak % 5  === 0) { dmg += 18; label = "KI BLAST!";   playFx("kiblast"); Sfx.play("crit"); }
     if (label) toast(label);
@@ -6841,7 +7136,10 @@
     const speedBonus = 1 + BATTLE.SPEED_BONUS_MAX * speedFactor;
     const dmg = Math.round(base * tierMult * speedBonus);
     battle.enemy.hp = Math.max(0, battle.enemy.hp - dmg);
-    if (speedFactor > 0.6) toast(`⚡ Quick! +${Math.round((speedBonus - 1) * 100)}% dmg`, 900);
+    if (speedFactor > 0.6) {
+      const pct = Math.round((speedBonus - 1) * 100);
+      toast(pickRandom([`⚡ Quick! +${pct}% dmg`, `⚡ Lightning! +${pct}% dmg`]), 900);
+    }
     gainXp(6 + Math.round(speedFactor * 4));
     // Soft writeback: battle ease nudge only — interval/due/lapses untouched.
     applyBattleSignal(battle.currentCard.id, true, elapsed);
@@ -6947,7 +7245,7 @@
         }
         if (battle.perfectRun) {
           state.battleStats.perfectRuns = (state.battleStats.perfectRuns || 0) + 1;
-          toast("✨ PERFECT RUN!", 1600);
+          toast(pickRandom(["✨ PERFECT RUN!", "✨ FLAWLESS VICTORY!", "✨ NO DAMAGE — UNREAL!"]), 1600);
         }
         saveState();
         Sfx.play("ko");
@@ -6984,8 +7282,8 @@
         battle.startedAt = performance.now();
         // Tempo ramps with progression; bosses get extra push
         Music.setBoss(!!battle.enemy.isBoss);
-        // Anime-rock tempo: starts pumped, climbs higher per stage, bosses get a kick
-        Music.setBpm(140 + Math.min(28, battle.enemyIdx * 2) + (battle.enemy.isBoss ? 8 : 0));
+        // Lofi tempo: slow + steady, gentle climb per stage, bosses a touch slower/heavier.
+        Music.setBpm(76 + Math.min(10, battle.enemyIdx) + (battle.enemy.isBoss ? -2 : 0));
 
         // Pre-battle intro for next enemy, then continue
         showIntroCard(battle.enemy, battle.enemyIdx, () => {
@@ -7146,74 +7444,109 @@
 
   // ---------- Procedural Music loop -----------------------------------------
   const Music = (() => {
-    // DBZ / anime-rock battle theme — uplifting Em–C–G–D progression with
-    // driving rock drums, power-chord rhythm guitar, walking bass and a
-    // soaring pentatonic lead. Uses Web Audio precise scheduling so timing
-    // stays tight even when the main thread is busy.
+    // Lofi battle theme on the "Time" (Hans Zimmer) progression:
+    // Dm – B♭ – F – C  (i – VI – III – VII in D minor).
+    // Chord-forward: warm Rhodes-style 7th chords up front, soft sine bass,
+    // gentle swung drums (muted kick / rim click / brushed hat), and a
+    // continuous vinyl-noise bed for that lofi tape vibe.
     let timer = null;
-    let currentBpm = 140;
+    let currentBpm = 78;          // lofi sits low
     let isBoss = false;
-    let step = 0;            // 16th-note step within a 4-bar loop (0..63)
-    let nextNoteTime = 0;    // AudioContext time of the next 16th
+    let step = 0;                 // 16th-note step within a 4-bar loop (0..63)
+    let nextNoteTime = 0;
     const LOOKAHEAD_MS = 25;
-    const SCHED_AHEAD = 0.12; // seconds
+    const SCHED_AHEAD = 0.15;
 
-    // Em – C – G – D, one bar (16 sixteenths) each. Anime-classic uplift.
-    // Bass roots (one octave below tonic).
-    const BASS_ROOTS = [82.41, 65.41, 98.00, 73.42]; // E2, C2, G2, D2
-    // Power-chord stacks (root + fifth + octave) for rhythm guitar.
-    const POWER = [
-      [164.81, 246.94, 329.63], // E3 B3 E4
-      [130.81, 196.00, 261.63], // C3 G3 C4
-      [196.00, 293.66, 392.00], // G3 D4 G4
-      [146.83, 220.00, 293.66], // D3 A3 D4
+    // Bass roots, one octave below tonic.
+    const BASS_ROOTS = [73.42, 58.27, 87.31, 65.41]; // D2, B♭1, F2, C2
+
+    // Rhodes-style chord voicings — extended 7th/9th colors for that
+    // jazzy lofi mood. Mid-register so the chord is the focus.
+    // Dm9 : D F A C E
+    // B♭maj7: B♭ D F A
+    // Fmaj7 : F A C E
+    // Cmaj7 : C E G B
+    const CHORDS = [
+      [146.83, 174.61, 220.00, 261.63, 329.63], // Dm9
+      [233.08, 293.66, 349.23, 440.00],         // B♭maj7
+      [174.61, 220.00, 261.63, 329.63],         // Fmaj7
+      [261.63, 329.63, 392.00, 493.88],         // Cmaj7
     ];
-    // Pad triads (high voicing).
-    const PAD = [
-      [329.63, 392.00, 493.88], // E4 G4 B4
-      [261.63, 329.63, 392.00], // C4 E4 G4
-      [392.00, 493.88, 587.33], // G4 B4 D5
-      [293.66, 369.99, 440.00], // D4 F#4 A4
-    ];
-    // Soaring lead melody — E minor pentatonic, 16 sixteenths per bar.
-    // Numbers are MIDI-ish freqs; null = rest. Built to feel heroic.
-    const E5=659.25, G5=783.99, A5=880.00, B5=987.77, D6=1174.66, E6=1318.51, FS5=739.99;
+
+    // Soft top-voice melody — sparse, breathy. Rests drive the chord focus.
+    const D5=587.33, F5=698.46, G5=783.99, A5=880.00, C6=1046.50, D6=1174.66;
     const LEAD = [
-      // Bar 1 (Em): rising motif
-      [E5,null,G5,null, A5,null,B5,null, E6,null,B5,null, G5,A5,B5,null],
-      // Bar 2 (C): answer phrase
-      [G5,null,A5,null, B5,null,D6,null, E6,null,D6,B5, A5,null,G5,null],
-      // Bar 3 (G): triumphant lift
-      [B5,null,D6,null, E6,null,D6,null, B5,A5,G5,A5, B5,null,D6,null],
-      // Bar 4 (D): tension into resolve
-      [A5,null,FS5,A5, D6,null,A5,null, B5,A5,G5,FS5, E5,null,null,null],
+      // Bar 1 (Dm9): single sustained call
+      [null,null,null,null, A5,null,null,null, null,null,null,null, F5,null,null,null],
+      // Bar 2 (B♭maj7): answer
+      [null,null,null,null, null,null,null,null, D6,null,null,null, C6,null,A5,null],
+      // Bar 3 (Fmaj7): peaceful peak
+      [null,null,null,null, C6,null,null,null, null,null,null,null, A5,null,G5,null],
+      // Bar 4 (Cmaj7): rest, let the chord breathe
+      [null,null,null,null, G5,null,null,null, null,null,null,null, null,null,null,null],
     ];
-    // Bass 8th-note walk pattern per bar (offsets in semitones from root).
-    // Pattern: R 5 R 8 / R 5 R 7  → drives the groove.
-    const BASS_PAT = [0,7,0,12, 0,7,0,10];
 
-    // Drum pattern (16 sixteenths). 1=hit, 0=silent.
-    const KICK  = [1,0,0,0, 0,0,1,0, 1,0,0,0, 0,0,0,0];
-    const SNARE = [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0];
-    const HAT   = [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,1];
-    const CRASH = [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0]; // bar-1 only
+    // Lofi drum pattern (16 sixteenths). Sparse, half-time feel.
+    // Kick on 1 and the "and of 2"; rim/click on beat 3; soft brushed hats
+    // on every 8th with a swung lift.
+    const KICK = [1,0,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,0];
+    const RIM  = [0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0];
+    const HAT  = [1,0,0,1, 1,0,0,1, 1,0,0,1, 1,0,0,1]; // soft swung 16ths
+
+    // Continuous vinyl/tape noise — initialized once.
+    let noiseSrc = null, noiseGain = null;
 
     function start() {
       Sfx.init();
       stop();
       step = 0;
       nextNoteTime = (Sfx.ctx && Sfx.ctx.currentTime) || 0;
+      startVinyl();
       schedule();
     }
     function stop() {
       if (timer) clearTimeout(timer);
       timer = null;
+      stopVinyl();
     }
     function setBoss(b) { isBoss = b; }
-    function setBpm(bpm) { currentBpm = Math.max(80, Math.min(200, bpm | 0)); }
+    function setBpm(bpm) { currentBpm = Math.max(60, Math.min(110, bpm | 0)); }
+
+    // ---- vinyl/tape hiss bed ----
+    function startVinyl() {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      try {
+        const dur = 2; // 2s noise loop
+        const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        // Pink-ish noise: low-passed white noise with occasional crackle.
+        let last = 0;
+        for (let i = 0; i < d.length; i++) {
+          const w = Math.random() * 2 - 1;
+          last = (last + 0.02 * w) * 0.985;
+          let s = last * 4;
+          if (Math.random() < 0.0008) s += (Math.random() * 2 - 1) * 0.6; // crackle
+          d[i] = s;
+        }
+        noiseSrc = ctx.createBufferSource();
+        noiseSrc.buffer = buf;
+        noiseSrc.loop = true;
+        const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4500;
+        const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 200;
+        noiseGain = ctx.createGain();
+        noiseGain.gain.value = isBoss ? 0.045 : 0.035;
+        noiseSrc.connect(hp); hp.connect(lp); lp.connect(noiseGain); noiseGain.connect(Sfx.musicGain);
+        noiseSrc.start();
+      } catch {}
+    }
+    function stopVinyl() {
+      try { noiseSrc && noiseSrc.stop(); } catch {}
+      noiseSrc = null; noiseGain = null;
+    }
 
     // ---- voices ----
-    function tone(freq, t0, dur, vol, type, cutoff) {
+    function tone(freq, t0, dur, vol, type, cutoff, attack = 0.012, q = 0.7) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
       const osc = ctx.createOscillator();
@@ -7223,156 +7556,136 @@
       const filt = ctx.createBiquadFilter();
       filt.type = "lowpass";
       filt.frequency.value = cutoff;
-      filt.Q.value = 0.8;
+      filt.Q.value = q;
       g.gain.setValueAtTime(0, t0);
-      g.gain.linearRampToValueAtTime(vol, t0 + 0.008);
+      g.gain.linearRampToValueAtTime(vol, t0 + attack);
       g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
       osc.connect(filt); filt.connect(g); g.connect(Sfx.musicGain);
       osc.start(t0);
       osc.stop(t0 + dur + 0.05);
     }
+
+    // Rhodes-style EP voice: soft sine fundamental + bell-ish triangle 2nd
+    // harmonic, slow attack, long decay. This is the star of the show.
+    function rhodes(freq, t0, dur, vol) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      // Fundamental (sine) — warm body.
+      tone(freq, t0, dur, vol * 1.0, "sine", 2200, 0.025, 0.5);
+      // Octave shimmer (triangle) — Rhodes "tine".
+      tone(freq * 2, t0, dur * 0.65, vol * 0.28, "triangle", 3500, 0.008, 0.5);
+      // Subtle 5th color
+      tone(freq * 1.5, t0, dur * 0.5, vol * 0.10, "sine", 2800, 0.02, 0.5);
+    }
+
+    // Soft sub-bass: pure sine + a touch of triangle for definition.
     function bass(freq, t0, dur) {
-      const ctx = Sfx.ctx;
-      if (!ctx || !Sfx.musicGain) return;
-      // Two detuned saws + sub sine for a punchy rock bass.
-      const cutoff = isBoss ? 1100 : 850;
-      tone(freq, t0, dur, 0.10, "sawtooth", cutoff);
-      tone(freq * 1.005, t0, dur, 0.07, "sawtooth", cutoff);
-      tone(freq * 0.5, t0, dur, 0.09, "sine", 400);
+      tone(freq, t0, dur, 0.16, "sine", 600, 0.02, 0.5);
+      tone(freq * 2, t0, dur * 0.7, 0.04, "triangle", 700, 0.02, 0.5);
     }
-    function rhythmGuitar(chord, t0, dur) {
-      // Power-chord stab with slight detune — fat, palm-muted feel.
-      const cutoff = isBoss ? 2400 : 1900;
-      const vol = isBoss ? 0.055 : 0.045;
-      chord.forEach((f, i) => {
-        tone(f, t0, dur, vol, "sawtooth", cutoff);
-        tone(f * 1.004, t0, dur, vol * 0.8, "sawtooth", cutoff);
-      });
-    }
-    function pad(chord, t0, dur) {
-      const cutoff = isBoss ? 3200 : 2400;
-      chord.forEach(f => tone(f, t0, dur, 0.022, "triangle", cutoff));
-    }
+
+    // Lead — soft, mellow sine with slight detune, no edge.
     function lead(freq, t0, dur) {
-      const ctx = Sfx.ctx;
-      if (!ctx || !Sfx.musicGain) return;
-      // Square + saw blend, brighter cutoff = soaring anime lead.
-      const cutoff = isBoss ? 4500 : 3600;
-      const vol = isBoss ? 0.085 : 0.075;
-      tone(freq, t0, dur, vol, "square", cutoff);
-      tone(freq * 1.003, t0, dur, vol * 0.6, "sawtooth", cutoff);
-      // Octave-up shimmer on bosses.
-      if (isBoss) tone(freq * 2, t0, dur * 0.9, 0.025, "triangle", 5000);
+      tone(freq, t0, dur, 0.06, "sine", 2400, 0.04, 0.5);
+      tone(freq * 1.005, t0, dur, 0.025, "triangle", 2400, 0.04, 0.5);
     }
+
+    // Soft muted kick — boomy and round, no click.
     function kick(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(160, t0);
-      osc.frequency.exponentialRampToValueAtTime(45, t0 + 0.10);
-      g.gain.setValueAtTime(0.32, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.18);
-      osc.connect(g); g.connect(Sfx.musicGain);
-      osc.start(t0); osc.stop(t0 + 0.22);
-    }
-    function snare(t0) {
-      const ctx = Sfx.ctx;
-      if (!ctx || !Sfx.musicGain) return;
-      // Noise burst through bandpass + a short tonal thwack.
-      const dur = 0.16;
-      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1);
-      const src = ctx.createBufferSource(); src.buffer = buf;
-      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1800; bp.Q.value = 0.9;
-      const g = ctx.createGain();
+      osc.frequency.setValueAtTime(120, t0);
+      osc.frequency.exponentialRampToValueAtTime(38, t0 + 0.14);
       g.gain.setValueAtTime(0.22, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
-      src.connect(bp); bp.connect(g); g.connect(Sfx.musicGain);
-      src.start(t0); src.stop(t0 + dur);
-      // Tonal layer
-      const osc = ctx.createOscillator(); const g2 = ctx.createGain();
-      osc.type = "triangle"; osc.frequency.setValueAtTime(220, t0);
-      osc.frequency.exponentialRampToValueAtTime(140, t0 + 0.08);
-      g2.gain.setValueAtTime(0.10, t0);
-      g2.gain.exponentialRampToValueAtTime(0.001, t0 + 0.10);
-      osc.connect(g2); g2.connect(Sfx.musicGain);
-      osc.start(t0); osc.stop(t0 + 0.12);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.28);
+      osc.connect(g); g.connect(Sfx.musicGain);
+      osc.start(t0); osc.stop(t0 + 0.32);
     }
-    function hat(t0, open) {
+
+    // Rim click — short woody tick.
+    function rim(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
-      const dur = open ? 0.12 : 0.04;
-      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1);
-      const src = ctx.createBufferSource(); src.buffer = buf;
-      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7000;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(open ? 0.07 : 0.05, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
-      src.connect(hp); hp.connect(g); g.connect(Sfx.musicGain);
-      src.start(t0); src.stop(t0 + dur);
-    }
-    function crash(t0) {
-      const ctx = Sfx.ctx;
-      if (!ctx || !Sfx.musicGain) return;
-      const dur = 0.9;
+      const dur = 0.05;
       const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
       const d = buf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
       const src = ctx.createBufferSource(); src.buffer = buf;
-      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 5000;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 2200; bp.Q.value = 4;
       const g = ctx.createGain();
       g.gain.setValueAtTime(0.10, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      src.connect(bp); bp.connect(g); g.connect(Sfx.musicGain);
+      src.start(t0); src.stop(t0 + dur);
+    }
+
+    // Brushed hat — short, soft noise burst, gentle high-pass.
+    function hat(t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const dur = 0.05;
+      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 6500;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.025, t0);
       g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
       src.connect(hp); hp.connect(g); g.connect(Sfx.musicGain);
       src.start(t0); src.stop(t0 + dur);
     }
 
-    function semitonesToFreq(rootHz, semis) {
-      return rootHz * Math.pow(2, semis / 12);
-    }
-
     function playStep(s, t) {
       const bar = Math.floor(s / 16) % 4;
-      const inBar = s % 16;        // 0..15 (16th notes)
+      const inBar = s % 16;
       const sixteenth = 60 / currentBpm / 4;
+      const beatDur = sixteenth * 4;
 
-      // Drums
-      if (KICK[inBar])  kick(t);
-      if (SNARE[inBar]) snare(t);
-      if (HAT[inBar])   hat(t, inBar === 14); // open hat just before downbeat
-      if (bar === 0 && CRASH[inBar]) crash(t);
+      // Drums (sparse, half-time lofi)
+      if (KICK[inBar]) kick(t);
+      if (RIM[inBar])  rim(t);
+      if (HAT[inBar])  hat(t);
 
-      // Bass — 8th notes (on even 16ths only).
-      if (inBar % 2 === 0) {
-        const bIdx = inBar / 2; // 0..7
-        const root = BASS_ROOTS[bar];
-        const f = semitonesToFreq(root, BASS_PAT[bIdx]);
-        bass(f, t, sixteenth * 1.8);
-      }
+      // Bass on the downbeat + "and of 3" — minimal, lets chords breathe.
+      if (inBar === 0) bass(BASS_ROOTS[bar], t, beatDur * 1.8);
+      if (inBar === 10) bass(BASS_ROOTS[bar], t, beatDur * 1.2);
 
-      // Rhythm guitar — chugged 8ths with accent on beat 1.
-      if (inBar % 2 === 0) {
-        const len = (inBar === 0) ? sixteenth * 3.5 : sixteenth * 1.4;
-        rhythmGuitar(POWER[bar], t, len);
-      }
+      // === Chord emphasis ===
+      const chord = CHORDS[bar];
+      const vol = isBoss ? 0.085 : 0.075;
 
-      // Pad sustains the chord across the bar (re-trigger on downbeat).
+      // Big sustained chord on the downbeat (strummed, slight roll).
       if (inBar === 0) {
-        pad(PAD[bar], t, sixteenth * 16 * 0.95);
+        chord.forEach((f, i) => {
+          rhodes(f, t + i * 0.012, beatDur * 3.6, vol);
+        });
       }
 
-      // Lead melody.
+      // Re-strike on beat 3 with shorter sustain — keeps the chord present
+      // throughout the bar without becoming muddy.
+      if (inBar === 8) {
+        chord.forEach((f, i) => {
+          rhodes(f, t + i * 0.010, beatDur * 1.7, vol * 0.7);
+        });
+      }
+
+      // Gentle arpeggio on the off-beats (16ths 6 and 14) — very low volume,
+      // adds movement while the chord is held.
+      if (inBar === 6 || inBar === 14) {
+        const n = chord[(inBar === 6 ? 2 : 3) % chord.length];
+        rhodes(n, t, beatDur * 0.9, vol * 0.45);
+      }
+
+      // Soft top-line melody (sparse).
       const note = LEAD[bar][inBar];
       if (note) {
-        // Hold each note until the next non-null note in the pattern.
         let hold = 1;
         for (let i = inBar + 1; i < 16; i++) { if (LEAD[bar][i]) break; hold++; }
-        lead(note, t, sixteenth * hold * 0.92);
+        lead(note, t, sixteenth * hold * 0.95);
       }
     }
 
@@ -7380,9 +7693,11 @@
       const ctx = Sfx.ctx;
       if (!ctx) { timer = setTimeout(schedule, LOOKAHEAD_MS); return; }
       const sixteenth = 60 / currentBpm / 4;
+      // Light swing: shift odd 16ths slightly later for that lofi groove.
       while (nextNoteTime < ctx.currentTime + SCHED_AHEAD) {
         if (nextNoteTime < ctx.currentTime) nextNoteTime = ctx.currentTime + 0.02;
-        playStep(step, nextNoteTime);
+        const swung = (step % 2 === 1) ? nextNoteTime + sixteenth * 0.18 : nextNoteTime;
+        playStep(step, swung);
         nextNoteTime += sixteenth;
         step = (step + 1) % 64;
       }
@@ -7391,7 +7706,223 @@
     return { start, stop, setBoss, setBpm };
   })();
 
-  // ---------- Tier-up splash ------------------------------------------------
+  // ---------- Training-screen lofi loop -------------------------------------
+  // Inspired by Kanye West's "Runaway": a single haunting high-E piano motif
+  // over Em – Am – Em – B7. Same lofi engine as the battle Music (Rhodes
+  // chords, vinyl bed, swung brushed hats, soft sub-bass), gentler tempo so
+  // it sits under the study session without pulling focus.
+  const TrainMusic = (() => {
+    let timer = null;
+    let bpm = 72;
+    let step = 0;
+    let nextNoteTime = 0;
+    const LOOKAHEAD_MS = 25;
+    const SCHED_AHEAD = 0.15;
+
+    // Em – Am – Em – B7  (i – iv – i – V), one bar each (16 sixteenths).
+    const BASS_ROOTS = [82.41, 55.00, 82.41, 61.74]; // E2, A1, E2, B1
+    // Lofi 7th/9th chord voicings — Rhodes mid-register.
+    // Em9   : E G B D F#
+    // Am9   : A C E G B
+    // Em9   : E G B D F#
+    // B7    : B D# F# A
+    const CHORDS = [
+      [164.81, 196.00, 246.94, 293.66, 369.99], // Em9
+      [220.00, 261.63, 329.63, 392.00, 493.88], // Am9
+      [164.81, 196.00, 246.94, 293.66, 369.99], // Em9
+      [246.94, 311.13, 369.99, 440.00],         // B7
+    ];
+
+    // The Runaway motif: a single repeated high E (E5) — sparse and ringing.
+    // Pattern per bar (16 sixteenths). Two soft strikes per bar, with a
+    // small ornament on bar 4 leading back to the loop.
+    const E5 = 659.25, G5 = 783.99, B5 = 987.77, D6 = 1174.66;
+    const MOTIF = [
+      [E5,null,null,null, null,null,null,null, E5,null,null,null, null,null,null,null],
+      [E5,null,null,null, null,null,null,null, E5,null,null,null, null,null,null,null],
+      [E5,null,null,null, null,null,null,null, E5,null,null,null, null,null,null,null],
+      [E5,null,null,null, null,null,null,null, E5,null,null,null, G5,null,B5,D6 ],
+    ];
+
+    // Drums: even sparser than battle. Kick on 1 and "and of 2" only,
+    // rim on beat 3, soft swung brushed hats every 8th.
+    const KICK = [1,0,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,0];
+    const RIM  = [0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0];
+    const HAT  = [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0];
+
+    let noiseSrc = null, noiseGain = null;
+
+    function start() {
+      Sfx.init();
+      stop();
+      step = 0;
+      nextNoteTime = (Sfx.ctx && Sfx.ctx.currentTime) || 0;
+      startVinyl();
+      schedule();
+    }
+    function stop() {
+      if (timer) clearTimeout(timer);
+      timer = null;
+      stopVinyl();
+    }
+
+    function startVinyl() {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      try {
+        const dur = 2;
+        const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        let last = 0;
+        for (let i = 0; i < d.length; i++) {
+          const w = Math.random() * 2 - 1;
+          last = (last + 0.02 * w) * 0.985;
+          let s = last * 4;
+          if (Math.random() < 0.0007) s += (Math.random() * 2 - 1) * 0.55;
+          d[i] = s;
+        }
+        noiseSrc = ctx.createBufferSource();
+        noiseSrc.buffer = buf;
+        noiseSrc.loop = true;
+        const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4200;
+        const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 200;
+        noiseGain = ctx.createGain();
+        noiseGain.gain.value = 0.030;
+        noiseSrc.connect(hp); hp.connect(lp); lp.connect(noiseGain); noiseGain.connect(Sfx.musicGain);
+        noiseSrc.start();
+      } catch {}
+    }
+    function stopVinyl() {
+      try { noiseSrc && noiseSrc.stop(); } catch {}
+      noiseSrc = null; noiseGain = null;
+    }
+
+    function tone(freq, t0, dur, vol, type, cutoff, attack = 0.012) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      const filt = ctx.createBiquadFilter();
+      filt.type = "lowpass";
+      filt.frequency.value = cutoff;
+      filt.Q.value = 0.5;
+      g.gain.setValueAtTime(0, t0);
+      g.gain.linearRampToValueAtTime(vol, t0 + attack);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      osc.connect(filt); filt.connect(g); g.connect(Sfx.musicGain);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.05);
+    }
+    function rhodes(freq, t0, dur, vol) {
+      tone(freq, t0, dur, vol * 1.0, "sine", 2000, 0.025);
+      tone(freq * 2, t0, dur * 0.6, vol * 0.25, "triangle", 3200, 0.008);
+      tone(freq * 1.5, t0, dur * 0.45, vol * 0.08, "sine", 2500, 0.02);
+    }
+    // Piano-ish bell for the Runaway motif: bright triangle + soft sine
+    // with a slow release so each strike rings out.
+    function piano(freq, t0, dur, vol) {
+      tone(freq, t0, dur, vol * 0.85, "triangle", 4000, 0.005);
+      tone(freq * 2, t0, dur * 0.4, vol * 0.18, "sine", 5000, 0.005);
+      tone(freq * 0.5, t0, dur * 0.7, vol * 0.10, "sine", 1800, 0.01);
+    }
+    function bass(freq, t0, dur) {
+      tone(freq, t0, dur, 0.14, "sine", 600, 0.02);
+      tone(freq * 2, t0, dur * 0.6, 0.03, "triangle", 700, 0.02);
+    }
+    function kick(t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(115, t0);
+      osc.frequency.exponentialRampToValueAtTime(38, t0 + 0.14);
+      g.gain.setValueAtTime(0.18, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.28);
+      osc.connect(g); g.connect(Sfx.musicGain);
+      osc.start(t0); osc.stop(t0 + 0.32);
+    }
+    function rim(t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const dur = 0.05;
+      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 2100; bp.Q.value = 4;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.085, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      src.connect(bp); bp.connect(g); g.connect(Sfx.musicGain);
+      src.start(t0); src.stop(t0 + dur);
+    }
+    function hat(t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const dur = 0.04;
+      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 6500;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.022, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      src.connect(hp); hp.connect(g); g.connect(Sfx.musicGain);
+      src.start(t0); src.stop(t0 + dur);
+    }
+
+    function playStep(s, t) {
+      const bar = Math.floor(s / 16) % 4;
+      const inBar = s % 16;
+      const sixteenth = 60 / bpm / 4;
+      const beatDur = sixteenth * 4;
+
+      if (KICK[inBar]) kick(t);
+      if (RIM[inBar])  rim(t);
+      if (HAT[inBar])  hat(t);
+
+      // Bass on the downbeat only — minimal, lets the chord & motif breathe.
+      if (inBar === 0) bass(BASS_ROOTS[bar], t, beatDur * 3.2);
+
+      // Chord on downbeat (long sustain), gentle restrike on beat 3.
+      const chord = CHORDS[bar];
+      if (inBar === 0) {
+        chord.forEach((f, i) => rhodes(f, t + i * 0.014, beatDur * 3.7, 0.065));
+      }
+      if (inBar === 8) {
+        chord.forEach((f, i) => rhodes(f, t + i * 0.011, beatDur * 1.6, 0.045));
+      }
+
+      // The "Runaway" piano motif on top.
+      const note = MOTIF[bar][inBar];
+      if (note) {
+        let hold = 1;
+        for (let i = inBar + 1; i < 16; i++) { if (MOTIF[bar][i]) break; hold++; }
+        // The high E sustains long; ornament notes are short.
+        const len = sixteenth * Math.min(hold, 8) * 0.95;
+        piano(note, t, len, 0.10);
+      }
+    }
+
+    function schedule() {
+      const ctx = Sfx.ctx;
+      if (!ctx) { timer = setTimeout(schedule, LOOKAHEAD_MS); return; }
+      const sixteenth = 60 / bpm / 4;
+      while (nextNoteTime < ctx.currentTime + SCHED_AHEAD) {
+        if (nextNoteTime < ctx.currentTime) nextNoteTime = ctx.currentTime + 0.02;
+        const swung = (step % 2 === 1) ? nextNoteTime + sixteenth * 0.20 : nextNoteTime;
+        playStep(step, swung);
+        nextNoteTime += sixteenth;
+        step = (step + 1) % 64;
+      }
+      timer = setTimeout(schedule, LOOKAHEAD_MS);
+    }
+    return { start, stop };
+  })();
   function tierUpFx(tier) {
     if (!tier) return;
     const name = BATTLE.TIER_NAMES[tier] || "POWER UP";
@@ -7502,7 +8033,7 @@
       battle.telegraphTurns = 0;
       battle.telegraphLabel = "";
       battle.telegraphMaxTurns = 0;
-      toast("⚡ Telegraph CANCELLED!", 1400);
+      toast(pickRandom(["⚡ Telegraph CANCELLED!", "💥 Telegraph SHATTERED!"]), 1400);
     }
     battle.ki = 0;
     state.battleStats.kiSpecialsUsed = (state.battleStats.kiSpecialsUsed || 0) + 1;
@@ -7544,8 +8075,11 @@
   }
 
   // ---------- Pre-battle intro card -----------------------------------------
+  const pickRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
   function flavorFor(enemy, idx) {
-    return enemy.flavor || (enemy.isBoss ? "A serious threat. Stay focused." : "Another challenger appears.");
+    const all = [enemy.flavor, ...(enemy.flavorAlts || [])].filter(Boolean);
+    if (all.length) return pickRandom(all);
+    return enemy.isBoss ? "A serious threat. Stay focused." : "Another challenger appears.";
   }
   function showIntroCard(enemy, idx, onDone) {
     const card = $("#introCard");
@@ -7557,6 +8091,11 @@
     else { ie.textContent = enemy.emoji || "👾"; }
     $("#introName").textContent = enemy.name;
     $("#introFlavor").textContent = flavorFor(enemy, idx);
+    const introQuote = $("#introQuote");
+    if (introQuote) {
+      if (enemy.quote) { introQuote.textContent = `“${enemy.quote}”`; introQuote.hidden = false; }
+      else { introQuote.textContent = ""; introQuote.hidden = true; }
+    }
     $("#introHp").textContent = `HP ${enemy.maxHp}`;
     $("#introTier").textContent = (enemy.tier || "minion").toUpperCase();
     card.classList.toggle("boss", !!enemy.isBoss);
@@ -8256,6 +8795,11 @@
     // Show one-time hint if we likely have no Punjabi audio path
     setTimeout(maybeShowVoiceHint, 1500);
 
+    // ---- Audio Debug Panel (triple-tap header to open) ----------------------
+    // Lets us see on the iPhone exactly which voices are detected and what
+    // happens on each speak call.
+    installAudioDebugPanel();
+
     // Apply learning-direction body flag and audit Gurmukhi coverage
     applyDirectionAttr();
     auditGurmukhiMap();
@@ -8372,29 +8916,18 @@
         saveState();
       });
     }
-    // Settings: new-cards-per-day base
-    const npd = $("#newPerDayBase");
-    const npdLbl = $("#newPerDayLabel");
-    if (npd) {
-      const v = state.settings?.newPerDayBase ?? SRS.NEW_PER_DAY_BASE;
-      npd.value = String(v);
-      if (npdLbl) npdLbl.textContent = String(v);
-      syncSliderFill(npd);
-      npd.addEventListener("input", () => {
-        const n = clamp(Number(npd.value) || SRS.NEW_PER_DAY_BASE, SRS.NEW_PER_DAY_MIN, SRS.NEW_PER_DAY_MAX);
-        state.settings.newPerDayBase = n;
-        if (npdLbl) npdLbl.textContent = String(n);
-        syncSliderFill(npd);
-        saveState();
-      });
-    }
-    // Settings: reset shaky-card flags
+    // Settings: reset struggling cards (shaky flags + leech suspensions).
     const resetShaky = $("#resetShakyBtn");
     if (resetShaky) {
       resetShaky.addEventListener("click", () => {
         state.shakyCards = {};
+        let unsus = 0;
+        for (const c of DECK) {
+          const s = state.srs[c.id];
+          if (s && s.suspended) { s.suspended = false; unsus++; }
+        }
         saveState();
-        toast("Shaky-card flags cleared", 1200);
+        toast(unsus ? `Reset shaky + un-suspended ${unsus}` : "Shaky-card flags cleared", 1400);
       });
     }
     // Settings: render battle records on entering settings
