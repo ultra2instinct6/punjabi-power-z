@@ -5456,18 +5456,14 @@
   function speakViaWebSpeech(text, voice, langTag) {
     if (!("speechSynthesis" in window)) return false;
     const u = new SpeechSynthesisUtterance(text);
-    // iOS Safari quirk: setting `voice` to a non-default voice sometimes
-    // results in silence. Setting only `lang` lets iOS pick a working
-    // built-in voice. On desktop we still prefer the matched voice.
-    const ua = navigator.userAgent || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Mac") && "ontouchend" in document);
-    if (voice && !isIOS) u.voice = voice;
+    // Use the matched voice when we have one (gives much better quality than
+    // the system default on iOS too).
+    if (voice) u.voice = voice;
     u.lang = langTag || (voice && voice.lang) || "pa-IN";
-    const isEn = /^en/i.test(u.lang);
-    // English: natural cadence + slightly lower pitch for a deeper, authoritative
-    // male tone. Punjabi: kept slightly slower for clarity.
-    u.rate = isEn ? 1.0 : 0.9;
-    u.pitch = isEn ? 0.92 : 1;
+    // Natural defaults. Avoid pitch != 1 on iOS — it produces a tinny/distant
+    // artifact in Apple's TTS engine.
+    u.rate = 1.0;
+    u.pitch = 1.0;
     u.volume = 1;
     u.onstart = () => setSpeakingUI(true);
     u.onend = () => setSpeakingUI(false);
@@ -5475,7 +5471,6 @@
       setSpeakingUI(false);
       const errMsg = (e && (e.error || e.message)) || "unknown";
       console.warn("[PPZ TTS] utterance error:", errMsg);
-      // Surface the error to the user once so they know audio failed.
       if (!tts._errorShown) {
         tts._errorShown = true;
         toast("Audio error: " + errMsg, 3000);
@@ -5492,11 +5487,11 @@
 
   function speakViaGoogle(text, lang) {
     const tl = lang === "en" ? "en" : "pa";
+    // translate_tts has a ~200 char limit. Truncate defensively.
+    const safeText = text.length > 190 ? text.slice(0, 190) : text;
     const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${tl}&client=tw-ob&q=`
-              + encodeURIComponent(text);
-    // NOTE: do NOT set crossOrigin — Google's TTS endpoint doesn't send CORS
-    // headers, and setting it would block playback. Plain <audio src> playback
-    // does not require CORS.
+              + encodeURIComponent(safeText);
+    // Do NOT set crossOrigin — Google's TTS endpoint doesn't send CORS headers.
     const a = new Audio(url);
     a.preload = "auto";
     a.onplaying = () => setSpeakingUI(true);
@@ -5505,23 +5500,16 @@
       setSpeakingUI(false);
       tts.audio = null;
       console.warn("[PPZ TTS] Google audio error", ev, "url:", url);
-      // Last-resort: try Web Speech with default voice in the requested language
-      if ("speechSynthesis" in window) {
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = lang === "en" ? "en-US" : "pa-IN";
-        u.rate = 0.9;
-        u.onstart = () => setSpeakingUI(true);
-        u.onend = () => setSpeakingUI(false);
-        try { window.speechSynthesis.speak(u); } catch {}
-      } else {
-        toast("Audio unavailable — check your connection.");
-      }
+      toast(lang === "pa"
+        ? "Punjabi audio failed. Install a Punjabi voice in iOS Settings → Accessibility → Spoken Content → Voices."
+        : "Audio failed — check your connection.", 4000);
     };
     tts.audio = a;
     const p = a.play();
     if (p && typeof p.catch === "function") {
       p.catch((err) => {
         console.warn("[PPZ TTS] audio.play() rejected:", err);
+        toast("Tap the speaker again — iOS needs a fresh tap to start audio.", 3000);
       });
     }
   }
@@ -5533,11 +5521,7 @@
    */
   function speakText(text, lang) {
     if (!text || !text.trim()) return;
-    // iOS-safe: prime synthesis on the very first call (caller is in a user
-    // gesture for speaker buttons).
     primeSpeech();
-    // On iOS, calling cancel() and speak() back-to-back can drop the speak.
-    // Only cancel if something is actually speaking.
     try {
       if ("speechSynthesis" in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
         window.speechSynthesis.cancel();
@@ -5546,20 +5530,26 @@
     try { if (tts.audio) { tts.audio.pause(); tts.audio.src = ""; tts.audio = null; } } catch {}
 
     const voice = lang === "en" ? tts.voiceEnglish : tts.voicePunjabi;
-    // Force American English when speaking English (lang tag drives accent
-    // for both Web Speech default voice and Google TTS fallback).
     const langTag = lang === "en" ? "en-US" : (voice?.lang || "pa-IN");
     console.log("[PPZ TTS] speak:", text, "lang:", lang, "voice:", voice && voice.name);
-    // Always try Web Speech first, even without a matched voice — iOS will
-    // fall back to its default voice for the given lang tag (works for both
-    // en-US and pa-IN if a system voice is installed).
+
+    // Punjabi without a Punjabi voice → Web Speech would read Gurmukhi with
+    // the English voice (gibberish). Use Google TTS directly instead.
+    if (lang === "pa" && !voice) {
+      if (navigator.onLine) {
+        speakViaGoogle(text, "pa");
+      } else {
+        toast("Punjabi voice not installed. iOS Settings → Accessibility → Spoken Content → Voices → Punjabi.", 4500);
+      }
+      return;
+    }
+
     if ("speechSynthesis" in window) {
       const ok = speakViaWebSpeech(text, voice, langTag);
       if (ok) return;
     }
     if (!navigator.onLine) {
-      if (lang === "pa") toast("Audio needs internet (no Punjabi voice installed).");
-      else toast("Audio needs internet (no English voice installed).");
+      toast(lang === "pa" ? "Audio needs internet (no Punjabi voice installed)." : "Audio needs internet (no English voice installed).");
       return;
     }
     speakViaGoogle(text, lang);
