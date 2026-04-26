@@ -5357,25 +5357,16 @@
     primed: false,       // iOS Safari requires a user-gesture warm-up
   };
 
-  // iOS Safari gates speechSynthesis behind a real user gesture. Speaking an
-  // empty utterance the very first time the user taps anywhere unlocks audio
-  // for the rest of the session. Must be called synchronously from a user
-  // gesture handler.
+  // iOS Safari unlocks speechSynthesis the first time speak() is called from
+  // a user gesture. We do NOT need a silent priming utterance — in fact, a
+  // silent prime followed by cancel() races with the real utterance and kills
+  // it. Just call speak() directly inside the user-gesture handler.
   function primeSpeech() {
     if (tts.primed) return;
     if (!("speechSynthesis" in window)) return;
-    try {
-      const u = new SpeechSynthesisUtterance(" ");
-      u.volume = 0;       // silent warm-up
-      u.rate = 1;
-      u.pitch = 1;
-      window.speechSynthesis.speak(u);
-      // Some iOS versions need a cancel right after to clear the queue.
-      setTimeout(() => { try { window.speechSynthesis.cancel(); } catch {} }, 250);
-      tts.primed = true;
-      // Re-poll voices after the unlock; iOS often returns [] until then.
-      try { loadVoicesOnce(); } catch {}
-    } catch {}
+    tts.primed = true;
+    // Re-poll voices: iOS often returns [] until first speak in a gesture.
+    setTimeout(() => { try { loadVoicesOnce(); } catch {} }, 100);
   }
 
   function loadVoicesOnce() {
@@ -5465,9 +5456,12 @@
   function speakViaWebSpeech(text, voice, langTag) {
     if (!("speechSynthesis" in window)) return false;
     const u = new SpeechSynthesisUtterance(text);
-    // On iOS, leaving voice unset and only setting `lang` lets the OS pick a
-    // working built-in voice. If we got a voice match, use it.
-    if (voice) u.voice = voice;
+    // iOS Safari quirk: setting `voice` to a non-default voice sometimes
+    // results in silence. Setting only `lang` lets iOS pick a working
+    // built-in voice. On desktop we still prefer the matched voice.
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Mac") && "ontouchend" in document);
+    if (voice && !isIOS) u.voice = voice;
     u.lang = langTag || (voice && voice.lang) || "pa-IN";
     const isEn = /^en/i.test(u.lang);
     // English: natural cadence + slightly lower pitch for a deeper, authoritative
@@ -5479,7 +5473,14 @@
     u.onend = () => setSpeakingUI(false);
     u.onerror = (e) => {
       setSpeakingUI(false);
-      console.warn("[PPZ TTS] utterance error:", e && e.error);
+      const errMsg = (e && (e.error || e.message)) || "unknown";
+      console.warn("[PPZ TTS] utterance error:", errMsg);
+      // Surface the error to the user once so they know audio failed.
+      if (!tts._errorShown) {
+        tts._errorShown = true;
+        toast("Audio error: " + errMsg, 3000);
+        setTimeout(() => { tts._errorShown = false; }, 5000);
+      }
     };
     tts.utter = u;
     try { window.speechSynthesis.speak(u); } catch (err) {
@@ -8226,17 +8227,6 @@
 
     // Initialize TTS voice list (async on some browsers)
     loadVoicesOnce();
-    // iOS Safari: unlock speechSynthesis on the very first user gesture
-    // anywhere on the page. Once primed, every subsequent speak() works.
-    const primeOnce = () => {
-      primeSpeech();
-      document.removeEventListener("pointerdown", primeOnce, true);
-      document.removeEventListener("touchstart", primeOnce, true);
-      document.removeEventListener("click", primeOnce, true);
-    };
-    document.addEventListener("pointerdown", primeOnce, true);
-    document.addEventListener("touchstart", primeOnce, true);
-    document.addEventListener("click", primeOnce, true);
     // Show one-time hint if we likely have no Punjabi audio path
     setTimeout(maybeShowVoiceHint, 1500);
 
