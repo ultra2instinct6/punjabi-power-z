@@ -5354,12 +5354,41 @@
     utter: null,         // current SpeechSynthesisUtterance
     speakingButtons: new Set(),
     hintShown: false,
+    primed: false,       // iOS Safari requires a user-gesture warm-up
   };
+
+  // iOS Safari gates speechSynthesis behind a real user gesture. Speaking an
+  // empty utterance the very first time the user taps anywhere unlocks audio
+  // for the rest of the session. Must be called synchronously from a user
+  // gesture handler.
+  function primeSpeech() {
+    if (tts.primed) return;
+    if (!("speechSynthesis" in window)) return;
+    try {
+      const u = new SpeechSynthesisUtterance(" ");
+      u.volume = 0;       // silent warm-up
+      u.rate = 1;
+      u.pitch = 1;
+      window.speechSynthesis.speak(u);
+      // Some iOS versions need a cancel right after to clear the queue.
+      setTimeout(() => { try { window.speechSynthesis.cancel(); } catch {} }, 250);
+      tts.primed = true;
+      // Re-poll voices after the unlock; iOS often returns [] until then.
+      try { loadVoicesOnce(); } catch {}
+    } catch {}
+  }
 
   function loadVoicesOnce() {
     if (!("speechSynthesis" in window)) return;
+    let attempts = 0;
     const pick = () => {
       const all = window.speechSynthesis.getVoices() || [];
+      // iOS sometimes returns [] for ~1s after page load. Retry a few times.
+      if (all.length === 0 && attempts < 10) {
+        attempts++;
+        setTimeout(pick, 250);
+        return;
+      }
       tts.voicePunjabi =
         all.find(v => /^pa(-|_|$)/i.test(v.lang)) ||
         all.find(v => /punjab/i.test(v.name)) ||
@@ -5435,10 +5464,11 @@
 
   function speakViaWebSpeech(text, voice, langTag) {
     if (!("speechSynthesis" in window)) return false;
-    if (!voice) return false;
     const u = new SpeechSynthesisUtterance(text);
-    u.voice = voice;
-    u.lang = langTag || voice.lang || "pa-IN";
+    // On iOS, leaving voice unset and only setting `lang` lets the OS pick a
+    // working built-in voice. If we got a voice match, use it.
+    if (voice) u.voice = voice;
+    u.lang = langTag || (voice && voice.lang) || "pa-IN";
     const isEn = /^en/i.test(u.lang);
     // English: natural cadence + slightly lower pitch for a deeper, authoritative
     // male tone. Punjabi: kept slightly slower for clarity.
@@ -5447,9 +5477,15 @@
     u.volume = 1;
     u.onstart = () => setSpeakingUI(true);
     u.onend = () => setSpeakingUI(false);
-    u.onerror = () => setSpeakingUI(false);
+    u.onerror = (e) => {
+      setSpeakingUI(false);
+      console.warn("[PPZ TTS] utterance error:", e && e.error);
+    };
     tts.utter = u;
-    window.speechSynthesis.speak(u);
+    try { window.speechSynthesis.speak(u); } catch (err) {
+      console.warn("[PPZ TTS] speak() threw:", err);
+      return false;
+    }
     return true;
   }
 
@@ -5495,16 +5531,30 @@
    * @param {"pa"|"en"} lang
    */
   function speakText(text, lang) {
-    stopSpeaking();
     if (!text || !text.trim()) return;
+    // iOS-safe: prime synthesis on the very first call (caller is in a user
+    // gesture for speaker buttons).
+    primeSpeech();
+    // On iOS, calling cancel() and speak() back-to-back can drop the speak.
+    // Only cancel if something is actually speaking.
+    try {
+      if ("speechSynthesis" in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+        window.speechSynthesis.cancel();
+      }
+    } catch {}
+    try { if (tts.audio) { tts.audio.pause(); tts.audio.src = ""; tts.audio = null; } } catch {}
+
     const voice = lang === "en" ? tts.voiceEnglish : tts.voicePunjabi;
     // Force American English when speaking English (lang tag drives accent
     // for both Web Speech default voice and Google TTS fallback).
     const langTag = lang === "en" ? "en-US" : (voice?.lang || "pa-IN");
     console.log("[PPZ TTS] speak:", text, "lang:", lang, "voice:", voice && voice.name);
-    if (voice) {
-      speakViaWebSpeech(text, voice, langTag);
-      return;
+    // Always try Web Speech first, even without a matched voice — iOS will
+    // fall back to its default voice for the given lang tag (works for both
+    // en-US and pa-IN if a system voice is installed).
+    if ("speechSynthesis" in window) {
+      const ok = speakViaWebSpeech(text, voice, langTag);
+      if (ok) return;
     }
     if (!navigator.onLine) {
       if (lang === "pa") toast("Audio needs internet (no Punjabi voice installed).");
@@ -6091,9 +6141,11 @@
     // Auto-play audio when the ANSWER face is visible (i.e. after reveal).
     //  - en2pa: answer is Punjabi, spoken in pa-IN
     //  - pa2en: answer is English, spoken in en-US
+    // NOTE: speak synchronously (no setTimeout) to preserve the user-gesture
+    // chain that iOS Safari requires.
     if (state.settings?.ttsAutoplay) {
       if (train.revealed) {
-        setTimeout(() => speakCard(train.current), 60);
+        speakCard(train.current);
       }
     }
   }
@@ -8174,6 +8226,17 @@
 
     // Initialize TTS voice list (async on some browsers)
     loadVoicesOnce();
+    // iOS Safari: unlock speechSynthesis on the very first user gesture
+    // anywhere on the page. Once primed, every subsequent speak() works.
+    const primeOnce = () => {
+      primeSpeech();
+      document.removeEventListener("pointerdown", primeOnce, true);
+      document.removeEventListener("touchstart", primeOnce, true);
+      document.removeEventListener("click", primeOnce, true);
+    };
+    document.addEventListener("pointerdown", primeOnce, true);
+    document.addEventListener("touchstart", primeOnce, true);
+    document.addEventListener("click", primeOnce, true);
     // Show one-time hint if we likely have no Punjabi audio path
     setTimeout(maybeShowVoiceHint, 1500);
 
