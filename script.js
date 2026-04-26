@@ -1546,7 +1546,7 @@
       definition: "Person who drives a vehicle. Borrowed from English.",
       related: "gaddi, bus",
       example: "Driver sahib, ruk jao. — Driver sir, please stop." },
-    { id: "pr10", type: "vocab", punjabi: "engineer", english: "engineer",
+    { id: "pr10", type: "vocab", punjabi: "injineer", english: "engineer",
       definition: "Person who designs and builds things. Borrowed from English.",
       example: "Mera bhra engineer hai. — My brother is an engineer." },
 
@@ -2383,7 +2383,7 @@
       definition: "A traditional Punjabi contact sport — players raid the opposing side while chanting 'kabaddi'. Hugely popular in Punjab.",
       related: "khel, mela",
       example: "Pind vich kabaddi da match. — A kabaddi match in the village." },
-    { id: "sp3",  type: "vocab", punjabi: "cricket",       english: "cricket",
+    { id: "sp3",  type: "vocab", punjabi: "kriket",        english: "cricket",
       definition: "Bat-and-ball sport, beloved across the subcontinent.",
       related: "khel",
       example: "Cricket khedanga. — I'll play cricket." },
@@ -2429,7 +2429,7 @@
       definition: "A pair of small hand drums; rhythm of Indian classical music.",
       related: "dhol, sangeet",
       example: "Tabla taal vich. — The tabla in rhythm." },
-    { id: "mu6",  type: "vocab", punjabi: "harmonium", english: "harmonium",
+    { id: "mu6",  type: "vocab", punjabi: "harmonia", english: "harmonium",
       definition: "A small keyboard instrument with bellows; central to Sikh kirtan.",
       related: "vaja, kirtan",
       example: "Harmonium te bhajan. — A bhajan on the harmonium." },
@@ -2596,7 +2596,7 @@
       definition: "A flying machine. Literally 'air ship'.",
       related: "airport, ticket",
       example: "Hawai jahaaz uddya. — The plane took off." },
-    { id: "ct7",  type: "vocab", punjabi: "airport",      english: "airport",
+    { id: "ct7",  type: "vocab", punjabi: "erport",       english: "airport",
       definition: "Where airplanes take off and land. Borrowed from English.",
       related: "hawai jahaaz",
       example: "Airport jaana hai. — I have to go to the airport." },
@@ -2638,7 +2638,7 @@
       definition: "Time off work or school.",
       related: "school, daftar",
       example: "Aaj chutti hai. — Today is a holiday." },
-    { id: "wk7",  type: "vocab", punjabi: "meeting",  english: "meeting",
+    { id: "wk7",  type: "vocab", punjabi: "meting",   english: "meeting",
       definition: "A scheduled discussion. Borrowed from English.",
       related: "daftar",
       example: "Meeting nau vaje. — Meeting at nine." },
@@ -2650,7 +2650,7 @@
       definition: "An electronic machine for work and play. Borrowed from English.",
       related: "internet, file",
       example: "Computer chalu karo. — Turn on the computer." },
-    { id: "wk10", type: "vocab", punjabi: "email",    english: "email",
+    { id: "wk10", type: "vocab", punjabi: "eemel",    english: "email",
       definition: "Electronic mail. Borrowed from English.",
       related: "computer, message",
       example: "Email bhej do. — Send the email." },
@@ -2660,11 +2660,11 @@
       definition: "A cell phone. Borrowed from English.",
       related: "phone, charger",
       example: "Mera mobile kithe hai? — Where is my mobile?" },
-    { id: "tc2",  type: "vocab", punjabi: "internet", english: "internet",
+    { id: "tc2",  type: "vocab", punjabi: "intarnet", english: "internet",
       definition: "The global network. Borrowed from English.",
       related: "computer",
       example: "Internet chalda nahin. — The internet isn't working." },
-    { id: "tc3",  type: "vocab", punjabi: "video",    english: "video",
+    { id: "tc3",  type: "vocab", punjabi: "vidio",    english: "video",
       definition: "A moving picture recording.",
       related: "photo, mobile",
       example: "Video bhej do. — Send the video." },
@@ -2692,7 +2692,7 @@
       definition: "Cable to charge devices. Borrowed from English.",
       related: "mobile, batti",
       example: "Charger laao. — Bring the charger." },
-    { id: "tc10", type: "vocab", punjabi: "app",      english: "app",
+    { id: "tc10", type: "vocab", punjabi: "aip",      english: "app",
       definition: "A program on your phone. Borrowed from English.",
       related: "mobile",
       example: "Eh app vadiya hai. — This app is great." },
@@ -3870,7 +3870,7 @@
       definition: "'Gaddi' = train (here). Each train has a number.",
       related: "rail",
       example: "Tuhadi GADDI NUMBER 12471 hai. — Your train is number 12471." },
-    { id: "tv3", type: "vocab", punjabi: "ticket counter",
+    { id: "tv3", type: "vocab", punjabi: "tikat ghar",
       english: "ticket counter",
       definition: "Where you buy tickets. Borrowed from English.",
       related: "ticket",
@@ -4470,7 +4470,7 @@
       definition: "For drying after bath.",
       related: "ghuslkhana",
       example: "TAULIYA fado. — Pass the towel." },
-    { id: "hg7", type: "vocab", punjabi: "shampoo",    english: "shampoo",
+    { id: "hg7", type: "vocab", punjabi: "shaimpoo",   english: "shampoo",
       definition: "Borrowed. For hair.",
       related: "baal, sabun",
       example: "SHAMPOO khatam. — Shampoo is finished." },
@@ -4550,11 +4550,11 @@
       example: "Main tuhanu PYAR KARDA HAAN. — I love you." },
 
     // ===== Public places =====
-    { id: "pp1",  type: "vocab", punjabi: "park",         english: "park",
+    { id: "pp1",  type: "vocab", punjabi: "paark",        english: "park",
       definition: "Public park. Borrowed.",
       related: "bagh",
       example: "PARK vich sair. — A walk in the park." },
-    { id: "pp2",  type: "vocab", punjabi: "library",      english: "library",
+    { id: "pp2",  type: "vocab", punjabi: "laibreri",     english: "library",
       definition: "Borrowed. 'Pustakalaya' is the formal Hindi.",
       related: "kitaab",
       example: "LIBRARY vich kitaaban. — Books in the library." },
@@ -4577,7 +4577,7 @@
     { id: "pp7",  type: "vocab", punjabi: "court",        english: "court (legal)",
       definition: "Borrowed. Also 'kachehri' (older word).",
       example: "COURT vich peshi. — Hearing in court." },
-    { id: "pp8",  type: "vocab", punjabi: "stadium",      english: "stadium",
+    { id: "pp8",  type: "vocab", punjabi: "stedium",      english: "stadium",
       definition: "Borrowed. Sports venue.",
       related: "khel",
       example: "STADIUM vich match. — Match at the stadium." },
@@ -4629,7 +4629,7 @@
       definition: "Borrowed. 'WiFi da password?' = What's the WiFi password?",
       related: "internet",
       example: "WiFi DA password ki? — What's the WiFi password?" },
-    { id: "dg2",  type: "vocab", punjabi: "password",      english: "password",
+    { id: "dg2",  type: "vocab", punjabi: "paasvard",     english: "password",
       definition: "Borrowed.",
       related: "WiFi, login",
       example: "Apna PASSWORD nahin dasso. — Don't share your password." },
@@ -4645,15 +4645,15 @@
       definition: "Borrowed. Bank, email, social media.",
       related: "khaata, login",
       example: "Account banao. — Make an account." },
-    { id: "dg6",  type: "vocab", punjabi: "login",         english: "login",
+    { id: "dg6",  type: "vocab", punjabi: "lagin",         english: "login",
       definition: "Borrowed. 'Login karo' = log in.",
       related: "password, account",
       example: "LOGIN karo. — Log in." },
-    { id: "dg7",  type: "vocab", punjabi: "screenshot",    english: "screenshot",
+    { id: "dg7",  type: "vocab", punjabi: "skreenshot",   english: "screenshot",
       definition: "Borrowed. 'Screenshot lao' = take a screenshot.",
       related: "photo",
       example: "SCREENSHOT bhejo. — Send a screenshot." },
-    { id: "dg8",  type: "vocab", punjabi: "video call",    english: "video call",
+    { id: "dg8",  type: "vocab", punjabi: "vidio kaal",   english: "video call",
       definition: "Borrowed.",
       related: "phone, video",
       example: "VIDEO CALL karo. — Make a video call." },
@@ -5377,6 +5377,109 @@
     dv3: "ਪਰਚੀ", dv4: "ਦਵਾਈ",
     // Phrases (selected short ones)
     p28: "ਚਲੋ!", p45: "ਕੋਈ ਨਹੀਂ", p49: "ਵਾਹਿਗੁਰੂ", p50: "ਚੜ੍ਹਦੀ ਕਲਾ",
+    // Loanword fixes (real Punjabi pronunciations)
+    de8: "ਫ਼ੋਨ", mn4: "ਬੈਂਕ", ct8: "ਟਿਕਟ", pr9: "ਡਰਾਈਵਰ",
+    wk9: "ਕੰਪਿਊਟਰ", tc5: "ਫ਼ੋਟੋ",
+    mw2: "ਗਰਾਮ", mw4: "ਮੀਟਰ", mw7: "ਪੈਕਟ",
+    vs4: "ਬੋਤਲ", hi4: "ਬਾਲਕਨੀ",
+    pr10: "ਇੰਜੀਨੀਅਰ", sp3: "ਕ੍ਰਿਕਟ", mu6: "ਹਰਮੋਨੀਅਮ",
+    ct7: "ਏਅਰਪੋਰਟ", wk7: "ਮੀਟਿੰਗ", wk10: "ਈਮੇਲ",
+    tc2: "ਇੰਟਰਨੈੱਟ", tc3: "ਵੀਡੀਓ",
+    tv3: "ਟਿਕਟ ਘਰ", hg7: "ਸ਼ੈਂਪੂ",
+    pp1: "ਪਾਰਕ", pp2: "ਲਾਇਬ੍ਰੇਰੀ", pp8: "ਸਟੇਡੀਅਮ",
+    dg2: "ਪਾਸਵਰਡ", dg6: "ਲਾਗਇਨ", dg7: "ਸਕ੍ਰੀਨਸ਼ਾਟ", dg8: "ਵੀਡੀਓ ਕਾਲ",
+    // Pronouns
+    pc1: "ਮੈਂ", pc2: "ਤੂੰ", pc3: "ਤੁਸੀਂ", pc4: "ਅਸੀਂ", pc5: "ਉਹ", pc6: "ਇਹ",
+    // Hospitality / cultural
+    hp2: "ਹੋਰ ਲਉ ਜੀ", hp4: "ਆਪਣਾ ਘਰ ਸਮਝੋ", hp6: "ਲੰਗਰ", hp7: "ਸੇਵਾ", hp8: "ਸੰਗਤ",
+    // Polite phrases
+    p32: "ਕੋਈ ਤਕਲੀਫ਼ ਨਹੀਂ", p35: "ਪਹਿਲਾਂ ਤੁਸੀਂ", p36: "ਜਿਵੇਂ ਤੁਹਾਡੀ ਮਰਜ਼ੀ",
+    p42: "ਮੈਨੂੰ ਲੱਗਦਾ ਹੈ", p43: "ਬੁਰਾ ਨਾ ਮੰਨੋ", p46: "ਆਜਾ ਜੀ",
+    p47: "ਕੁਝ ਖਾ ਲਉ", p48: "ਰੱਬ ਮਿਹਰ ਕਰੇ",
+    // Soft commands
+    sc1: "ਦੱਸੋ ਜੀ", sc2: "ਸੁਣੋ ਜੀ", sc3: "ਵੇਖੋ ਜੀ", sc4: "ਕਰੋ ਜੀ", sc5: "ਲਿਆਉ ਜੀ", sc6: "ਅੰਦਰ ਆਉ ਜੀ",
+    tr9: "ਰਸਤਾ ਦੱਸੋ ਜੀ",
+    // Sentence builders
+    sb1: "ਇਹ ___ ਹੈ", sb2: "ਉਹ ___ ਹੈ",
+    // Learner phrases
+    lv8: "ਫਿਰ ਕਹੋ ਜੀ", lv10: "ਮੈਨੂੰ ਸਿਖਾ ਦਿਉ",
+    sh2: "ਥੋੜਾ ਘੱਟ ਕਰੋ",
+    // Encouragement
+    en3: "ਲੱਗੇ ਰਹੋ", en5: "ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    // Greetings
+    gr1: "ਸੁਬਹ ਬਖ਼ੈਰ", gr2: "ਸ਼ੁਭ ਸੁਬਹ", gr3: "ਸ਼ਾਮ ਵਧੀਆ", gr4: "ਸ਼ੁਭ ਰਾਤ",
+    // No / refusal
+    nf1: "ਨਹੀਂ ਜੀ, ਸ਼ੁਕਰੀਆ", nf2: "ਕਦੇ ਫਿਰ", nf3: "ਅੱਜ ਨਹੀਂ ਜੀ", nf6: "ਸੋਚ ਕੇ ਦੱਸਾਂਗਾ",
+    // Phone
+    ph1: "ਹੈਲੋ ਜੀ",
+    // Classroom
+    cr1: "ਖੋਲ੍ਹ ਲਉ ਕਿਤਾਬ", cr2: "ਲਿਖ ਲਉ", cr3: "ਸੁਣੋ ਤੇ ਦੁਹਰਾਉ", cr4: "ਸਵਾਲ ਪੁੱਛੋ", cr7: "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    // Emergency
+    em2: "ਡਾਕਟਰ ਬੁਲਾਉ", em4: "ਪੁਲਿਸ ਬੁਲਾਉ", em5: "ਮੈਨੂੰ ਚੋਟ ਲੱਗੀ",
+    // Idioms
+    id4: "ਹੱਥ ਜੋੜਨ", id5: "ਪੈਰ ਪਕੜਨੇ", id6: "ਅੱਖਾਂ ਵਿੱਚ ਪਾਣੀ",
+    id8: "ਆਪਣੀ-ਆਪਣੀ ਢੋਲ", id9: "ਮੂੰਹ ਨੂੰ ਲਗਾਮ",
+    // Imperatives
+    im5: "ਮਿਹਰਬਾਨੀ ਕਰਕੇ ___", im6: "ਕਿਰਪਾ ਕਰਕੇ ___",
+    cd6: "ਹੋ ਸਕਦਾ ਹੈ",
+    // Restaurant
+    rs7: "ਤਿੱਖਾ ਨਹੀਂ ਚਾਹੀਦਾ", rs8: "ਬਿੱਲ ਲਿਆਉ ਜੀ", rs10: "ਪਾਣੀ ਲਿਆ ਦਿਉ",
+    // Bargaining
+    bg2: "ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੈ", bg3: "ਘੱਟ ਕਰੋ", bg4: "ਆਖਰੀ ਕੀਮਤ", bg7: "ਰਹਿ ਦਿਉ",
+    // Doctor visit
+    dv6: "ਮੈਨੂੰ ___ ਹੈ", dv7: "ਗਹਿਰੀ ਸਾਹ ਲਉ", dv8: "ਟੈਸਟ ਕਰਾਉਣਾ ਪੈਣਾ",
+    dv9: "ਆਰਾਮ ਕਰੋ", dv10: "ਠੀਕ ਹੋ ਜਾਉਗੇ",
+    // Travel extras
+    tv2: "ਗੱਡੀ ਨੰਬਰ",
+    // Diaspora extras
+    ds5: "ਕਾਲ ਬੈਕ ਕਰਾਂਗਾ", ds6: "ਡਰੌਪ ਕਰ ਦਿਉ", ds7: "ਅੱਪਡੇਟ ਕਰ ਦਿਉ",
+    // Colors
+    co8: "ਬੈਂਗਣੀ", co10: "ਸਲੇਟੀ", co11: "ਸੁਨਹਿਰੀ",
+    // Sizes / shapes
+    sz1: "ਗੋਲ", sz2: "ਚੌਕੋਰ", sz3: "ਤਿਕੋਨਾ", sz4: "ਲੰਮਾ", sz5: "ਚੌੜਾ", sz6: "ਪਤਲਾ", sz7: "ਮੋਟਾ",
+    // Taste / texture
+    tx1: "ਮਿੱਠਾ", tx2: "ਨਮਕੀਨ", tx3: "ਖੱਟਾ", tx4: "ਕੌੜਾ", tx5: "ਤਿੱਖਾ", tx6: "ਫਿੱਕਾ",
+    tx7: "ਨਰਮ", tx8: "ਸਖ਼ਤ", tx9: "ਗਿੱਲਾ", tx10: "ਸੁੱਕਾ", tx11: "ਚਿਕਨਾ", tx12: "ਖੁਰਦਰਾ",
+    // Senses / sounds
+    sn1: "ਖ਼ੁਸ਼ਬੂ", sn2: "ਬਦਬੂ", sn3: "ਆਵਾਜ਼", sn4: "ਸ਼ੋਰ", sn5: "ਚਮਕ", sn6: "ਧੁੰਦਲਾ",
+    // Frequency adverbs
+    fa1: "ਹਮੇਸ਼ਾ", fa2: "ਅਕਸਰ", fa3: "ਕਦੇ-ਕਦੇ", fa4: "ਕਦੇ ਨਹੀਂ",
+    fa5: "ਰੋਜ਼", fa6: "ਹਰ ਵੇਲੇ", fa8: "ਫ਼ੌਰਨ",
+    // Manner adverbs
+    ma1: "ਛੇਤੀ", ma3: "ਧਿਆਨ ਨਾਲ", ma4: "ਏਂਜ", ma5: "ਏਂਵੇਂ", ma6: "ਆਸਾਨੀ ਨਾਲ", ma7: "ਮੁਸ਼ਕਿਲ ਨਾਲ",
+    // Measure words
+    mw1: "ਕਿਲੋ", mw3: "ਲੀਟਰ", mw5: "ਫੁੱਟ", mw6: "ਡੱਬਾ", mw8: "ਜੋੜੀ", mw9: "ਦੋ-ਦੋ", mw10: "ਦਰਜਨ",
+    // Vessels / containers
+    vs1: "ਕਟੋਰਾ", vs2: "ਥਾਲੀ", vs3: "ਲੋਟਾ", vs5: "ਝੋਲਾ", vs6: "ਪੇਟੀ", vs7: "ਟੋਕਰੀ", vs8: "ਬਾਲਟੀ",
+    // Body extras
+    bx4: "ਅੰਗੂਠਾ", bx5: "ਨਹੁੰ", bx7: "ਦਾੜ੍ਹੀ", bx8: "ਮੁੱਛਾਂ", bx9: "ਕੰਧਾ", bx10: "ਛਾਤੀ",
+    // Hygiene
+    hg1: "ਗ਼ੁਸਲਖਾਨਾ", hg2: "ਪਖਾਨਾ", hg3: "ਸਾਬਣ", hg4: "ਬਰੁਸ਼", hg5: "ਮੰਜਨ", hg6: "ਤੌਲੀਆ", hg8: "ਕੰਘੀ",
+    // Speech verbs
+    sv4: "ਸਮਝਾਉਣਾ", sv6: "ਜਵਾਬ ਦੇਣਾ", sv7: "ਸੁਣਨਾ", sv8: "ਚੁੱਪ ਕਰਨਾ",
+    // Body / motion verbs
+    bv23: "ਚੱਲਣਾ", bv25: "ਲੇਟਣਾ", bv26: "ਝੁਕਣਾ", bv27: "ਉਠਾਉਣਾ",
+    bv28: "ਸੁੱਟਣਾ", bv29: "ਫੜਨਾ", bv30: "ਹਿਲਾਉਣਾ",
+    // Emotion verbs
+    ev3: "ਮੁਸਕਰਾਉਣਾ", ev4: "ਚਿੱਲਾਉਣਾ", ev5: "ਘਬਰਾਉਣਾ", ev6: "ਸ਼ਰਮਾਉਣਾ", ev7: "ਪਿਆਰ ਕਰਨਾ",
+    // Public places
+    pp3: "ਡਾਕ ਘਰ", pp4: "ਪੈਟਰੋਲ ਪੰਪ", pp5: "ਏ ਟੀ ਐਮ",
+    pp6: "ਥਾਣਾ", pp7: "ਕੋਰਟ", pp9: "ਸਿਨੇਮਾ", pp10: "ਮਾਲ",
+    // Home interior
+    hi1: "ਛੱਤ", hi2: "ਦੀਵਾਰ", hi3: "ਫ਼ਰਸ਼", hi5: "ਬੈਠਕ",
+    hi6: "ਸੌਣ ਵਾਲਾ ਕਮਰਾ", hi7: "ਅਲਮਾਰੀ", hi8: "ਪਰਦਾ",
+    // Digital extras
+    dg1: "ਵਾਈ-ਫ਼ਾਈ", dg3: "ਲਿੰਕ", dg4: "ਓ ਟੀ ਪੀ", dg5: "ਅਕਾਊਂਟ", dg9: "ਗਰੁੱਪ", dg10: "ਸ਼ੇਅਰ ਕਰਨਾ",
+    // Greetings extras
+    gx1: "ਨਮਸਤੇ ਜੀ", gx2: "ਰਾਮ ਰਾਮ", gx3: "ਅਦਾਬ", gx4: "ਸਲਾਮ", gx5: "ਅਲਵਿਦਾ",
+    // Yes/no extras
+    yn3: "ਬਿਲਕੁਲ", yn4: "ਇਕਦਮ", yn5: "ਗ਼ਲਤ", yn6: "ਪੱਕਾ", yn7: "ਮੁਸ਼ਕਿਲ", yn8: "ਆਸਾਨ",
+    // Compliments
+    cm2: "ਮੁਬਾਰਕ ਹੋ", cm4: "ਬਹੁਤ ਖ਼ੂਬ", cm7: "ਤੁਹਾਡਾ ਜਵਾਬ ਨਹੀਂ",
+    // Agreement / thanks
+    ag3: "ਬਹੁਤ ਸ਼ੁਕਰੀਆ", ag6: "ਤੁਹਾਡਾ ਅਹਿਸਾਨ",
+    // Learning meta
+    lm6: "ਸਪੈਲਿੰਗ ਦੱਸੋ ਜੀ", lm10: "ਸਿਖਾਉਣਾ ਸ਼ੁਰੂ ਕਰਾਂਗੇ",
     // Religion proper nouns repeats already covered above
   };
 
@@ -7351,8 +7454,22 @@
         masterGain = ctx.createGain();
         sfxGain = ctx.createGain();
         musicGain = ctx.createGain();
-        sfxGain.connect(masterGain);
-        musicGain.connect(masterGain);
+        // Kid-safe limiter chain: compressor + gentle high-shelf rolloff to
+        // tame any harsh transients before they reach the speakers.
+        const limiter = ctx.createDynamicsCompressor();
+        limiter.threshold.value = -10;   // start limiting early
+        limiter.knee.value = 6;
+        limiter.ratio.value = 12;        // brick-wall-ish
+        limiter.attack.value = 0.003;
+        limiter.release.value = 0.18;
+        const softShelf = ctx.createBiquadFilter();
+        softShelf.type = "highshelf";
+        softShelf.frequency.value = 6000;
+        softShelf.gain.value = -3;       // gently roll off ear-piercing highs
+        sfxGain.connect(softShelf);
+        musicGain.connect(softShelf);
+        softShelf.connect(limiter);
+        limiter.connect(masterGain);
         masterGain.connect(ctx.destination);
         applyVolumes();
         initialized = true;
@@ -7410,24 +7527,94 @@
       src.connect(f); f.connect(g); g.connect(sfxGain);
       src.start(t0);
     }
+    // Voices redesigned for kid-friendly ears + DBZ flair:
+    //  - Rounder waveforms (sine / triangle, filtered saws only)
+    //  - Lower peak gains (~0.18–0.32) feeding the limiter
+    //  - Soft attacks/releases (no clicks)
+    //  - Lowpass filters on noise to remove ear-piercing highs
+    //  - Melodic tone sweeps for that anime "ki-energy" feel
     const VOICES = {
-      swoosh:        () => { noiseBurst({ dur: 0.18, vol: 0.25, filterFreq: 1800, type: "bandpass" }); },
-      hit:           () => { tone({ type: "square", freq: 220, freqEnd: 90, dur: 0.14, vol: 0.35 }); noiseBurst({ dur: 0.08, vol: 0.2, filterFreq: 600 }); },
-      crit:          () => { tone({ type: "sawtooth", freq: 320, freqEnd: 110, dur: 0.22, vol: 0.4 }); tone({ type: "square", freq: 640, freqEnd: 220, dur: 0.18, vol: 0.25 }); },
-      block:         () => { tone({ type: "triangle", freq: 880, dur: 0.12, vol: 0.3 }); tone({ type: "sine", freq: 1320, dur: 0.10, vol: 0.2 }); },
-      crack:         () => { noiseBurst({ dur: 0.25, vol: 0.4, filterFreq: 2400, type: "highpass" }); },
-      kiCharge:      () => { tone({ type: "sawtooth", freq: 220, freqEnd: 880, dur: 0.5, vol: 0.25 }); },
-      kiFire:        () => { tone({ type: "sawtooth", freq: 660, freqEnd: 110, dur: 0.5, vol: 0.4 }); noiseBurst({ dur: 0.3, vol: 0.25, filterFreq: 1200 }); },
-      kameBeam:      () => { tone({ type: "sine", freq: 110, dur: 0.55, vol: 0.35 }); tone({ type: "sawtooth", freq: 440, freqEnd: 880, dur: 0.55, vol: 0.25 }); },
-      spirit:        () => { [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => tone({ type: "sine", freq: f, dur: 0.5, vol: 0.3 }), i * 120)); },
-      telegraphWarn: () => { tone({ type: "triangle", freq: 880, freqEnd: 440, dur: 0.4, vol: 0.35 }); },
-      telegraphHit:  () => { tone({ type: "sawtooth", freq: 80,  freqEnd: 30, dur: 0.6, vol: 0.5 }); noiseBurst({ dur: 0.45, vol: 0.45, filterFreq: 400 }); },
-      tierUp:        () => { [392, 523, 659, 784, 1046].forEach((f, i) => setTimeout(() => tone({ type: "triangle", freq: f, dur: 0.18, vol: 0.32 }), i * 60)); },
-      ko:            () => { tone({ type: "sawtooth", freq: 440, freqEnd: 60, dur: 0.5, vol: 0.4 }); noiseBurst({ dur: 0.4, vol: 0.3, filterFreq: 800 }); },
-      victory:       () => { [523, 659, 784, 1046, 1318].forEach((f, i) => setTimeout(() => tone({ type: "triangle", freq: f, dur: 0.22, vol: 0.35 }), i * 90)); },
-      defeat:        () => { [523, 466, 392, 311, 247].forEach((f, i) => setTimeout(() => tone({ type: "triangle", freq: f, dur: 0.28, vol: 0.32 }), i * 120)); },
-      tick:          () => { tone({ type: "square", freq: 1200, dur: 0.04, vol: 0.18 }); },
-      select:        () => { tone({ type: "triangle", freq: 660, dur: 0.06, vol: 0.18 }); },
+      // Quick, soft air-swoosh
+      swoosh: () => {
+        noiseBurst({ dur: 0.18, vol: 0.16, filterFreq: 1400, type: "bandpass" });
+      },
+      // Friendly thwack: round low thump + a soft mid pop, no bright noise
+      hit: () => {
+        tone({ type: "sine",     freq: 260, freqEnd: 110, dur: 0.16, vol: 0.26, attack: 0.004, release: 0.10 });
+        tone({ type: "triangle", freq: 520, freqEnd: 220, dur: 0.10, vol: 0.14, attack: 0.004, release: 0.06 });
+      },
+      // Crit: mini DBZ "power impact" — octave triangle blast (no harsh saw)
+      crit: () => {
+        tone({ type: "triangle", freq: 330, freqEnd: 110, dur: 0.22, vol: 0.30, attack: 0.005, release: 0.12 });
+        tone({ type: "sine",     freq: 660, freqEnd: 220, dur: 0.20, vol: 0.18, attack: 0.005, release: 0.10 });
+        tone({ type: "triangle", freq: 990, freqEnd: 660, dur: 0.18, vol: 0.10, attack: 0.005, release: 0.08 });
+      },
+      // Block: warm bell ding (perfect 5th), no tinny squares
+      block: () => {
+        tone({ type: "sine",     freq: 880,  dur: 0.18, vol: 0.22, attack: 0.004, release: 0.12 });
+        tone({ type: "sine",     freq: 1320, dur: 0.18, vol: 0.14, attack: 0.004, release: 0.12 });
+      },
+      // Crack: a dampened tap rather than ear-piercing white noise
+      crack: () => {
+        noiseBurst({ dur: 0.16, vol: 0.20, filterFreq: 1600, type: "bandpass" });
+        tone({ type: "triangle", freq: 700, freqEnd: 300, dur: 0.10, vol: 0.14, attack: 0.003, release: 0.06 });
+      },
+      // ki-charge: smooth rising sine sweep (Goku powering up), no saw buzz
+      kiCharge: () => {
+        tone({ type: "sine",     freq: 220, freqEnd: 880,  dur: 0.55, vol: 0.22, attack: 0.06, release: 0.20, filter: { type: "lowpass", freq: 2400, Q: 0.7 } });
+        tone({ type: "triangle", freq: 330, freqEnd: 1320, dur: 0.55, vol: 0.10, attack: 0.06, release: 0.20 });
+      },
+      // ki-fire: descending tonal whoosh, low-passed for warmth
+      kiFire: () => {
+        tone({ type: "triangle", freq: 880, freqEnd: 165, dur: 0.55, vol: 0.30, attack: 0.005, release: 0.20, filter: { type: "lowpass", freq: 2200, Q: 0.7 } });
+        noiseBurst({ dur: 0.30, vol: 0.16, filterFreq: 1000, type: "lowpass" });
+      },
+      // Kamehameha beam: warm sustained 5th + soft ascending shimmer
+      kameBeam: () => {
+        tone({ type: "sine",     freq: 165,  dur: 0.65, vol: 0.28, attack: 0.04, release: 0.20 });
+        tone({ type: "sine",     freq: 247,  dur: 0.65, vol: 0.20, attack: 0.04, release: 0.20 });
+        tone({ type: "triangle", freq: 660, freqEnd: 1320, dur: 0.55, vol: 0.14, attack: 0.06, release: 0.20, filter: { type: "lowpass", freq: 2800, Q: 0.7 } });
+      },
+      // Spirit Bomb: dreamy major-7th arpeggio, soft attacks
+      spirit: () => {
+        [523.25, 659.25, 783.99, 987.77].forEach((f, i) =>
+          setTimeout(() => tone({ type: "sine", freq: f, dur: 0.55, vol: 0.22, attack: 0.04, release: 0.30 }), i * 130));
+      },
+      // Telegraph warn: gentle minor-2nd siren, soft sine, no harsh squares
+      telegraphWarn: () => {
+        tone({ type: "sine", freq: 740, freqEnd: 440, dur: 0.30, vol: 0.24, attack: 0.02, release: 0.10 });
+        tone({ type: "sine", freq: 880, freqEnd: 523, dur: 0.30, vol: 0.18, attack: 0.02, release: 0.10 });
+      },
+      // Telegraph hit: rounded big-impact, low boom + low-passed thud (no painful highs)
+      telegraphHit: () => {
+        tone({ type: "sine",     freq: 110, freqEnd: 40, dur: 0.55, vol: 0.34, attack: 0.005, release: 0.25 });
+        tone({ type: "triangle", freq: 220, freqEnd: 80, dur: 0.50, vol: 0.20, attack: 0.005, release: 0.20 });
+        noiseBurst({ dur: 0.35, vol: 0.18, filterFreq: 500, type: "lowpass" });
+      },
+      // Tier-up: bright triumphant ascending pentatonic (DBZ transformation cue)
+      tierUp: () => {
+        [392.00, 493.88, 587.33, 783.99, 987.77, 1174.66].forEach((f, i) =>
+          setTimeout(() => tone({ type: "triangle", freq: f, dur: 0.20, vol: 0.26, attack: 0.005, release: 0.10 }), i * 55));
+      },
+      // KO: warm descending fall (no harsh saw)
+      ko: () => {
+        tone({ type: "triangle", freq: 523, freqEnd: 110, dur: 0.45, vol: 0.30, attack: 0.005, release: 0.20 });
+        tone({ type: "sine",     freq: 262, freqEnd: 65,  dur: 0.50, vol: 0.20, attack: 0.005, release: 0.20 });
+        noiseBurst({ dur: 0.30, vol: 0.16, filterFreq: 700, type: "lowpass" });
+      },
+      // Victory: heroic major fanfare (I–IV–V–I)
+      victory: () => {
+        [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, i) =>
+          setTimeout(() => tone({ type: "triangle", freq: f, dur: 0.24, vol: 0.28, attack: 0.005, release: 0.12 }), i * 95));
+      },
+      // Defeat: sad gentle descent, no harsh tones
+      defeat: () => {
+        [523.25, 440.00, 369.99, 293.66, 246.94].forEach((f, i) =>
+          setTimeout(() => tone({ type: "sine", freq: f, dur: 0.32, vol: 0.24, attack: 0.02, release: 0.18 }), i * 130));
+      },
+      // UI clicks: very soft, mellow
+      tick:   () => { tone({ type: "sine",     freq: 1000, dur: 0.04, vol: 0.10, attack: 0.002, release: 0.02 }); },
+      select: () => { tone({ type: "triangle", freq: 660,  dur: 0.07, vol: 0.14, attack: 0.003, release: 0.04 }); },
     };
     function play(name) {
       if (!initialized) init();
@@ -8294,9 +8481,16 @@
 
   // ---------- Random Training Interrupts -------------------------------------
   // Multiple-choice helper; supports "confuse" mode (similar-prefix distractors).
+  // IMPORTANT: filters distractors so none share the same answer text as the
+  // correct card — otherwise a user could tap a "wrong" button whose visible
+  // text matches the correct answer and be marked wrong (a real footgun on
+  // decks where two distinct cards happen to map to the same gloss).
   function buildChoices(card, opts = {}) {
     const { mode = "normal", reverse = false } = opts;
-    const others = DECK.filter(c => c.id !== card.id);
+    const norm = (s) => (s || "").toString().toLowerCase().trim();
+    const correctText = norm(reverse ? card.punjabi : card.english);
+    const distinctText = (c) => norm(reverse ? c.punjabi : c.english) !== correctText;
+    const others = DECK.filter(c => c.id !== card.id && distinctText(c));
     let pool;
     if (mode === "confuse") {
       const prefix = (card.punjabi || "").slice(0, 2).toLowerCase();
@@ -8307,7 +8501,29 @@
       const sameType = others.filter(c => c.type === card.type);
       pool = sameType.length >= 3 ? sameType : others;
     }
-    const distract = shuffle(pool).slice(0, 3);
+    // De-duplicate distractors by their displayed answer text too, so no two
+    // buttons show identical strings.
+    const seen = new Set([correctText]);
+    const uniquePool = [];
+    for (const c of shuffle(pool)) {
+      const t = norm(reverse ? c.punjabi : c.english);
+      if (seen.has(t)) continue;
+      seen.add(t);
+      uniquePool.push(c);
+      if (uniquePool.length >= 3) break;
+    }
+    // Fallback: if filtering left us short (tiny deck edge case), top up from
+    // the broader DECK while still excluding the correct card by id.
+    if (uniquePool.length < 3) {
+      for (const c of shuffle(DECK.filter(d => d.id !== card.id))) {
+        const t = norm(reverse ? c.punjabi : c.english);
+        if (seen.has(t)) continue;
+        seen.add(t);
+        uniquePool.push(c);
+        if (uniquePool.length >= 3) break;
+      }
+    }
+    const distract = uniquePool.slice(0, 3);
     const allCards = shuffle([card, ...distract]);
     const choices = allCards.map(c => reverse ? c.punjabi : c.english);
     const correctIdx = allCards.indexOf(card);
@@ -8466,18 +8682,16 @@
   }
 
   function setupIncomingAttack(forcedCardId) {
-    // Frieza Mind Trap stays the HARDER direction relative to user's mode:
-    //  - en2pa user => still ask in English with Punjabi answers (already harder)
-    //  - pa2en user => flip to ask in Punjabi with English answers
-    const en2pa = isReverse();
+    // Frieza Mind Trap is intentionally the harder direction for the learner:
+    // English-native learners find Punjabi-as-answer harder, so this event
+    // ALWAYS asks in English and shows Punjabi answer choices, regardless of
+    // the user's learning-direction setting.
     $("#eventIcon").textContent = "☠️";
     $("#eventTitle").textContent = "INCOMING ATTACK — FRIEZA MIND TRAP!";
-    $("#eventPromptLabel").textContent = en2pa
-      ? "Which Punjabi word means:"
-      : "What does this Punjabi word mean?";
+    $("#eventPromptLabel").textContent = "Which Punjabi word means:";
     trainEvent.durationMs = INTERRUPT.INCOMING_DURATION_MS;
     trainEvent.mode = "confuse";
-    trainEvent.reverse = en2pa; // en2pa: Punjabi answer (hard); pa2en: English answer
+    trainEvent.reverse = true; // force English prompt + Punjabi answer choices
     trainEvent.fixedCard = pickIncomingTarget(forcedCardId);
     train.repeatMissId = null;
     playFx("frieza-trap");
@@ -8521,6 +8735,15 @@
       }
       b.classList.remove("correct", "wrong");
       b.disabled = false;
+      // Subtle re-animate on each new Speed Burst question so the rapid
+      // refresh registers visually instead of looking like a static panel.
+      if (trainEvent.kind === "speed") {
+        b.style.animation = "none";
+        // Force reflow then re-apply so the keyframes restart.
+        // eslint-disable-next-line no-unused-expressions
+        b.offsetWidth;
+        b.style.animation = "";
+      }
     });
     $("#eventCombo").textContent = String(trainEvent.combo);
     $("#eventScore").textContent = String(trainEvent.score);
@@ -8589,6 +8812,23 @@
     cancelAnimationFrame(startEventTimer._raf);
     const ev = trainEvent;
     let summary = "";
+
+    // For non-speed events ending without a user pick (timeout/forfeit),
+    // briefly reveal which choice was correct so the learner closes the loop.
+    // We mark the event as already-revealed and re-enter after a short delay.
+    const noPick = (reason === "timeout" || reason === "forfeit");
+    if (noPick && ev.kind !== "speed" && !ev._revealed && typeof ev.currentCorrectIdx === "number") {
+      ev._revealed = true;
+      const btns = $$("#eventChoices .choice");
+      btns.forEach(b => { b.disabled = true; b.classList.remove("correct", "wrong"); });
+      const correctBtn = btns[ev.currentCorrectIdx];
+      if (correctBtn) correctBtn.classList.add("correct");
+      setTimeout(() => {
+        if (!trainEvent) return;
+        finishTrainEvent(reason);
+      }, 700);
+      return;
+    }
 
     if (ev.kind === "speed") {
       const xp = ev.score * 3 + ev.maxCombo * 5;
