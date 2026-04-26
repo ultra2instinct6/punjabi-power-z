@@ -5380,9 +5380,17 @@
         setTimeout(pick, 250);
         return;
       }
+      // Punjabi: prefer real Punjabi voice. If absent (default on iOS),
+      // fall back to a Hindi voice — Hindi TTS reads Latin text using
+      // Devanagari phonetics which sound very close to spoken Punjabi when
+      // we feed it the roman transliteration.
       tts.voicePunjabi =
         all.find(v => /^pa(-|_|$)/i.test(v.lang)) ||
         all.find(v => /punjab/i.test(v.name)) ||
+        null;
+      tts.voiceHindi =
+        all.find(v => /^hi(-|_|$)/i.test(v.lang)) ||
+        all.find(v => /hindi/i.test(v.name)) ||
         null;
       // English: prefer high-quality AMERICAN MALE voices first.
       // Hard requirement on en-US locale, deep/authoritative male timbre.
@@ -5413,9 +5421,10 @@
         if (/natural|neural|online|cloud|wavenet/.test(n)) s += 80;
 
         // ---- Penalties: weak / generic / female-only / non-US -------------
-        if (/espeak/.test(n)) s -= 300;
-        if (/^english$/.test(n)) s -= 150;
-        if (/compact/.test(n)) s -= 40;
+        if (/espeak/.test(n)) s -= 500;
+        if (/^english$/.test(n)) s -= 200;
+        // "Compact" iOS voices sound thin/distant — strongly penalize.
+        if (/compact|eddy.*compact|fred.*compact/.test(n)) s -= 250;
         if (/novelty|whisper|bahh|bells|bubbles|cellos|deranged|hysterical|trinoids|zarvox/.test(n)) s -= 400;
         // Known British/AU/IE male names — penalize so they never beat a US voice
         if (/(daniel|oliver|arthur|karen|moira|tessa|sangeeta|veena|rishi)/.test(n)) s -= 80;
@@ -5516,11 +5525,22 @@
 
   /**
    * Speak text in the requested language.
-   * @param {string} text
+   * @param {string|{gurmukhi?:string, roman?:string}} text
    * @param {"pa"|"en"} lang
    */
   function speakText(text, lang) {
-    if (!text || !text.trim()) return;
+    // Allow callers to pass either a plain string or an object with both
+    // Gurmukhi script and Roman transliteration. The Hindi-voice fallback
+    // needs the roman form to pronounce correctly.
+    let primary = "";
+    let roman = "";
+    if (text && typeof text === "object") {
+      primary = text.gurmukhi || text.roman || "";
+      roman = text.roman || text.gurmukhi || "";
+    } else {
+      primary = roman = String(text || "");
+    }
+    if (!primary.trim()) return;
     primeSpeech();
     try {
       if ("speechSynthesis" in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
@@ -5529,30 +5549,40 @@
     } catch {}
     try { if (tts.audio) { tts.audio.pause(); tts.audio.src = ""; tts.audio = null; } } catch {}
 
-    const voice = lang === "en" ? tts.voiceEnglish : tts.voicePunjabi;
-    const langTag = lang === "en" ? "en-US" : (voice?.lang || "pa-IN");
-    console.log("[PPZ TTS] speak:", text, "lang:", lang, "voice:", voice && voice.name);
-
-    // Punjabi without a Punjabi voice → Web Speech would read Gurmukhi with
-    // the English voice (gibberish). Use Google TTS directly instead.
-    if (lang === "pa" && !voice) {
-      if (navigator.onLine) {
-        speakViaGoogle(text, "pa");
-      } else {
-        toast("Punjabi voice not installed. iOS Settings → Accessibility → Spoken Content → Voices → Punjabi.", 4500);
-      }
+    if (lang === "en") {
+      const voice = tts.voiceEnglish;
+      console.log("[PPZ TTS] EN speak:", primary, "voice:", voice && voice.name);
+      if ("speechSynthesis" in window && speakViaWebSpeech(primary, voice, "en-US")) return;
+      if (navigator.onLine) speakViaGoogle(primary, "en");
+      else toast("Audio needs internet (no English voice).");
       return;
     }
 
-    if ("speechSynthesis" in window) {
-      const ok = speakViaWebSpeech(text, voice, langTag);
-      if (ok) return;
+    // ---- Punjabi --------------------------------------------------------
+    // Best: real Punjabi voice if installed.
+    if (tts.voicePunjabi) {
+      console.log("[PPZ TTS] PA (native) speak:", primary, "voice:", tts.voicePunjabi.name);
+      if (speakViaWebSpeech(primary, tts.voicePunjabi, tts.voicePunjabi.lang || "pa-IN")) return;
     }
-    if (!navigator.onLine) {
-      toast(lang === "pa" ? "Audio needs internet (no Punjabi voice installed)." : "Audio needs internet (no English voice installed).");
-      return;
+    // Fallback A: Hindi voice reading the ROMAN transliteration.
+    // iOS ships with Hindi voices ("Lekha"/"Kiran"/etc.) and Hindi TTS
+    // pronounces Latin letters using Indic phonetics — sounds very close to
+    // actual Punjabi when given roman text.
+    if (tts.voiceHindi && roman) {
+      console.log("[PPZ TTS] PA (Hindi-roman) speak:", roman, "voice:", tts.voiceHindi.name);
+      if (speakViaWebSpeech(roman, tts.voiceHindi, tts.voiceHindi.lang || "hi-IN")) return;
     }
-    speakViaGoogle(text, lang);
+    // Fallback B: Web Speech with hi-IN lang only (no specific voice).
+    if ("speechSynthesis" in window && roman) {
+      console.log("[PPZ TTS] PA (lang=hi-IN) speak:", roman);
+      if (speakViaWebSpeech(roman, null, "hi-IN")) return;
+    }
+    // Fallback C: online Google TTS as last resort.
+    if (navigator.onLine) {
+      speakViaGoogle(primary, "pa");
+    } else {
+      toast("Punjabi voice not available. Install in iOS Settings → Accessibility → Spoken Content → Voices.", 4500);
+    }
   }
 
   /**
@@ -5565,10 +5595,16 @@
     if (!card) return;
     const en2pa = isReverse();
     const lang = opts.lang || (en2pa ? "pa" : "en");
-    const text = lang === "pa"
-      ? (gurmukhiFor(card) || card.punjabi || "")
-      : (card.english || "");
-    speakText(text, lang);
+    if (lang === "pa") {
+      // Pass both forms so the engine can pick the best (Punjabi voice → Gurmukhi,
+      // Hindi-fallback voice → Roman transliteration).
+      speakText({
+        gurmukhi: gurmukhiFor(card) || card.punjabi || "",
+        roman:    card.punjabi || "",
+      }, "pa");
+    } else {
+      speakText(card.english || "", "en");
+    }
   }
 
   function maybeShowVoiceHint() {
