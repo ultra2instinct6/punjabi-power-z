@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d18" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Punjabi Power Z" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Punjabi Power Z — Warrior from Peshtigo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="apple-touch-icon" href="assets/logo.png" />
+</head>
+<body>
+  <!-- Persistent top HUD -->
+  <header class="hud" id="hud" hidden>
+    <div class="hud-left">
+      <span class="badge" id="rankBadge" aria-live="polite">Peshtigo Beginner</span>
+      <span class="level" id="levelLabel">Lv 1</span>
+    </div>
+    <div class="hud-mid">
+      <div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Experience">
+        <div class="xpbar-fill" id="xpFill"></div>
+        <span class="xpbar-text" id="xpText">0 / 50 XP</span>
+      </div>
+    </div>
+    <div class="hud-right">
+      <button class="icon-btn" id="hudHomeBtn" aria-label="Back to home">🏠</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- START -->
+    <section class="screen active" data-screen="start" id="screen-start">
+      <div class="title-wrap">
+        <div class="logo-stage">
+          <img src="assets/logo.png" alt="Punjabi Power Z — Warrior from Peshtigo" class="app-logo" />
+        </div>
+      </div>
+      <div class="menu">
+        <button class="big-btn primary" data-action="goto-train">🥋 Train Mode</button>
+        <button class="big-btn secondary" data-action="goto-battle">⚔️ Battle Mode</button>
+        <button class="big-btn ghost" data-action="goto-settings">⚙️ Settings</button>
+      </div>
+      <p class="footer-note">Romanized Punjabi · No account needed · Saves on this device</p>
+    </section>
+
+    <!-- TRAIN -->
+    <section class="screen" data-screen="train" id="screen-train">
+      <div class="screen-head">
+        <h2>🥋 Training Room</h2>
+        <div class="stats">
+          <span>Mastery: <strong id="trainMastery">0%</strong></span>
+          <span>Session XP: <strong id="trainSessionXp">0</strong></span>
+          <span title="Streak Shield">🛡️ <strong id="trainShield">0</strong></span>
+          <span title="Ki Charge">⚡ <strong id="trainKi">0</strong></span>
+        </div>
+        <div class="srs-meter" id="srsMeter" aria-live="polite">
+          <span class="srs-chip" title="Cards due now">Due <strong id="srsDue">0</strong></span>
+          <span class="srs-chip" title="New cards introduced today / daily cap">New <strong id="srsNew">0</strong>/<span id="srsNewCap">0</span></span>
+          <span class="srs-chip" title="Cards in learning steps">Learning <strong id="srsLearning">0</strong></span>
+          <span class="srs-chip" title="Cards in relearning after a lapse">Relearn <strong id="srsRelearning">0</strong></span>
+        </div>
+        <div class="srs-breakdown" id="srsBreakdown" aria-label="Card breakdown">
+          <span class="bd-chip new" title="New (not yet started)"><span class="bd-dot"></span>New <strong id="bdNew">0</strong></span>
+          <span class="bd-chip learning" title="In learning steps"><span class="bd-dot"></span>Learning <strong id="bdLearning">0</strong></span>
+          <span class="bd-chip young" title="Reviewing, interval &lt; 21d"><span class="bd-dot"></span>Young <strong id="bdYoung">0</strong></span>
+          <span class="bd-chip mature" title="Reviewing, interval &ge; 21d"><span class="bd-dot"></span>Mature <strong id="bdMature">0</strong></span>
+          <span class="bd-chip mastered" title="Mastered (long interval, &le;1 lapse)"><span class="bd-dot"></span>Mastered <strong id="bdMastered">0</strong></span>
+        </div>
+        <div class="srs-forecast" id="srsForecast" aria-label="7-day review forecast">
+          <span class="forecast-label">Next 7d</span>
+          <div class="forecast-bars" id="forecastBars"></div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="flashcard" tabindex="0" aria-label="Flashcard">
+        <div class="card-face front">
+          <span class="card-type" id="cardType">vocab</span>
+          <div class="prompt-row">
+            <p class="card-prompt" id="cardPrompt">paani</p>
+            <button class="speak-btn" id="speakFront" type="button" aria-label="Play pronunciation" title="Play pronunciation">🔊</button>
+          </div>
+          <button class="reveal-btn" id="revealBtn">Reveal</button>
+        </div>
+        <div class="card-face back" id="cardBack" hidden>
+          <div class="prompt-row">
+            <p class="card-prompt small" id="cardPromptBack">paani</p>
+            <button class="speak-btn" id="speakBackPa" type="button" aria-label="Play Punjabi pronunciation" title="Play Punjabi pronunciation">🔊<span class="speak-lang">PA</span></button>
+          </div>
+          <p class="card-gurmukhi" id="cardGurmukhiBack" hidden></p>
+          <div class="prompt-row prompt-row-en">
+            <p class="card-english" id="cardEnglish">water</p>
+            <button class="speak-btn" id="speakBackEn" type="button" aria-label="Play English pronunciation" title="Play English pronunciation">🔊<span class="speak-lang">EN</span></button>
+          </div>
+          <p class="card-def" id="cardDef"></p>
+          <p class="card-related" id="cardRelated"></p>
+          <p class="card-example" id="cardExample"></p>
+        </div>
+      </div>
+
+      <div class="srs-row" id="srsRow" hidden>
+        <button class="srs again"  data-grade="again">Again<span>+2 XP</span></button>
+        <button class="srs hard"   data-grade="hard">Hard<span>+5 XP</span></button>
+        <button class="srs good"   data-grade="good">Good<span>+10 XP</span></button>
+        <button class="srs easy"   data-grade="easy">Easy<span>+15 XP</span></button>
+      </div>
+
+      <!-- Random training interrupt event panel -->
+      <div class="train-event" id="trainEvent" hidden aria-live="polite">
+        <div class="event-banner" id="eventBanner">
+          <span class="event-icon" id="eventIcon">⚡</span>
+          <span class="event-title" id="eventTitle">ENERGY SURGE DETECTED!</span>
+        </div>
+        <div class="event-timerbar"><div class="event-timerbar-fill" id="eventTimerFill"></div></div>
+        <p class="event-prompt-label" id="eventPromptLabel">Translate to English:</p>
+        <p class="event-prompt" id="eventPrompt">paani</p>
+        <div class="event-choices" id="eventChoices" role="listbox" aria-label="Choices">
+          <button class="choice" data-i="0"></button>
+          <button class="choice" data-i="1"></button>
+          <button class="choice" data-i="2"></button>
+          <button class="choice" data-i="3"></button>
+        </div>
+        <div class="event-meta">
+          <span>Combo: <strong id="eventCombo">0</strong></span>
+          <span>Score: <strong id="eventScore">0</strong></span>
+          <button class="link-btn" id="eventForfeit">Forfeit</button>
+        </div>
+      </div>
+
+      <button class="link-btn" data-action="goto-start">← Back</button>
+    </section>
+
+    <!-- BATTLE -->
+    <section class="screen" data-screen="battle" id="screen-battle">
+      <!-- Stage HUD: progress dots + pause -->
+      <div class="stage-hud" id="stageHud">
+        <div class="stage-dots" id="stageDots" aria-label="Stage progress"></div>
+        <div class="stage-label" id="stageLabel">Stage 1 / 10</div>
+        <button class="icon-btn pause-btn" id="pauseBtn" aria-label="Pause">⏸</button>
+      </div>
+
+      <div class="arena">
+        <div class="combatant enemy">
+          <div class="sprite" id="enemySprite">
+            <img src="assets/enemy.png" alt="Enemy" class="avatar-img enemy-img" id="enemyImg" hidden />
+            <span class="enemy-emoji" id="enemyEmoji" aria-hidden="true">🤖</span>
+            <span class="enemy-charge-aura" id="enemyChargeAura" aria-hidden="true"></span>
+          </div>
+          <div class="name"><span id="enemyName">Training Bot</span> <span class="enemy-tier-tag" id="enemyTierTag" hidden></span></div>
+          <div class="hpbar"><div class="hpbar-fill" id="enemyHpFill"></div><span id="enemyHpText">100/100</span></div>
+          <!-- legacy small badge kept hidden; banner replaces it -->
+          <div class="telegraph" id="enemyTelegraph" hidden>
+            <span class="tg-label" id="enemyTgLabel">Charging Death Beam</span>
+            <span class="tg-turns" id="enemyTgTurns">2</span>
+          </div>
+        </div>
+
+        <div class="vs">VS</div>
+
+        <div class="combatant player" id="playerBox">
+          <div class="sprite player-sprite" id="playerSprite">
+            <span class="shield-aura" id="shieldAura" aria-hidden="true"></span>
+            <span class="transform-aura" id="transformAura" aria-hidden="true"></span>
+            <img src="assets/avatar.png" alt="Your warrior avatar" class="avatar-img" />
+          </div>
+          <div class="name">You <span class="tier-tag" id="tierTag" hidden></span></div>
+          <div class="hpbar"><div class="hpbar-fill player" id="playerHpFill"></div><span id="playerHpText">100/100</span></div>
+          <div class="kibar" aria-label="Ki Meter">
+            <div class="kibar-fill" id="kiFill"></div>
+            <span class="kibar-label">KI</span>
+          </div>
+          <div class="streak">Streak: <strong id="streakLabel">0</strong> · 🛡️ <strong id="battleShield">0</strong></div>
+        </div>
+
+        <!-- Telegraph banner (charges across 2 turns) -->
+        <div class="telegraph-banner" id="telegraphBanner" hidden>
+          <div class="tb-icon">⚠️</div>
+          <div class="tb-body">
+            <div class="tb-title">Charging</div>
+            <div class="tb-move" id="tbMove">Death Beam</div>
+            <div class="tb-bar"><div class="tb-bar-fill" id="tbBarFill"></div></div>
+          </div>
+        </div>
+
+        <!-- Pre-battle intro card -->
+        <div class="intro-card" id="introCard" hidden>
+          <div class="intro-tag" id="introTag">Stage 1</div>
+          <div class="intro-emoji" id="introEmoji">🤖</div>
+          <div class="intro-name" id="introName">Training Bot</div>
+          <div class="intro-flavor" id="introFlavor">A friendly first opponent.</div>
+          <div class="intro-meta"><span id="introHp">HP 100</span> · <span id="introTier">Minion</span></div>
+        </div>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head">
+          <p class="quiz-prompt-label" id="quizPromptLabel">Translate to English:</p>
+          <div class="quiz-timer" aria-label="Time left">
+            <div class="quiz-timer-fill" id="quizTimerFill"></div>
+          </div>
+        </div>
+        <p class="quiz-prompt" id="quizPrompt">paani</p>
+        <div class="choices" id="choices" role="listbox" aria-label="Choices">
+          <button class="choice" data-i="0"></button>
+          <button class="choice" data-i="1"></button>
+          <button class="choice" data-i="2"></button>
+          <button class="choice" data-i="3"></button>
+        </div>
+      </div>
+
+      <!-- KI Special Floating Action Button -->
+      <button class="ki-fab" id="kiFab" type="button" aria-label="Ki Special (interrupts enemy)" disabled>
+        <span class="ki-fab-icon">⚡</span>
+        <span class="ki-fab-ring"></span>
+        <span class="ki-fab-label">KI</span>
+      </button>
+
+      <button class="link-btn" id="retreatBtn">← Retreat</button>
+
+      <!-- Pause overlay -->
+      <div class="pause-overlay" id="pauseOverlay" hidden>
+        <div class="pause-card">
+          <h3>Paused</h3>
+          <p class="muted">Take a breath. Your timer is frozen.</p>
+          <button class="big-btn primary" id="resumeBtn">Resume</button>
+          <button class="big-btn ghost" id="pauseRetreatBtn">Retreat</button>
+        </div>
+      </div>
+
+      <!-- Retreat confirm -->
+      <div class="confirm-overlay" id="confirmRetreat" hidden>
+        <div class="pause-card">
+          <h3>Retreat from battle?</h3>
+          <p class="muted">Your run progress will be lost.</p>
+          <div class="confirm-actions">
+            <button class="big-btn ghost" id="cancelRetreat">Stay</button>
+            <button class="big-btn danger" id="confirmRetreatBtn">Retreat</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Onboarding coach marks -->
+      <div class="coach-overlay" id="coachOverlay" hidden>
+        <div class="coach-card" id="coachCard">
+          <h3 id="coachTitle">Welcome, warrior!</h3>
+          <p id="coachBody">Tap the right answer to attack. Streaks unlock transformations.</p>
+          <div class="coach-actions">
+            <button class="link-btn" id="coachSkip">Skip</button>
+            <button class="big-btn primary" id="coachNext">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pre-battle stage selector (difficulty + start) -->
+      <div class="prebattle-overlay" id="prebattleOverlay" hidden>
+        <div class="pause-card">
+          <h3>Choose difficulty</h3>
+          <div class="diff-segment" id="diffSegment" role="radiogroup">
+            <button class="diff-opt" data-diff="easy">Easy</button>
+            <button class="diff-opt" data-diff="normal">Normal</button>
+            <button class="diff-opt" data-diff="hard">Hard</button>
+            <button class="diff-opt" data-diff="endless">Endless</button>
+          </div>
+          <p class="muted" id="diffDesc">Normal — 10 fights, classic timer.</p>
+          <button class="big-btn primary" id="startRunBtn">Start Run</button>
+          <button class="link-btn" id="prebattleCancel">Back</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BATTLE RESULTS -->
+    <section class="screen" data-screen="battle-results" id="screen-battle-results">
+      <div class="results-card">
+        <div class="results-banner" id="resultsBanner">VICTORY</div>
+        <div class="results-stage" id="resultsStage">Stage 10 cleared</div>
+        <div class="results-stats" id="resultsStats"></div>
+        <div class="results-pbs" id="resultsPbs"></div>
+        <div class="results-actions">
+          <button class="big-btn primary" data-action="goto-battle">Battle Again</button>
+          <button class="big-btn secondary" data-action="goto-train">Train</button>
+          <button class="big-btn ghost" data-action="goto-start">Home</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="screen" data-screen="settings" id="screen-settings">
+      <div class="screen-head">
+        <h2>Settings</h2>
+      </div>
+
+      <div class="settings-list">
+
+        <!-- GAMEPLAY -->
+        <p class="settings-group-header">Gameplay</p>
+        <div class="settings-group">
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Random Training Events</h3>
+              <p class="muted">Speed Burst, Recall Attack, and Mind Trap interruptions during Train Mode.</p>
+            </div>
+            <label class="ios-switch" aria-label="Random training events">
+              <input type="checkbox" id="interruptsToggle" checked />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="setting-row column">
+            <div class="setting-main">
+              <h3>Learning Direction</h3>
+              <p class="muted">Choose which language is the prompt.</p>
+            </div>
+            <div class="diff-segment" id="directionSegment" role="radiogroup" aria-label="Learning direction">
+              <button class="diff-opt" data-dir="en2pa">English → Punjabi</button>
+              <button class="diff-opt" data-dir="pa2en">Punjabi → English</button>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Confirm Retreat</h3>
+              <p class="muted">Ask before leaving a battle in progress.</p>
+            </div>
+            <label class="ios-switch" aria-label="Confirm retreat">
+              <input type="checkbox" id="confirmRetreatToggle" checked />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="setting-row column">
+            <div class="setting-main row-title-line">
+              <h3>New Cards / Day</h3>
+              <span class="value-pill" id="newPerDayLabel">5</span>
+            </div>
+            <p class="muted">Daily intro cap for brand-new words. Adapts down if backlog or recent lapses pile up.</p>
+            <input type="range" id="newPerDayBase" class="ios-slider" min="1" max="15" value="5" aria-label="New cards per day" />
+          </div>
+
+          <button class="setting-row destructive-row" id="resetShakyBtn" type="button">
+            <span class="row-action-label">Reset Shaky-Card Flags</span>
+            <span class="muted small">Clear cards flagged from battle misses</span>
+          </button>
+        </div>
+
+        <!-- AUDIO -->
+        <p class="settings-group-header">Audio</p>
+        <div class="settings-group">
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Audio Auto-play</h3>
+              <p class="muted">Speaks the answer side after each card flip. Tap 🔊 anytime.</p>
+            </div>
+            <label class="ios-switch" aria-label="Audio auto-play">
+              <input type="checkbox" id="ttsAutoplayToggle" />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="setting-row column">
+            <div class="setting-main row-title-line">
+              <h3>Battle Sound FX</h3>
+              <span class="value-pill" id="sfxVolLabel">70%</span>
+            </div>
+            <input type="range" id="sfxVol" class="ios-slider" min="0" max="100" value="70" aria-label="Battle sound FX volume" />
+          </div>
+
+          <div class="setting-row column">
+            <div class="setting-main row-title-line">
+              <h3>Battle Music</h3>
+              <span class="value-pill" id="musicVolLabel">40%</span>
+            </div>
+            <input type="range" id="musicVol" class="ios-slider" min="0" max="100" value="40" aria-label="Battle music volume" />
+          </div>
+        </div>
+
+        <!-- RECORDS -->
+        <p class="settings-group-header">Battle Records</p>
+        <div class="settings-group">
+          <div class="setting-row column">
+            <ul class="records-list" id="recordsList"></ul>
+          </div>
+        </div>
+
+        <!-- DATA -->
+        <p class="settings-group-header">Data</p>
+        <div class="settings-group">
+          <button class="setting-row destructive-row" id="resetBtn" type="button">
+            <span class="row-action-label">Reset Progress</span>
+            <span class="muted small">Cannot be undone</span>
+          </button>
+        </div>
+
+        <!-- ABOUT -->
+        <p class="settings-group-header">About</p>
+        <div class="settings-group">
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Punjabi Power Z</h3>
+              <p class="muted">Warrior from Peshtigo — a kid-friendly Punjabi learning game inspired by anime training arcs.</p>
+            </div>
+            <span class="version">v0.1.0</span>
+          </div>
+        </div>
+
+        <p class="settings-footer-note">All progress is stored on this device. No account, no tracking.</p>
+      </div>
+
+      <button class="link-btn" data-action="goto-start">← Back</button>
+    </section>
+
+    <!-- Level up / rank up overlay -->
+    <div class="levelup" id="levelup" aria-hidden="true">
+      <div class="levelup-card">
+        <div class="levelup-flash"></div>
+        <h2 id="levelupTitle">LEVEL UP!</h2>
+        <p id="levelupSub">You reached Lv 2</p>
+        <p class="rank" id="levelupRank"></p>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <!-- Cinematic screen-transition veil -->
+  <div class="transition-veil" id="transitionVeil" aria-hidden="true">
+    <div class="tv-iris"></div>
+    <div class="tv-streaks"></div>
+    <div class="tv-flash"></div>
+  </div>
+
+  <!-- Global FX overlay (works across all screens) -->
+  <div class="fx" id="fx" aria-hidden="true">
+    <div class="fx-inner" id="fxInner"></div>
+  </div>
+
+  <!-- Instant answer feedback vignette -->
+  <div class="answer-flash" id="answerFlash" aria-hidden="true"></div>
+
+  <script defer src="script.js"></script>
+</body>
+</html>
