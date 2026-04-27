@@ -195,6 +195,12 @@ button:focus-visible {
   margin: 0 auto;
   padding: 16px 16px calc(var(--sa-bottom) + 24px);
 }
+/* When the HUD is hidden (start screen, etc.), the HUD no longer pushes
+   content below the Dynamic Island / notch. Add the top safe-area inset
+   directly so the logo and titles don't collide with the status bar. */
+#app:has(> header.hud[hidden]) {
+  padding-top: calc(var(--sa-top) + 16px);
+}
 .screen { display: none; }
 .screen.active {
   display: block;
