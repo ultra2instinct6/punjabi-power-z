@@ -77,6 +77,8 @@
         </div>
       </div>
 
+      <div class="card-queue-strip" id="cardQueueChip" aria-label="Queue snapshot"></div>
+
       <div class="flashcard" id="flashcard" tabindex="0" aria-label="Flashcard">
         <div class="card-face front">
           <span class="card-type" id="cardType">vocab</span>
@@ -99,6 +101,8 @@
           <p class="card-def" id="cardDef"></p>
           <p class="card-related" id="cardRelated"></p>
           <p class="card-example" id="cardExample"></p>
+          <div class="card-history" id="cardHistory" aria-label="Recent grades"></div>
+          <button class="link-btn bury-btn" id="buryBtn" type="button" title="Snooze this card until tomorrow (b)">💤 Bury until tomorrow</button>
         </div>
       </div>
 
@@ -151,7 +155,7 @@
             <span class="enemy-charge-aura" id="enemyChargeAura" aria-hidden="true"></span>
           </div>
           <div class="name"><span id="enemyName">Training Bot</span> <span class="enemy-tier-tag" id="enemyTierTag" hidden></span></div>
-          <div class="hpbar"><div class="hpbar-fill" id="enemyHpFill"></div><span id="enemyHpText">100/100</span></div>
+          <div class="hpbar"><div class="hpbar-ghost" id="enemyHpGhost"></div><div class="hpbar-fill" id="enemyHpFill"></div><span id="enemyHpText">100/100</span></div>
           <!-- legacy small badge kept hidden; banner replaces it -->
           <div class="telegraph" id="enemyTelegraph" hidden>
             <span class="tg-label" id="enemyTgLabel">Charging Death Beam</span>
@@ -168,7 +172,7 @@
             <img src="assets/avatar.png" alt="Your warrior avatar" class="avatar-img" />
           </div>
           <div class="name">You <span class="tier-tag" id="tierTag" hidden></span></div>
-          <div class="hpbar"><div class="hpbar-fill player" id="playerHpFill"></div><span id="playerHpText">100/100</span></div>
+          <div class="hpbar"><div class="hpbar-ghost" id="playerHpGhost"></div><div class="hpbar-fill player" id="playerHpFill"></div><span id="playerHpText">100/100</span></div>
           <div class="kibar" aria-label="Ki Meter">
             <div class="kibar-fill" id="kiFill"></div>
             <span class="kibar-label">KI</span>
@@ -443,6 +447,17 @@
 
   <!-- Confetti layer (victory) -->
   <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <!-- Beam sweep + named-attack overlays (enemy charged specials) -->
+  <div class="beam-fx" id="beamFx" aria-hidden="true"></div>
+  <div class="named-attack" id="namedAttack" aria-hidden="true">
+    <span class="named-attack-text" id="namedAttackText"></span>
+  </div>
+
+  <!-- Streak milestone fanfare badge -->
+  <div class="streak-fanfare" id="streakFanfare" aria-hidden="true">
+    <div class="streak-fanfare-badge" id="streakFanfareBadge">x10!</div>
+  </div>
 
   <script defer src="script.js?v=metalhype-1"></script>
 </body>

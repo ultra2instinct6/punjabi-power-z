@@ -5078,6 +5078,16 @@
     if (!state.dailyStats[k]) state.dailyStats[k] = { newIntroduced: 0, lapses: 0, reviews: 0 };
     return state.dailyStats[k];
   }
+  // Returns the ms timestamp of the next study-day rollover (4 AM local by
+  // default). Used by Bury so a buried card sleeps until the next "study day"
+  // begins, matching the rest of our day-bucketing logic.
+  function startOfNextStudyDay(now = Date.now()) {
+    const offsetMs = SRS.STUDY_DAY_OFFSET_HOURS * 3600_000;
+    const shifted = new Date(now - offsetMs);
+    shifted.setHours(0, 0, 0, 0);
+    // Next midnight in shifted-time + offset gets us back to wall-clock 4 AM tomorrow.
+    return shifted.getTime() + 86_400_000 + offsetMs;
+  }
   function recentLapses(ms = SRS.LAPSE_LOOKBACK_MS) {
     if (!state.dailyStats) return 0;
     const cutoff = Date.now() - ms;
@@ -5968,11 +5978,34 @@
   }
 
   // ---------- Battle feedback helpers ----------------------------------------
+  // D3 — Tiny DOM particle pool. Reuses detached <span> nodes for hot-spawn
+  //      effects (dmg-pop, ko-puff) to cut GC churn during long combos.
+  const _particlePool = { dmg: [], ko: [] };
+  function _acquireParticle(kind, baseClass) {
+    const pool = _particlePool[kind];
+    let el = pool && pool.pop();
+    if (!el) {
+      el = document.createElement("span");
+    }
+    el.className = baseClass;
+    el.style.cssText = "";
+    el.textContent = "";
+    return el;
+  }
+  function _releaseParticle(kind, el) {
+    if (!el) return;
+    if (el.parentNode) el.parentNode.removeChild(el);
+    el.className = "";
+    el.style.cssText = "";
+    el.textContent = "";
+    const pool = _particlePool[kind];
+    if (pool && pool.length < 24) pool.push(el);
+  }
+
   function popDamage(combatantSel, amount, kind = "dmg") {
     const host = document.querySelector(combatantSel);
     if (!host) return;
-    const el = document.createElement("span");
-    el.className = "dmg-pop";
+    const el = _acquireParticle("dmg", "dmg-pop");
     if (kind === "crit") el.classList.add("crit");
     else if (kind === "heal") el.classList.add("heal");
     else if (kind === "miss") el.classList.add("miss");
@@ -5986,7 +6019,7 @@
     }
     el.textContent = (kind === "heal" ? "+" : kind === "miss" ? "" : "-") + amount;
     host.appendChild(el);
-    setTimeout(() => el.remove(), 1100);
+    setTimeout(() => _releaseParticle("dmg", el), 1100);
   }
   function flashHp(sel, kind = "hit") {
     const el = document.querySelector(sel);
@@ -5995,6 +6028,34 @@
     void el.offsetWidth;
     el.classList.add(kind === "heal" ? "heal" : "hit");
     setTimeout(() => el.classList.remove("hit", "heal"), 500);
+  }
+
+  // B6 — HP bar ghost-drain. Snap a "ghost" fill to the previous HP%, then
+  //      let CSS slide it down to match the new live width — the gap shows
+  //      the chunk just lost (or gained) as a pale flash.
+  //      sel: "#enemyHpFill" or "#playerHpFill" (the live fill).
+  //      prevPct/newPct: 0..100.
+  function ghostDrainHp(sel, prevPct, newPct, kind = "hit") {
+    const ghostId = sel === "#enemyHpFill" ? "enemyHpGhost" : "playerHpGhost";
+    const ghost = document.getElementById(ghostId);
+    if (!ghost) return;
+    const start = Math.max(0, Math.min(100, prevPct));
+    const end   = Math.max(0, Math.min(100, newPct));
+    ghost.classList.remove("fading", "heal");
+    if (kind === "heal") ghost.classList.add("heal");
+    // Snap to start without transition, then animate to end.
+    const prevTransition = ghost.style.transition;
+    ghost.style.transition = "none";
+    ghost.style.width = start + "%";
+    void ghost.offsetWidth;
+    ghost.style.transition = prevTransition;
+    requestAnimationFrame(() => {
+      ghost.style.width = end + "%";
+    });
+    clearTimeout(ghostDrainHp["_t_" + ghostId]);
+    ghostDrainHp["_t_" + ghostId] = setTimeout(() => {
+      ghost.classList.add("fading");
+    }, 700);
   }
   function flashSprite(sel, opts = {}) {
     const el = document.querySelector(sel);
@@ -6649,6 +6710,7 @@
       back.hidden = false;
       srs.hidden = false;
       renderSrsButtonHints(c.id);
+      renderCardHistory(c.id);
     } else {
       front.hidden = false;
       back.hidden = true;
@@ -6711,6 +6773,18 @@
     set("#bdMature", bdMature);
     set("#bdMastered", bdMastered);
 
+    // Compact inline queue snapshot shown directly above the flashcard so
+    // users feel the queue draining as they grade.
+    const chip = $("#cardQueueChip");
+    if (chip) {
+      chip.innerHTML =
+        `<span class="cq cq-new">New <strong>${bdNew}</strong></span>`
+        + `<span class="cq-sep">·</span>`
+        + `<span class="cq cq-learn">Learn <strong>${bdLearn}</strong></span>`
+        + `<span class="cq-sep">·</span>`
+        + `<span class="cq cq-due">Due <strong>${dueCount}</strong></span>`;
+    }
+
     // 7-day forecast bars (lightweight CSS).
     const wrap = $("#forecastBars");
     if (wrap) {
@@ -6770,6 +6844,29 @@
     set("#srsSubEasy",  formatPreview(previewGradeInterval(cardId, "easy")));
   }
 
+  // Per-card last-5 grade sparkline rendered on the back face. Glyphs are
+  // small and theme-color-driven via CSS classes so dark/light look correct.
+  function renderCardHistory(cardId) {
+    const el = $("#cardHistory");
+    if (!el) return;
+    const srs = state.srs[cardId];
+    const hist = (srs && Array.isArray(srs.history)) ? srs.history.slice(-5) : [];
+    if (!hist.length) {
+      el.innerHTML = '<span class="h-empty">No history yet</span>';
+      return;
+    }
+    const glyph = { a: "✗", h: "◦", g: "✓", e: "★" };
+    const label = { a: "Again", h: "Hard", g: "Good", e: "Easy" };
+    // Pad on the LEFT so newest is always rightmost (latest-on-right reading).
+    const padCount = 5 - hist.length;
+    let html = "";
+    for (let i = 0; i < padCount; i++) html += '<span class="h-slot h-empty">·</span>';
+    for (const g of hist) {
+      html += `<span class="h-slot h-${g}" title="${label[g] || g}">${glyph[g] || "·"}</span>`;
+    }
+    el.innerHTML = html;
+  }
+
   function gradeCard(grade) {
     const c = train.current;
     const srs = state.srs[c.id];
@@ -6816,6 +6913,25 @@
       && (srs.lapses || 0) <= SRS.MASTERY_MAX_LAPSES;
   }
 
+  // Snooze a card until the next study-day rollover (4 AM local). Awards no
+  // XP, doesn't count as a miss for interrupt purposes, and resets the
+  // session correct-streak so users can't game it for combo bonuses. Used by
+  // the "Bury" button + the `b` keyboard shortcut.
+  function buryUntilTomorrow(cardId) {
+    const srs = state.srs[cardId];
+    if (!srs) return;
+    srs.due = startOfNextStudyDay();
+    train.consecutiveCorrect = 0;
+    train.cardsSinceInterrupt += 1;
+    saveState();
+    toast("Buried until tomorrow", 1100);
+    train.current = pickNextCard();
+    train.revealed = false;
+    renderCard();
+    updateTrainStats();
+    armIdleTimer();
+  }
+
   // Apply an SRS grade across queues. Returns XP earned.
   function applySrsGrade(cardId, grade) {
     const srs = state.srs[cardId];
@@ -6828,6 +6944,12 @@
     const mult = levelRewardMult();
     let xp = Math.round((xpMap[grade] || 0) * mult);
     const wasMastered = isMastered(srs);
+
+    // Rolling per-card grade history (last 5). Stored as a compact char array
+    // ('a'/'h'/'g'/'e') so existing saves auto-upgrade with zero migration.
+    if (!Array.isArray(srs.history)) srs.history = [];
+    srs.history.push(grade[0]);
+    if (srs.history.length > 5) srs.history.splice(0, srs.history.length - 5);
 
     // Helper: graduate from learning to review.
     const graduate = (intervalDays, easeBump = 0) => {
@@ -7024,11 +7146,13 @@
     const _ps = document.querySelector("#playerSprite");
     if (_ps) _ps.classList.remove("ko");
     const _ar = document.querySelector("#screen-battle .arena");
-    if (_ar) _ar.classList.remove("dim-out", "frozen", "arena-punch", "arena-shake");
+    if (_ar) _ar.classList.remove("dim-out", "frozen", "arena-punch", "arena-shake", "hp-critical");
     const _ov = document.getElementById("defeatOverlay");
     if (_ov) _ov.classList.remove("show");
     const _cl = document.getElementById("confettiLayer");
     if (_cl) _cl.innerHTML = "";
+    // C6 — Begin enemy idle micro-animation loop.
+    startEnemyIdle();
     const diff = getDifficulty();
     battle = {
       enemyIdx: 0,
@@ -7298,8 +7422,18 @@
     const enemyEmoji = $("#enemyEmoji");
     const enemyCombatant = document.querySelector(".combatant.enemy");
     if (enemyCombatant) {
+      const _wasTier = enemyCombatant.classList.contains("boss") ? "boss"
+                     : enemyCombatant.classList.contains("elite") ? "elite" : "minion";
+      const _newTier = battle.enemy.tier || "minion";
       enemyCombatant.classList.remove("minion", "elite", "boss");
-      enemyCombatant.classList.add(battle.enemy.tier || "minion");
+      enemyCombatant.classList.add(_newTier);
+      // C2 — Boss intro one-shot when a boss first appears (tier changes to boss).
+      if (_newTier === "boss" && _wasTier !== "boss") {
+        enemyCombatant.classList.remove("entered");
+        void enemyCombatant.offsetWidth;
+        enemyCombatant.classList.add("entered");
+        setTimeout(() => enemyCombatant.classList.remove("entered"), 950);
+      }
     }
     if (battle.enemy.isBoss) {
       if (enemyImg) enemyImg.hidden = false;
@@ -7332,6 +7466,8 @@
     // #4 Low-HP danger vignette
     const arenaEl = document.querySelector("#screen-battle .arena");
     if (arenaEl) arenaEl.classList.toggle("low-hp", (battle.playerHp / battle.playerMax) < 0.25);
+    // C1 + C7 — Update arena tint + low-HP pulse cadence.
+    updateArenaHue();
     $("#kiFill").style.width = battle.ki + "%";
     $("#streakLabel").textContent = String(battle.streak);
     const sb = $("#battleShield"); if (sb) sb.textContent = String(state.streakShield || 0);
@@ -7484,6 +7620,15 @@
       buzz([20, 40, 30]);
       applyTransformVisual();
     }
+    // A5 — Streak milestone fanfare at 5 / 10 / 25 / 50 / 100 / and every
+    //      100 thereafter. Fires alongside (not instead of) the existing
+    //      labelled special damage.
+    {
+      const _s = battle.streak;
+      const _milestone = (_s === 5) || (_s === 10) || (_s === 25) || (_s === 50)
+        || (_s === 100) || (_s > 100 && _s % 100 === 0);
+      if (_milestone) streakFanfare(_s);
+    }
     // Damage = base * tier mult * speed bonus
     const base = playerAttack(battle.streak);
     const tierMult = BATTLE.TIER_DMG_MULT[battle.tier || 0];
@@ -7491,7 +7636,9 @@
     const speedFactor = clamp(1 - (elapsed / battle.questionDuration), 0, 1);
     const speedBonus = 1 + BATTLE.SPEED_BONUS_MAX * speedFactor;
     const dmg = Math.round(base * tierMult * speedBonus);
+    const _enemyPrevPct = (battle.enemy.hp / battle.enemy.maxHp) * 100;
     battle.enemy.hp = Math.max(0, battle.enemy.hp - dmg);
+    ghostDrainHp("#enemyHpFill", _enemyPrevPct, (battle.enemy.hp / battle.enemy.maxHp) * 100);
     if (speedFactor > 0.6) {
       const pct = Math.round((speedBonus - 1) * 100);
       // #9 Throttle: only toast big bonuses (>=30%) or every 6s, never both.
@@ -7515,6 +7662,8 @@
     flashSprite("#enemySprite", { crit: isCrit });
     flashHp("#enemyHpFill");
     shakeEl("#enemySprite");
+    // B4 — Anime motion lines streaking toward the enemy on every hit.
+    playMotionLines("ltr", isCrit ? 7 : 5);
     // B1+B2+B3 — Crits get hit-stop, camera punch, and a spark burst.
     if (isCrit) {
       spawnCritSparks("#enemySprite", 9);
@@ -7564,13 +7713,17 @@
     battle.ki = clamp(battle.ki - 20, 0, 100);
     let dmg = enemyAttack();
     if (timeout) dmg = Math.round(dmg * 1.2);
+    const _playerPrevPct = (battle.playerHp / battle.playerMax) * 100;
     battle.playerHp = Math.max(0, battle.playerHp - dmg);
+    ghostDrainHp("#playerHpFill", _playerPrevPct, (battle.playerHp / battle.playerMax) * 100);
     glowQuiz("wrong");
     if (timeout) popDamage(".combatant.player", "TIMEOUT", "miss");
     popDamage(".combatant.player", dmg, "dmg");
     flashSprite("#playerSprite");
     flashHp("#playerHpFill");
     shakeEl("#playerSprite");
+    // B4 — Reverse motion lines (enemy attacking player).
+    playMotionLines("rtl", 5);
     Sfx.play("hit");
     buzz(timeout ? 60 : 40);
     advanceBattle();
@@ -7591,7 +7744,12 @@
           updateTrainHud();
           Sfx.play("block");
         } else {
+          const _pPrevPct = (battle.playerHp / battle.playerMax) * 100;
           battle.playerHp = Math.max(0, battle.playerHp - dmg);
+          ghostDrainHp("#playerHpFill", _pPrevPct, (battle.playerHp / battle.playerMax) * 100);
+          // A4 — Named special-move overlay + beam sweep for charged hits.
+          showNamedAttack(battle.telegraphLabel);
+          fireBeam(battle.enemy && battle.enemy.isBoss ? "" : "purple");
           toast(`💥 ${battle.telegraphLabel} hits for ${dmg}!`, 1800);
           popDamage(".combatant.player", dmg, "crit");
           flashSprite("#playerSprite", { crit: true });
@@ -7600,10 +7758,11 @@
           shakeArena();
           playFx("tg-hit");
           flashAnswerBoom();
-          // B1+B2 — Telegraph hits earn extra weight: longer hit-stop and a
-          //         camera punch on top of the shake.
+          // B1+B2+B4 — Telegraph hits earn extra weight: longer hit-stop, a
+          //         camera punch, plus reverse motion lines.
           freezeArena(150);
           cameraPunch();
+          playMotionLines("rtl", 8);
           Sfx.play("telegraphHit");
           buzz([0, 80, 30, 80]);
         }
@@ -7669,6 +7828,7 @@
           if (actual > 0) {
             popDamage(".combatant.player", actual, "heal");
             flashHp("#playerHpFill", "heal");
+            ghostDrainHp("#playerHpFill", (before / battle.playerMax) * 100, (battle.playerHp / battle.playerMax) * 100, "heal");
           }
         }
         battle.questionsThisFight = 0;
@@ -8581,6 +8741,17 @@
     if (!tier) return;
     const name = BATTLE.TIER_NAMES[tier] || "POWER UP";
     Sfx.play("tierUp");
+    // R5 — Iconic DBZ tier-up beats: white flash, ground shockwave + cracks,
+    //      pillar of light, and lightning crackle for SS2-and-up.
+    tierUpFlash(tier);
+    spawnGroundShock(tier);
+    if (tier >= 2) spawnTransformPillar(tier);
+    if (tier >= 3) {
+      spawnLightning(tier);
+      // Repeat lightning bursts during the slow-mo for crackling effect.
+      setTimeout(() => spawnLightning(tier), 320);
+      if (tier >= 5) setTimeout(() => spawnLightning(tier), 640);
+    }
     let el = $("#tierSplash");
     if (!el) {
       el = document.createElement("div");
@@ -8661,6 +8832,345 @@
       setTimeout(() => s.remove(), 700);
     }
   }
+
+  // A4 — Named special-move overlay: big move title punches in across the
+  //      screen for ~1.1s. Use for charged enemy attacks or future player
+  //      ultimates.
+  function showNamedAttack(label, opts = {}) {
+    const ov = document.getElementById("namedAttack");
+    const txt = document.getElementById("namedAttackText");
+    if (!ov || !txt) return;
+    txt.textContent = label || "SPECIAL";
+    ov.classList.remove("show");
+    void ov.offsetWidth;
+    ov.classList.add("show");
+    clearTimeout(showNamedAttack._t);
+    showNamedAttack._t = setTimeout(() => ov.classList.remove("show"), 1200);
+  }
+
+  // A4 — Beam sweep: horizontal energy beam streaks across the arena.
+  //      variant: "" | "blue" | "purple" tints the beam.
+  function fireBeam(variant = "") {
+    const beam = document.getElementById("beamFx");
+    if (!beam) return;
+    beam.classList.remove("fire", "beam-blue", "beam-purple");
+    if (variant === "blue") beam.classList.add("beam-blue");
+    else if (variant === "purple") beam.classList.add("beam-purple");
+    void beam.offsetWidth;
+    beam.classList.add("fire");
+    clearTimeout(fireBeam._t);
+    fireBeam._t = setTimeout(() => beam.classList.remove("fire"), 950);
+  }
+
+  // B4 — Anime-style motion lines streaking across the arena. Direction is
+  //      "ltr" (player attacking enemy) or "rtl" (enemy attacking player).
+  function playMotionLines(direction = "ltr", count = 5) {
+    const arena = document.querySelector("#screen-battle .arena");
+    if (!arena) return;
+    let host = arena.querySelector(".motion-lines");
+    if (!host) {
+      host = document.createElement("div");
+      host.className = "motion-lines";
+      arena.appendChild(host);
+    }
+    host.innerHTML = "";
+    const n = Math.max(3, Math.min(8, count));
+    const flip = direction === "rtl";
+    for (let i = 0; i < n; i++) {
+      const line = document.createElement("span");
+      line.className = "ml";
+      const top = 12 + Math.random() * 76; // % vertical span
+      const w = 30 + Math.random() * 45;   // % width
+      const dur = 320 + Math.random() * 180;
+      const delay = Math.random() * 110;
+      line.style.top = top + "%";
+      line.style.left = (flip ? "auto" : "-10%");
+      if (flip) line.style.right = "-10%";
+      line.style.width = w + "%";
+      line.style.animationDuration = dur + "ms";
+      line.style.animationDelay = delay + "ms";
+      if (flip) line.style.animationName = "mlStreakRtl";
+      host.appendChild(line);
+    }
+    host.classList.remove("show");
+    void host.offsetWidth;
+    host.classList.add("show");
+    clearTimeout(playMotionLines._t);
+    playMotionLines._t = setTimeout(() => {
+      host.classList.remove("show");
+      host.innerHTML = "";
+    }, 480);
+  }
+
+  // A5 — Streak milestone fanfare ("x10!" badge punch). Tier color escalates
+  //      with the milestone size.
+  function streakFanfare(streak) {
+    const ov = document.getElementById("streakFanfare");
+    const badge = document.getElementById("streakFanfareBadge");
+    if (!ov || !badge) return;
+    badge.classList.remove("tier-blue", "tier-purple", "tier-red", "tier-rainbow");
+    if      (streak >= 100) badge.classList.add("tier-rainbow");
+    else if (streak >= 50)  badge.classList.add("tier-red");
+    else if (streak >= 25)  badge.classList.add("tier-purple");
+    else if (streak >= 10)  badge.classList.add("tier-blue");
+    badge.textContent = "x" + streak + "!";
+    ov.classList.remove("show");
+    void ov.offsetWidth;
+    ov.classList.add("show");
+    clearTimeout(streakFanfare._t);
+    streakFanfare._t = setTimeout(() => ov.classList.remove("show"), 1500);
+  }
+
+  // C1 — Arena hue reactivity. Color drifts toward red as HP drops; gold/blue
+  //      when transformed. Updates CSS variables only — cheap to call often.
+  function updateArenaHue() {
+    const arena = document.querySelector("#screen-battle .arena");
+    if (!arena || !battle) return;
+    const hpPct = (battle.playerHp || 0) / (battle.playerMax || 100);
+    const tier = battle.tier || 0;
+    let tint = "rgba(0,0,0,0)";
+    let strength = 0;
+    if (hpPct < 0.30) {
+      // Critical / low HP: red wash.
+      tint = "rgba(255,40,40,0.55)";
+      strength = clamp(0.55 + (0.30 - hpPct) * 1.2, 0.55, 0.9);
+    } else if (tier >= 7) {
+      // Super Saiyan Blue / Ultra Instinct: cool cyan/silver wash.
+      tint = (tier >= 8) ? "rgba(220,235,255,0.45)" : "rgba(80,170,255,0.42)";
+      strength = (tier >= 8) ? 0.5 : 0.45;
+    } else if (tier >= 6) {
+      // Super Saiyan God: crimson/pink divine wash.
+      tint = "rgba(255,90,140,0.4)";
+      strength = 0.4;
+    } else if (tier === 5) {
+      // Super Saiyan 4: red wash.
+      tint = "rgba(255,80,60,0.4)";
+      strength = 0.4;
+    } else if (tier >= 2) {
+      // Super Saiyan / SS2 / SS3: gold wash, intensifies with tier.
+      tint = "rgba(255,210,63,0.4)";
+      strength = 0.32 + (tier - 2) * 0.04;
+    } else if (tier >= 1) {
+      // Kaioken: warm red-orange wash.
+      tint = "rgba(255,120,60,0.3)";
+      strength = 0.28;
+    }
+    arena.style.setProperty("--arena-tint", tint);
+    arena.style.setProperty("--arena-tint-strength", String(strength));
+    // C7 — Critical-HP class & faster pulse.
+    const critical = hpPct > 0 && hpPct < 0.18;
+    arena.classList.toggle("hp-critical", critical);
+    if (hpPct < 0.30) {
+      const dur = clamp(1.1 - (0.30 - hpPct) * 2.2, 0.45, 1.1);
+      arena.style.setProperty("--hp-pulse-dur", dur.toFixed(2) + "s");
+    } else {
+      arena.style.setProperty("--hp-pulse-dur", "1.1s");
+    }
+  }
+
+  // C3 — Telegraph polish: replay the clip-path reveal of the move name.
+  //      Called from renderTelegraphBanner whenever the label changes.
+  function revealTelegraphMove() {
+    const el = document.getElementById("tbMove");
+    if (!el) return;
+    el.classList.remove("reveal");
+    void el.offsetWidth;
+    el.classList.add("reveal");
+  }
+
+  // C4 — Transformation pillar + debris. Spawned during tierUpFx for tiers
+  //      >= 2. Color matches the canonical DBZ form palette.
+  function spawnTransformPillar(tier) {
+    const sprite = document.querySelector("#playerSprite");
+    if (!sprite) return;
+    const cs = getComputedStyle(sprite);
+    if (cs.position === "static") sprite.style.position = "relative";
+    // Canonical DBZ tier color palette (matches CSS aura overrides).
+    const colorMap = {
+      1: "rgba(255,80,60,0.85)",   // Kaioken — red
+      2: "rgba(255,225,90,0.92)",  // Super Saiyan — gold
+      3: "rgba(255,235,110,0.95)", // SS2 — gold + lightning
+      4: "rgba(255,245,160,0.95)", // SS3 — bright gold
+      5: "rgba(255,80,60,0.9)",    // SS4 — red
+      6: "rgba(255,90,140,0.9)",   // Super Saiyan God — crimson/pink
+      7: "rgba(80,170,255,0.95)",  // Super Saiyan Blue — cyan
+      8: "rgba(210,225,255,0.95)", // UI Sign — silver/cool
+      9: "rgba(255,255,255,1)",    // Mastered UI — pure white
+    };
+    const color = colorMap[tier] || colorMap[9];
+    const pillar = document.createElement("span");
+    pillar.className = "transform-pillar";
+    pillar.style.setProperty("--pillar-color", color);
+    sprite.appendChild(pillar);
+    setTimeout(() => pillar.remove(), 1100);
+    // Debris specks rising on each side.
+    for (let i = 0; i < 10; i++) {
+      const d = document.createElement("span");
+      d.className = "transform-debris";
+      const dx = (Math.random() * 80) - 40;
+      const dy = -(120 + Math.random() * 80);
+      const delay = Math.random() * 250;
+      d.style.setProperty("--dx", dx + "px");
+      d.style.setProperty("--dy", dy + "px");
+      d.style.setProperty("--debris-color", color);
+      d.style.animationDelay = delay + "ms";
+      sprite.appendChild(d);
+      setTimeout(() => d.remove(), 1500 + delay);
+    }
+    // Hit-stop at the peak for weight.
+    freezeArena(180);
+  }
+
+  // R5 — Iconic DBZ tier-up white flash. Bright burst over the arena that
+  //      punctuates the moment of transformation. Tier-tinted in the rim.
+  function tierUpFlash(tier) {
+    const arena = document.querySelector("#screen-battle .arena");
+    if (!arena) return;
+    const flashColors = {
+      1: "#ffd0c0", 2: "#fff5c0", 3: "#fffadf", 4: "#ffffff",
+      5: "#ffd0c0", 6: "#ffd5e2", 7: "#d6ecff", 8: "#eef3ff", 9: "#ffffff",
+    };
+    const cs = getComputedStyle(arena);
+    if (cs.position === "static") arena.style.position = "relative";
+    const flash = document.createElement("div");
+    flash.className = "tier-flash";
+    flash.style.setProperty("--flash-color", flashColors[tier] || "#ffffff");
+    arena.appendChild(flash);
+    setTimeout(() => flash.remove(), 800);
+  }
+
+  // R5 — Crackling lightning bolts (SS2-and-up signature). Higher tier =
+  //      more bolts, faster cadence. Bolts are colored to the tier aura.
+  function spawnLightning(tier, count) {
+    const sprite = document.querySelector("#playerSprite");
+    if (!sprite) return;
+    const cs = getComputedStyle(sprite);
+    if (cs.position === "static") sprite.style.position = "relative";
+    const palette = {
+      3: { c: "#fff7c2", g: "rgba(255,225,90,0.95)" },
+      4: { c: "#fff7c2", g: "rgba(255,225,90,1)"   },
+      5: { c: "#ffd6c2", g: "rgba(255,90,60,0.95)" },
+      6: { c: "#ffd6e2", g: "rgba(255,100,150,0.95)" },
+      7: { c: "#cfeaff", g: "rgba(80,170,255,1)"  },
+      8: { c: "#e8efff", g: "rgba(200,220,255,0.95)" },
+      9: { c: "#ffffff", g: "rgba(220,240,255,1)" },
+    };
+    const p = palette[tier] || palette[3];
+    const n = count || (tier >= 7 ? 7 : tier >= 5 ? 5 : 4);
+    for (let i = 0; i < n; i++) {
+      const bolt = document.createElement("span");
+      bolt.className = "lightning-bolt";
+      const rot = (Math.random() * 320) - 160;
+      const dx = (Math.random() * 60) - 30;
+      const dy = (Math.random() * 50) - 25;
+      const scale = 0.7 + Math.random() * 0.7;
+      bolt.style.setProperty("--rot", rot + "deg");
+      bolt.style.setProperty("--bolt-color", p.c);
+      bolt.style.setProperty("--bolt-glow", p.g);
+      bolt.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale})`;
+      bolt.style.animationDelay = (i * 35 + Math.random() * 60) + "ms";
+      sprite.appendChild(bolt);
+      setTimeout(() => bolt.remove(), 300 + i * 35);
+    }
+  }
+
+  // R5 — Ground crack + concentric shockwave under the player. Used for
+  //      tier-up and KI special launch (the "crater under Goku" beat).
+  function spawnGroundShock(tier) {
+    const sprite = document.querySelector("#playerSprite");
+    if (!sprite) return;
+    const cs = getComputedStyle(sprite);
+    if (cs.position === "static") sprite.style.position = "relative";
+    const shockColors = {
+      1: "rgba(255,150,120,0.95)",
+      2: "rgba(255,235,160,0.95)",
+      3: "rgba(255,235,160,0.95)",
+      4: "rgba(255,245,180,1)",
+      5: "rgba(255,150,120,0.95)",
+      6: "rgba(255,160,200,0.95)",
+      7: "rgba(160,210,255,0.95)",
+      8: "rgba(220,235,255,0.95)",
+      9: "rgba(255,255,255,1)",
+    };
+    const sColor = shockColors[tier] || "rgba(255,235,160,0.95)";
+    const shock = document.createElement("span");
+    shock.className = "ground-shockwave";
+    shock.style.setProperty("--shock-color", sColor);
+    sprite.appendChild(shock);
+    setTimeout(() => shock.remove(), 950);
+    // 5 radial cracks fanning out underfoot.
+    for (let i = 0; i < 5; i++) {
+      const crack = document.createElement("span");
+      crack.className = "ground-crack";
+      const rot = -60 + (i * 30) + (Math.random() * 14 - 7);
+      crack.style.setProperty("--rot", rot + "deg");
+      crack.style.setProperty("--crack-glow", sColor);
+      crack.style.height = (18 + Math.random() * 14) + "%";
+      crack.style.animationDelay = (i * 30) + "ms";
+      sprite.appendChild(crack);
+      setTimeout(() => crack.remove(), 900 + i * 30);
+    }
+  }
+
+  // R5 — Player after-image (Zanzōken). Spawn N faded clones that drift
+  //      and fade. Used during KI special launch.
+  function spawnAfterimage(count) {
+    const sprite = document.querySelector("#playerSprite");
+    if (!sprite) return;
+    const cs = getComputedStyle(sprite);
+    if (cs.position === "static") sprite.style.position = "relative";
+    const inner = sprite.innerHTML;
+    const n = count || 3;
+    for (let i = 0; i < n; i++) {
+      const ai = document.createElement("div");
+      ai.className = "player-afterimage";
+      ai.innerHTML = inner;
+      // Suppress nested aura/spark layers in the clone (visual noise).
+      ai.querySelectorAll(".transform-aura, .shield-aura, .ko-puff, .crit-spark, .lightning-bolt, .transform-pillar, .transform-debris, .ground-shockwave, .ground-crack").forEach(n => n.remove());
+      ai.style.setProperty("--ai-dx", (-(20 + i * 14)) + "px");
+      ai.style.animationDelay = (i * 70) + "ms";
+      sprite.appendChild(ai);
+      setTimeout(() => ai.remove(), 500 + i * 70);
+    }
+  }
+
+  // C6 — Enemy idle micro-animation. Triggers a brief "blink" on the enemy
+  //      emoji every 4–7 seconds so the arena feels alive between turns.
+  //      R5 — Also periodically crackles lightning around the player when
+  //      transformed at SS2+ (tier ≥ 3), to sell the sustained power-up.
+  let _enemyIdleTimer = 0;
+  function startEnemyIdle() {
+    stopEnemyIdle();
+    const tick = () => {
+      const screen = document.getElementById("screen-battle");
+      if (!screen || !screen.classList.contains("active")) {
+        _enemyIdleTimer = setTimeout(tick, 2500);
+        return;
+      }
+      // Pause when paused or busy or telegraph charging (don't distract).
+      const paused = battle && (battle.paused || battle.busy);
+      const charging = battle && battle.telegraphTurns > 0;
+      if (!paused && !charging) {
+        const emoji = document.getElementById("enemyEmoji");
+        if (emoji && !emoji.hidden) {
+          emoji.classList.remove("blink");
+          void emoji.offsetWidth;
+          emoji.classList.add("blink");
+          setTimeout(() => emoji.classList.remove("blink"), 1500);
+        }
+        // R5 — Sustained lightning crackle for SS2+ transformations.
+        const tier = (battle && battle.tier) || 0;
+        if (tier >= 3 && Math.random() < (tier >= 7 ? 0.85 : tier >= 5 ? 0.65 : 0.5)) {
+          spawnLightning(tier, tier >= 7 ? 4 : 3);
+        }
+      }
+      _enemyIdleTimer = setTimeout(tick, 4000 + Math.random() * 3000);
+    };
+    _enemyIdleTimer = setTimeout(tick, 4000 + Math.random() * 3000);
+  }
+  function stopEnemyIdle() {
+    if (_enemyIdleTimer) { clearTimeout(_enemyIdleTimer); _enemyIdleTimer = 0; }
+  }
   function flashAnswerBoom() {
     const f = $("#answerFlash");
     if (!f) return;
@@ -8680,14 +9190,13 @@
       setTimeout(() => emoji.classList.remove("ko-spin"), 600);
     }
     for (let i = 0; i < 6; i++) {
-      const p = document.createElement("span");
-      p.className = "ko-puff";
+      const p = _acquireParticle("ko", "ko-puff");
       const ang = (i / 6) * Math.PI * 2;
       const dist = 60 + Math.random() * 40;
       p.style.setProperty("--dx", Math.cos(ang) * dist + "px");
       p.style.setProperty("--dy", Math.sin(ang) * dist + "px");
       sprite.appendChild(p);
-      setTimeout(() => p.remove(), 700);
+      setTimeout(() => _releaseParticle("ko", p), 700);
     }
     // B1+B2 — KO weight: hit-stop and a camera punch.
     freezeArena(120);
@@ -8715,14 +9224,13 @@
       const cs = getComputedStyle(host);
       if (cs.position === "static") host.style.position = "relative";
       for (let i = 0; i < 6; i++) {
-        const p = document.createElement("span");
-        p.className = "ko-puff";
+        const p = _acquireParticle("ko", "ko-puff");
         const ang = (i / 6) * Math.PI * 2;
         const dist = 50 + Math.random() * 35;
         p.style.setProperty("--dx", Math.cos(ang) * dist + "px");
         p.style.setProperty("--dy", Math.sin(ang) * dist + "px");
         host.appendChild(p);
-        setTimeout(() => p.remove(), 700);
+        setTimeout(() => _releaseParticle("ko", p), 700);
       }
     }
     freezeArena(160);
@@ -8788,7 +9296,11 @@
     if (!banner) return;
     if (battle.telegraphTurns > 0 && battle.telegraphLabel) {
       banner.hidden = false;
-      $("#tbMove").textContent = battle.telegraphLabel;
+      const moveEl = $("#tbMove");
+      const prevMove = moveEl ? moveEl.textContent : "";
+      if (moveEl) moveEl.textContent = battle.telegraphLabel;
+      // C3 — Replay the clip-path reveal whenever the label changes.
+      if (prevMove !== battle.telegraphLabel) revealTelegraphMove();
       const max = battle.telegraphMaxTurns || BATTLE.TELEGRAPH_TURNS;
       const pct = (battle.telegraphTurns / max) * 100;
       $("#tbBarFill").style.width = pct + "%";
@@ -8822,12 +9334,41 @@
     setTimeout(() => Sfx.play("kiFire"), 200);
     playFx("ki-cannon");
     shakeArena();
+    // C5 — KI special cinematic: zoom on player + dim arena + named overlay
+    //      + beam sweep + extra hit-stop. Layered on top of existing FX.
+    const _ps = document.querySelector("#playerSprite");
+    if (_ps) {
+      _ps.classList.remove("ki-cinematic");
+      void _ps.offsetWidth;
+      _ps.classList.add("ki-cinematic");
+      setTimeout(() => _ps.classList.remove("ki-cinematic"), 600);
+    }
+    const _ar = document.querySelector("#screen-battle .arena");
+    if (_ar) {
+      _ar.classList.remove("ki-dim");
+      void _ar.offsetWidth;
+      _ar.classList.add("ki-dim");
+      setTimeout(() => _ar.classList.remove("ki-dim"), 600);
+    }
+    showNamedAttack("KI BLAST!");
+    fireBeam("blue");
+    playMotionLines("ltr", 8);
+    // R5 — DBZ Kamehameha launch beats: ground shockwave under feet, lightning
+    //      crackle if transformed, after-image trail (Zanzōken).
+    spawnGroundShock(battle.tier || 2);
+    if ((battle.tier || 0) >= 3) spawnLightning(battle.tier);
+    spawnAfterimage(3);
+    freezeArena(140);
+    cameraPunch();
     const dmg = Math.round(BATTLE.KI_SPECIAL_DMG_BASE + state.level * BATTLE.KI_SPECIAL_DMG_PER_LVL);
+    const _ePrevPct = (battle.enemy.hp / battle.enemy.maxHp) * 100;
     battle.enemy.hp = Math.max(0, battle.enemy.hp - dmg);
+    ghostDrainHp("#enemyHpFill", _ePrevPct, (battle.enemy.hp / battle.enemy.maxHp) * 100);
     popDamage(".combatant.enemy", dmg, "crit");
     flashSprite("#enemySprite", { crit: true });
     flashHp("#enemyHpFill");
     shakeEl("#enemySprite");
+    spawnCritSparks("#enemySprite", 12);
     // Cancel any charging telegraph
     if (battle.telegraphTurns > 0) {
       battle.telegraphTurns = 0;
@@ -8989,6 +9530,7 @@
     if (!battle || battle.ended) return;
     battle.ended = true;
     cancelAnimationFrame(battle.timerRaf);
+    stopEnemyIdle();
     if (outcome === "victory") {
       Sfx.play("victory");
       playFx("victory");
@@ -9396,6 +9938,9 @@
     btns.forEach(b => b.disabled = true);
     btns[i].classList.add(correct ? "correct" : "wrong");
     if (!correct) btns[trainEvent.currentCorrectIdx].classList.add("correct");
+    // Reuse the same green/red full-screen flash Battle Mode uses so the
+    // feedback is unmistakable on Energy Surge and the other interrupts.
+    flashAnswer(correct ? "correct" : "wrong");
 
     const card = trainEvent.currentCard;
     if (correct) {
@@ -9411,14 +9956,17 @@
     }
 
     if (trainEvent.kind === "speed") {
-      // Rapid loop: continue until timer expires
+      // Rapid loop: keep questions snappy on a correct answer, but on a wrong
+      // answer hold the panel longer so the green-highlighted correct choice
+      // is actually readable before the next question replaces it.
+      const delay = correct ? 260 : 900;
       setTimeout(() => {
         if (!trainEvent) return;
         nextEventQuestion();
-      }, 220);
+      }, delay);
     } else {
-      // Single-question events
-      setTimeout(() => finishTrainEvent(correct ? "correct" : "wrong"), 700);
+      // Single-question events: a touch longer on misses for the same reason.
+      setTimeout(() => finishTrainEvent(correct ? "correct" : "wrong"), correct ? 700 : 1000);
     }
   }
 
@@ -9541,6 +10089,15 @@
       gradeCard(btn.dataset.grade);
     });
 
+    // Bury button on the back face: snooze the current card until tomorrow.
+    const buryBtn = $("#buryBtn");
+    if (buryBtn) {
+      buryBtn.addEventListener("click", () => {
+        if (!train.current || !train.revealed) return;
+        buryUntilTomorrow(train.current.id);
+      });
+    }
+
     // Allow space/enter to reveal on flashcard
     $("#flashcard").addEventListener("keydown", (e) => {
       if ((e.key === " " || e.key === "Enter") && !train.revealed) {
@@ -9549,6 +10106,49 @@
         train.revealedAt = Date.now();
         renderCard();
         armIdleTimer();
+      }
+    });
+
+    // Document-level Training shortcuts:
+    //   space / enter  -> reveal, or grade "good" once revealed
+    //   1 / 2 / 3 / 4  -> again / hard / good / easy (only after reveal)
+    //   b              -> bury until tomorrow (only after reveal)
+    // All shortcuts are scoped to the active Training screen and bail out
+    // when an interrupt panel is open, when typing in a form field, or on
+    // key-repeat to avoid runaway grading.
+    document.addEventListener("keydown", (e) => {
+      if (e.repeat) return;
+      if (trainEvent) return; // event-panel handler below owns digits during interrupts
+      const active = document.querySelector(".screen.active");
+      if (!active || active.dataset.screen !== "train") return;
+      const tag = (document.activeElement?.tagName || "").toLowerCase();
+      if (tag === "input" || tag === "textarea" || document.activeElement?.isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      if (key === " " || key === "Enter") {
+        if (!train.revealed) {
+          e.preventDefault();
+          train.revealed = true;
+          train.revealedAt = Date.now();
+          renderCard();
+          armIdleTimer();
+        } else {
+          e.preventDefault();
+          gradeCard("good");
+        }
+        return;
+      }
+      if (!train.revealed) return;
+      const gradeMap = { "1": "again", "2": "hard", "3": "good", "4": "easy" };
+      if (gradeMap[key]) {
+        e.preventDefault();
+        gradeCard(gradeMap[key]);
+        return;
+      }
+      if (key === "b" || key === "B") {
+        e.preventDefault();
+        if (train.current) buryUntilTomorrow(train.current.id);
       }
     });
 
