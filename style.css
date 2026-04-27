@@ -1860,10 +1860,10 @@ button:focus-visible {
   from { opacity: 0; transform: translate(-50%, -10px) scale(.9); }
   to   { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
-.telegraph-banner.final { animation: tbPulse .5s infinite alternate; }
+.telegraph-banner.final { animation: tbPulse .42s infinite alternate; }
 @keyframes tbPulse {
-  from { box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 18px rgba(255,90,95,0.5); }
-  to   { box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 36px rgba(255,90,95,0.95); }
+  from { box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 18px rgba(255,90,95,0.5); transform: translateX(-50%) scale(1); }
+  to   { box-shadow: 0 8px 20px rgba(0,0,0,0.55), 0 0 44px rgba(255,90,95,1);   transform: translateX(-50%) scale(1.06); }
 }
 .tb-icon { font-size: 22px; }
 .tb-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -1871,6 +1871,24 @@ button:focus-visible {
 .tb-move { font-size: 14px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tb-bar { height: 4px; background: rgba(0,0,0,0.35); border-radius: 999px; overflow: hidden; min-width: 120px; }
 .tb-bar-fill { height: 100%; width: 100%; background: #ffd23f; transition: width .35s var(--ease-soft); }
+.tb-hint { font-size: 11px; font-weight: 800; color: #ffd23f; margin-top: 4px; letter-spacing: 0.04em; animation: tbHintPulse 0.8s ease-in-out infinite alternate; }
+@keyframes tbHintPulse { from { opacity: 0.7; } to { opacity: 1; } }
+
+/* #4 Low-HP danger vignette */
+.arena.low-hp { position: relative; }
+.arena.low-hp::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 60px 8px rgba(255, 40, 40, 0.55);
+  animation: lowHpPulse 1.1s ease-in-out infinite alternate;
+  z-index: 5;
+}
+@keyframes lowHpPulse {
+  from { box-shadow: inset 0 0 40px 4px rgba(255, 40, 40, 0.35); }
+  to   { box-shadow: inset 0 0 80px 14px rgba(255, 40, 40, 0.75); }
+}
 
 /* Arena shake (full arena) */
 .arena.arena-shake { animation: arenaShake .55s var(--ease-spring); }

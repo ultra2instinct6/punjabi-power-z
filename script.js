@@ -571,7 +571,7 @@
       definition: "Hand something to someone.",
       related: "lain (to take)",
       example: "Mainu paani de. — Give me water." },
-    { id: "vb13", type: "vocab", punjabi: "lain",   english: "to take",
+    { id: "vb13", type: "vocab", punjabi: "laina",   english: "to take",
       definition: "Receive or pick up something.",
       related: "denna",
       example: "Eh lai lo. — Take this." },
@@ -994,8 +994,8 @@
       definition: "Being scared. 'Darr lagda hai' = to feel afraid.",
       example: "Mainu darr lagda hai. — I feel scared." },
     { id: "fe6", type: "vocab", punjabi: "thakk",
-      english: "tired",
-      definition: "Exhausted. 'Thakk gaya' (m) / 'thakk gayi' (f) = (I) got tired.",
+      english: "tiredness / fatigue",
+      definition: "The state of being tired. As an adjective use 'thakkeya' (m.) / 'thakkeyi' (f.). 'Thakk gaya' (m.) / 'thakk gayi' (f.) = (I) got tired.",
       related: "aaram (rest)",
       example: "Main thakk gaya haan. — I am tired." },
     { id: "fe7", type: "vocab", punjabi: "pyar",
@@ -1571,14 +1571,14 @@
       definition: "To weep.",
       related: "udaas, dard",
       example: "Na ro, sab theek hai. — Don't cry, all is well." },
-    { id: "vb19", type: "vocab", punjabi: "tur", english: "to walk",
-      definition: "Move on foot. 'Turna' = the infinitive.",
-      related: "pair, dauran",
+    { id: "vb19", type: "vocab", punjabi: "turna", english: "to walk",
+      definition: "Move on foot. 'Turna' is the infinitive; 'tur' is the bare stem.",
+      related: "pair, daurna",
       example: "Asin tur ke jaavange. — We will walk." },
-    { id: "vb20", type: "vocab", punjabi: "dauran", english: "to run",
-      definition: "Move quickly on foot.",
-      related: "tur, jaldi",
-      example: "Dauran shuru karo. — Start running." },
+    { id: "vb20", type: "vocab", punjabi: "daurna", english: "to run",
+      definition: "Move quickly on foot. (Don't confuse with 'dauran' = 'during'.)",
+      related: "turna, jaldi",
+      example: "Daurna shuru karo. — Start running." },
     { id: "vb21", type: "vocab", punjabi: "baithna", english: "to sit",
       definition: "Take a seat.",
       related: "khalona, kursi",
@@ -1699,10 +1699,10 @@
       english: "I know how to ___.",
       definition: "Reply pattern. Use 'aaundi' if the skill is feminine (like 'Punjabi').",
       example: "Mainu Punjabi thodi-thodi aaundi hai. — I know a little Punjabi." },
-    { id: "sb8", type: "phrase", punjabi: "Ki tusi ___ saktay ho?",
+    { id: "sb8", type: "phrase", punjabi: "Ki tusi ___ sakde ho?",
       english: "Can you ___?",
-      definition: "Polite request. Replace blank with verb stem. Female version: 'sakdi ho'.",
-      example: "Ki tusi haule bol sakday ho? — Can you speak slowly?" },
+      definition: "Polite request. Replace blank with verb stem. Female plural: 'sakdiyaan ho'.",
+      example: "Ki tusi haule bol sakde ho? — Can you speak slowly?" },
 
     // ===== Useful little words (the glue of speech) =====
     { id: "lw2", type: "vocab", punjabi: "par", english: "but",
@@ -2860,18 +2860,18 @@
       definition: "Move to music.",
       related: "naach, bhangra",
       example: "Sab naach rahe han. — Everyone is dancing." },
-    { id: "vb37", type: "vocab", punjabi: "gauna",         english: "to sing",
+    { id: "vb37", type: "vocab", punjabi: "gaauna",        english: "to sing",
       definition: "Sing a song.",
       related: "gaana, geet",
-      example: "Mainu gaana gauna pasand. — I like to sing songs." },
+      example: "Mainu gaana gaauna pasand. — I like to sing songs." },
     { id: "vb38", type: "vocab", punjabi: "dhona",         english: "to wash",
       definition: "Wash something.",
       related: "saaf",
       example: "Hath dho lo. — Wash your hands." },
-    { id: "vb39", type: "vocab", punjabi: "intzar karna",  english: "to wait",
-      definition: "Wait for someone or something.",
+    { id: "vb39", type: "vocab", punjabi: "intezaar karna",  english: "to wait",
+      definition: "Wait for someone or something. 'Intezaar' is the Urdu loan for 'wait'.",
       related: "ruk",
-      example: "Intzar karo. — Please wait." },
+      example: "Intezaar karo. — Please wait." },
     { id: "vb40", type: "vocab", punjabi: "shuru karna",   english: "to start / begin",
       definition: "Begin something. 'Shuru' = beginning.",
       related: "khatam karna",
@@ -2896,7 +2896,7 @@
       definition: "Strike something. Often metaphorical too: 'phone maarna' = to call.",
       related: "chot",
       example: "Maaro mat! — Don't hit!" },
-    { id: "vb46", type: "vocab", punjabi: "jagana",        english: "to wake (someone) up",
+    { id: "vb46", type: "vocab", punjabi: "jagauna",       english: "to wake (someone) up",
       definition: "Wake someone up. (Compare 'uthna' = to get up oneself.)",
       related: "uthna, sona",
       example: "Mainu satt vaje jagao. — Wake me at seven." },
@@ -3326,9 +3326,9 @@
       definition: "Past of 'khaana'. The food (object) decides gender: 'roti khaadi', 'aam khaada'.",
       related: "khaana",
       example: "Main roti KHAADI. — I ate roti." },
-    { id: "vc12", type: "grammar", punjabi: "main piti / pitta",
-      english: "I drank",
-      definition: "Past of 'peena'. 'Chai piti' (chai is fem.), 'paani pitta' (paani is masc.).",
+    { id: "vc12", type: "grammar", punjabi: "main pita / piti",
+      english: "I drank (m./f. of object)",
+      definition: "Past of 'peena'. The OBJECT picks the gender: 'paani pita' (paani is masc.), 'chai piti' (chai is fem.).",
       related: "peena",
       example: "Main chai PITI. — I drank tea." },
 
@@ -3846,10 +3846,10 @@
       definition: "Doctor's instruction during exam.",
       related: "saans",
       example: "GEHRI SAANS LAO. — Take a deep breath." },
-    { id: "dv8", type: "phrase", punjabi: "Test karaana paina",
+    { id: "dv8", type: "phrase", punjabi: "Test karaana painda hai",
       english: "(You'll) have to get a test done.",
-      definition: "Doctor recommending tests. 'Paina' = will have to.",
-      example: "Khoon da TEST KARAANA PAINA. — You'll need a blood test." },
+      definition: "Doctor recommending tests. 'Painda hai' = (it) is necessary.",
+      example: "Khoon da TEST KARAANA PAINDA HAI. — You'll need a blood test." },
     { id: "dv9", type: "phrase", punjabi: "Aaraam karo",
       english: "Take rest.",
       definition: "Doctor's universal advice.",
@@ -4785,10 +4785,10 @@
       definition: "Open invitation for corrections — turbocharges your learning.",
       related: "galti",
       example: "GALTI HO GAYI TAAN THEEK KARO ji. — If I'm wrong, please correct me." },
-    { id: "lm8", type: "phrase", punjabi: "Mainu thoda thoda Punjabi aandi hai",
+    { id: "lm8", type: "phrase", punjabi: "Mainu thodi thodi Punjabi aandi hai",
       english: "I know just a little Punjabi.",
-      definition: "Honest learner-disclaimer. Locks in goodwill from native speakers.",
-      example: "MAINU THODA THODA PUNJABI AANDI HAI. — I know a little Punjabi." },
+      definition: "Honest learner-disclaimer. Locks in goodwill from native speakers. ('Punjabi' is feminine, so 'thodi thodi' agrees.)",
+      example: "MAINU THODI THODI PUNJABI AANDI HAI. — I know a little Punjabi." },
     { id: "lm9", type: "phrase", punjabi: "Tuhadi madad chahidi hai",
       english: "I need your help.",
       definition: "Polite request. 'Madad' = help.",
@@ -4834,7 +4834,8 @@
     { name: "Frieza Minion", emoji: "🦖", baseHp: 140, tier: "elite",  flavor: "Elite mook. Hits harder than it looks." },
     { name: "Cell Mini-Boss",emoji: "🐉", baseHp: 220, tier: "boss",   flavor: "A perfect copy. Only perfect answers will do.",
       flavorAlts: ["He copied you, then improved on it."],
-      quote: "Show me your perfect form." },
+      quote: "Show me your perfect form.",
+      koQuote: "Imperfect... but worthy." },
     { name: "Cell Jr.",      emoji: "🐲", baseHp: 170, tier: "minion", flavor: "Energetic and dangerous in packs." },
     { name: "Phantom Wraith",emoji: "👻", baseHp: 190, tier: "elite",  flavor: "Its telegraphs are louder. Listen." },
     { name: "Storm Djinn",   emoji: "🌪️", baseHp: 210, tier: "minion", flavor: "Whirlwind attacks come fast." },
@@ -4842,11 +4843,13 @@
       flavorAlts: ["Breath like January in Manali."] },
     { name: "Buu Spawn",     emoji: "🟣", baseHp: 270, tier: "boss",   flavor: "Stretchy and stubborn. Big reward.",
       flavorAlts: ["Pink, stretchy, rude."],
-      quote: "Mmm... candy or fight?" },
+      quote: "Mmm... candy or fight?",
+      koQuote: "Sticky end." },
     { name: "Shadow Naga",   emoji: "🐍", baseHp: 290, tier: "minion", flavor: "Strikes from the dark." },
     { name: "Final Tyrant",  emoji: "💀", baseHp: 380, tier: "boss",   flavor: "The end of the arena. Everything you've trained for.",
       flavorAlts: ["You've trained 1,000 cards for this moment. Don't choke."],
-      quote: "Kneel, learner." },
+      quote: "Kneel, learner.",
+      koQuote: "You... earned it." },
     // ---- New roster (Section A) ----
     { name: "Tea Slug",          emoji: "🐌", baseHp: 75,  tier: "minion", flavor: "Slow drip, sticky leaves." },
     { name: "Bazaar Thief",      emoji: "🦝", baseHp: 100, tier: "minion", flavor: "Snatches your focus mid-answer." },
@@ -4859,15 +4862,20 @@
     { name: "Jungle Tigress",    emoji: "🐅", baseHp: 240, tier: "elite",  flavor: "Stalks your hesitation." },
     { name: "Cyber Naga",        emoji: "🐍", baseHp: 260, tier: "elite",  flavor: "Bytes harder than it bites." },
     { name: "Ghost Pandit",      emoji: "👳", baseHp: 250, tier: "boss",   flavor: "Recites your mistakes back as mantra.",
-      quote: "Your roots forgot you." },
+      quote: "Your roots forgot you.",
+      koQuote: "Your roots remember." },
     { name: "Mahishasura",       emoji: "🐃", baseHp: 320, tier: "boss",   flavor: "A bull-demon king. No mortal weapon will do.",
-      quote: "No mortal weapon. No chance." },
+      quote: "No mortal weapon. No chance.",
+      koQuote: "A mortal felled me?!" },
     { name: "Shadow Guru",       emoji: "🕯️", baseHp: 340, tier: "boss",   flavor: "Teaches one lesson: humility.",
-      quote: "Unlearn, then bow." },
+      quote: "Unlearn, then bow.",
+      koQuote: "Lesson learned. By me." },
     { name: "Cell Perfect Form", emoji: "🧬", baseHp: 360, tier: "boss",   flavor: "Every cell has improved. Yours haven't.",
-      quote: "I am completion itself." },
+      quote: "I am completion itself.",
+      koQuote: "Perfection... has a flaw." },
     { name: "Zero Saiyan",       emoji: "🌌", baseHp: 420, tier: "boss",   flavor: "Beyond the arena. Beyond you.",
-      quote: "Beyond the arena. Beyond you." },
+      quote: "Beyond the arena. Beyond you.",
+      koQuote: "Beyond... defeated." },
   ];
 
   // ---------- Tuning constants (random training interrupts) ------------------
@@ -5427,7 +5435,7 @@
     // Bargaining
     bg2: "ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੈ", bg3: "ਘੱਟ ਕਰੋ", bg4: "ਆਖਰੀ ਕੀਮਤ", bg7: "ਰਹਿ ਦਿਉ",
     // Doctor visit
-    dv6: "ਮੈਨੂੰ ___ ਹੈ", dv7: "ਗਹਿਰੀ ਸਾਹ ਲਉ", dv8: "ਟੈਸਟ ਕਰਾਉਣਾ ਪੈਣਾ",
+    dv6: "ਮੈਨੂੰ ___ ਹੈ", dv7: "ਗਹਿਰੀ ਸਾਹ ਲਉ", dv8: "ਟੈਸਟ ਕਰਾਉਣਾ ਪੈਂਦਾ ਹੈ",
     dv9: "ਆਰਾਮ ਕਰੋ", dv10: "ਠੀਕ ਹੋ ਜਾਉਗੇ",
     // Travel extras
     tv2: "ਗੱਡੀ ਨੰਬਰ",
@@ -5480,6 +5488,64 @@
     ag3: "ਬਹੁਤ ਸ਼ੁਕਰੀਆ", ag6: "ਤੁਹਾਡਾ ਅਹਿਸਾਨ",
     // Learning meta
     lm6: "ਸਪੈਲਿੰਗ ਦੱਸੋ ਜੀ", lm10: "ਸਿਖਾਉਣਾ ਸ਼ੁਰੂ ਕਰਾਂਗੇ",
+    // Sentence-level coverage (audit pass)
+    hp1: "ਖਾਣਾ ਖਾ ਕੇ ਜਾਣਾ", hp3: "ਬਸ ਜੀ, ਬਹੁਤ ਹੋ ਗਿਆ", hp5: "ਮਹਿਮਾਨ ਰੱਬ ਦਾ ਰੂਪ",
+    p31: "ਤੁਹਾਨੂੰ ਤਕਲੀਫ਼ ਨਹੀਂ?", p33: "ਤੁਹਾਡਾ ਬਹੁਤ ਬਹੁਤ ਸ਼ੁਕਰੀਆ",
+    p34: "ਮਿਹਰਬਾਨੀ ਕਰਕੇ ਇੱਕ ਮਿੰਟ", p37: "ਮੈਨੂੰ ਤੁਹਾਡੇ ਨਾਲ ਗੱਲ ਕਰਨੀ ਹੈ",
+    p38: "ਸੁਣ ਰਹੇ ਹੋ?", p39: "ਮੈਨੂੰ ਸਮਝ ਆ ਗਈ",
+    p40: "ਕੀ ਮੈਂ ਪੁੱਛ ਸਕਦਾ ਹਾਂ?", p41: "ਤੁਹਾਡੀ ਗੱਲ ਠੀਕ ਹੈ",
+    tr10: "ਇਹ ਕਿੱਥੇ ਹੈ?",
+    sb3: "ਮੈਨੂੰ ___ ਚਾਹੀਦਾ ਹੈ", sb4: "ਮੈਨੂੰ ___ ਪਸੰਦ ਹੈ",
+    sb5: "ਮੈਂ ___ ਜਾ ਰਿਹਾ ਹਾਂ", sb6: "ਤੁਹਾਨੂੰ ___ ਆਉਂਦਾ ਹੈ?",
+    sb7: "ਮੈਨੂੰ ___ ਆਉਂਦਾ ਹੈ", sb8: "ਕੀ ਤੁਸੀਂ ___ ਸਕਦੇ ਹੋ?",
+    lv1: "ਤੁਹਾਡਾ ਕੰਮ ਕੀ ਹੈ?", lv2: "ਤੁਸੀਂ ਕਿੱਥੇ ਰਹਿੰਦੇ ਹੋ?",
+    lv3: "ਤੁਹਾਡੀ ਉਮਰ ਕਿੰਨੀ ਹੈ?", lv4: "ਤੁਹਾਡੇ ਕਿੰਨੇ ਭੈਣ-ਭਰਾ ਹਨ?",
+    lv5: "ਤੁਹਾਨੂੰ ਕੀ ਪਸੰਦ ਹੈ?", lv6: "ਮੈਨੂੰ ਪੰਜਾਬੀ ਸਿੱਖਣੀ ਹੈ",
+    lv7: "ਮੈਨੂੰ ਥੋੜੀ-ਥੋੜੀ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ", lv9: "ਇਹ ਪੰਜਾਬੀ ਵਿੱਚ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+    sh1: "ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ?", sh3: "ਮੈਨੂੰ ਇਹ ਚਾਹੀਦਾ ਹੈ",
+    sh4: "ਬਸ, ਹੋਰ ਨਹੀਂ ਚਾਹੀਦਾ", sh5: "ਪੈਸਾ ਕਿੱਥੇ ਦੇਈਏ?",
+    en4: "ਤੂੰ ਕਰ ਸਕਦਾ ਹੈ",
+    md1: "ਏ: ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਜੀ। ਬੀ: ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਕੀ ਹਾਲ ਹੈ?",
+    md2: "ਏ: ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ? ਬੀ: ਮੇਰਾ ਨਾਮ ___ ਹੈ। ਤੁਹਾਡਾ?",
+    md3: "ਏ: ਚਾਹ ਪੀਉਗੇ? ਬੀ: ਬਸ ਥੋੜੀ ਜੀ, ਸ਼ੁਕਰੀਆ।",
+    md4: "ਏ: ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ? ਬੀ: ਸੌ ਰੁਪਏ। ਏ: ਥੋੜਾ ਘੱਟ ਕਰੋ। ਬੀ: ਅੱਛਾ, ਅੱਸੀ।",
+    md5: "ਏ: ਮੈਨੂੰ ਸਮਝ ਨਹੀਂ ਆਈ। ਬੀ: ਕੋਈ ਗੱਲ ਨਹੀਂ, ਫਿਰ ਕਹਿੰਦਾ ਹਾਂ ਹੌਲੇ।",
+    tm10: "ਕਿੰਨੇ ਵਜੇ ਹਨ?",
+    qp1: "ਕੀ ___ ਹੈ?", qp2: "ਕਿੱਥੇ ___?", qp3: "ਕਿਸ ਵੇਲੇ?",
+    qp5: "ਕਿੱਥੋਂ ਆਏ ਹੋ?", qp6: "ਕੀ ਕਰ ਰਹੇ ਹੋ?",
+    gr5: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ — ਹਰ ਵੇਲੇ",
+    nf4: "ਬਹੁਤ ਸ਼ੁਕਰੀਆ, ਪਰ ਬਸ", nf5: "ਮੈਨੂੰ ਮਾਫ਼ ਕਰੋ, ਮੈਂ ਨਹੀਂ ਕਰ ਸਕਦਾ",
+    ph2: "ਕੌਣ ਬੋਲ ਰਿਹਾ ਹੈ?", ph3: "ਰਵੀ ਨਾਲ ਗੱਲ ਕਰਾਉਣੀ ਹੈ",
+    ph4: "ਇੱਕ ਮਿੰਟ ਹੋਲਡ ਕਰੋ", ph5: "ਬਾਅਦ ਵਿੱਚ ਫ਼ੋਨ ਕਰਾਂਗਾ",
+    ph6: "ਆਵਾਜ਼ ਨਹੀਂ ਆ ਰਹੀ",
+    cr5: "ਠੀਕ ਹੈ?", cr6: "ਸਮਝ ਆਈ?", cr8: "ਬਹੁਤ ਵਧੀਆ!",
+    em1: "ਮਦਦ!", em3: "ਅੱਗ ਲੱਗੀ ਹੈ!", em6: "ਹਸਪਤਾਲ ਕਿੱਥੇ ਹੈ?",
+    em7: "ਮੈਨੂੰ ਡਰ ਲੱਗਦਾ ਹੈ", em8: "ਸੰਭਾਲ ਕੇ!",
+    id1: "ਮਿਹਨਤ ਦਾ ਫਲ ਮਿੱਠਾ", id2: "ਸੁਖ ਵੇਲੇ ਰੱਬ ਯਾਦ",
+    id3: "ਨਾਮ ਵੱਡਾ, ਦਰਸ਼ਨ ਛੋਟੇ", id7: "ਦਿਲ ਤੇ ਹੱਥ ਰੱਖਕੇ",
+    id10: "ਚੜ੍ਹਦੀ ਕਲਾ ਵਿੱਚ ਰਹੇ",
+    rs5: "ਇੱਕ ਪਲੇਟ ___ ਮਿਲ ਸਕਦੀ?", rs6: "ਇਹ ਕਿਸ ਦਾ ਸੁਆਦ ਹੈ?",
+    rs9: "ਖਾਣਾ ਬਹੁਤ ਵਧੀਆ ਸੀ",
+    bg1: "ਕਿੰਨੇ ਦਾ?", bg5: "ਹੋਰ ਸਸਤਾ ਨਹੀਂ?",
+    bg6: "ਠੀਕ ਹੈ, ਲੈ ਲਾਂਗਾ", bg8: "ਪੱਕਾ ਰੇਟ ਕੀ?",
+    dv1: "ਕੀ ਤਕਲੀਫ਼ ਹੈ?", dv2: "ਕਦੋਂ ਤੋਂ?", dv5: "ਦਰਦ ਕਿੱਥੇ ਹੈ?",
+    tv4: "ਕਿੱਥੋਂ ਚੱਲਦੀ ਹੈ?", tv5: "ਕਿੰਨੇ ਵਜੇ ਚੱਲਦੀ?",
+    tv6: "ਕਿੰਨਾ ਟਾਈਮ ਲੱਗੇਗਾ?", tv7: "ਇਹ ਸੀਟ ਖ਼ਾਲੀ ਹੈ?",
+    tv8: "ਮੈਨੂੰ ___ ਜਾਣਾ ਹੈ", tv10: "ਆਖ਼ਰੀ ਸਟਾਪ ਕਿੱਥੇ?",
+    dn1: "ਮੈਂ ਸਵੇਰੇ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ।",
+    dn2: "ਫਿਰ ਮੂੰਹ ਧੋ ਕੇ ਚਾਹ ਪੀਂਦਾ ਹਾਂ।",
+    dn3: "ਨਾਸ਼ਤਾ ਕਰਕੇ ਕੰਮ ਤੇ ਜਾਂਦਾ ਹਾਂ।",
+    dn4: "ਦੁਪਹਿਰੇ ਬਾਰਾਂ ਵਜੇ ਖਾਣਾ ਖਾਂਦਾ ਹਾਂ।",
+    dn5: "ਸ਼ਾਮ ਨੂੰ ਦੋਸਤਾਂ ਨਾਲ ਮਿਲਦਾ ਹਾਂ।",
+    dn6: "ਰਾਤ ਨੂੰ ਖਾਣਾ ਖਾਕੇ ਟੀਵੀ ਵੇਖਦਾ ਹਾਂ।",
+    dn7: "ਸੌਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹਾਂ।",
+    dn8: "ਏਂਜ ਮੇਰਾ ਇੱਕ ਦਿਨ ਖ਼ਤਮ ਹੋ ਜਾਂਦਾ ਹੈ।",
+    gx7: "ਜਲਦੀ ਮਿਲਣ ਦੀ ਉਮੀਦ",
+    cm3: "ਕਮਾਲ!", cm5: "ਦਿਲ ਖ਼ੁਸ਼ ਹੋ ਗਿਆ", cm6: "ਕਿਆ ਬਾਤ!",
+    lm5: "ਇਹ ਸ਼ਬਦ ਦਾ ਮਤਲਬ ਕੀ?",
+    lm7: "ਗ਼ਲਤੀ ਹੋ ਗਈ ਤਾਂ ਠੀਕ ਕਰੋ",
+    lm8: "ਮੈਨੂੰ ਥੋੜਾ ਥੋੜਾ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ",
+    lm9: "ਤੁਹਾਡੀ ਮਦਦ ਚਾਹੀਦੀ ਹੈ",
     // Religion proper nouns repeats already covered above
   };
 
@@ -5577,18 +5643,46 @@
         setTimeout(pick, 250);
         return;
       }
+
+      // ---- Generic quality scorer for Indic voices (PA + HI) --------------
+      // Prefer Premium / Enhanced / Neural / Natural / Online / WaveNet over
+      // the bundled "Compact" iOS voices, which sound thin and metallic.
+      const indicScore = (v) => {
+        const n = (v.name || "").toLowerCase();
+        let s = 0;
+        if (/premium|enhanced/.test(n)) s += 120;
+        if (/neural|natural|online|cloud|wavenet|studio/.test(n)) s += 100;
+        if (/google/.test(n)) s += 60;
+        if (/microsoft/.test(n)) s += 50;
+        if (/compact/.test(n)) s -= 200;        // iOS "Compact" = thin/distant
+        if (/espeak|festival/.test(n)) s -= 500; // robotic
+        if (v.localService) s += 8;              // tiny local-render bonus
+        return s;
+      };
+
       // Punjabi: prefer real Punjabi voice. If absent (default on iOS),
       // fall back to a Hindi voice — Hindi TTS reads Latin text using
       // Devanagari phonetics which sound very close to spoken Punjabi when
       // we feed it the roman transliteration.
-      tts.voicePunjabi =
-        all.find(v => /^pa(-|_|$)/i.test(v.lang)) ||
-        all.find(v => /punjab/i.test(v.name)) ||
-        null;
-      tts.voiceHindi =
-        all.find(v => /^hi(-|_|$)/i.test(v.lang)) ||
-        all.find(v => /hindi/i.test(v.name)) ||
-        null;
+      const paCandidates = all.filter(v =>
+        /^pa(-|_|$)/i.test(v.lang) || /punjab/i.test(v.name || "")
+      );
+      paCandidates.sort((a, b) => indicScore(b) - indicScore(a));
+      tts.voicePunjabi = paCandidates[0] || null;
+
+      const hiCandidates = all.filter(v =>
+        /^hi(-|_|$)/i.test(v.lang) || /hindi/i.test(v.name || "")
+      );
+      hiCandidates.sort((a, b) => indicScore(b) - indicScore(a));
+      tts.voiceHindi = hiCandidates[0] || null;
+
+      if (tts.voicePunjabi) {
+        console.log("[PPZ TTS] Punjabi voice:", tts.voicePunjabi.name, tts.voicePunjabi.lang, "score:", indicScore(tts.voicePunjabi));
+      }
+      if (tts.voiceHindi) {
+        console.log("[PPZ TTS] Hindi voice:", tts.voiceHindi.name, tts.voiceHindi.lang, "score:", indicScore(tts.voiceHindi));
+      }
+
       // English: prefer high-quality AMERICAN MALE voices first.
       // Hard requirement on en-US locale, deep/authoritative male timbre.
       const en = all.filter(v => /^en(-|_|$)/i.test(v.lang));
@@ -7075,6 +7169,9 @@
     $("#enemyHpText").textContent = `${battle.enemy.hp}/${battle.enemy.maxHp}`;
     $("#playerHpFill").style.width = (battle.playerHp / battle.playerMax * 100) + "%";
     $("#playerHpText").textContent = `${battle.playerHp}/${battle.playerMax}`;
+    // #4 Low-HP danger vignette
+    const arenaEl = document.querySelector("#screen-battle .arena");
+    if (arenaEl) arenaEl.classList.toggle("low-hp", (battle.playerHp / battle.playerMax) < 0.25);
     $("#kiFill").style.width = battle.ki + "%";
     $("#streakLabel").textContent = String(battle.streak);
     const sb = $("#battleShield"); if (sb) sb.textContent = String(state.streakShield || 0);
@@ -7237,7 +7334,13 @@
     battle.enemy.hp = Math.max(0, battle.enemy.hp - dmg);
     if (speedFactor > 0.6) {
       const pct = Math.round((speedBonus - 1) * 100);
-      toast(pickRandom([`⚡ Quick! +${pct}% dmg`, `⚡ Lightning! +${pct}% dmg`]), 900);
+      // #9 Throttle: only toast big bonuses (>=30%) or every 6s, never both.
+      const now = performance.now();
+      const last = battle._lastSpeedToastAt || 0;
+      if (pct >= 30 || (now - last) > 6000) {
+        battle._lastSpeedToastAt = now;
+        toast(pickRandom([`⚡ Quick! +${pct}% dmg`, `⚡ Lightning! +${pct}% dmg`]), 900);
+      }
     }
     gainXp(6 + Math.round(speedFactor * 4));
     // Soft writeback: battle ease nudge only — interval/due/lapses untouched.
@@ -7264,6 +7367,11 @@
       const elapsed = (performance.now() - battle.questionStart) - (battle.pausedTotal || 0);
       applyBattleSignal(battle.currentCard.id, false, elapsed);
     }
+    // Reveal the correct answer briefly so the player learns from the miss (#1).
+    if (battle.currentCard) {
+      const answer = battle.reverse ? battle.currentCard.punjabi : battle.currentCard.english;
+      if (answer) toast(`✗ ${answer}`, 1400);
+    }
     if ((state.streakShield || 0) > 0) {
       state.streakShield -= 1;
       saveState();
@@ -7277,9 +7385,16 @@
       advanceBattle();
       return;
     }
+    const lostStreak = battle.streak || 0;
     battle.streak = 0;
     battle.tier = 0;
     bumpStreakLabel();
+    // #19 Combo-break stinger: only when a meaningful streak was lost.
+    if (lostStreak >= 10) {
+      Sfx.play("ko");
+      buzz([60, 30, 60]);
+      toast(`💥 Combo broken! (${lostStreak})`, 1200);
+    }
     battle.ki = clamp(battle.ki - 20, 0, 100);
     let dmg = enemyAttack();
     if (timeout) dmg = Math.round(dmg * 1.2);
@@ -7349,6 +7464,10 @@
         saveState();
         Sfx.play("ko");
         playKoPuff();
+        // Boss KO quote (#11)
+        if (battle.enemy.isBoss && battle.enemy.koQuote) {
+          setTimeout(() => toast(`“${battle.enemy.koQuote}”`, 2200), 600);
+        }
         // Win condition
         const totalFights = battle.diff?.fights ?? 10;
         battle.enemyIdx += 1;
@@ -7399,7 +7518,7 @@
       nextQuestion();
       renderBattle();
       requestAnimationFrame(() => reanimateChoices());
-    }, battle.lastResult === "wrong" ? 1700 : 900);
+    }, battle.lastResult === "wrong" ? 1700 : (battle.enemy && battle.enemy.isBoss && battle.enemy.hp <= 0 ? 1800 : 900));
   }
 
   function shakeEl(sel) {
@@ -7627,29 +7746,39 @@
 
   // ---------- Procedural Music loop -----------------------------------------
   const Music = (() => {
-    // Cinematic battle theme inspired by Kanye West's "Stronger" (sampling
-    // Daft Punk's "Harder Better Faster Stronger"): a driving F#-minor loop
-    // F#m – D – A – E  (i – VI – III – VII).
-    // Chord-forward Rhodes voicings, but driven on every 8th by a tight
-    // straight (no-swing) drum kit — kick on 1 & 3, snare on 2 & 4, busy
-    // hats — sub-bass pulse, and a saw-edged lead for tension.
+    // Modern metal / hype / DBZ-flavored battle theme.
+    // Key: F# minor — chord loop F#m – D – A – E (i – VI – III – VII).
+    //  - 4-on-the-floor kick locked with palm-muted 8th-note sub bass for
+    //    driving metal/EDM push.
+    //  - Distorted power-chord stabs (root + 5th + octave saw stack, low-
+    //    passed to stay ear-safe) on the downbeat of every bar.
+    //  - Rhodes/pad chord behind the stabs; pad ducks on every kick for a
+    //    sidechain "pump" that screams modern production.
+    //  - DBZ horn-stab hit + crash on every 4-bar phrase downbeat.
+    //  - Snare on 2 & 4 with a tom fill on the last beat of bar 4.
+    //  - Hooky F#-minor pentatonic lead doubled at the octave for bosses.
     let timer = null;
-    let currentBpm = 92;          // mid-tempo, walking battle pace
+    let currentBpm = 100;         // hype tempo
     let isBoss = false;
     let step = 0;                 // 16th-note step within a 4-bar loop (0..63)
     let nextNoteTime = 0;
+    let lastKickTime = -1;        // for sidechain pump on chord/pad
     const LOOKAHEAD_MS = 25;
     const SCHED_AHEAD = 0.15;
 
-    // Bass roots, one octave below tonic.
+    // Bass roots, low octave for metal weight.
     const BASS_ROOTS = [46.25, 73.42, 55.00, 82.41]; // F#1, D2, A1, E2
+    // Power-chord stab roots (root, 5th, octave) — low-mid register.
+    // F#: F#2 C#3 F#3 | D: D2 A2 D3 | A: A2 E3 A3 | E: E2 B2 E3
+    const POWER = [
+      [92.50, 138.59, 185.00],
+      [73.42, 110.00, 146.83],
+      [110.00, 164.81, 220.00],
+      [82.41, 123.47, 164.81],
+    ];
 
-    // Rhodes-style chord voicings — F#-minor family with 7th/9th colors.
-    // Mid-register so the chord stays the focus.
-    // F#m9   : F# A C# E G#
-    // Dmaj7  : D F# A C#
-    // Amaj7  : A C# E G#
-    // E7     : E G# B D
+    // Rhodes/pad chord voicings — F#-minor family with 7th/9th colors.
+    // F#m9 | Dmaj7 | Amaj7 | E7
     const CHORDS = [
       [185.00, 220.00, 277.18, 329.63, 415.30], // F#m9
       [146.83, 185.00, 220.00, 277.18],         // Dmaj7
@@ -7670,12 +7799,15 @@
       [null,null,null,null, B5,null,A5,null, null,null,null,null, FS5,null,null,null],
     ];
 
-    // Battle drum pattern (16 sixteenths). Straight, no swing.
-    // Kick on 1 + "and of 2" + 3, snare on 2 & 4, hats on every 8th
-    // with two ghosted 16ths for a driving feel.
-    const KICK  = [1,0,0,0, 0,0,1,0, 1,0,0,0, 0,0,0,0];
-    const SNARE = [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,1]; // ghost lead-in to bar
-    const HAT   = [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,1]; // open-hat lift on the 'and of 4'
+    // Hype metal/EDM kit (16 sixteenths per bar, straight time).
+    // KICK: 4-on-the-floor + ghost 16th lead-in to beat 1 of next bar.
+    // SNARE: backbeat 2 & 4, with a ghost 16th before beat 4 for movement.
+    // HAT: every 8th closed; open-hat lift on the 'and of 4'.
+    // STAB: power-chord on every downbeat.
+    const KICK  = [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,1];
+    const SNARE = [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,1];
+    const HAT   = [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,2]; // 2 = open hat
+    const STAB  = [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0]; // beats 1 & 3
 
     // Continuous vinyl/tape noise — initialized once.
     let noiseSrc = null, noiseGain = null;
@@ -7749,89 +7881,234 @@
       osc.stop(t0 + dur + 0.05);
     }
 
-    // Rhodes-style EP voice: soft sine fundamental + bell-ish triangle 2nd
-    // harmonic, slow attack, long decay. This is the star of the show.
+    // Rhodes-style EP voice — pad behind the stabs. Sidechain ducks volume
+    // on every kick for that modern "pump" feel.
     function rhodes(freq, t0, dur, vol) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
-      // Fundamental (sine) — warm body.
-      tone(freq, t0, dur, vol * 1.0, "sine", 2200, 0.025, 0.5);
-      // Octave shimmer (triangle) — Rhodes "tine".
-      tone(freq * 2, t0, dur * 0.65, vol * 0.28, "triangle", 3500, 0.008, 0.5);
-      // Subtle 5th color
-      tone(freq * 1.5, t0, dur * 0.5, vol * 0.10, "sine", 2800, 0.02, 0.5);
+      const wrap = ctx.createGain();
+      wrap.gain.value = 1;
+      // Sidechain: if a kick lands during the held chord, dip the pad.
+      const kickGap = 60 / currentBpm;       // quarter-note kick spacing
+      const kicks = Math.max(1, Math.ceil(dur / kickGap));
+      let kt = lastKickTime > 0 ? lastKickTime : t0;
+      while (kt < t0) kt += kickGap;
+      for (let i = 0; i < kicks && kt < t0 + dur; i++, kt += kickGap) {
+        wrap.gain.setValueAtTime(1.0, Math.max(t0, kt - 0.005));
+        wrap.gain.linearRampToValueAtTime(0.35, kt + 0.01);
+        wrap.gain.exponentialRampToValueAtTime(1.0, Math.min(t0 + dur, kt + 0.18));
+      }
+      wrap.connect(Sfx.musicGain);
+      const sink = wrap;
+      // We can't easily redirect tone() output, so duplicate a minimal
+      // chord layer that routes through the ducker.
+      const layers = [
+        { mult: 1.0, vol: vol * 1.0, type: "sine",     cutoff: 2200 },
+        { mult: 2.0, vol: vol * 0.28, type: "triangle", cutoff: 3500 },
+        { mult: 1.5, vol: vol * 0.10, type: "sine",     cutoff: 2800 },
+      ];
+      layers.forEach(L => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = L.type;
+        osc.frequency.value = freq * L.mult;
+        const filt = ctx.createBiquadFilter();
+        filt.type = "lowpass"; filt.frequency.value = L.cutoff; filt.Q.value = 0.5;
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(L.vol, t0 + 0.025);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(filt); filt.connect(g); g.connect(sink);
+        osc.start(t0); osc.stop(t0 + dur + 0.05);
+      });
     }
 
-    // Soft sub-bass: pure sine + a touch of triangle for definition.
+    // Distorted power-chord stab: detuned saw stack (root/5th/octave) low-
+    // passed for ear safety. The "metal" of the track.
+    function powerStab(freqs, t0, dur, vol) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const out = ctx.createGain();
+      out.gain.setValueAtTime(0, t0);
+      out.gain.linearRampToValueAtTime(vol, t0 + 0.005);
+      out.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      // Distortion: waveshaper for asymmetric drive.
+      const shaper = ctx.createWaveShaper();
+      const curve = new Float32Array(1024);
+      const k = 22;
+      for (let i = 0; i < 1024; i++) {
+        const x = (i / 512) - 1;
+        curve[i] = ((1 + k) * x) / (1 + k * Math.abs(x));
+      }
+      shaper.curve = curve; shaper.oversample = "4x";
+      // Cutoff lower than typical metal so it doesn't shred kids' ears.
+      const lp = ctx.createBiquadFilter();
+      lp.type = "lowpass"; lp.frequency.value = 1800; lp.Q.value = 0.9;
+      const hp = ctx.createBiquadFilter();
+      hp.type = "highpass"; hp.frequency.value = 90;
+      shaper.connect(lp); lp.connect(hp); hp.connect(out); out.connect(Sfx.musicGain);
+      // Detuned dual-saw per note for thickness.
+      freqs.forEach(f => {
+        [-7, 7].forEach(cents => {
+          const o = ctx.createOscillator();
+          o.type = "sawtooth";
+          o.frequency.value = f * Math.pow(2, cents / 1200);
+          o.connect(shaper);
+          o.start(t0); o.stop(t0 + dur + 0.02);
+        });
+      });
+    }
+
+    // DBZ horn-stab: short, brass-like saw + triangle blast on the "1" of
+    // every 4-bar phrase. Filtered to stay warm.
+    function hornHit(rootFreq, t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const dur = 0.45;
+      const lp = ctx.createBiquadFilter();
+      lp.type = "lowpass"; lp.frequency.setValueAtTime(900, t0);
+      lp.frequency.exponentialRampToValueAtTime(2400, t0 + 0.04);
+      lp.frequency.exponentialRampToValueAtTime(900, t0 + dur);
+      lp.Q.value = 1.2;
+      const out = ctx.createGain();
+      out.gain.setValueAtTime(0, t0);
+      out.gain.linearRampToValueAtTime(0.16, t0 + 0.012);
+      out.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      lp.connect(out); out.connect(Sfx.musicGain);
+      [1, 1.5, 2].forEach((m, i) => {
+        const o = ctx.createOscillator();
+        o.type = i === 0 ? "sawtooth" : "triangle";
+        o.frequency.value = rootFreq * m;
+        o.connect(lp);
+        o.start(t0); o.stop(t0 + dur + 0.02);
+      });
+    }
+
+    // Crash cymbal — filtered noise, longer tail, gentle.
+    function crash(t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const dur = 0.9;
+      const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 4500;
+      const shelf = ctx.createBiquadFilter(); shelf.type = "highshelf"; shelf.frequency.value = 8000; shelf.gain.value = -4;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.10, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      src.connect(hp); hp.connect(shelf); shelf.connect(g); g.connect(Sfx.musicGain);
+      src.start(t0); src.stop(t0 + dur);
+    }
+
+    // Tom — short pitched thump, used in fills.
+    function tom(freq, t0) {
+      const ctx = Sfx.ctx;
+      if (!ctx || !Sfx.musicGain) return;
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(freq, t0);
+      o.frequency.exponentialRampToValueAtTime(freq * 0.55, t0 + 0.18);
+      g.gain.setValueAtTime(0.22, t0);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
+      o.connect(g); g.connect(Sfx.musicGain);
+      o.start(t0); o.stop(t0 + 0.25);
+    }
+
+    // Soft sub-bass + palm-muted upper octave for metal drive on every 8th.
     function bass(freq, t0, dur) {
-      tone(freq, t0, dur, 0.16, "sine", 600, 0.02, 0.5);
-      tone(freq * 2, t0, dur * 0.7, 0.04, "triangle", 700, 0.02, 0.5);
+      tone(freq, t0, dur, 0.18, "sine", 600, 0.005, 0.5);
+      tone(freq * 2, t0, dur * 0.6, 0.05, "triangle", 800, 0.005, 0.5);
+    }
+    function bassPalm(freq, t0, dur) {
+      // Tighter, shorter, slightly distorted — palm-muted feel.
+      tone(freq * 2, t0, dur, 0.07, "sawtooth", 700, 0.004, 0.6);
+      tone(freq, t0, dur * 0.85, 0.10, "sine", 500, 0.004, 0.5);
     }
 
-    // Lead — mellow sine + a touch of saw for battle edge.
+    // Lead — sine + saw bite, doubled at octave for bosses.
     function lead(freq, t0, dur) {
-      const cutoff = isBoss ? 3200 : 2600;
-      tone(freq, t0, dur, 0.07, "sine", cutoff, 0.02, 0.5);
-      tone(freq * 1.005, t0, dur, 0.030, "triangle", cutoff, 0.02, 0.5);
-      // Subtle saw layer adds bite without going full rock.
-      tone(freq, t0, dur * 0.85, 0.022, "sawtooth", cutoff * 0.7, 0.02, 0.6);
-      if (isBoss) tone(freq * 2, t0, dur * 0.7, 0.018, "triangle", 4200, 0.02, 0.5);
+      const cutoff = isBoss ? 3400 : 2800;
+      tone(freq, t0, dur, 0.075, "sine", cutoff, 0.012, 0.5);
+      tone(freq * 1.005, t0, dur, 0.034, "triangle", cutoff, 0.012, 0.5);
+      tone(freq, t0, dur * 0.85, 0.026, "sawtooth", cutoff * 0.7, 0.012, 0.6);
+      if (isBoss) tone(freq * 2, t0, dur * 0.7, 0.020, "triangle", 4200, 0.012, 0.5);
     }
 
-    // Punchy battle kick — thicker thump with a bit of click.
+    // Punchy battle kick — thicker thump with a click transient.
     function kick(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
+      lastKickTime = t0;
       const osc = ctx.createOscillator();
       const g = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(150, t0);
+      osc.frequency.setValueAtTime(180, t0);
       osc.frequency.exponentialRampToValueAtTime(40, t0 + 0.10);
-      g.gain.setValueAtTime(0.30, t0);
+      g.gain.setValueAtTime(0.34, t0);
       g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
       osc.connect(g); g.connect(Sfx.musicGain);
       osc.start(t0); osc.stop(t0 + 0.25);
+      // Click transient (filtered noise) for modern punch.
+      const dur = 0.012;
+      const buf = ctx.createBuffer(1, Math.max(8, ctx.sampleRate * dur), ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1200;
+      const cg = ctx.createGain();
+      cg.gain.setValueAtTime(0.10, t0);
+      cg.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      src.connect(hp); hp.connect(cg); cg.connect(Sfx.musicGain);
+      src.start(t0); src.stop(t0 + dur);
     }
 
-    // Snare — noise burst through bandpass + tonal layer.
+    // Modern gated snare — bandpass noise + tonal layer, abrupt cut for
+    // "gated reverb" attitude. Low-passed to stay friendly.
     function snare(t0) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
-      const dur = 0.16;
+      const dur = 0.18;
       const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
       const d = buf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1);
       const src = ctx.createBufferSource(); src.buffer = buf;
-      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1700; bp.Q.value = 0.9;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1900; bp.Q.value = 0.8;
+      const shelf = ctx.createBiquadFilter(); shelf.type = "highshelf"; shelf.frequency.value = 5500; shelf.gain.value = -3;
       const g = ctx.createGain();
-      g.gain.setValueAtTime(0.20, t0);
-      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
-      src.connect(bp); bp.connect(g); g.connect(Sfx.musicGain);
+      g.gain.setValueAtTime(0.24, t0);
+      // Gated tail: quick decay then hard cut for that 80s-metal/modern hybrid.
+      g.gain.exponentialRampToValueAtTime(0.04, t0 + 0.09);
+      g.gain.linearRampToValueAtTime(0.0001, t0 + 0.13);
+      src.connect(bp); bp.connect(shelf); shelf.connect(g); g.connect(Sfx.musicGain);
       src.start(t0); src.stop(t0 + dur);
       // Tonal thwack
       const osc = ctx.createOscillator(); const g2 = ctx.createGain();
-      osc.type = "triangle"; osc.frequency.setValueAtTime(220, t0);
-      osc.frequency.exponentialRampToValueAtTime(150, t0 + 0.07);
-      g2.gain.setValueAtTime(0.09, t0);
+      osc.type = "triangle"; osc.frequency.setValueAtTime(240, t0);
+      osc.frequency.exponentialRampToValueAtTime(160, t0 + 0.07);
+      g2.gain.setValueAtTime(0.10, t0);
       g2.gain.exponentialRampToValueAtTime(0.001, t0 + 0.10);
       osc.connect(g2); g2.connect(Sfx.musicGain);
       osc.start(t0); osc.stop(t0 + 0.12);
     }
 
-    // Brushed hat — short, soft noise burst, gentle high-pass.
-    function hat(t0) {
+    // Closed/open hat — short noise burst, gentle high-pass. open=true
+    // gives a longer tail for the "and of 4" lift.
+    function hat(t0, open) {
       const ctx = Sfx.ctx;
       if (!ctx || !Sfx.musicGain) return;
-      const dur = 0.05;
+      const dur = open ? 0.16 : 0.045;
       const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
       const d = buf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
       const src = ctx.createBufferSource(); src.buffer = buf;
-      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 6500;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7000;
+      const shelf = ctx.createBiquadFilter(); shelf.type = "highshelf"; shelf.frequency.value = 9000; shelf.gain.value = -4;
       const g = ctx.createGain();
-      g.gain.setValueAtTime(0.025, t0);
+      g.gain.setValueAtTime(open ? 0.045 : 0.028, t0);
       g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
-      src.connect(hp); hp.connect(g); g.connect(Sfx.musicGain);
+      src.connect(hp); hp.connect(shelf); shelf.connect(g); g.connect(Sfx.musicGain);
       src.start(t0); src.stop(t0 + dur);
     }
 
@@ -7840,42 +8117,47 @@
       const inBar = s % 16;
       const sixteenth = 60 / currentBpm / 4;
       const beatDur = sixteenth * 4;
+      const phraseStart = (s === 0);
 
-      // Drums (driving battle kit)
+      // === Drums ===
       if (KICK[inBar])  kick(t);
       if (SNARE[inBar]) snare(t);
-      if (HAT[inBar])   hat(t);
+      if (HAT[inBar])   hat(t, HAT[inBar] === 2);
 
-      // Sub-bass pulse — root on every quarter note for forward motion.
-      if (inBar % 4 === 0) bass(BASS_ROOTS[bar], t, beatDur * 1.0);
+      // Tom fill on the very last beat of the 4-bar phrase (bar 3, beat 4).
+      if (bar === 3 && inBar === 12) tom(180, t);
+      if (bar === 3 && inBar === 13) tom(150, t);
+      if (bar === 3 && inBar === 14) tom(120, t);
+      if (bar === 3 && inBar === 15) tom(90,  t);
 
-      // === Chord emphasis ===
+      // Crash cymbal on every 4-bar phrase downbeat (DBZ "FIGHT!" moment).
+      if (phraseStart) crash(t);
+
+      // === Bass ===
+      // Palm-muted 8th-note root drive (metal feel) + sub on every quarter.
+      if (inBar % 2 === 0) bassPalm(BASS_ROOTS[bar], t, sixteenth * 1.7);
+      if (inBar % 4 === 0) bass(BASS_ROOTS[bar], t, beatDur * 0.95);
+
+      // === Power-chord stab (the metal) ===
+      if (STAB[inBar]) {
+        const stabVol = isBoss ? 0.16 : 0.13;
+        powerStab(POWER[bar], t, sixteenth * 3.5, stabVol);
+      }
+
+      // === DBZ horn hit on every phrase downbeat ===
+      if (phraseStart) hornHit(BASS_ROOTS[bar] * 2, t);
+
+      // === Rhodes/pad chord (sidechained behind the stabs) ===
       const chord = CHORDS[bar];
-      const vol = isBoss ? 0.085 : 0.075;
-
-      // Big sustained chord on the downbeat (strummed, slight roll).
+      const padVol = isBoss ? 0.07 : 0.06;
       if (inBar === 0) {
-        chord.forEach((f, i) => {
-          rhodes(f, t + i * 0.010, beatDur * 3.7, vol);
-        });
+        chord.forEach((f, i) => rhodes(f, t + i * 0.008, beatDur * 3.6, padVol));
       }
-
-      // Drive the chord on every off-beat (the "and" of each beat) — keeps
-      // harmonic motion present without muddying the downbeat strum.
-      if (inBar === 2 || inBar === 6 || inBar === 10 || inBar === 14) {
-        chord.forEach((f, i) => {
-          rhodes(f, t + i * 0.005, beatDur * 0.55, vol * 0.5);
-        });
-      }
-
-      // Re-strike on beat 3 with medium sustain to anchor the bar.
       if (inBar === 8) {
-        chord.forEach((f, i) => {
-          rhodes(f, t + i * 0.008, beatDur * 1.8, vol * 0.75);
-        });
+        chord.forEach((f, i) => rhodes(f, t + i * 0.006, beatDur * 1.8, padVol * 0.75));
       }
 
-      // Top-line melody.
+      // === Top-line melody ===
       const note = LEAD[bar][inBar];
       if (note) {
         let hold = 1;
@@ -8193,6 +8475,12 @@
       const pct = (battle.telegraphTurns / max) * 100;
       $("#tbBarFill").style.width = pct + "%";
       banner.classList.toggle("final", battle.telegraphTurns === 1);
+      // #2 Counter-play hint: show when KI Special is ready (only real cancel path).
+      const hint = $("#tbHint");
+      if (hint) {
+        const kiReady = battle && battle.ki >= BATTLE.KI_SPECIAL_COST;
+        hint.hidden = !kiReady;
+      }
     } else {
       banner.hidden = true;
       banner.classList.remove("final");
@@ -8295,7 +8583,8 @@
     card.classList.toggle("boss", !!enemy.isBoss);
     card.hidden = false;
     if (enemy.isBoss) Sfx.play("telegraphWarn");
-    const dur = enemy.isBoss ? 1400 : 700;
+    // Bosses get a longer beat so players can read the quote/flavor (#5).
+    const dur = enemy.isBoss ? 2800 : 800;
     const dismiss = () => {
       card.hidden = true;
       card.removeEventListener("click", dismiss);
