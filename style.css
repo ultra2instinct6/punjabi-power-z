@@ -3603,3 +3603,182 @@ body[data-direction="pa2en"] .card-face.front .card-type::after {
 }
 .fc-num { font-size: 9px; color: #cdd2e3; line-height: 1; }
 .fc-lbl { font-size: 9px; color: #6e7286; line-height: 1; }
+
+/* ========================================================================== */
+/* BATTLE ANIMATIONS UPGRADE PACK                                             */
+/* Hit-stop, camera punch, crit sparks, damage tiers, player KO, defeat,      */
+/* and victory confetti. New keyframes degrade automatically via the existing */
+/* prefers-reduced-motion universal rule.                                      */
+/* ========================================================================== */
+
+/* B1 — Hit-stop: freeze arena animations briefly on big moments. */
+.arena.frozen,
+.arena.frozen *,
+.arena.frozen *::before,
+.arena.frozen *::after {
+  animation-play-state: paused !important;
+}
+.arena.frozen { filter: brightness(1.18) contrast(1.05); }
+
+/* B2 — Camera punch: weightier shake with rotate + scale, layered on top of
+   the existing .arena-shake (which translates only). */
+.arena.arena-punch { animation: arenaPunch .42s var(--ease-spring) both; }
+@keyframes arenaPunch {
+  0%   { transform: translate(0,0) rotate(0) scale(1); }
+  18%  { transform: translate(-6px, 4px) rotate(-0.7deg) scale(1.025); }
+  38%  { transform: translate(7px, -3px) rotate(0.6deg) scale(1.018); }
+  62%  { transform: translate(-4px, 3px) rotate(-0.35deg) scale(1.012); }
+  82%  { transform: translate(3px, -2px) rotate(0.2deg) scale(1.006); }
+  100% { transform: translate(0,0) rotate(0) scale(1); }
+}
+
+/* B3 — Crit spark burst (radial particles). Spawned by JS as children of a
+   sprite container; positioned via --angle. */
+.crit-spark {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 4px; height: 16px;
+  margin-left: -2px; margin-top: -8px;
+  background: linear-gradient(180deg, #fff 0%, #ffd23f 45%, rgba(255,122,26,0) 100%);
+  border-radius: 2px;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  transform: rotate(var(--angle, 0deg)) translateY(-4px) scaleY(0.6);
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(255,210,63,0.95));
+  animation: critSpark .55s ease-out forwards;
+  z-index: 6;
+}
+@keyframes critSpark {
+  0%   { opacity: 0; transform: rotate(var(--angle,0deg)) translateY(-2px)  scaleY(0.4); }
+  20%  { opacity: 1; transform: rotate(var(--angle,0deg)) translateY(-12px) scaleY(1.0); }
+  100% { opacity: 0; transform: rotate(var(--angle,0deg)) translateY(-46px) scaleY(0.2); }
+}
+
+/* B7 — Damage number size tiers (set by JS based on amount vs maxHp). */
+.dmg-pop.big  { font-size: clamp(28px, 6.5vw, 40px); font-weight: 900; }
+.dmg-pop.huge { font-size: clamp(34px, 8vw,   52px); font-weight: 900;
+  text-shadow: 0 2px 0 #000, 0 0 14px rgba(255,80,80,0.85), -1px 0 0 rgba(255,210,63,0.9), 1px 0 0 rgba(120,180,255,0.9); }
+.dmg-pop.crit.huge { color: #ffe680; text-shadow: 0 2px 0 #000, 0 0 22px rgba(255,210,63,1), -1.5px 0 0 #ff7a1a, 1.5px 0 0 #6aa2ff; }
+
+/* A1 — Player KO: slump fall + grayscale fade. */
+.player-sprite.ko { animation: playerKo 1.0s ease-in forwards; transform-origin: 50% 90%; }
+@keyframes playerKo {
+  0%   { transform: rotate(0) translateY(0); filter: none; opacity: 1; }
+  35%  { transform: rotate(-8deg) translateY(4px); filter: brightness(.85); opacity: 1; }
+  70%  { transform: rotate(-72deg) translateY(28px); filter: grayscale(.7) brightness(.55); opacity: .85; }
+  100% { transform: rotate(-90deg) translateY(48px); filter: grayscale(1) brightness(.4); opacity: .55; }
+}
+.arena.dim-out { animation: arenaDim .9s ease forwards; }
+@keyframes arenaDim {
+  to { filter: brightness(.5) saturate(.55); }
+}
+
+/* A2 — Defeat overlay: red vignette + DEFEATED text pop. */
+.defeat-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 80;
+  opacity: 0;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 10px;
+}
+.defeat-overlay.show { opacity: 1; pointer-events: auto; animation: defeatFade 1.6s ease forwards; }
+.defeat-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(120,0,0,0) 35%, rgba(140,8,8,0.55) 75%, rgba(40,0,0,0.92) 100%),
+    linear-gradient(180deg, rgba(20,0,0,0.35), rgba(0,0,0,0.55));
+  animation: defeatVignette 1.2s ease forwards;
+}
+@keyframes defeatVignette {
+  from { opacity: 0; transform: scale(1.15); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.defeat-text {
+  position: relative;
+  font-size: clamp(44px, 11vw, 88px);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: #ffd6d6;
+  text-shadow:
+    0 4px 0 #000,
+    0 0 22px rgba(255,40,40,0.9),
+    -2px 0 0 rgba(120,180,255,0.6),
+    2px 0 0 rgba(255,210,63,0.6);
+  transform: scale(.6);
+  opacity: 0;
+  animation: defeatText 1.2s var(--ease-spring, cubic-bezier(.2,1.2,.4,1)) .25s forwards;
+}
+@keyframes defeatText {
+  0%   { transform: scale(.6) rotate(-3deg); opacity: 0; }
+  55%  { transform: scale(1.12) rotate(.5deg); opacity: 1; }
+  80%  { transform: scale(.96) rotate(-.2deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.defeat-sub {
+  position: relative;
+  color: #f7c2c2;
+  font-size: clamp(13px, 3vw, 18px);
+  letter-spacing: .08em;
+  opacity: 0;
+  animation: defeatSub 1s ease .8s forwards;
+}
+@keyframes defeatSub { to { opacity: .9; } }
+@keyframes defeatFade {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* A3 — Victory confetti layer + particles. */
+.confetti-layer {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 75;
+  overflow: hidden;
+}
+.confetti {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 8px; height: 14px;
+  background: var(--c, #ffd23f);
+  border-radius: 1px;
+  opacity: 0;
+  transform: translate(0,0) rotate(0);
+  animation: confettiFall var(--dur, 2200ms) var(--ease, cubic-bezier(.25,.6,.4,1)) var(--delay, 0ms) forwards;
+  will-change: transform, opacity;
+}
+@keyframes confettiFall {
+  0%   { opacity: 0; transform: translate(var(--x0, 0px), -10vh) rotate(0); }
+  8%   { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x1, 0px), 110vh) rotate(var(--rot, 720deg)); }
+}
+/* Gold radial bloom behind confetti for a satisfying "pop". */
+.victory-bloom {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 74;
+  background: radial-gradient(circle at 50% 45%, rgba(255,210,63,0.65) 0%, rgba(255,122,26,0.35) 25%, rgba(0,0,0,0) 60%);
+  opacity: 0;
+  animation: victoryBloom 1.4s ease forwards;
+}
+@keyframes victoryBloom {
+  0%   { opacity: 0; transform: scale(.6); }
+  35%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* Victory banner shimmer sweep (results screen). */
+.results-banner.shimmer { position: relative; overflow: hidden; }
+.results-banner.shimmer::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: bannerShimmer 1.8s ease .15s 2;
+  pointer-events: none;
+}
+@keyframes bannerShimmer { to { transform: translateX(120%); } }

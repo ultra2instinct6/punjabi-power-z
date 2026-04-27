@@ -4819,9 +4819,24 @@
     return r;
   }
 
-  // Gentle XP curve: lvl 1->2 = 50 xp, lvl 50 reachable in roughly an hour of play.
+  // Gentle linear XP curve so the time-per-level is roughly constant at
+  // every level (rewards below scale with level too). 1→100 is a warm-up
+  // (≈20 levels per battle run), then the absolute numbers grow but the
+  // pace doesn't. Designed so the rank ladder all the way to 1,000,000
+  // feels like a long, steady grind rather than a wall.
+  //   L1→2:    100 xp        L500→501:    20,060 xp
+  //   L50→51:  2,060 xp      L5000→5001:  200,060 xp
+  //   L100→101: 4,060 xp      L25000→25001: 1,000,060 xp
   function xpForNext(level) {
-    return Math.max(20, Math.round(50 * Math.pow(level, 1.35)));
+    return Math.max(60, Math.round(60 + 40 * level));
+  }
+
+  // Per-level reward multiplier shared by Training and Battle. Keeps XP
+  // gain proportional to the curve above so each session is meaningful no
+  // matter how high you've climbed. Capped to avoid catastrophic overflow
+  // near the level ceiling.
+  function levelRewardMult() {
+    return Math.min(1 + state.level * 0.6, 1_200_000);
   }
 
   // ---------- Enemies ---------------------------------------------------------
@@ -4985,6 +5000,53 @@
     // same study day.
     STUDY_DAY_OFFSET_HOURS: 4,
   };
+
+  // ---------- Content difficulty tiers --------------------------------------
+  // Every DECK card is classified into a tier 1..5 (foundations -> advanced).
+  // Tiers gate which NEW cards Training will introduce based on player level,
+  // and act as a fallback for Battle when the player hasn't been introduced
+  // to enough cards yet. Existing seen/scheduled cards always remain in play.
+  const CARD_TIERS = {
+    // Player level required to unlock each tier's NEW cards. Aligned with
+    // the rank table (Beginner / Trainee / Village Warrior / Saiyan Speaker
+    // / Super Saiyan Student) so each early rank-up actually unlocks new
+    // content instead of being purely cosmetic.
+    UNLOCK_AT: { 1: 1, 2: 50, 3: 500, 4: 5000, 5: 25000 },
+    NAMES:     { 1: "Foundations", 2: "Daily Life", 3: "Communication", 4: "Grammar Basics", 5: "Advanced" },
+    MAX: 5,
+  };
+
+  function cardTier(card) {
+    if (!card) return 3;
+    const id = card.id || "";
+    const num = parseInt((id.match(/\d+$/) || ["0"])[0], 10);
+    if (card.type === "grammar") {
+      if (/^g([1-4])$/.test(id)) return 4;          // parts of speech
+      if (/^(qy|fw|fa|mw)\d+$/.test(id)) return 4;  // quantity / function / frequency / measure
+      return 5;                                     // everything else grammar = advanced
+    }
+    if (card.type === "phrase") {
+      if (/^(gx|yn)\d+$/.test(id)) return 1;        // greetings & yes/no
+      if (/^p\d+$/.test(id) && num <= 10) return 1; // first 10 core phrases
+      if (/^lm\d+$/.test(id)) return 4;             // "learning Punjabi" toolkit
+      return 3;                                     // kindness, compliments, apologies, etc.
+    }
+    // Vocab
+    if (/^v\d+$/.test(id)) return 1;                // core vocab v1..vN
+    if (/^(pc|c|d)\d+$/.test(id)) return 1;         // pronouns, colors, days
+    if (/^n\d+$/.test(id)) return num <= 10 ? 1 : 2;// numbers 1-10 foundational, rest tier 2
+    if (/^(f|b|t|fd|a|pl|q)\d+$/.test(id)) return 2;// family, body, time, food, animals, places, questions
+    if (/^(ad|vb)\d+$/.test(id)) return 3;          // adjectives, verbs
+    return 2;                                       // sensible default for unclassified vocab groups
+  }
+
+  function unlockedTierForLevel(level) {
+    let unlocked = 1;
+    for (let t = 1; t <= CARD_TIERS.MAX; t++) {
+      if (level >= CARD_TIERS.UNLOCK_AT[t]) unlocked = t;
+    }
+    return unlocked;
+  }
 
   function srsHash(id) {
     let h = 0;
@@ -5600,11 +5662,9 @@
 
   // ---- Dev-time mapping audit (runs once, console only) ---------------------
   function auditGurmukhiMap() {
+    // Dev-time mapping check; intentionally silent in production.
     try {
-      const missing = DECK.filter(c => c.type !== "grammar" && !gurmukhiFor(c));
-      if (missing.length) {
-        console.log(`[PPZ] ${missing.length} non-grammar cards lack a Gurmukhi mapping; they'll show roman-only.`);
-      }
+      DECK.filter(c => c.type !== "grammar" && !gurmukhiFor(c));
     } catch {}
   }
 
@@ -5677,10 +5737,10 @@
       tts.voiceHindi = hiCandidates[0] || null;
 
       if (tts.voicePunjabi) {
-        console.log("[PPZ TTS] Punjabi voice:", tts.voicePunjabi.name, tts.voicePunjabi.lang, "score:", indicScore(tts.voicePunjabi));
+        try { audioDbgLog("PA voice: " + tts.voicePunjabi.name + " (" + tts.voicePunjabi.lang + ")"); } catch {}
       }
       if (tts.voiceHindi) {
-        console.log("[PPZ TTS] Hindi voice:", tts.voiceHindi.name, tts.voiceHindi.lang, "score:", indicScore(tts.voiceHindi));
+        try { audioDbgLog("HI voice: " + tts.voiceHindi.name + " (" + tts.voiceHindi.lang + ")"); } catch {}
       }
 
       // English: prefer high-quality AMERICAN MALE voices first.
@@ -5729,7 +5789,7 @@
       const topUS = en.find(isUS);
       tts.voiceEnglish = topUS || en[0] || null;
       if (tts.voiceEnglish) {
-        console.log("[PPZ TTS] English voice:", tts.voiceEnglish.name, tts.voiceEnglish.lang, "score:", score(tts.voiceEnglish));
+        try { audioDbgLog("EN voice: " + tts.voiceEnglish.name + " (" + tts.voiceEnglish.lang + ")"); } catch {}
       }
       // Back-compat: legacy single-voice slot still points to the Punjabi one.
       tts.voice = tts.voicePunjabi;
@@ -5843,7 +5903,6 @@
 
     if (lang === "en") {
       const voice = tts.voiceEnglish;
-      console.log("[PPZ TTS] EN speak:", primary, "voice:", voice && voice.name);
       if ("speechSynthesis" in window && speakViaWebSpeech(primary, voice, "en-US")) return;
       if (navigator.onLine) speakViaGoogle(primary, "en");
       else toast("Audio needs internet (no English voice).");
@@ -5853,7 +5912,6 @@
     // ---- Punjabi --------------------------------------------------------
     // Best: real Punjabi voice if installed.
     if (tts.voicePunjabi) {
-      console.log("[PPZ TTS] PA (native) speak:", primary, "voice:", tts.voicePunjabi.name);
       if (speakViaWebSpeech(primary, tts.voicePunjabi, tts.voicePunjabi.lang || "pa-IN")) return;
     }
     // Fallback A: Hindi voice reading the ROMAN transliteration.
@@ -5861,12 +5919,10 @@
     // pronounces Latin letters using Indic phonetics — sounds very close to
     // actual Punjabi when given roman text.
     if (tts.voiceHindi && roman) {
-      console.log("[PPZ TTS] PA (Hindi-roman) speak:", roman, "voice:", tts.voiceHindi.name);
       if (speakViaWebSpeech(roman, tts.voiceHindi, tts.voiceHindi.lang || "hi-IN")) return;
     }
     // Fallback B: Web Speech with hi-IN lang only (no specific voice).
     if ("speechSynthesis" in window && roman) {
-      console.log("[PPZ TTS] PA (lang=hi-IN) speak:", roman);
       if (speakViaWebSpeech(roman, null, "hi-IN")) return;
     }
     // Fallback C: online Google TTS as last resort.
@@ -5920,6 +5976,14 @@
     if (kind === "crit") el.classList.add("crit");
     else if (kind === "heal") el.classList.add("heal");
     else if (kind === "miss") el.classList.add("miss");
+    // B7 — Scale damage number by magnitude vs current player max HP. Big
+    //      numbers feel bigger; misses/heals stay default.
+    if (typeof amount === "number" && (kind === "dmg" || kind === "crit")) {
+      const ref = (typeof battle !== "undefined" && battle && battle.playerMax) ? battle.playerMax : 100;
+      const ratio = amount / ref;
+      if (ratio >= 0.30) el.classList.add("huge");
+      else if (ratio >= 0.15) el.classList.add("big");
+    }
     el.textContent = (kind === "heal" ? "+" : kind === "miss" ? "" : "-") + amount;
     host.appendChild(el);
     setTimeout(() => el.remove(), 1100);
@@ -6245,32 +6309,46 @@
     state.totalXp += amount;
     state.sessionXp += amount;
     let leveled = false;
+    let unlockedTierName = null;
     while (state.xp >= xpForNext(state.level) && state.level < 1_000_000) {
       state.xp -= xpForNext(state.level);
       const prevRank = getRank(state.level);
+      const prevTier = unlockedTierForLevel(state.level);
       state.level += 1;
       const newRank = getRank(state.level);
+      const newTier = unlockedTierForLevel(state.level);
       leveled = true;
+      if (newTier > prevTier) {
+        unlockedTierName = CARD_TIERS.NAMES[newTier] || `Tier ${newTier}`;
+      }
       if (newRank.title !== prevRank.title) {
-        showLevelUp(true, newRank);
+        showLevelUp(true, newRank, unlockedTierName);
+        unlockedTierName = null; // consumed by rank-up overlay
       }
     }
     if (leveled) {
       // Single quick flash if no rank-up overlay shown
-      if (!$("#levelup").classList.contains("show")) showLevelUp(false, getRank(state.level));
+      if (!$("#levelup").classList.contains("show")) showLevelUp(false, getRank(state.level), unlockedTierName);
     }
     saveState();
     updateHud();
   }
 
-  function showLevelUp(isRankUp, rank) {
+  function showLevelUp(isRankUp, rank, unlockedTierName) {
     const el = $("#levelup");
     $("#levelupTitle").textContent = isRankUp ? "RANK UP!" : "LEVEL UP!";
     $("#levelupSub").textContent   = `You reached Lv ${state.level.toLocaleString()}`;
-    $("#levelupRank").textContent  = isRankUp ? `${rank.badge} ${rank.title}` : "";
+    const rankEl = $("#levelupRank");
+    if (unlockedTierName) {
+      rankEl.textContent = isRankUp
+        ? `${rank.badge} ${rank.title} — ${unlockedTierName} unlocked`
+        : `🔓 ${unlockedTierName} unlocked`;
+    } else {
+      rankEl.textContent = isRankUp ? `${rank.badge} ${rank.title}` : "";
+    }
     el.classList.add("show");
     clearTimeout(showLevelUp._t);
-    showLevelUp._t = setTimeout(() => el.classList.remove("show"), isRankUp ? 1800 : 900);
+    showLevelUp._t = setTimeout(() => el.classList.remove("show"), (isRankUp || unlockedTierName) ? 1800 : 900);
   }
 
   // ---------- Router ----------------------------------------------------------
@@ -6465,17 +6543,34 @@
       return top[Math.floor(Math.random() * top.length)];
     }
 
-    // 3) New cards (no daily limit — learners can always pull in new material).
+    // 3) New cards (no daily limit — learners can always pull in new material),
+    //    but only from tiers the player's level has unlocked. This keeps
+    //    beginners on Foundations/Daily Life cards instead of dropping
+    //    advanced grammar on them. If the unlocked-tier pool is exhausted,
+    //    we fall back to the next tier so the queue is never artificially
+    //    empty (effectively early-unlocking when the player has done the work).
     if (newPool.length) {
-      // Skip suspended cards (leeches).
       const live = newPool.filter(c => !state.srs[c.id]?.suspended && !isLeech(state.srs[c.id]));
       if (live.length) {
-        live.sort((a, b) => {
+        const cap = unlockedTierForLevel(state.level);
+        let pool = live.filter(c => cardTier(c) <= cap);
+        // Fallback: walk up the tiers until we find something to teach.
+        let probe = cap;
+        while (!pool.length && probe < CARD_TIERS.MAX) {
+          probe += 1;
+          pool = live.filter(c => cardTier(c) <= probe);
+        }
+        if (!pool.length) pool = live;
+        pool.sort((a, b) => {
+          // Prefer lower-tier cards first so within an unlocked range we
+          // still teach foundations before progressing.
+          const ta = cardTier(a), tb = cardTier(b);
+          if (ta !== tb) return ta - tb;
           const sa = state.srs[a.id], sb = state.srs[b.id];
           if (sa.mastery !== sb.mastery) return sa.mastery - sb.mastery;
           return srsHash(a.id) - srsHash(b.id);
         });
-        return live[0];
+        return pool[0];
       }
     }
 
@@ -6577,7 +6672,7 @@
     const sum = DECK.reduce((acc, c) => acc + (state.srs[c.id]?.mastery || 0), 0);
     const masteryPct = Math.round(sum / total);
     $("#trainMastery").textContent = masteryPct + "%";
-    $("#trainSessionXp").textContent = state.sessionXp.toString();
+    $("#trainSessionXp").textContent = (state.sessionXp || 0).toLocaleString();
 
     // Queue counters (single pass).
     const now = Date.now();
@@ -6714,13 +6809,25 @@
     armIdleTimer();
   }
 
+  // Returns true if the card currently meets the "Mastered" criteria.
+  function isMastered(srs) {
+    return !!srs && srs.queue === "review"
+      && (srs.interval || 0) >= SRS.MASTERY_INTERVAL_DAYS
+      && (srs.lapses || 0) <= SRS.MASTERY_MAX_LAPSES;
+  }
+
   // Apply an SRS grade across queues. Returns XP earned.
   function applySrsGrade(cardId, grade) {
     const srs = state.srs[cardId];
     const now = Date.now();
     const minute = 60_000, day = 86_400_000;
     const xpMap = { again: 2, hard: 5, good: 10, easy: 15 };
-    let xp = xpMap[grade] || 0;
+    // Scale base XP with player level so training never feels worthless at
+    // high level. A "good" at L100 is worth ~610 XP (10 * 61); at L25,000
+    // it's ~150,010 XP — keeping pace with xpForNext().
+    const mult = levelRewardMult();
+    let xp = Math.round((xpMap[grade] || 0) * mult);
+    const wasMastered = isMastered(srs);
 
     // Helper: graduate from learning to review.
     const graduate = (intervalDays, easeBump = 0) => {
@@ -6769,6 +6876,9 @@
           break;
       }
       srs.lastResult = grade;
+      // First-time mastery bounty is handled at the bottom of the function
+      // (return path is hit only when grading from learning queue, no
+      // mastery transition is possible here).
       return xp;
     }
 
@@ -6810,6 +6920,14 @@
           break;
       }
       srs.lastResult = grade;
+      if (!wasMastered && isMastered(srs)) {
+        const bonus = Math.round(200 * mult);
+        xp += bonus;
+        srs.masteredAt = now;
+        const card = DECK.find(c => c.id === cardId);
+        const name = card?.english || "card";
+        toast(`Mastered ${name}! +${bonus.toLocaleString()} XP`, 1600);
+      }
       return xp;
     }
 
@@ -6856,6 +6974,14 @@
       }
     }
     srs.lastResult = grade;
+    if (!wasMastered && isMastered(srs)) {
+      const bonus = Math.round(200 * mult);
+      xp += bonus;
+      srs.masteredAt = now;
+      const card = DECK.find(c => c.id === cardId);
+      const name = card?.english || "card";
+      toast(`Mastered ${name}! +${bonus.toLocaleString()} XP`, 1600);
+    }
     return xp;
   }
 
@@ -6894,6 +7020,15 @@
   }
 
   function startBattle() {
+    // Clear lingering defeat/KO visuals from a previous run.
+    const _ps = document.querySelector("#playerSprite");
+    if (_ps) _ps.classList.remove("ko");
+    const _ar = document.querySelector("#screen-battle .arena");
+    if (_ar) _ar.classList.remove("dim-out", "frozen", "arena-punch", "arena-shake");
+    const _ov = document.getElementById("defeatOverlay");
+    if (_ov) _ov.classList.remove("show");
+    const _cl = document.getElementById("confettiLayer");
+    if (_cl) _cl.innerHTML = "";
     const diff = getDifficulty();
     battle = {
       enemyIdx: 0,
@@ -6940,15 +7075,40 @@
   }
 
   function pickBattleCard() {
-    // Weighted sampling across the WHOLE deck, with bias toward cards that
-    // need practice (shaky / low-ease / low-mastery) and toward the current
-    // tier's mastery band. Hard anti-repeat via a sliding window of recently
-    // shown cards so you never see the same prompt back-to-back-to-back.
-    const all = DECK.slice();
+    // Weighted sampling, but only over cards the player has actually been
+    // introduced to in Training (queue !== "new"). This keeps battles from
+    // quizzing content the player has never been taught — a key part of
+    // making level/difficulty progression feel coherent. If the seen pool
+    // is too small (brand-new account), we fall back to tier-unlocked
+    // unseen cards so battles aren't dead on arrival.
     const idx = battle?.enemyIdx ?? 0;
     const recent = (battle && battle.recentCards) || [];
-    // Window size: ~1/3 of deck, clamped. With 305 cards this is 12; never
-    // larger than half the deck so we always have candidates.
+    const tierCap = unlockedTierForLevel(state.level);
+    const seen = DECK.filter(c => {
+      const s = state.srs[c.id];
+      return s && s.queue !== "new" && !s.suspended && !isLeech(s);
+    });
+    const MIN_SEEN_FOR_BATTLE = 8;
+    let all;
+    if (seen.length >= MIN_SEEN_FOR_BATTLE) {
+      all = seen;
+    } else {
+      // Top up with cards from unlocked tiers so a fresh player can still
+      // battle, but never reach into locked advanced content.
+      const supplement = DECK.filter(c => {
+        const s = state.srs[c.id];
+        if (!s || s.suspended || isLeech(s)) return false;
+        if (s.queue !== "new") return false;
+        return cardTier(c) <= tierCap;
+      });
+      all = seen.concat(supplement);
+      if (all.length < MIN_SEEN_FOR_BATTLE) {
+        // Absolute last resort — just use the deck so the game never breaks.
+        all = DECK.slice();
+      }
+    }
+    // Window size: ~1/3 of pool, clamped. Keeps the same anti-repeat feel
+    // even when the pool is small.
     const windowSize = Math.max(4, Math.min(Math.floor(all.length / 3), Math.floor(all.length / 2) - 1, 24));
     const recentSet = new Set(recent.slice(-windowSize));
 
@@ -7355,6 +7515,12 @@
     flashSprite("#enemySprite", { crit: isCrit });
     flashHp("#enemyHpFill");
     shakeEl("#enemySprite");
+    // B1+B2+B3 — Crits get hit-stop, camera punch, and a spark burst.
+    if (isCrit) {
+      spawnCritSparks("#enemySprite", 9);
+      freezeArena(110);
+      cameraPunch();
+    }
     Sfx.play(isCrit ? "crit" : "hit");
     buzz(isCrit ? [10, 20, 30] : 15);
     advanceBattle();
@@ -7434,6 +7600,10 @@
           shakeArena();
           playFx("tg-hit");
           flashAnswerBoom();
+          // B1+B2 — Telegraph hits earn extra weight: longer hit-stop and a
+          //         camera punch on top of the shake.
+          freezeArena(150);
+          cameraPunch();
           Sfx.play("telegraphHit");
           buzz([0, 80, 30, 80]);
         }
@@ -7445,9 +7615,17 @@
     setTimeout(() => {
       if (!battle) return;
       if (battle.enemy.hp <= 0) {
-        const reward = 30 + battle.enemyIdx * 20 + state.level + (battle.enemy.isBoss ? 50 : 0);
+        // Battle KO reward: scaled by player level (parity with the XP
+        // curve), difficulty (hard pays more, easy pays less), boss bonus,
+        // and current correct-answer streak. Keeps every fight relevant
+        // even at very high level.
+        const base = 30 + battle.enemyIdx * 8 + (battle.enemy.isBoss ? 80 : 0);
+        const mult = levelRewardMult();
+        const diffMult = battle.diff?.dmgMult || 1; // 0.75 / 1.0 / 1.20 / 1.0
+        const streakBonus = 1 + Math.min(0.5, (battle.streak || 0) * 0.05);
+        const reward = Math.round(base * mult * diffMult * streakBonus);
         gainXp(reward);
-        toast(`Defeated ${battle.enemy.name}! +${reward} XP`, 2000);
+        toast(`Defeated ${battle.enemy.name}! +${reward.toLocaleString()} XP`, 2000);
         state.battleStats.wins = (state.battleStats.wins || 0) + 1;
         battle.kosThisRun = (battle.kosThisRun || 0) + 1;
         if (battle.diff?.endless) {
@@ -8434,6 +8612,55 @@
     arena.classList.add("arena-shake");
     setTimeout(() => arena.classList.remove("arena-shake"), 600);
   }
+
+  // B2 — Camera punch: heavier shake (translate + rotate + scale) for crits,
+  //      KOs, and telegraph hits. Layered on top of the regular shake.
+  function cameraPunch() {
+    const arena = document.querySelector("#screen-battle .arena");
+    if (!arena) return;
+    arena.classList.remove("arena-punch");
+    void arena.offsetWidth;
+    arena.classList.add("arena-punch");
+    setTimeout(() => arena.classList.remove("arena-punch"), 460);
+  }
+
+  // B1 — Hit-stop helper. Briefly pauses arena animations to give weight to
+  //      crits, telegraph hits, and KOs. Stacks safely; longest call wins.
+  function freezeArena(ms = 110) {
+    const arena = document.querySelector("#screen-battle .arena");
+    if (!arena) return;
+    arena.classList.add("frozen");
+    const until = performance.now() + ms;
+    const prev = freezeArena._until || 0;
+    if (until > prev) freezeArena._until = until;
+    clearTimeout(freezeArena._t);
+    freezeArena._t = setTimeout(() => {
+      if (performance.now() >= (freezeArena._until || 0) - 4) {
+        arena.classList.remove("frozen");
+        freezeArena._until = 0;
+      }
+    }, ms);
+  }
+
+  // B3 — Spawn a radial spark burst inside a sprite (used on crits / specials).
+  function spawnCritSparks(hostSel, count = 8) {
+    const host = document.querySelector(hostSel);
+    if (!host) return;
+    // Make sure the host can position the absolute children.
+    const cs = getComputedStyle(host);
+    if (cs.position === "static") host.style.position = "relative";
+    const n = Math.max(4, Math.min(14, count));
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement("span");
+      s.className = "crit-spark";
+      const ang = (i / n) * 360 + (Math.random() * 18 - 9);
+      s.style.setProperty("--angle", ang + "deg");
+      // Slight stagger for natural feel.
+      s.style.animationDelay = (Math.random() * 60) + "ms";
+      host.appendChild(s);
+      setTimeout(() => s.remove(), 700);
+    }
+  }
   function flashAnswerBoom() {
     const f = $("#answerFlash");
     if (!f) return;
@@ -8462,6 +8689,97 @@
       sprite.appendChild(p);
       setTimeout(() => p.remove(), 700);
     }
+    // B1+B2 — KO weight: hit-stop and a camera punch.
+    freezeArena(120);
+    cameraPunch();
+  }
+
+  // A1 — Player KO sequence: slump, desaturate, dim arena. Plays before the
+  //      defeat overlay shows.
+  function playerKoFx() {
+    const sprite = document.querySelector("#playerSprite");
+    if (sprite) {
+      sprite.classList.remove("ko");
+      void sprite.offsetWidth;
+      sprite.classList.add("ko");
+    }
+    const arena = document.querySelector("#screen-battle .arena");
+    if (arena) {
+      arena.classList.remove("dim-out");
+      void arena.offsetWidth;
+      arena.classList.add("dim-out");
+    }
+    // KO puffs around the player too.
+    const host = document.querySelector("#playerSprite");
+    if (host) {
+      const cs = getComputedStyle(host);
+      if (cs.position === "static") host.style.position = "relative";
+      for (let i = 0; i < 6; i++) {
+        const p = document.createElement("span");
+        p.className = "ko-puff";
+        const ang = (i / 6) * Math.PI * 2;
+        const dist = 50 + Math.random() * 35;
+        p.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+        p.style.setProperty("--dy", Math.sin(ang) * dist + "px");
+        host.appendChild(p);
+        setTimeout(() => p.remove(), 700);
+      }
+    }
+    freezeArena(160);
+    cameraPunch();
+  }
+
+  // A2 — Defeat overlay: full-screen red vignette + "DEFEATED" text pop.
+  function showDefeatOverlay(subtitle) {
+    const ov = document.getElementById("defeatOverlay");
+    if (!ov) return;
+    const sub = document.getElementById("defeatSub");
+    if (sub && subtitle) sub.textContent = subtitle;
+    ov.classList.remove("show");
+    void ov.offsetWidth;
+    ov.classList.add("show");
+    setTimeout(() => ov.classList.remove("show"), 1700);
+  }
+
+  // A3 — Victory celebration: gold radial bloom + confetti shower.
+  function playVictoryConfetti() {
+    const layer = document.getElementById("confettiLayer");
+    if (!layer) return;
+    // Clear any leftover particles from a previous run.
+    layer.innerHTML = "";
+    // Bloom flash.
+    const bloom = document.createElement("div");
+    bloom.className = "victory-bloom";
+    document.body.appendChild(bloom);
+    setTimeout(() => bloom.remove(), 1500);
+    // Confetti particles. DOM + CSS vars for parity with existing effects.
+    const colors = ["#ffd23f", "#ff7a1a", "#6aa2ff", "#6dffa1", "#ff5c8a", "#ffffff"];
+    const count = 60;
+    const W = window.innerWidth || 360;
+    for (let i = 0; i < count; i++) {
+      const c = document.createElement("span");
+      c.className = "confetti";
+      const x0 = (Math.random() * W) - W / 2;
+      const drift = (Math.random() * 220) - 110;
+      const dur = 1800 + Math.random() * 1400;
+      const delay = Math.random() * 350;
+      const rot = (Math.random() * 1080) + 360;
+      const col = colors[i % colors.length];
+      c.style.setProperty("--x0", x0 + "px");
+      c.style.setProperty("--x1", (x0 + drift) + "px");
+      c.style.setProperty("--dur", dur + "ms");
+      c.style.setProperty("--delay", delay + "ms");
+      c.style.setProperty("--rot", rot + "deg");
+      c.style.setProperty("--c", col);
+      // Vary shape slightly: some squares, some thin strips.
+      if (i % 3 === 0) { c.style.width = "6px"; c.style.height = "6px"; c.style.borderRadius = "50%"; }
+      else if (i % 5 === 0) { c.style.width = "4px"; c.style.height = "18px"; }
+      layer.appendChild(c);
+      setTimeout(() => c.remove(), dur + delay + 100);
+    }
+    // Celebratory hit-stop + camera punch on victory beat.
+    freezeArena(140);
+    cameraPunch();
   }
 
   // ---------- Telegraph banner ----------------------------------------------
@@ -8674,9 +8992,14 @@
     if (outcome === "victory") {
       Sfx.play("victory");
       playFx("victory");
+      // A3 — Confetti shower + gold bloom.
+      playVictoryConfetti();
     } else {
       Sfx.play("defeat");
       playFx("defeat");
+      // A1 + A2 — Player KO sequence then defeat overlay.
+      playerKoFx();
+      setTimeout(() => showDefeatOverlay(), 350);
       state.battleStats.losses = (state.battleStats.losses || 0) + 1;
     }
     Music.stop();
@@ -8713,10 +9036,13 @@
       if (pbs) pbs.innerHTML = "";
       return;
     }
-    banner.classList.remove("defeat", "endless");
+    banner.classList.remove("defeat", "endless", "shimmer");
     if (s.outcome === "victory") {
       banner.textContent = s.isEndless ? "ENDLESS RUN" : "VICTORY";
       if (s.isEndless) banner.classList.add("endless");
+      // A3 — Shimmer sweep across the victory banner.
+      void banner.offsetWidth;
+      banner.classList.add("shimmer");
     } else {
       banner.textContent = "DEFEATED";
       banner.classList.add("defeat");
@@ -9494,6 +9820,29 @@
     });
 
     updateHud();
+
+    // ----- iOS lifecycle: prevent stuck audio when the tab backgrounds -----
+    // Mobile Safari pauses speechSynthesis on hide and can leave the queue
+    // in a "speaking" state on return, blocking all subsequent utterances.
+    // We forcefully cancel on hide and re-prime when visible again.
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        try { stopSpeaking(); } catch {}
+        try { Music.stop(); } catch {}
+        try { TrainMusic.stop(); } catch {}
+      } else {
+        // Resume any suspended Web Audio context (iOS suspends on background).
+        try {
+          const ctx = Sfx && Sfx.ctx;
+          if (ctx && ctx.state === "suspended") ctx.resume();
+        } catch {}
+      }
+    });
+    // Also flush speech on full page hide (iOS sometimes fires this without
+    // visibilitychange when navigating to PWA back stack).
+    window.addEventListener("pagehide", () => {
+      try { stopSpeaking(); } catch {}
+    });
 
     // SRS self-test harness (gated by ?srsTest=1).
     if (/[?&]srsTest=1\b/.test(location.search)) runSrsSelfTest();
