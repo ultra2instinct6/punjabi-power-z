@@ -1,0 +1,280 @@
+/* ============================================================
+   08-settings.css — Settings list, iOS switch & slider, records, toast
+   Sliced from style.css lines 840-1113 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Settings (iOS grouped list) ===== */
+.settings-list { display: grid; gap: 8px; padding-bottom: 8px; }
+
+.settings-group-header {
+  margin: 18px 16px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.settings-group-header:first-child { margin-top: 4px; }
+
+.settings-group {
+  background: var(--surface);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.settings-group .setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  flex-wrap: nowrap;
+  position: relative;
+  transition: background .15s var(--ease-soft);
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+}
+.settings-group .setting-row + .setting-row::before {
+  content: "";
+  position: absolute;
+  left: 16px; right: 0; top: 0;
+  height: 0.5px;
+  background: var(--separator);
+}
+.settings-group .setting-row.column {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.settings-group button.setting-row { cursor: pointer; }
+.settings-group button.setting-row:active { background: rgba(255,255,255,0.04); }
+
+.setting-main { min-width: 0; flex: 1; }
+.setting-row h3 {
+  margin: 0 0 2px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.row-title-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.muted {
+  color: var(--muted);
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.muted.small { font-size: 12px; }
+.version {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.value-pill {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid var(--separator);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+  min-width: 44px;
+  text-align: center;
+}
+
+.row-action-label {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--bad);
+  letter-spacing: -0.01em;
+}
+.destructive-row { justify-content: space-between; }
+
+.settings-footer-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 18px 16px 8px;
+  margin: 0;
+}
+
+/* ===== iOS-style switch ===== */
+.ios-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 51px;
+  height: 31px;
+  cursor: pointer;
+}
+.ios-switch input {
+  position: absolute;
+  width: 100%; height: 100%;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.ios-switch-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(120, 120, 128, 0.45);
+  border-radius: 999px;
+  transition: background .25s var(--ease-soft);
+  box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.15);
+}
+.ios-switch-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 27px; height: 27px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.25),
+    0 1px 2px rgba(0,0,0,0.2);
+  transition:
+    transform .28s var(--ease-spring),
+    width .18s var(--ease-soft);
+}
+.ios-switch input:checked ~ .ios-switch-track {
+  background: var(--good);
+}
+.ios-switch input:checked ~ .ios-switch-track .ios-switch-thumb {
+  transform: translateX(20px);
+}
+.ios-switch input:active ~ .ios-switch-track .ios-switch-thumb { width: 32px; }
+.ios-switch input:checked:active ~ .ios-switch-track .ios-switch-thumb {
+  transform: translateX(15px);
+}
+.ios-switch input:focus-visible ~ .ios-switch-track {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ===== iOS-style slider ===== */
+.ios-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  margin: 0;
+  cursor: pointer;
+}
+.ios-slider:focus { outline: none; }
+.ios-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--blue) 0%,
+    var(--blue) var(--val, 50%),
+    rgba(255,255,255,0.15) var(--val, 50%),
+    rgba(255,255,255,0.15) 100%
+  );
+}
+.ios-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.15);
+}
+.ios-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--blue);
+}
+.ios-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-top: -11px;
+  box-shadow:
+    0 3px 10px rgba(0,0,0,0.35),
+    0 1px 2px rgba(0,0,0,0.2);
+  border: 0.5px solid rgba(0,0,0,0.08);
+  transition: transform .12s var(--ease-snap);
+}
+.ios-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 0.5px solid rgba(0,0,0,0.08);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
+}
+.ios-slider:active::-webkit-slider-thumb { transform: scale(1.08); }
+.ios-slider:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* Records list inside grouped row */
+.settings-group .records-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+.settings-group .records-list:empty::before {
+  content: "No records yet — finish a battle to set your first.";
+  color: var(--muted);
+  font-size: 13px;
+}
+.settings-group .records-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.settings-group .records-list li .label { color: var(--muted); }
+
+/* ===== Toast (iOS-style pill) ===== */
+.toast {
+  position: fixed;
+  bottom: calc(var(--sa-bottom) + 18px);
+  left: 50%;
+  transform: translate(-50%, 30px) scale(0.9);
+  background: rgba(28, 28, 30, 0.86);
+  color: #ffffff;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity .35s var(--ease-soft), transform .5s var(--ease-snap);
+  pointer-events: none;
+  z-index: 70;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+

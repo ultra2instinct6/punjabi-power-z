@@ -1,0 +1,204 @@
+/* ============================================================
+   03-screens-base.css — Screen container, transitions, start screen
+   Sliced from style.css lines 192-345 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Screens ===== */
+#app {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 16px 16px calc(var(--sa-bottom) + 24px);
+}
+/* When the HUD is hidden (start screen, etc.), the HUD no longer pushes
+   content below the Dynamic Island / notch. Add the top safe-area inset
+   directly so the logo and titles don't collide with the status bar. */
+#app:has(> header.hud[hidden]) {
+  padding-top: calc(var(--sa-top) + 16px);
+}
+.screen { display: none; }
+.screen.active {
+  display: block;
+  animation: screenIn .55s var(--ease-spring) both;
+}
+.screen.leaving {
+  display: block;
+  position: absolute;
+  inset: 0;
+  padding: 16px 16px calc(var(--sa-bottom) + 24px);
+  max-width: 880px;
+  margin: 0 auto;
+  pointer-events: none;
+  animation: screenOut .42s var(--ease-soft) both;
+  z-index: 1;
+}
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0); }
+}
+@keyframes screenOut {
+  from { opacity: 1; transform: translateY(0)     scale(1);     filter: blur(0); }
+  to   { opacity: 0; transform: translateY(-10px) scale(0.985); filter: blur(8px); }
+}
+
+/* Direction-aware variants — set on <main> via data-direction */
+#app[data-direction="forward"] .screen.active { animation: screenInFwd .6s var(--ease-spring) both; }
+#app[data-direction="forward"] .screen.leaving { animation: screenOutFwd .42s var(--ease-soft) both; }
+#app[data-direction="back"]    .screen.active { animation: screenInBack .6s var(--ease-spring) both; }
+#app[data-direction="back"]    .screen.leaving { animation: screenOutBack .42s var(--ease-soft) both; }
+
+@keyframes screenInFwd {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); filter: blur(10px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
+}
+@keyframes screenOutFwd {
+  from { opacity: 1; transform: scale(1)    translateY(0); filter: blur(0); }
+  to   { opacity: 0; transform: scale(1.08) translateY(-6px); filter: blur(14px); }
+}
+@keyframes screenInBack {
+  from { opacity: 0; transform: scale(1.06); filter: blur(10px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+@keyframes screenOutBack {
+  from { opacity: 1; transform: scale(1)    translateY(0); filter: blur(0); }
+  to   { opacity: 0; transform: scale(0.92) translateY(14px); filter: blur(12px); }
+}
+
+/* App container becomes transition stage */
+#app { position: relative; }
+
+.screen-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.screen-head h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+.stats { display: flex; gap: 14px; font-size: 14px; color: var(--muted); }
+.stats strong { color: var(--ink); }
+
+/* ===== Start screen ===== */
+.title-wrap {
+  text-align: center;
+  padding: calc(var(--sa-top) + 28px) 8px 8px;
+}
+.app-logo {
+  display: block;
+  width: clamp(140px, 38vw, 220px);
+  height: auto;
+  margin: 0 auto 10px;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+  animation: logoIn 0.9s var(--ease-spring) both, logoFloat 5.5s var(--ease-soft) 1s infinite;
+}
+@keyframes logoIn {
+  from { opacity: 0; transform: translateY(-12px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-6px) scale(1.02); }
+}
+.title {
+  font-size: clamp(44px, 11vw, 80px);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+  text-shadow: 0 6px 0 rgba(14, 21, 48, 0.06);
+}
+.title span {
+  display: inline-block;
+  padding: 0 6px;
+  opacity: 0;
+  transform: translateY(18px) scale(0.92);
+  animation: titleIn .9s var(--ease-spring) forwards;
+}
+.title .t-orange { animation-delay: 0.05s; }
+.title .t-yellow { animation-delay: 0.18s; }
+.title .t-blue   { animation-delay: 0.31s; }
+@keyframes titleIn {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.title:hover span,
+#screen-start.active .title span {
+  animation: titleIn .9s var(--ease-spring) forwards, titleBreath 5.5s var(--ease-soft) 1s infinite;
+}
+@keyframes titleBreath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-2px) scale(1.012); }
+}
+.t-orange { color: var(--orange); }
+.t-yellow { color: var(--yellow); -webkit-text-stroke: 1px #b88a00; }
+.t-blue   { color: var(--blue); }
+.subtitle, .tagline { /* hidden via above rule, kept for safety */ }
+.menu {
+  display: grid;
+  gap: 12px;
+  max-width: 380px;
+  margin: 18px auto 12px;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#screen-start.active .menu .big-btn {
+  opacity: 0;
+  animation: fadeUp .7s var(--ease-spring) forwards;
+}
+#screen-start.active .menu .big-btn:nth-child(1) { animation-delay: 0.55s; }
+#screen-start.active .menu .big-btn:nth-child(2) { animation-delay: 0.65s; }
+#screen-start.active .menu .big-btn:nth-child(3) { animation-delay: 0.75s; }
+.footer-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 18px;
+}
+
+/* ============================================================
+   Start-screen progress ring (Phase 5)
+   Wraps the logo with a circular mastery indicator.
+   ============================================================ */
+.logo-stage { position: relative; display: inline-block; }
+.logo-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 4px 16px rgba(255, 122, 26, 0.35));
+}
+.logo-ring circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.logo-ring-track { stroke: rgba(255, 255, 255, 0.10); }
+.logo-ring-fill {
+  stroke: url(#logoRingGrad);
+  stroke-dasharray: 578.05; /* 2 * π * 92 */
+  stroke-dashoffset: 578.05;
+  transition: stroke-dashoffset 1.2s var(--ease-spring);
+}
+/* Inline gradient defs are added by JS so the stroke uses brand colors. */
+.start-mastery {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  animation: fadeInUp .6s var(--ease-spring) .3s both;
+}
+.start-mastery strong { color: var(--ink); font-weight: 800; }
+.start-mastery .sm-sep { color: var(--muted); margin: 0 6px; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-ring-fill { transition: none; }
+}

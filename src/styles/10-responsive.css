@@ -1,0 +1,38 @@
+/* ============================================================
+   10-responsive.css — Responsive breakpoints + reduced-motion
+   Sliced from style.css lines 1149-1180 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  #screen-battle .arena {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vs { grid-column: 1 / -1; order: -1; }
+  .choices { grid-template-columns: 1fr; }
+  .event-choices { grid-template-columns: 1fr; }
+  .srs-row { grid-template-columns: repeat(2, 1fr); }
+  .stats { width: 100%; justify-content: space-between; }
+}
+
+/* iPhone 17 / 17 Pro portrait tuning (393–402pt wide) */
+@media (max-width: 440px) {
+  #app { padding: 12px 16px calc(var(--sa-bottom) + 24px); }
+  .title-wrap { padding-top: calc(var(--sa-top) + 20px); }
+  .screen-head h2 { font-size: 26px; }
+  .flashcard { padding: 22px 18px; }
+  .quiz { padding: 16px; }
+  .big-btn { font-size: 17px; }
+}
+
+/* Reduced motion: respect iOS accessibility setting */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .sprite { animation: none; }
+}
+

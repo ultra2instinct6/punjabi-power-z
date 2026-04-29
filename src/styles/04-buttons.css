@@ -1,0 +1,58 @@
+/* ============================================================
+   04-buttons.css — iOS-style buttons
+   Sliced from style.css lines 346-397 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Buttons (iOS-style) ===== */
+.big-btn {
+  position: relative;
+  border: none;
+  min-height: 52px;            /* HIG: 44pt+ tap target */
+  padding: 14px 18px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  color: var(--white);
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform .35s var(--ease-snap),
+    box-shadow .25s var(--ease-soft),
+    filter .2s var(--ease-soft);
+}
+.big-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.45), transparent 45%);
+  opacity: 0;
+  transition: opacity .4s var(--ease-soft);
+  pointer-events: none;
+}
+.big-btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.96);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.big-btn:active::after { opacity: 1; transition-duration: .08s; }
+.big-btn.primary   { background: linear-gradient(135deg, var(--orange), var(--yellow)); color: #1a1200; }
+.big-btn.secondary { background: linear-gradient(135deg, var(--blue), #5ac8fa); }
+.big-btn.ghost     { background: var(--surface); color: var(--ink); border: 0.5px solid var(--separator); box-shadow: var(--shadow-sm); }
+.big-btn.danger    { background: linear-gradient(135deg, #ff5872, var(--bad)); }
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--blue);
+  font-weight: 600;
+  margin-top: 16px;
+  padding: 10px 4px;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  transition: opacity .15s ease;
+}
+.link-btn:active { opacity: 0.55; }
+

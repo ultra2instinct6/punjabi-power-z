@@ -10,9 +10,9 @@
   <meta name="apple-mobile-web-app-title" content="Punjabi Power Z" />
   <meta name="format-detection" content="telephone=no" />
   <title>Punjabi Power Z — Warrior from Peshtigo</title>
-  <link rel="stylesheet" href="style.css?v=metalhype-1" />
-  <link rel="icon" type="image/png" href="assets/logo.png" />
-  <link rel="apple-touch-icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="src/styles/main.css?v=metalhype-2" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+  <link rel="apple-touch-icon" href="assets/images/logo.png" />
 </head>
 <body>
   <!-- Persistent top HUD -->
@@ -37,12 +37,25 @@
     <section class="screen active" data-screen="start" id="screen-start">
       <div class="title-wrap">
         <div class="logo-stage">
+          <svg class="logo-ring" id="logoRing" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#ff7a1a" />
+                <stop offset="50%"  stop-color="#ffd23f" />
+                <stop offset="100%" stop-color="#0a84ff" />
+              </linearGradient>
+            </defs>
+            <circle class="logo-ring-track" cx="100" cy="100" r="92" />
+            <circle class="logo-ring-fill"  cx="100" cy="100" r="92" id="logoRingFill" />
+          </svg>
           <img src="assets/logo.png" alt="Punjabi Power Z — Warrior from Peshtigo" class="app-logo" />
         </div>
+        <p class="start-mastery" id="startMastery" hidden></p>
       </div>
       <div class="menu">
         <button class="big-btn primary" data-action="goto-train">🥋 Train Mode</button>
         <button class="big-btn secondary" data-action="goto-battle">⚔️ Battle Mode</button>
+        <button class="big-btn med-menu-btn" data-action="goto-medicine">🩺 Medicine</button>
         <button class="big-btn ghost" data-action="goto-settings">⚙️ Settings</button>
       </div>
       <p class="footer-note">Romanized Punjabi · No account needed · Saves on this device</p>
@@ -63,32 +76,52 @@
           <span class="srs-chip" title="New cards introduced today">New <strong id="srsNew">0</strong></span>
           <span class="srs-chip" title="Cards in learning steps">Learning <strong id="srsLearning">0</strong></span>
           <span class="srs-chip" title="Cards in relearning after a lapse">Relearn <strong id="srsRelearning">0</strong></span>
+          <button class="srs-details-toggle" id="srsDetailsToggle" type="button" aria-expanded="false" aria-controls="srsDetailsWrap" title="Show breakdown and forecast">Details ▾</button>
         </div>
-        <div class="srs-breakdown" id="srsBreakdown" aria-label="Card breakdown">
-          <span class="bd-chip new" title="New (not yet started)"><span class="bd-dot"></span>New <strong id="bdNew">0</strong></span>
-          <span class="bd-chip learning" title="In learning steps"><span class="bd-dot"></span>Learning <strong id="bdLearning">0</strong></span>
-          <span class="bd-chip young" title="Reviewing, interval &lt; 21d"><span class="bd-dot"></span>Young <strong id="bdYoung">0</strong></span>
-          <span class="bd-chip mature" title="Reviewing, interval &ge; 21d"><span class="bd-dot"></span>Mature <strong id="bdMature">0</strong></span>
-          <span class="bd-chip mastered" title="Mastered (long interval, &le;1 lapse)"><span class="bd-dot"></span>Mastered <strong id="bdMastered">0</strong></span>
-        </div>
-        <div class="srs-forecast" id="srsForecast" aria-label="7-day review forecast">
-          <span class="forecast-label">Next 7d</span>
-          <div class="forecast-bars" id="forecastBars"></div>
+        <div class="srs-details-wrap" id="srsDetailsWrap" hidden>
+          <div class="srs-breakdown" id="srsBreakdown" aria-label="Card breakdown">
+            <span class="bd-chip new" title="New (not yet started)"><span class="bd-dot"></span>New <strong id="bdNew">0</strong></span>
+            <span class="bd-chip learning" title="In learning steps"><span class="bd-dot"></span>Learning <strong id="bdLearning">0</strong></span>
+            <span class="bd-chip young" title="Reviewing, interval &lt; 21d"><span class="bd-dot"></span>Young <strong id="bdYoung">0</strong></span>
+            <span class="bd-chip mature" title="Reviewing, interval &ge; 21d"><span class="bd-dot"></span>Mature <strong id="bdMature">0</strong></span>
+            <span class="bd-chip mastered" title="Mastered (long interval, &le;1 lapse)"><span class="bd-dot"></span>Mastered <strong id="bdMastered">0</strong></span>
+          </div>
+          <div class="srs-forecast" id="srsForecast" aria-label="7-day review forecast">
+            <span class="forecast-label">Next 7d</span>
+            <div class="forecast-bars" id="forecastBars"></div>
+          </div>
         </div>
       </div>
 
       <div class="card-queue-strip" id="cardQueueChip" aria-label="Queue snapshot"></div>
 
+      <!-- Empty state shown when no cards are due and no new cards are unlockable -->
+      <div class="train-empty" id="trainEmpty" hidden>
+        <div class="train-empty-emoji" aria-hidden="true">🎉</div>
+        <h3 class="train-empty-title">All done for today!</h3>
+        <p class="train-empty-sub" id="trainEmptySub">Your queue is clear. Strong work, warrior.</p>
+        <ul class="train-empty-stats" id="trainEmptyStats"></ul>
+        <p class="train-empty-next" id="trainEmptyNext"></p>
+        <div class="train-empty-actions">
+          <button class="big-btn primary" data-action="goto-battle">⚔️ Battle Mode</button>
+        </div>
+      </div>
+
       <div class="flashcard" id="flashcard" tabindex="0" aria-label="Flashcard">
         <div class="card-face front">
-          <span class="card-type" id="cardType">vocab</span>
+          <span class="card-type" id="cardType" data-type="vocab">vocab</span>
+          <span class="card-from-battle" id="cardFromBattle" hidden>⚔️ Missed in battle</span>
           <div class="prompt-row">
             <p class="card-prompt" id="cardPrompt">paani</p>
             <button class="speak-btn" id="speakFront" type="button" aria-label="Play pronunciation" title="Play pronunciation">🔊</button>
           </div>
           <button class="reveal-btn" id="revealBtn">Reveal</button>
+          <p class="reveal-hint">Tap card or press <kbd>Space</kbd></p>
         </div>
         <div class="card-face back" id="cardBack" hidden>
+          <span class="swipe-hint again" aria-hidden="true">← Again</span>
+          <span class="swipe-hint good" aria-hidden="true">Good →</span>
+          <button class="bury-icon-btn" id="buryBtn" type="button" aria-label="Bury card until tomorrow" title="Bury until tomorrow (b)">💤</button>
           <div class="prompt-row">
             <p class="card-prompt small" id="cardPromptBack">paani</p>
             <button class="speak-btn" id="speakBackPa" type="button" aria-label="Play Punjabi pronunciation" title="Play Punjabi pronunciation">🔊<span class="speak-lang">PA</span></button>
@@ -101,16 +134,18 @@
           <p class="card-def" id="cardDef"></p>
           <p class="card-related" id="cardRelated"></p>
           <p class="card-example" id="cardExample"></p>
-          <div class="card-history" id="cardHistory" aria-label="Recent grades"></div>
-          <button class="link-btn bury-btn" id="buryBtn" type="button" title="Snooze this card until tomorrow (b)">💤 Bury until tomorrow</button>
+          <div class="card-history-row" id="cardHistoryRow" hidden>
+            <span class="card-history-label">Recent</span>
+            <div class="card-history" id="cardHistory" aria-label="Recent grades"></div>
+          </div>
         </div>
       </div>
 
       <div class="srs-row" id="srsRow" hidden>
-        <button class="srs again"  data-grade="again">Again<span class="srs-sub" id="srsSubAgain"></span></button>
-        <button class="srs hard"   data-grade="hard">Hard<span class="srs-sub" id="srsSubHard"></span></button>
-        <button class="srs good"   data-grade="good">Good<span class="srs-sub" id="srsSubGood"></span></button>
-        <button class="srs easy"   data-grade="easy">Easy<span class="srs-sub" id="srsSubEasy"></span></button>
+        <button class="srs again"  data-grade="again"><span class="srs-key">1</span>Again<span class="srs-sub" id="srsSubAgain"></span></button>
+        <button class="srs hard"   data-grade="hard"><span class="srs-key">2</span>Hard<span class="srs-sub" id="srsSubHard"></span></button>
+        <button class="srs good"   data-grade="good"><span class="srs-key">3</span>Good<span class="srs-sub" id="srsSubGood"></span></button>
+        <button class="srs easy"   data-grade="easy"><span class="srs-key">4</span>Easy<span class="srs-sub" id="srsSubEasy"></span></button>
       </div>
 
       <!-- Random training interrupt event panel -->
@@ -144,18 +179,23 @@
       <div class="stage-hud" id="stageHud">
         <div class="stage-dots" id="stageDots" aria-label="Stage progress"></div>
         <div class="stage-label" id="stageLabel">Stage 1 / 10</div>
+        <div class="stage-star" id="stageStar" aria-live="polite" aria-label="Streak" title="Current streak">
+          <span class="star-icon" aria-hidden="true">★</span><span class="star-num" id="stageStarNum">0</span>
+        </div>
         <button class="icon-btn pause-btn" id="pauseBtn" aria-label="Pause">⏸</button>
       </div>
 
-      <div class="arena">
+      <div class="arena arena-v2">
         <div class="combatant enemy">
           <div class="sprite" id="enemySprite">
-            <img src="assets/enemy.png" alt="Enemy" class="avatar-img enemy-img" id="enemyImg" hidden />
+            <img src="assets/images/enemy.png" alt="Enemy" class="avatar-img enemy-img" id="enemyImg" hidden />
             <span class="enemy-emoji" id="enemyEmoji" aria-hidden="true">🤖</span>
             <span class="enemy-charge-aura" id="enemyChargeAura" aria-hidden="true"></span>
           </div>
-          <div class="name"><span id="enemyName">Training Bot</span> <span class="enemy-tier-tag" id="enemyTierTag" hidden></span></div>
-          <div class="hpbar"><div class="hpbar-ghost" id="enemyHpGhost"></div><div class="hpbar-fill" id="enemyHpFill"></div><span id="enemyHpText">100/100</span></div>
+          <div class="name"><span id="enemyName" aria-live="polite">Training Bot</span> <span class="enemy-tier-tag" id="enemyTierTag" hidden></span></div>
+          <div class="hpbar" id="enemyHpBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Enemy HP"><div class="hpbar-ghost" id="enemyHpGhost"></div><div class="hpbar-fill" id="enemyHpFill"></div><span id="enemyHpText">100/100</span></div>
+          <div class="kibar-spacer" aria-hidden="true"></div>
+          <div class="streak-spacer" aria-hidden="true"></div>
           <!-- legacy small badge kept hidden; banner replaces it -->
           <div class="telegraph" id="enemyTelegraph" hidden>
             <span class="tg-label" id="enemyTgLabel">Charging Death Beam</span>
@@ -169,11 +209,11 @@
           <div class="sprite player-sprite" id="playerSprite">
             <span class="shield-aura" id="shieldAura" aria-hidden="true"></span>
             <span class="transform-aura" id="transformAura" aria-hidden="true"></span>
-            <img src="assets/avatar.png" alt="Your warrior avatar" class="avatar-img" />
+            <img src="assets/images/avatar.png" alt="Your warrior avatar" class="avatar-img" />
           </div>
           <div class="name">You <span class="tier-tag" id="tierTag" hidden></span></div>
-          <div class="hpbar"><div class="hpbar-ghost" id="playerHpGhost"></div><div class="hpbar-fill player" id="playerHpFill"></div><span id="playerHpText">100/100</span></div>
-          <div class="kibar" aria-label="Ki Meter">
+          <div class="hpbar" id="playerHpBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Your HP"><div class="hpbar-ghost" id="playerHpGhost"></div><div class="hpbar-fill player" id="playerHpFill"></div><span id="playerHpText">100/100</span></div>
+          <div class="kibar" id="kiBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Ki Meter">
             <div class="kibar-fill" id="kiFill"></div>
             <span class="kibar-label">KI</span>
           </div>
@@ -205,6 +245,7 @@
       <div class="quiz">
         <div class="quiz-head">
           <p class="quiz-prompt-label" id="quizPromptLabel">Translate to English:</p>
+          <span class="quiz-recency-chip" id="quizRecencyChip" hidden>✓ Just trained</span>
           <div class="quiz-timer" aria-label="Time left">
             <div class="quiz-timer-fill" id="quizTimerFill"></div>
           </div>
@@ -278,6 +319,74 @@
       </div>
     </section>
 
+    <!-- MEDICINE — USMLE Step 3 Rapid Review -->
+    <section class="screen med-screen" data-screen="medicine" id="screen-medicine">
+      <div class="screen-head med-head">
+        <h2>🩺 Medicine</h2>
+        <p class="med-sub">USMLE Step 3 — Rapid High-Yield Review</p>
+      </div>
+
+      <!-- Setup view -->
+      <div class="med-view" id="medSetup">
+        <div class="med-section-label">Topics</div>
+        <div class="med-chips" id="medTopicChips" role="group" aria-label="Topics"></div>
+        <div class="med-quick-actions">
+          <button type="button" class="med-mini-btn" id="medSelectAll">Select all</button>
+          <button type="button" class="med-mini-btn" id="medClearAll">Clear</button>
+        </div>
+
+        <div class="med-section-label">Session length</div>
+        <div class="med-len-segment" id="medLenSegment" role="radiogroup" aria-label="Session length">
+          <button type="button" class="med-len-opt" data-len="10">10</button>
+          <button type="button" class="med-len-opt is-on" data-len="25">25</button>
+          <button type="button" class="med-len-opt" data-len="50">50</button>
+          <button type="button" class="med-len-opt" data-len="all">All</button>
+        </div>
+
+        <div class="med-pool-info" id="medPoolInfo">0 questions available</div>
+
+        <button class="big-btn med-start-btn" id="medStartBtn" type="button">Start Review</button>
+        <button class="link-btn" data-action="goto-start">← Back</button>
+      </div>
+
+      <!-- Quiz view -->
+      <div class="med-view" id="medQuiz" hidden>
+        <div class="med-progress"><div class="med-progress-fill" id="medProgressFill"></div></div>
+        <div class="med-quiz-meta">
+          <span class="med-topic-tag" id="medTopicTag">Topic</span>
+          <span class="med-counter" id="medCounter">1 / 25</span>
+          <span class="med-score" id="medScore">✓ 0 · ✗ 0</span>
+        </div>
+        <p class="med-stem" id="medStem"></p>
+        <div class="med-choices" id="medChoices" role="listbox" aria-label="Answer choices">
+          <button type="button" class="med-choice" data-i="0"><span class="med-letter">A</span><span class="med-choice-text"></span></button>
+          <button type="button" class="med-choice" data-i="1"><span class="med-letter">B</span><span class="med-choice-text"></span></button>
+          <button type="button" class="med-choice" data-i="2"><span class="med-letter">C</span><span class="med-choice-text"></span></button>
+          <button type="button" class="med-choice" data-i="3"><span class="med-letter">D</span><span class="med-choice-text"></span></button>
+        </div>
+        <div class="med-pearl" id="medPearl" hidden>
+          <div class="med-pearl-head"><span class="med-pearl-icon">💡</span><span class="med-pearl-label">High-yield pearl</span></div>
+          <p class="med-pearl-text" id="medPearlText"></p>
+          <button type="button" class="big-btn med-next-btn" id="medNextBtn">Next →</button>
+        </div>
+        <button class="link-btn" id="medQuitBtn" type="button">End session</button>
+      </div>
+
+      <!-- Results view -->
+      <div class="med-view" id="medResults" hidden>
+        <div class="med-results-card">
+          <div class="med-results-banner" id="medResultsBanner">Session Complete</div>
+          <div class="med-results-score" id="medResultsScore">0 / 0 (0%)</div>
+          <div class="med-results-breakdown" id="medResultsBreakdown"></div>
+          <div class="med-results-actions">
+            <button type="button" class="big-btn med-start-btn" id="medReviewWrongBtn">Review Wrong</button>
+            <button type="button" class="big-btn secondary" id="medNewSessionBtn">New Session</button>
+            <button type="button" class="big-btn ghost" data-action="goto-start">Home</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- BATTLE RESULTS -->
     <section class="screen" data-screen="battle-results" id="screen-battle-results">
       <div class="results-card">
@@ -285,8 +394,14 @@
         <div class="results-stage" id="resultsStage">Stage 10 cleared</div>
         <div class="results-stats" id="resultsStats"></div>
         <div class="results-pbs" id="resultsPbs"></div>
+        <!-- Cards missed in this run \u2014 powers the Battle\u2192Training handoff. -->
+        <div class="results-review" id="resultsReview" hidden>
+          <h3 class="results-review-title">Cards to review</h3>
+          <ul class="results-review-list" id="resultsReviewList"></ul>
+        </div>
         <div class="results-actions">
           <button class="big-btn primary" data-action="goto-battle">Battle Again</button>
+          <button class="big-btn secondary" data-action="train-misses" id="trainMissesBtn" hidden>Train missed cards</button>
           <button class="big-btn secondary" data-action="goto-train">Train</button>
           <button class="big-btn ghost" data-action="goto-start">Home</button>
         </div>
@@ -304,6 +419,28 @@
         <!-- GAMEPLAY -->
         <p class="settings-group-header">Gameplay</p>
         <div class="settings-group">
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Focus Mode</h3>
+              <p class="muted">Trims fanfare (transformations, named-attack toasts, repeated minion intros) so you spend more time on vocab and less watching animations. Recommended for serious learning.</p>
+            </div>
+            <label class="ios-switch" aria-label="Focus Mode">
+              <input type="checkbox" id="focusModeToggle" />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Boss Specials</h3>
+              <p class="muted">Show the enemy's "charging…" telegraph and named special attacks. Turn off to remove the parallel cognitive thread.</p>
+            </div>
+            <label class="ios-switch" aria-label="Boss Specials">
+              <input type="checkbox" id="bossSpecialsToggle" checked />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
           <div class="setting-row">
             <div class="setting-main">
               <h3>Random Training Events</h3>
@@ -353,6 +490,17 @@
             </div>
             <label class="ios-switch" aria-label="Audio auto-play">
               <input type="checkbox" id="ttsAutoplayToggle" />
+              <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-main">
+              <h3>Haptic Feedback</h3>
+              <p class="muted">Short vibration on answers and grades. (Android &amp; supported devices.)</p>
+            </div>
+            <label class="ios-switch" aria-label="Haptic feedback">
+              <input type="checkbox" id="hapticsToggle" checked />
               <span class="ios-switch-track"><span class="ios-switch-thumb"></span></span>
             </label>
           </div>
@@ -459,6 +607,10 @@
     <div class="streak-fanfare-badge" id="streakFanfareBadge">x10!</div>
   </div>
 
+  <!-- Data + config first (define window.PPZ_DECK and window.PPZ_CONFIG), then game logic -->
+  <script defer src="src/config/tuning.data.js?v=metalhype-1"></script>
+  <script defer src="src/data/deck.data.js?v=metalhype-1"></script>
+  <script defer src="src/data/medicine-bank.data.js?v=med-6"></script>
   <script defer src="script.js?v=metalhype-1"></script>
 </body>
 </html>

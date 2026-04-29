@@ -1,0 +1,115 @@
+/* ============================================================
+   13-transitions.css — Cinematic transition veil
+   Sliced from style.css lines 1636-1744 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ============================================================
+   Cinematic screen-transition veil
+   Triggered by JS: add .show + data-kind ("train"|"battle"|"home")
+   ============================================================ */
+.transition-veil {
+  position: fixed; inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0;
+}
+.transition-veil.show { pointer-events: auto; }
+
+/* Base layers */
+.tv-iris, .tv-streaks, .tv-flash {
+  position: absolute; inset: 0;
+  opacity: 0;
+}
+
+/* Iris: radial color sweep that closes-then-opens */
+.tv-iris {
+  background: radial-gradient(circle at 50% 50%,
+    var(--tv-color-1, rgba(255, 122, 26, 1)) 0%,
+    var(--tv-color-2, rgba(255, 60, 80, 0.95)) 40%,
+    transparent 72%);
+  filter: blur(2px) saturate(140%);
+}
+
+/* Diagonal speed-streaks */
+.tv-streaks {
+  background:
+    repeating-linear-gradient(115deg,
+      rgba(255,255,255,0.0) 0 18px,
+      rgba(255,255,255,0.10) 18px 19px,
+      rgba(255,255,255,0.0) 19px 36px),
+    repeating-linear-gradient(115deg,
+      rgba(255,255,255,0.0) 0 80px,
+      var(--tv-streak, rgba(255,210,63,0.55)) 80px 82px,
+      rgba(255,255,255,0.0) 82px 160px);
+  mix-blend-mode: screen;
+  transform: translateX(-110%);
+}
+
+/* Flash highlight at the swap moment */
+.tv-flash {
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255,255,255,0.85), rgba(255,255,255,0.3) 30%, transparent 60%);
+  filter: blur(8px);
+}
+
+/* Show + per-direction theming */
+.transition-veil.show .tv-iris    { animation: tvIris    .9s var(--ease-spring) both; }
+.transition-veil.show .tv-streaks { animation: tvStreaks .55s var(--ease-out)    .05s both; }
+.transition-veil.show .tv-flash   { animation: tvFlash   .35s var(--ease-soft)   .35s both; }
+.transition-veil.show             { animation: tvVeil    .9s var(--ease-soft) both; }
+
+/* Train (orange/red warm energy) */
+.transition-veil[data-kind="train"] {
+  --tv-color-1: rgba(255, 154, 69, 0.95);
+  --tv-color-2: rgba(255, 90, 30, 0.95);
+  --tv-streak:  rgba(255, 210, 63, 0.6);
+}
+/* Battle (electric blue + crimson edge) */
+.transition-veil[data-kind="battle"] {
+  --tv-color-1: rgba(80, 180, 255, 0.95);
+  --tv-color-2: rgba(255, 50, 80, 0.85);
+  --tv-streak:  rgba(140, 220, 255, 0.7);
+}
+/* Home (cool cinematic blue) */
+.transition-veil[data-kind="home"] {
+  --tv-color-1: rgba(80, 130, 255, 0.85);
+  --tv-color-2: rgba(20, 30, 70, 0.95);
+  --tv-streak:  rgba(255, 255, 255, 0.35);
+}
+
+@keyframes tvVeil {
+  0%, 100% { opacity: 0; }
+  20%, 60% { opacity: 1; }
+}
+@keyframes tvIris {
+  0%   { opacity: 0; transform: scale(0.05); }
+  35%  { opacity: 1; transform: scale(1.15); }
+  60%  { opacity: 1; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+@keyframes tvStreaks {
+  0%   { opacity: 0; transform: translateX(-110%) skewX(-6deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(110%) skewX(-6deg); }
+}
+@keyframes tvFlash {
+  0%   { opacity: 0; transform: scale(0.6); }
+  40%  { opacity: 1; transform: scale(1.0); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* Slight scale-down on whole app while transitioning, for that "camera punch" feel */
+#app.warp { animation: appWarp .55s var(--ease-spring); transform-origin: 50% 40%; }
+@keyframes appWarp {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(0.965); filter: blur(2px); }
+  100% { transform: scale(1); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-veil, .transition-veil * { animation: none !important; }
+  .transition-veil.show { opacity: 0; }
+  #app.warp { animation: none; }
+}
+

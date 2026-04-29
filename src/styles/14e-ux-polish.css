@@ -1,0 +1,471 @@
+/* ============================================================
+   14e-ux-polish.css — iPhone 17 / Learning UX polish (Round 6) + Flat UI pass (Round 7 + 7b)
+   Sliced from former 14-arena-extras.css (Phase 4b split).
+   ============================================================ */
+
+/* ========================================================================== */
+/* iPhone 17 / LEARNING UX POLISH — Round 6                                    */
+/* Focused tweaks for legibility (Gurmukhi + roman), thumb ergonomics,         */
+/* dynamic-island/home-indicator clearance, layout stability, and subtle       */
+/* tap feedback that nudges learning over distraction.                         */
+/* ========================================================================== */
+
+/* --- 1. Dynamic viewport: prevents iOS Safari URL-bar collapse jiggle. ---- */
+html, body { min-height: 100svh; }
+body { min-height: 100dvh; }
+.screen { min-height: calc(100dvh - var(--sa-top) - var(--sa-bottom)); }
+
+/* --- 2. Better Gurmukhi legibility --------------------------------------- */
+/* Punjabi script needs more line-height for diacritics (ੀ ੈ ੌ ਂ) not to
+   collide with the next line, and slightly looser letter-spacing for clarity
+   on small touch targets. */
+.gm, .punjabi, .quiz-prompt, .choice .gm,
+[lang="pa"], [lang="pa-Guru"] {
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  /* iOS sometimes renders Gurmukhi too thin in dark mode; nudge weight. */
+  -webkit-font-smoothing: antialiased;
+}
+.choice .gm { font-size: 1.15em; line-height: 1.5; }
+.choice .rom { font-size: 0.78em; opacity: 0.78; margin-top: 2px; }
+.quiz-prompt { line-height: 1.4; text-wrap: balance; }
+.quiz-prompt .gm { font-size: 1.05em; }
+
+/* --- 3. Thumb ergonomics: bigger touch targets on small screens ---------- */
+@media (pointer: coarse), (max-width: 480px) {
+  .choice {
+    min-height: 64px;
+    padding: 18px 16px;
+    font-size: 17px;
+    border-radius: 18px;
+  }
+  .choices { gap: 12px; }
+  .icon-btn, .btn-ghost, .chip-btn { min-height: 44px; min-width: 44px; }
+  .btn, .btn-primary, .btn-secondary { min-height: 50px; }
+}
+
+/* On very tall iPhone 17 Pro Max-class displays, use comfortable 1-col
+   choice layout when there's enough vertical room — improves scan speed. */
+@media (min-height: 820px) and (max-width: 480px) {
+  .choices {
+    grid-template-columns: 1fr;
+  }
+  .choice { min-height: 60px; }
+}
+
+/* --- 4. Dynamic Island clearance + always-readable HUD ------------------- */
+/* On iPhone 17 the Dynamic Island is wider; ensure HUD content never tucks
+   behind it by keeping a minimum top inset and centering the XP bar. */
+.hud { padding-top: max(calc(var(--sa-top) + 10px), 14px); }
+@supports (padding: max(0px)) {
+  .hud { padding-top: max(var(--sa-top), 14px); padding-bottom: 10px; }
+}
+
+/* --- 5. Tap feedback: subtle haptic-style "press" on every tappable. ----- */
+/* Layered on top of existing :active rules — keeps interactivity feeling
+   responsive even when JS is busy with animations. */
+.choice, .btn, .icon-btn, .chip-btn, .tab-btn, .ki-fab {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+.choice:active,
+.btn:active,
+.icon-btn:active,
+.chip-btn:active {
+  transition-duration: 80ms;
+}
+
+/* --- 6. Layout stability: containment to stop arena from re-painting whole
+       screen on hue/tier updates. ----------------------------------------- */
+#screen-battle .arena { contain: layout paint; }
+.quiz { contain: layout style; }
+.hud  { contain: layout style; }
+
+/* --- 7. Disable text selection on game UI (keeps long-press menu away). - */
+#screen-battle, #screen-train, #screen-event, .hud, .results-banner {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* …but allow selection for review screens where the user might want to
+   copy a translation. */
+.review, .review *, .deck-list, .deck-list * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* --- 8. Hide browser scrollbar on iOS Safari for the seamless app feel. - */
+::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+* { scrollbar-width: none; }
+
+/* --- 9. Higher-contrast muted text for outdoor reading. ------------------ */
+.muted, .quiz-prompt-label, .badge { color: #b6b6c2; }
+
+/* --- 10. Smoother screen entry: prevents flash when switching screens. --- */
+.screen { will-change: opacity; }
+.screen.active { animation: screenEnter .25s var(--ease-out) both; }
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 11. Focus rings only for keyboard users (cleaner on touch). --------- */
+@media (hover: none) and (pointer: coarse) {
+  button:focus-visible, button:focus { outline: none; }
+  .choice:focus { outline: none; }
+}
+
+/* --- 12. Big number readability: tabular nums + slightly tighter on HUD. */
+.hud .level, .hud .xpbar-text {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.005em;
+}
+
+/* --- 13. KI FAB: ensure clear of home indicator + Dynamic Island shadow. */
+.ki-fab {
+  /* Slight glassy backdrop so it stays legible over any arena tint. */
+  -webkit-backdrop-filter: saturate(160%) blur(8px);
+  backdrop-filter: saturate(160%) blur(8px);
+}
+
+/* --- 14. Honor reduced-motion for the new screen-enter animation. ------- */
+@media (prefers-reduced-motion: reduce) {
+  .screen.active { animation: none !important; }
+}
+
+/* --- 15. Title text balance for cleaner wraps on phones. ---------------- */
+h1, h2, h3, .results-title, .ts-text { text-wrap: balance; }
+
+/* --- 16. Prevent zoom on input focus (iOS auto-zooms <16px inputs). ----- */
+input, select, textarea { font-size: max(16px, 1rem); }
+
+/* ========================================================================== */
+/* FLAT UI PASS — Round 7                                                     */
+/* Removes gradients from enclosed boxes, progress bars, badges, and tags.    */
+/* Background gradients (body, arena ambient FX) and dynamic battle FX        */
+/* (auras, beams, sparks, shockwaves) are intentionally preserved.            */
+/* Goal: clean, minimalist, no banding on dark backgrounds.                   */
+/* ========================================================================== */
+
+/* --- Card surfaces: drop the 4% white sheen overlay that caused banding. - */
+.quiz {
+  background-image: none;
+}
+.stage-card,
+#screen-train .train-card,
+.intro-card,
+.results-card,
+.review-card,
+.deck-card,
+.tier-banner {
+  background-image: none !important;
+}
+
+/* --- Progress / loading bars: flat solid fills (use brand single hues). - */
+.xpbar-fill            { background: var(--blue) !important; }
+.hpbar-fill            { background: var(--good) !important; }
+.hpbar-fill.danger,
+.hpbar-fill.low        { background: var(--bad)  !important; }
+.hpbar.heal .hpbar-fill,
+.hpbar-fill.heal       { background: var(--good) !important; }
+/* Enemy HP red bar */
+.combatant.enemy .hpbar-fill { background: #ef3b54 !important; }
+
+.streak-bar-fill,
+.streak-fill           { background: var(--orange) !important; }
+
+.quiz-timer-fill        { background: var(--good) !important; }
+.quiz-timer-fill.warn   { background: var(--yellow) !important; }
+.quiz-timer-fill.danger { background: var(--bad) !important; animation: timerPulse .5s infinite alternate; }
+
+.event-timerbar-fill                              { background: var(--orange) !important; }
+.train-event[data-kind="recall"]   .event-timerbar-fill { background: #6db4ff !important; }
+.train-event[data-kind="incoming"] .event-timerbar-fill { background: #b466ff !important; }
+
+/* --- Tier tag / badges: flat solid backgrounds instead of warm gradients. */
+.tier-tag,
+.enemy-tier-tag,
+.badge,
+.chip,
+.chip-btn {
+  background-image: none !important;
+}
+.tier-tag       { background: var(--orange) !important; color: #1a1200 !important; }
+.enemy-tier-tag { background: var(--surface-2) !important; color: var(--ink) !important; }
+
+/* --- Stage card hero glow: drop the radial sheen, keep flat surface. ---- */
+.stage-card { background: var(--surface) !important; }
+
+/* --- Big buttons: keep brand color but flatten to one solid hue. -------- */
+/* (Gradient -> flat: still distinctly branded, no banding.) */
+.big-btn.primary    { background: var(--orange) !important; color: #1a1200 !important; }
+.big-btn.secondary  { background: var(--blue)   !important; color: #fff !important; }
+.big-btn.danger     { background: var(--bad)    !important; color: #fff !important; }
+
+/* --- Streak gradient (yellow→orange) → flat orange. -------------------- */
+.streak,
+.streak-pill {
+  background-image: none !important;
+}
+
+/* --- Results banner gradient text → flat color (still bold, no banding). */
+.results-banner.victory,
+.results-banner.defeat,
+.results-banner.endless,
+.intro-card.boss .intro-name,
+.train-event[data-kind="recall"] .event-title,
+.train-event[data-kind="incoming"] .event-title {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.results-banner.victory  { color: var(--yellow) !important; }
+.results-banner.defeat   { color: var(--bad) !important; }
+.results-banner.endless  { color: var(--blue-2) !important; }
+.intro-card.boss .intro-name { color: var(--yellow) !important; }
+.train-event[data-kind="recall"]   .event-title { color: #6db4ff !important; }
+.train-event[data-kind="incoming"] .event-title { color: #b466ff !important; }
+
+/* --- Bar tracks: subtle, flat, no inset gradient lighting. -------------- */
+.xpbar, .hpbar, .quiz-timer, .streak-bar, .event-timerbar {
+  background: rgba(255,255,255,0.08) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.08);
+}
+
+/* --- Subtle 1px borders instead of glow shadows on card surfaces. ------- */
+.quiz, .stage-card, .train-card, .results-card, .intro-card, .review-card, .deck-card {
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* --- Bar fills: smooth out left edge so flat color doesn't read as "blocky". */
+.xpbar-fill, .hpbar-fill, .quiz-timer-fill, .event-timerbar-fill, .streak-bar-fill {
+  border-radius: 999px;
+  transition: width .35s var(--ease-out);
+}
+
+/* ========================================================================== */
+/* FLAT UI PASS — Round 7b (correction)                                       */
+/* Round 7 used a non-existent .train-card selector, so the actual training   */
+/* flashcard kept its gradients. This pass nails the real classes.            */
+/* ========================================================================== */
+
+/* --- Training flashcard: flat surface, no warm sheen, no yellow corner glow. */
+.flashcard {
+  background: var(--surface) !important;
+  background-image: none !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.35) !important;
+}
+/* Kill the yellow radial sheen in the upper-right corner. */
+.flashcard::before {
+  display: none !important;
+}
+
+/* --- Battle arena: flat dark surface, no orange/blue radial spots. ------- */
+#screen-battle .arena {
+  background: var(--surface) !important;
+  background-image: none !important;
+}
+
+/* --- Quiz card (battle): solidify the warm-orange top sheen. ------------- */
+.quiz {
+  background: var(--surface) !important;
+  background-image: none !important;
+}
+
+/* --- Boss intro card: flat dark instead of warm radial. ------------------ */
+.intro-card.boss {
+  background: var(--surface-2) !important;
+  background-image: none !important;
+}
+
+/* --- Train-event panels: kept colored ring but ensure solid inside. ----- */
+.train-event {
+  background: var(--surface) !important;
+  background-image: none !important;
+}
+
+/* --- Tier banner / streak pill / shield panel: flatten any warm wash. --- */
+.tier-banner,
+.streak-pill,
+.shield-panel,
+.heal-pop,
+.combo-pill {
+  background-image: none !important;
+}
+
+/* --- Logo stage / title backdrop on start screen: stay flat (gradients
+       are background only — body wash). -------------------------------- */
+.title-wrap, .logo-stage, .start-stage {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* ---------- Training polish: details toggle ---------------------------- */
+.srs-details-toggle {
+  margin-left: auto;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #b8bccd;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.srs-details-toggle:hover { background: rgba(255,255,255,0.10); color: #fff; }
+.srs-details-toggle[aria-expanded="true"] { background: rgba(106,162,255,0.20); color: #fff; border-color: rgba(106,162,255,0.45); }
+.srs-details-wrap[hidden] { display: none; }
+.srs-details-wrap:not([hidden]) {
+  animation: srsDetailsIn 200ms cubic-bezier(.2,.8,.2,1);
+}
+@keyframes srsDetailsIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Training polish: card-type colored pills ------------------ */
+.card-type[data-type="vocab"]   { background: var(--blue, #6aa2ff); }
+.card-type[data-type="phrase"]  { background: linear-gradient(135deg, #f5b041, #ff7a1a); }
+.card-type[data-type="grammar"] { background: linear-gradient(135deg, #b06aff, #7a3aff); }
+
+/* ---------- Training polish: reveal hint ------------------------------- */
+.reveal-hint {
+  text-align: center;
+  margin: 8px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink-2, #888) 80%, transparent);
+  opacity: 0.75;
+}
+.reveal-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 2px;
+  font-size: 10px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  background: rgba(0,0,0,0.10);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  color: var(--ink, #222);
+}
+@media (hover: none) { .reveal-hint kbd { display: none; } .reveal-hint::after { content: " to reveal"; } }
+
+/* ---------- Training polish: SRS keyboard hint badges ----------------- */
+.srs { position: relative; }
+.srs .srs-key {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.22);
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0;
+  line-height: 1.2;
+  pointer-events: none;
+}
+@media (hover: none) { .srs .srs-key { display: none; } }
+
+/* ---------- Training polish: bury icon-button (top-right of back) ----- */
+.bury-icon-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ink, #222) 18%, transparent);
+  background: rgba(255,255,255,0.85);
+  color: var(--ink-2, #555);
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 120ms ease, transform 80ms ease, box-shadow 120ms ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.bury-icon-btn:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.bury-icon-btn:active { transform: scale(0.92); }
+.flashcard { position: relative; }
+
+/* ---------- Training polish: back-face meta rows w/ icons ------------- */
+.card-def, .card-related, .card-example {
+  display: grid;
+  grid-template-columns: 22px auto 1fr;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 8px 0;
+  padding: 0;
+}
+.card-def[hidden], .card-related[hidden], .card-example[hidden] { display: none; }
+.card-def .meta-icon, .card-related .meta-icon, .card-example .meta-icon {
+  font-size: 13px;
+  opacity: 0.7;
+  text-align: center;
+}
+.card-def .meta-label, .card-related .meta-label, .card-example .meta-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink-2, #555) 90%, transparent);
+  opacity: 0.75;
+}
+.card-def .meta-text, .card-related .meta-text, .card-example .meta-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: inherit;
+}
+.card-example .meta-text { font-style: italic; }
+
+/* ---------- Training polish: history row label ------------------------ */
+.card-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed color-mix(in srgb, var(--ink, #222) 12%, transparent);
+}
+.card-history-row[hidden] { display: none; }
+.card-history-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink-2, #555) 90%, transparent);
+  opacity: 0.7;
+}
+.card-history { margin-top: 0; }
+
+/* ---------- Training polish: queue chip flash on counter change ------- */
+.cq.cq-flash-down strong { animation: cqFlashDown 600ms ease; }
+.cq.cq-flash-up   strong { animation: cqFlashUp   600ms ease; }
+@keyframes cqFlashDown {
+  0%   { color: var(--good); transform: translateY(-1px); text-shadow: 0 0 8px color-mix(in srgb, var(--good) 70%, transparent); }
+  100% { transform: translateY(0); text-shadow: none; }
+}
+@keyframes cqFlashUp {
+  0%   { color: #f5b041; transform: translateY(1px); text-shadow: 0 0 8px rgba(245, 176, 65, 0.7); }
+  100% { transform: translateY(0); text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cq.cq-flash-down strong, .cq.cq-flash-up strong { animation: none; }
+}
+

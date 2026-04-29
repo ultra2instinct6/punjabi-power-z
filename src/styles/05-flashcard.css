@@ -1,0 +1,332 @@
+/* ============================================================
+   05-flashcard.css — Flashcard component + pronunciation row
+   Sliced from style.css lines 398-567 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Flashcard ===== */
+.flashcard {
+  background: var(--surface);
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%),
+    radial-gradient(120% 60% at 50% -20%, rgba(255, 122, 26, 0.10), transparent 65%);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
+  border: 0.5px solid var(--separator);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  animation: cardIn .6s var(--ease-spring) both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.card-face {
+  animation: faceIn .5s var(--ease-spring) both;
+}
+@keyframes faceIn {
+  from { opacity: 0; transform: rotateY(-8deg) translateY(6px); }
+  to   { opacity: 1; transform: rotateY(0)     translateY(0); }
+}
+.flashcard::before {
+  content: "";
+  position: absolute; inset: -40% -40% auto auto;
+  width: 240px; height: 240px;
+  background: radial-gradient(closest-side, rgba(255, 210, 63, 0.5), transparent 70%);
+  pointer-events: none;
+}
+.card-type {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-weight: 800;
+  background: var(--blue);
+  color: var(--white);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.card-prompt {
+  font-size: clamp(34px, 7vw, 52px);
+  font-weight: 900;
+  margin: 18px 0 24px;
+  color: var(--ink);
+  text-align: center;
+}
+.card-prompt.small {
+  font-size: clamp(20px, 4vw, 28px);
+  margin: 6px 0 12px;
+  color: var(--blue);
+}
+.card-english {
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 800;
+  text-align: center;
+  margin: 0 0 12px;
+  color: var(--orange);
+}
+.card-def, .card-related, .card-example {
+  margin: 6px 0;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.card-related { color: var(--muted); }
+.card-example { font-style: italic; color: var(--blue); }
+
+/* Pronunciation row + speaker button */
+.prompt-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 6px;
+  flex-wrap: wrap;
+}
+.prompt-row .card-prompt,
+.prompt-row .card-prompt.small { margin: 0; }
+.speak-btn {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 2px solid rgba(106, 162, 255, 0.4);
+  background: rgba(106, 162, 255, 0.12);
+  color: var(--blue);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  -webkit-tap-highlight-color: transparent;
+}
+.speak-btn:hover { background: rgba(106, 162, 255, 0.22); }
+.speak-btn:active { transform: scale(0.92); }
+.speak-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.speak-btn.speaking {
+  background: linear-gradient(135deg, var(--blue), #6aa2ff);
+  color: var(--white);
+  border-color: transparent;
+  animation: speak-pulse 1.1s ease-in-out infinite;
+}
+@keyframes speak-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(106, 162, 255, 0.55); }
+  50%      { box-shadow: 0 0 0 10px rgba(106, 162, 255, 0); }
+}
+.card-gurmukhi {
+  text-align: center;
+  font-size: clamp(22px, 4.5vw, 30px);
+  font-weight: 700;
+  color: var(--ink-2);
+  margin: 2px 0 14px;
+  letter-spacing: 0.5px;
+}
+
+.reveal-btn {
+  display: block;
+  margin: 12px auto 0;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--blue), #6aa2ff);
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.srs-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.srs {
+  border: none;
+  border-radius: 16px;
+  padding: 14px 6px;
+  min-height: 56px;
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  display: grid;
+  gap: 2px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  animation: fadeUp .55s var(--ease-spring) forwards;
+  transition: transform .3s var(--ease-snap), filter .2s var(--ease-soft);
+}
+.srs-row:not([hidden]) .srs:nth-child(1) { animation-delay: 0.04s; }
+.srs-row:not([hidden]) .srs:nth-child(2) { animation-delay: 0.10s; }
+.srs-row:not([hidden]) .srs:nth-child(3) { animation-delay: 0.16s; }
+.srs-row:not([hidden]) .srs:nth-child(4) { animation-delay: 0.22s; }
+.srs:active { transform: scale(0.94); filter: brightness(0.95); }
+.srs span { font-size: 11px; opacity: 0.92; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; min-height: 13px; }
+.srs .srs-sub:empty::before { content: "\00a0"; }
+.srs.again { background: var(--bad); }
+.srs.hard  { background: #ff9500; } /* iOS orange */
+.srs.good  { background: var(--good); }
+.srs.easy  { background: var(--blue); }
+
+
+/* ============================================================
+   Flashcard swipe-to-grade (Phase 3)
+   - Drag horizontally on the *back* face to grade.
+   - Left = Again (red tint), Right = Good (green tint).
+   - --swipe-x is set inline via JS; reset on release/cancel.
+   ============================================================ */
+.flashcard {
+  --swipe-x: 0px;
+  --swipe-progress: 0;
+  touch-action: pan-y;
+}
+.flashcard.swiping {
+  transition: none;
+  transform: translateX(var(--swipe-x)) rotate(calc(var(--swipe-x) * 0.04deg));
+  cursor: grabbing;
+}
+.flashcard.swipe-snap {
+  transition: transform .28s var(--ease-spring), box-shadow .28s var(--ease-soft);
+  transform: translateX(0) rotate(0);
+}
+.flashcard.swipe-commit-left {
+  transition: transform .26s var(--ease-soft), opacity .26s var(--ease-soft);
+  transform: translateX(-130%) rotate(-12deg);
+  opacity: 0;
+}
+.flashcard.swipe-commit-right {
+  transition: transform .26s var(--ease-soft), opacity .26s var(--ease-soft);
+  transform: translateX(130%) rotate(12deg);
+  opacity: 0;
+}
+/* Tint overlay reveals red/green based on direction during drag. */
+.flashcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity .15s linear;
+  background:
+    linear-gradient(90deg,
+      rgba(255, 69, 58, calc(var(--swipe-progress) * -1)) 0%,
+      transparent 35%, transparent 65%,
+      rgba(48, 209, 88, var(--swipe-progress)) 100%);
+}
+.flashcard.swiping::after { opacity: 1; }
+/* Hint badges that fade in mid-swipe to telegraph the action. */
+.swipe-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.7);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s linear, transform .2s var(--ease-snap);
+  z-index: 5;
+}
+.swipe-hint.again { left: 18px; background: rgba(255, 69, 58, 0.9); color: #fff; box-shadow: 0 6px 20px rgba(255, 69, 58, 0.4); }
+.swipe-hint.good  { right: 18px; background: rgba(48, 209, 88, 0.9); color: #08220e; box-shadow: 0 6px 20px rgba(48, 209, 88, 0.4); }
+.flashcard.swiping .swipe-hint.again { opacity: calc(var(--swipe-progress) * -1); transform: translateY(-50%) scale(1); }
+.flashcard.swiping .swipe-hint.good  { opacity: var(--swipe-progress);            transform: translateY(-50%) scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard.swiping { transform: none; }
+  .flashcard::after, .swipe-hint { display: none; }
+}
+
+/* ============================================================
+
+   Shown when no cards are due and the new-card pool is empty.
+   ============================================================ */
+.train-empty {
+  background: var(--surface);
+  background-image:
+    linear-gradient(180deg, rgba(48,209,88,0.10), transparent 40%),
+    radial-gradient(120% 60% at 50% -20%, rgba(255, 210, 63, 0.10), transparent 65%);
+  border-radius: var(--radius-xl);
+  border: 0.5px solid var(--separator);
+  box-shadow: var(--shadow);
+  padding: 32px 24px 24px;
+  text-align: center;
+  animation: cardIn .55s var(--ease-spring) both;
+}
+.train-empty-emoji {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 8px;
+  animation: trainEmptyPop .9s var(--ease-snap) both;
+}
+@keyframes trainEmptyPop {
+  0%   { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.15) rotate(8deg);  opacity: 1; }
+  100% { transform: scale(1)    rotate(0); }
+}
+.train-empty-title {
+  margin: 0 0 4px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--good), var(--yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.train-empty-sub { margin: 0 0 18px; color: var(--ink-2); font-size: 15px; }
+.train-empty-stats {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.train-empty-stats li {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius-sm);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.train-empty-stats .te-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.train-empty-stats .te-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.train-empty-next {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.train-empty-next strong { color: var(--ink); }
+.train-empty-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+@media (max-width: 480px) {
+  .train-empty-stats { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .train-empty-stats .te-num { font-size: 18px; }
+}

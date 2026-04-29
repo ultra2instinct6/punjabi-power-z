@@ -1,0 +1,315 @@
+/* ============================================================
+   14f-medicine.css — Medicine — USMLE Step 3 Rapid Review (clean clinical UI)
+   Sliced from former 14-arena-extras.css (Phase 4b split).
+   ============================================================ */
+
+/* ============================================================
+   MEDICINE — USMLE Step 3 Rapid Review (clean clinical UI)
+   ============================================================ */
+.med-screen {
+  padding: calc(var(--sa-top) + 16px) 16px calc(var(--sa-bottom) + 24px);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.med-head { margin-bottom: 14px; }
+.med-head h2 { margin: 0 0 4px; font-size: 24px; letter-spacing: -0.01em; }
+.med-sub { margin: 0; color: var(--muted); font-size: 14px; }
+
+.med-menu-btn {
+  background: linear-gradient(180deg, #1a3a5f, #122a48);
+  color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.med-menu-btn:hover { filter: brightness(1.1); }
+
+.med-section-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 18px 4px 8px;
+}
+
+.med-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.med-chip {
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1px solid var(--separator);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.med-chip:hover { background: var(--surface-2); }
+.med-chip.is-on {
+  background: #1f4068;
+  color: var(--white);
+  border-color: #3a6ea5;
+}
+
+.med-quick-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.med-mini-btn {
+  background: transparent;
+  color: var(--blue-2);
+  border: 1px solid rgba(79,139,255,0.3);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.med-mini-btn:hover { background: rgba(79,139,255,0.1); }
+
+.med-len-segment {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  padding: 4px;
+}
+.med-len-opt {
+  background: transparent;
+  color: var(--ink-2);
+  border: none;
+  border-radius: 9px;
+  padding: 10px 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.med-len-opt:hover { background: rgba(255,255,255,0.04); }
+.med-len-opt.is-on {
+  background: #1f4068;
+  color: var(--white);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.med-pool-info {
+  margin: 12px 4px 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.med-start-btn {
+  background: linear-gradient(180deg, #2e7dd1, #1f5fa6);
+  color: var(--white);
+  border: none;
+  margin-top: 14px;
+  width: 100%;
+}
+.med-start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Quiz */
+.med-progress {
+  height: 4px;
+  background: var(--surface);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.med-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2e7dd1, #4f8bff);
+  width: 0%;
+  transition: width 0.25s ease;
+}
+
+.med-quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.med-topic-tag {
+  background: rgba(79,139,255,0.12);
+  color: var(--blue-2);
+  border: 1px solid rgba(79,139,255,0.25);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.med-counter, .med-score { font-weight: 600; }
+
+.med-stem {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+
+.med-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.med-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
+}
+.med-choice:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: rgba(255,255,255,0.18);
+}
+.med-choice:active:not(:disabled) { transform: scale(0.995); }
+.med-choice:disabled { cursor: default; }
+.med-letter {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: var(--ink-2);
+  font-weight: 700;
+  font-size: 13px;
+}
+.med-choice-text { flex: 1; }
+.med-choice.is-correct {
+  background: rgba(48, 209, 88, 0.12);
+  border-color: rgba(48, 209, 88, 0.5);
+}
+.med-choice.is-correct .med-letter {
+  background: rgba(48, 209, 88, 0.3);
+  color: var(--good);
+}
+.med-choice.is-wrong {
+  background: rgba(255, 69, 58, 0.12);
+  border-color: rgba(255, 69, 58, 0.5);
+}
+.med-choice.is-wrong .med-letter {
+  background: rgba(255, 69, 58, 0.3);
+  color: var(--bad);
+}
+
+.med-pearl {
+  margin-top: 14px;
+  background: rgba(255, 178, 0, 0.08);
+  border: 1px solid rgba(255, 178, 0, 0.3);
+  border-radius: 12px;
+  padding: 14px;
+}
+.med-pearl-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.med-pearl-icon { font-size: 16px; }
+.med-pearl-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.med-pearl-text {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.med-next-btn {
+  background: linear-gradient(180deg, #2e7dd1, #1f5fa6);
+  color: var(--white);
+  border: none;
+  width: 100%;
+}
+
+#medQuitBtn { display: block; margin: 14px auto 0; }
+
+/* Results */
+.med-results-card {
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+.med-results-banner {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue-2);
+  margin-bottom: 6px;
+}
+.med-results-score {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+.med-results-breakdown {
+  text-align: left;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.med-bd-row {
+  display: grid;
+  grid-template-columns: 1fr auto 100px;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  padding: 6px 0;
+}
+.med-bd-topic { color: var(--ink-2); }
+.med-bd-score { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+.med-bd-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.med-bd-bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2e7dd1, #4f8bff);
+}
+.med-results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+@media (max-width: 480px) {
+  .med-stem { font-size: 15px; }
+  .med-choice { font-size: 13px; }
+  .med-bd-row { grid-template-columns: 1fr auto 70px; }
+}

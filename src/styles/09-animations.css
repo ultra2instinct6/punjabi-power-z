@@ -1,0 +1,41 @@
+/* ============================================================
+   09-animations.css — Shared shake/pop animations & settings group enter
+   Sliced from style.css lines 1114-1148 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Hit shake ===== */
+.shake { animation: shake .4s var(--ease-spring); }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px) rotate(-1deg); }
+  40% { transform: translateX(7px)  rotate(1deg); }
+  60% { transform: translateX(-4px) rotate(-0.5deg); }
+  80% { transform: translateX(4px)  rotate(0.5deg); }
+}
+
+/* HUD value pop on update (toggle .pop class via JS, optional) */
+.pop { animation: pop .35s var(--ease-snap); }
+@keyframes pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Settings groups enter */
+#screen-settings.active .settings-group,
+#screen-settings.active .settings-group-header {
+  opacity: 0;
+  animation: fadeUp .55s var(--ease-spring) forwards;
+}
+#screen-settings.active .settings-group-header:nth-of-type(1) { animation-delay: 0.05s; }
+#screen-settings.active .settings-group:nth-of-type(1)        { animation-delay: 0.08s; }
+#screen-settings.active .settings-group-header:nth-of-type(2) { animation-delay: 0.12s; }
+#screen-settings.active .settings-group:nth-of-type(2)        { animation-delay: 0.15s; }
+#screen-settings.active .settings-group-header:nth-of-type(3) { animation-delay: 0.19s; }
+#screen-settings.active .settings-group:nth-of-type(3)        { animation-delay: 0.22s; }
+#screen-settings.active .settings-group-header:nth-of-type(4) { animation-delay: 0.26s; }
+#screen-settings.active .settings-group:nth-of-type(4)        { animation-delay: 0.29s; }
+#screen-settings.active .settings-group-header:nth-of-type(5) { animation-delay: 0.33s; }
+#screen-settings.active .settings-group:nth-of-type(5)        { animation-delay: 0.36s; }
+

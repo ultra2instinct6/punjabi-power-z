@@ -6,5380 +6,15 @@
 (() => {
   "use strict";
 
-  // ---------- Content ---------------------------------------------------------
+  // ---------- Content (extracted to src/data/deck.data.js) -------
   /** @type {{id:string, type:'vocab'|'phrase'|'grammar', punjabi:string, english:string, definition?:string, related?:string, example?:string}[]} */
-  const DECK = [
-    // Vocab
-    { id: "v1",  type: "vocab", punjabi: "paani",  english: "water",
-      definition: "A clear liquid you drink.",
-      related: "peena (to drink), naddi (river)",
-      example: "Mainu paani chahida hai. — I need water." },
-    { id: "v2",  type: "vocab", punjabi: "roti",   english: "bread / flatbread",
-      definition: "A round Indian flatbread eaten with meals.",
-      related: "atta (flour), tava (griddle)",
-      example: "Roti garam hai. — The bread is hot." },
-    { id: "v3",  type: "vocab", punjabi: "ghar",   english: "house",
-      definition: "A place where a family lives.",
-      related: "kamra (room), darvaza (door)",
-      example: "Mera ghar vadda hai. — My house is big." },
-    { id: "v4",  type: "vocab", punjabi: "maa",    english: "mother",
-      definition: "A female parent.",
-      related: "biji, mummy",
-      example: "Meri maa changi hai. — My mother is good." },
-    { id: "v5",  type: "vocab", punjabi: "pyo",    english: "father",
-      definition: "A male parent.",
-      related: "papa, daddy",
-      example: "Mera pyo kamm karda hai. — My father works." },
-    { id: "v6",  type: "vocab", punjabi: "bazaar", english: "market",
-      definition: "A place where things are bought and sold.",
-      related: "dukaan (shop), paisa (money)",
-      example: "Asin bazaar jaande haan. — We go to the market." },
-    { id: "v7",  type: "vocab", punjabi: "gaddi",  english: "car",
-      definition: "A vehicle with four wheels.",
-      related: "saikal (cycle), bus",
-      example: "Gaddi tez hai. — The car is fast." },
-    { id: "v8",  type: "vocab", punjabi: "jaldi",  english: "quickly / hurry",
-      definition: "Doing something in a fast way.",
-      related: "tez (fast), chhetee",
-      example: "Jaldi karo! — Hurry up!" },
-    { id: "v9",  type: "vocab", punjabi: "ruk",    english: "stop",
-      definition: "To stop moving or to pause.",
-      related: "khalo (stand), band (closed)",
-      example: "Ruk jao! — Stop!" },
-    { id: "v10", type: "vocab", punjabi: "sun",    english: "listen",
-      definition: "To pay attention with your ears.",
-      related: "bol (speak), gaana (song)",
-      example: "Mainu sun! — Listen to me!" },
-    { id: "v11", type: "vocab", punjabi: "kitaab", english: "book",
-      definition: "Pages bound together that you can read.",
-      related: "padhna (to read), school",
-      example: "Eh kitaab changi hai. — This book is good." },
-    { id: "v12", type: "vocab", punjabi: "dost",   english: "friend",
-      definition: "A person you like and trust.",
-      related: "yaar, saathi",
-      example: "Tu mera dost hai. — You are my friend." },
-    { id: "v13", type: "vocab", punjabi: "skool", english: "school",
-      definition: "A place where children learn.",
-      related: "ustaad (teacher), kitaab (book)",
-      example: "Main school jaanda haan. — I go to school." },
-    { id: "v14", type: "vocab", punjabi: "chah",   english: "tea",
-      definition: "A hot drink made from leaves.",
-      related: "doodh (milk), cheeni (sugar)",
-      example: "Chah pee lo. — Drink the tea." },
-    { id: "v15", type: "vocab", punjabi: "doodh",  english: "milk",
-      definition: "A white drink that comes from a cow.",
-      related: "chah (tea), dahi (yogurt)",
-      example: "Doodh thanda hai. — The milk is cold." },
-    { id: "v16", type: "vocab", punjabi: "rang",   english: "color",
-      definition: "What we see — like red, blue, green.",
-      related: "neela (blue), peela (yellow)",
-      example: "Mera rang neela hai. — My color is blue." },
-    { id: "v17", type: "vocab", punjabi: "din",    english: "day",
-      definition: "The time when the sun is up.",
-      related: "raat (night), suraj (sun)",
-      example: "Aaj changa din hai. — Today is a good day." },
-    { id: "v18", type: "vocab", punjabi: "raat",   english: "night",
-      definition: "The time when it is dark.",
-      related: "din (day), chand (moon)",
-      example: "Raat thandee hai. — The night is cool." },
-    { id: "v19", type: "vocab", punjabi: "khaana", english: "food / to eat",
-      definition: "Food, or the action of eating.",
-      related: "roti, chaaval (rice)",
-      example: "Khaana taiyar hai. — Food is ready." },
-    { id: "v20", type: "vocab", punjabi: "naam",   english: "name",
-      definition: "What someone or something is called.",
-      related: "main (I), tu (you)",
-      example: "Mera naam Ravi hai. — My name is Ravi." },
-
-    // Phrases
-    { id: "p1", type: "phrase", punjabi: "Tusi kive ho?",
-      english: "How are you?",
-      definition: "Polite greeting to ask how someone is doing.",
-      example: "Tusi kive ho? Main theek haan. — How are you? I'm good." },
-    { id: "p2", type: "phrase", punjabi: "Main theek haan",
-      english: "I am good.",
-      definition: "Standard reply to 'Tusi kive ho?' (how are you).",
-      example: "Main theek haan, shukriya. — I'm good, thanks." },
-    { id: "p3", type: "phrase", punjabi: "Tuhada naam ki hai?",
-      english: "What is your name?",
-      definition: "Polite way to ask someone's name.",
-      example: "A: Tuhada naam ki hai? B: Mera naam Ravi hai. — A: What's your name? B: My name is Ravi." },
-    { id: "p4", type: "phrase", punjabi: "Mera naam ___ hai",
-      english: "My name is ___.",
-      definition: "Reply with your name in place of the blank.",
-      example: "Mera naam Simran hai. — My name is Simran." },
-    { id: "p5", type: "phrase", punjabi: "Main Punjabi sikh reha haan",
-      english: "I am learning Punjabi.",
-      definition: "Used to tell people you're studying the language. Female speaker: 'sikh rahi haan'.",
-      example: "Main Punjabi sikh reha haan. — I'm learning Punjabi." },
-    { id: "p6", type: "phrase", punjabi: "Sat sri akaal",
-      english: "Hello (a respectful greeting).",
-      definition: "Universal Sikh greeting (lit. 'eternal truth is the immortal Lord'). Used any time of day, hello or goodbye.",
-      example: "Sat sri akaal ji, kive ho? — Hello, how are you?" },
-    { id: "p7", type: "phrase", punjabi: "Shukriya",
-      english: "Thank you.",
-      definition: "Common way to thank someone. Alternative: 'mehrbaani'.",
-      example: "Shukriya ji, tuhada bahut shukriya. — Thank you, thank you very much." },
-
-    // Grammar / definitions
-    { id: "g1", type: "grammar", punjabi: "naaon",
-      english: "noun",
-      definition: "A person, place, thing, or idea.",
-      example: "ghar (house) is a naaon." },
-    { id: "g2", type: "grammar", punjabi: "kirya",
-      english: "verb",
-      definition: "An action word.",
-      example: "khaana (to eat) is a kirya." },
-    { id: "g3", type: "grammar", punjabi: "visheshan",
-      english: "adjective",
-      definition: "A describing word.",
-      example: "vadda (big) is a visheshan." },
-    { id: "g4", type: "grammar", punjabi: "kirya visheshan",
-      english: "adverb",
-      definition: "Describes an action.",
-      example: "jaldi (quickly) is a kirya visheshan." },
-
-    // ===== Numbers (1–10, then tens) =====
-    { id: "n1",  type: "vocab", punjabi: "ikk",     english: "one",
-      definition: "The number 1.",
-      related: "pehla (first), ikko (just one)",
-      example: "Ikk roti dio. — Give one roti." },
-    { id: "n2",  type: "vocab", punjabi: "do",      english: "two",
-      definition: "The number 2.",
-      related: "doja (second), dono (both)",
-      example: "Do dost aaye. — Two friends came." },
-    { id: "n3",  type: "vocab", punjabi: "tinn",    english: "three",
-      definition: "The number 3.",
-      related: "teeja (third)",
-      example: "Tinn kitaaban. — Three books." },
-    { id: "n4",  type: "vocab", punjabi: "char",    english: "four",
-      definition: "The number 4.",
-      related: "chautha (fourth)",
-      example: "Char paye. — Four legs." },
-    { id: "n5",  type: "vocab", punjabi: "panj",    english: "five",
-      definition: "The number 5. (Punjab = 'land of five rivers'.)",
-      related: "panjvaan (fifth), Panjab",
-      example: "Panj minit. — Five minutes." },
-    { id: "n6",  type: "vocab", punjabi: "che",     english: "six",
-      definition: "The number 6.",
-      related: "chheva (sixth)",
-      example: "Che vaje. — Six o'clock." },
-    { id: "n7",  type: "vocab", punjabi: "satt",    english: "seven",
-      definition: "The number 7.",
-      related: "sattvaan (seventh)",
-      example: "Satt din. — Seven days." },
-    { id: "n8",  type: "vocab", punjabi: "atth",    english: "eight",
-      definition: "The number 8.",
-      related: "atthvaan (eighth)",
-      example: "Atth saal da. — Eight years old." },
-    { id: "n9",  type: "vocab", punjabi: "nau",     english: "nine",
-      definition: "The number 9.",
-      related: "nauvaan (ninth)",
-      example: "Nau vaje suttey. — Slept at nine." },
-    { id: "n10", type: "vocab", punjabi: "das",     english: "ten",
-      definition: "The number 10.",
-      related: "dasvaan (tenth)",
-      example: "Das rupaye. — Ten rupees." },
-    { id: "n20", type: "vocab", punjabi: "vee",     english: "twenty",
-      definition: "The number 20.",
-      related: "ikkee (21), bee (22)",
-      example: "Vee saal da. — Twenty years old." },
-    { id: "n100", type: "vocab", punjabi: "sau",    english: "hundred",
-      definition: "The number 100.",
-      related: "hazaar (thousand), lakh (100,000)",
-      example: "Sau rupaye. — One hundred rupees." },
-    { id: "n1000", type: "vocab", punjabi: "hazaar", english: "thousand",
-      definition: "The number 1,000.",
-      related: "sau (100), lakh (100,000)",
-      example: "Ikk hazaar. — One thousand." },
-
-    // ===== Family =====
-    { id: "f1", type: "vocab", punjabi: "bhra",  english: "brother",
-      definition: "A male sibling.",
-      related: "bhain (sister), vadda bhra (older brother)",
-      example: "Mera bhra dukaan vich kamm karda hai. — My brother works in the shop." },
-    { id: "f2", type: "vocab", punjabi: "bhain", english: "sister",
-      definition: "A female sibling.",
-      related: "bhra (brother), choti bhain (younger sister)",
-      example: "Meri bhain padhai kar rahi hai. — My sister is studying." },
-    { id: "f3", type: "vocab", punjabi: "dada",  english: "paternal grandfather",
-      definition: "Your father's father.",
-      related: "dadi (paternal grandmother), nana (maternal grandfather)",
-      example: "Mera dada ji buzurg han. — My grandfather is elderly." },
-    { id: "f4", type: "vocab", punjabi: "dadi",  english: "paternal grandmother",
-      definition: "Your father's mother.",
-      related: "dada (paternal grandfather)",
-      example: "Dadi ji kahaani sunaande han. — Grandmother tells stories." },
-    { id: "f5", type: "vocab", punjabi: "nana",  english: "maternal grandfather",
-      definition: "Your mother's father.",
-      related: "nani (maternal grandmother), dada",
-      example: "Nana ji pind rehnde han. — Grandfather lives in the village." },
-    { id: "f6", type: "vocab", punjabi: "nani",  english: "maternal grandmother",
-      definition: "Your mother's mother.",
-      related: "nana (maternal grandfather)",
-      example: "Nani ji vadiya khaana banaande han. — Grandmother makes great food." },
-    { id: "f7", type: "vocab", punjabi: "chacha", english: "paternal uncle (younger)",
-      definition: "Your father's younger brother. (Older brother = taaya.)",
-      related: "chachi, taaya, mama",
-      example: "Chacha ji ne gaddi laitee. — Uncle bought a car." },
-    { id: "f8", type: "vocab", punjabi: "mama",  english: "maternal uncle",
-      definition: "Your mother's brother.",
-      related: "mami, chacha",
-      example: "Mama ji aaye han. — Maternal uncle has come." },
-    { id: "f9", type: "vocab", punjabi: "puttar", english: "son",
-      definition: "A male child. Often used affectionately for any young person.",
-      related: "dheeyaan/dhee (daughter), beta",
-      example: "Puttar, idhar aa. — Son, come here." },
-    { id: "f10", type: "vocab", punjabi: "dhee", english: "daughter",
-      definition: "A female child.",
-      related: "puttar (son), beti",
-      example: "Meri dhee doctor hai. — My daughter is a doctor." },
-    { id: "f11", type: "vocab", punjabi: "parivaar", english: "family",
-      definition: "All the people in your household / relatives.",
-      related: "ghar (home), rishtedaar (relatives)",
-      example: "Saada parivaar vadda hai. — Our family is big." },
-
-    // ===== Body parts =====
-    { id: "b1", type: "vocab", punjabi: "sir",   english: "head",
-      definition: "The top of the body where the brain is.",
-      related: "vaal (hair), mooh (face/mouth)",
-      example: "Mera sir dukhda hai. — My head hurts." },
-    { id: "b2", type: "vocab", punjabi: "akh",   english: "eye",
-      definition: "The body part used to see.",
-      related: "akhaan (eyes, plural), dekhna (to see)",
-      example: "Tuhadi akhaan sohniyaan han. — Your eyes are beautiful." },
-    { id: "b3", type: "vocab", punjabi: "kann",  english: "ear",
-      definition: "The body part used to hear.",
-      related: "sunna (to listen)",
-      example: "Kann khol ke sun. — Listen with your ears open." },
-    { id: "b4", type: "vocab", punjabi: "nakk",  english: "nose",
-      definition: "The body part used to smell and breathe.",
-      related: "saans (breath)",
-      example: "Mera nakk vagda hai. — My nose is running." },
-    { id: "b5", type: "vocab", punjabi: "mooh",  english: "mouth / face",
-      definition: "The opening used to speak and eat; also means 'face'.",
-      related: "bolna (to speak), dand (teeth)",
-      example: "Mooh dho lo. — Wash your face." },
-    { id: "b6", type: "vocab", punjabi: "hath",  english: "hand",
-      definition: "The body part at the end of your arm.",
-      related: "ungal (finger), bahn (arm)",
-      example: "Hath dho. — Wash your hands." },
-    { id: "b7", type: "vocab", punjabi: "pair",  english: "foot / leg",
-      definition: "The body part used for walking.",
-      related: "tur (walk), dauran (run)",
-      example: "Mera pair dukhda hai. — My foot hurts." },
-    { id: "b8", type: "vocab", punjabi: "pet",   english: "stomach / belly",
-      definition: "Where food goes when you eat.",
-      related: "bhukh (hunger), khaana (food)",
-      example: "Mera pet bhar gaya. — My stomach is full." },
-    { id: "b9", type: "vocab", punjabi: "dil",   english: "heart",
-      definition: "The organ that pumps blood; also 'feelings/desire'.",
-      related: "pyar (love), jaan (life)",
-      example: "Mera dil kehnda hai. — My heart says (i.e. I feel like)." },
-    { id: "b10", type: "vocab", punjabi: "vaal", english: "hair",
-      definition: "What grows on the top of your head.",
-      related: "sir (head)",
-      example: "Tuhade vaal lambay han. — Your hair is long." },
-
-    // ===== Colors =====
-    { id: "c1", type: "vocab", punjabi: "laal",   english: "red",
-      definition: "The color of blood and roses.",
-      related: "rang (color)",
-      example: "Laal gulaab. — A red rose." },
-    { id: "c2", type: "vocab", punjabi: "neela",  english: "blue",
-      definition: "The color of the sky and ocean.",
-      related: "aasman (sky)",
-      example: "Neela aasman. — A blue sky." },
-    { id: "c3", type: "vocab", punjabi: "peela",  english: "yellow",
-      definition: "The color of the sun and lemons.",
-      related: "suraj (sun)",
-      example: "Peela rang. — Yellow color." },
-    { id: "c4", type: "vocab", punjabi: "hara",   english: "green",
-      definition: "The color of grass and leaves.",
-      related: "patta (leaf)",
-      example: "Hare khet. — Green fields." },
-    { id: "c5", type: "vocab", punjabi: "kaala",  english: "black",
-      definition: "The darkest color.",
-      related: "raat (night)",
-      example: "Kaale vaal. — Black hair." },
-    { id: "c6", type: "vocab", punjabi: "chitta", english: "white",
-      definition: "The color of milk and snow.",
-      related: "doodh (milk), barf (snow)",
-      example: "Chitta kapra. — White cloth." },
-    { id: "c7", type: "vocab", punjabi: "bhura",  english: "brown",
-      definition: "The color of wood and chocolate.",
-      related: "lakkad (wood)",
-      example: "Bhura ghoda. — A brown horse." },
-    { id: "c8", type: "vocab", punjabi: "gulabi", english: "pink",
-      definition: "The color of rose flowers; from 'gulaab' (rose).",
-      related: "gulaab (rose)",
-      example: "Gulabi rang. — Pink color." },
-
-    // ===== Days of the week =====
-    { id: "d1", type: "vocab", punjabi: "somvar",    english: "Monday",
-      definition: "The first weekday.",
-      related: "din (day), hafta (week)",
-      example: "Somvar nu school jaana. — Go to school on Monday." },
-    { id: "d2", type: "vocab", punjabi: "mangalvar", english: "Tuesday",
-      definition: "The second weekday.",
-      example: "Mangalvar nu chutti. — Holiday on Tuesday." },
-    { id: "d3", type: "vocab", punjabi: "budhvar",   english: "Wednesday",
-      definition: "The middle weekday.",
-      example: "Budhvar aaya. — Wednesday came." },
-    { id: "d4", type: "vocab", punjabi: "veervar",   english: "Thursday",
-      definition: "The fourth weekday. (Also 'jumeraat'.)",
-      related: "jumeraat",
-      example: "Veervar nu mela hai. — There's a fair on Thursday." },
-    { id: "d5", type: "vocab", punjabi: "shukarvar", english: "Friday",
-      definition: "The fifth weekday.",
-      example: "Shukarvar nu jaldi aana. — Come early Friday." },
-    { id: "d6", type: "vocab", punjabi: "shanivar",  english: "Saturday",
-      definition: "The sixth weekday.",
-      example: "Shanivar nu chutti hundi hai. — Saturday is a holiday." },
-    { id: "d7", type: "vocab", punjabi: "aitvar",    english: "Sunday",
-      definition: "The seventh day; weekend rest day.",
-      example: "Aitvar nu aaram. — Rest on Sunday." },
-
-    // ===== Time =====
-    { id: "t1", type: "vocab", punjabi: "ajj",     english: "today",
-      definition: "This day, right now.",
-      related: "kal, parson",
-      example: "Ajj garmi hai. — Today is hot." },
-    { id: "t2", type: "vocab", punjabi: "kal",     english: "yesterday / tomorrow",
-      definition: "Means BOTH yesterday and tomorrow — context (verb tense) tells you which.",
-      related: "ajj (today), parson",
-      example: "Kal milange. — We'll meet tomorrow.  /  Kal mile si. — We met yesterday." },
-    { id: "t3", type: "vocab", punjabi: "savere",  english: "morning",
-      definition: "Early in the day.",
-      related: "sham (evening), dupahir (noon)",
-      example: "Savere jaldi uthna. — Wake up early in the morning." },
-    { id: "t4", type: "vocab", punjabi: "sham",    english: "evening",
-      definition: "Late afternoon / before night.",
-      related: "savere, raat",
-      example: "Sham nu chai pee laange. — We'll drink tea in the evening." },
-    { id: "t5", type: "vocab", punjabi: "dupahir", english: "noon / afternoon",
-      definition: "The middle of the day.",
-      related: "savere, sham",
-      example: "Dupahir da khaana. — Lunch (noon meal)." },
-    { id: "t6", type: "vocab", punjabi: "hun",     english: "now",
-      definition: "At this moment.",
-      related: "ajj, jaldi",
-      example: "Hun chalo. — Let's go now." },
-    { id: "t7", type: "vocab", punjabi: "saal",    english: "year",
-      definition: "12 months.",
-      related: "mahina (month), hafta (week)",
-      example: "Aglay saal. — Next year." },
-    { id: "t8", type: "vocab", punjabi: "mahina",  english: "month",
-      definition: "About 30 days.",
-      related: "saal, hafta",
-      example: "Eh mahina chhota hai. — This month is short." },
-    { id: "t9", type: "vocab", punjabi: "hafta",   english: "week",
-      definition: "Seven days.",
-      related: "din (day)",
-      example: "Aglay hafte milange. — We'll meet next week." },
-
-    // ===== Food =====
-    { id: "fd1", type: "vocab", punjabi: "chaaval", english: "rice",
-      definition: "Cooked grains, a staple food.",
-      related: "daal, sabzi",
-      example: "Chaaval te daal. — Rice and lentils." },
-    { id: "fd2", type: "vocab", punjabi: "daal",    english: "lentils / lentil curry",
-      definition: "Cooked lentils, a very common Punjabi dish.",
-      related: "chaaval, sabzi",
-      example: "Daal banai hai. — I made daal." },
-    { id: "fd3", type: "vocab", punjabi: "sabzi",   english: "vegetable / vegetable dish",
-      definition: "Cooked vegetables.",
-      related: "aaloo (potato), gobhi (cauliflower)",
-      example: "Aaj ki sabzi banai? — What vegetable did you cook today?" },
-    { id: "fd4", type: "vocab", punjabi: "aaloo",   english: "potato",
-      definition: "A starchy root vegetable.",
-      related: "sabzi, paronthe",
-      example: "Aaloo paronthe pasand han. — I like potato parathas." },
-    { id: "fd5", type: "vocab", punjabi: "phal",    english: "fruit",
-      definition: "Sweet edible plant produce.",
-      related: "anb (mango), seb (apple)",
-      example: "Phal khao, sehat changi rehndi hai. — Eat fruit, it's healthy." },
-    { id: "fd6", type: "vocab", punjabi: "anb",     english: "mango",
-      definition: "A sweet tropical fruit; the king of fruits.",
-      related: "phal",
-      example: "Anb mitthe han. — Mangoes are sweet." },
-    { id: "fd7", type: "vocab", punjabi: "lassi",   english: "lassi (yogurt drink)",
-      definition: "A traditional Punjabi yogurt drink, sweet or salty.",
-      related: "dahi (yogurt), doodh (milk)",
-      example: "Mitthi lassi. — Sweet lassi." },
-    { id: "fd8", type: "vocab", punjabi: "namak",   english: "salt",
-      definition: "A white seasoning.",
-      related: "mirch (chili), cheeni (sugar)",
-      example: "Namak ghatt hai. — There's not enough salt." },
-    { id: "fd9", type: "vocab", punjabi: "mirch",   english: "chili / pepper",
-      definition: "A spicy ingredient.",
-      related: "namak, masala",
-      example: "Mirch tikhi hai. — The chili is hot/spicy." },
-    { id: "fd10", type: "vocab", punjabi: "anda",   english: "egg",
-      definition: "Comes from a hen; a food.",
-      related: "murga (rooster)",
-      example: "Anda khaada. — I ate an egg." },
-    { id: "fd11", type: "vocab", punjabi: "paronthe", english: "paratha (stuffed flatbread)",
-      definition: "A pan-fried flatbread, often stuffed with potato, paneer, or radish.",
-      related: "roti, makhan",
-      example: "Aaloo paronthe naal makhan. — Potato parathas with butter." },
-
-    // ===== Animals =====
-    { id: "a1", type: "vocab", punjabi: "kutta",  english: "dog",
-      definition: "A common pet animal.",
-      related: "billi (cat)",
-      example: "Kutta bhonkda hai. — The dog is barking." },
-    { id: "a2", type: "vocab", punjabi: "billi",  english: "cat",
-      definition: "A small furry pet.",
-      related: "kutta",
-      example: "Billi doodh peendi hai. — The cat drinks milk." },
-    { id: "a3", type: "vocab", punjabi: "gaan",   english: "cow",
-      definition: "A farm animal that gives milk; sacred in Hindu tradition.",
-      related: "doodh (milk)",
-      example: "Gaan khet vich hai. — The cow is in the field." },
-    { id: "a4", type: "vocab", punjabi: "ghoda",  english: "horse",
-      definition: "A large animal used for riding.",
-      related: "gaddi",
-      example: "Ghoda tez daudda hai. — The horse runs fast." },
-    { id: "a5", type: "vocab", punjabi: "pakhi",  english: "bird",
-      definition: "An animal with wings and feathers.",
-      related: "udna (to fly)",
-      example: "Pakhi gaaonde han. — Birds sing." },
-    { id: "a6", type: "vocab", punjabi: "sher",   english: "lion / tiger",
-      definition: "A large wild cat. In Punjabi 'sher' often covers both; 'baagh' is more specifically tiger. The Sikh surname 'Singh' literally means 'lion'.",
-      related: "baagh, jangli",
-      example: "Oh sher varga bahaadar hai. — He is brave like a lion." },
-
-    // ===== Places =====
-    { id: "pl1", type: "vocab", punjabi: "pind",      english: "village",
-      definition: "A small rural settlement; deep in Punjabi culture.",
-      related: "shehar (city), khet (field)",
-      example: "Mera pind Punjab vich hai. — My village is in Punjab." },
-    { id: "pl2", type: "vocab", punjabi: "shehar",    english: "city",
-      definition: "A large town.",
-      related: "pind",
-      example: "Vadda shehar. — A big city." },
-    { id: "pl3", type: "vocab", punjabi: "khet",      english: "field / farm",
-      definition: "Land where crops grow.",
-      related: "pind, kisaan (farmer)",
-      example: "Khet vich kanak. — Wheat in the field." },
-    { id: "pl4", type: "vocab", punjabi: "naddi",     english: "river",
-      definition: "A flowing body of water. Punjab = land of FIVE rivers.",
-      related: "paani, samandar (sea)",
-      example: "Naddi vagdi hai. — The river flows." },
-    { id: "pl5", type: "vocab", punjabi: "gurudwara", english: "Gurdwara (Sikh temple)",
-      definition: "A Sikh place of worship; literally 'door of the Guru'.",
-      related: "mandir, masjid",
-      example: "Asin gurudwara jaande haan. — We go to the Gurdwara." },
-    { id: "pl6", type: "vocab", punjabi: "dukaan",    english: "shop / store",
-      definition: "A place to buy things.",
-      related: "bazaar, paisa",
-      example: "Dukaan band hai. — The shop is closed." },
-
-    // ===== Common adjectives =====
-    { id: "ad1", type: "vocab", punjabi: "vadda",   english: "big / elder",
-      definition: "Large in size, or older in age.",
-      related: "chhota (small)",
-      example: "Vadda bhra. — Elder brother." },
-    { id: "ad2", type: "vocab", punjabi: "chhota",  english: "small / younger",
-      definition: "Small, or younger.",
-      related: "vadda",
-      example: "Chhoti bhain. — Younger sister." },
-    { id: "ad3", type: "vocab", punjabi: "changa",  english: "good",
-      definition: "Of good quality; fine; okay.",
-      related: "maada (bad), vadiya (excellent)",
-      example: "Sab changa hai. — Everything is fine." },
-    { id: "ad4", type: "vocab", punjabi: "maada",   english: "bad",
-      definition: "Of poor quality; not good.",
-      related: "changa",
-      example: "Maada kamm. — Bad work." },
-    { id: "ad5", type: "vocab", punjabi: "sohna",   english: "beautiful / handsome",
-      definition: "Pretty, attractive. (Famous Punjabi song: 'Sohna lagda'.)",
-      related: "sundar",
-      example: "Sohna munda. — A handsome boy." },
-    { id: "ad6", type: "vocab", punjabi: "garam",   english: "hot (temperature)",
-      definition: "High in temperature.",
-      related: "thanda (cold), tikhi (spicy hot)",
-      example: "Chah garam hai. — The tea is hot." },
-    { id: "ad7", type: "vocab", punjabi: "thanda",  english: "cold",
-      definition: "Low in temperature.",
-      related: "garam",
-      example: "Paani thanda hai. — The water is cold." },
-    { id: "ad8", type: "vocab", punjabi: "navan",   english: "new",
-      definition: "Recently made or obtained.",
-      related: "purana (old)",
-      example: "Navan kapra. — New cloth." },
-    { id: "ad9", type: "vocab", punjabi: "purana",  english: "old (thing)",
-      definition: "Used for objects that are not new. (For old PEOPLE use 'buzurg' = elderly.)",
-      related: "navan, buzurg",
-      example: "Purana ghar. — The old house." },
-    { id: "ad10", type: "vocab", punjabi: "sokha",  english: "easy",
-      definition: "Not difficult.",
-      related: "aukha (difficult)",
-      example: "Eh sokha hai. — This is easy." },
-    { id: "ad11", type: "vocab", punjabi: "aukha",  english: "difficult / hard",
-      definition: "Hard to do.",
-      related: "sokha",
-      example: "Punjabi aukhi nahin. — Punjabi is not difficult." },
-
-    // ===== Common verbs (infinitive ends in -na/-ona) =====
-    { id: "vb1", type: "vocab", punjabi: "jaana",   english: "to go",
-      definition: "Move from one place to another.",
-      related: "aana (to come)",
-      example: "Main school jaanda haan. — I go to school." },
-    { id: "vb2", type: "vocab", punjabi: "aana",    english: "to come",
-      definition: "Move toward a place.",
-      related: "jaana",
-      example: "Idhar aa. — Come here." },
-    { id: "vb3", type: "vocab", punjabi: "karna",   english: "to do / to make",
-      definition: "The most common 'helper' verb in Punjabi.",
-      related: "kamm karna (to work), gall karna (to talk)",
-      example: "Ki karna hai? — What to do?" },
-    { id: "vb4", type: "vocab", punjabi: "bolna",   english: "to speak",
-      definition: "To say words out loud.",
-      related: "sunna (to listen), gall (talk)",
-      example: "Punjabi bolo. — Speak Punjabi." },
-    { id: "vb5", type: "vocab", punjabi: "padhna",  english: "to read / to study",
-      definition: "Look at words; or study at school.",
-      related: "likhna (to write), kitaab",
-      example: "Main Punjabi padh reha haan. — I am studying Punjabi." },
-    { id: "vb6", type: "vocab", punjabi: "likhna",  english: "to write",
-      definition: "Make letters or words on paper.",
-      related: "padhna",
-      example: "Naam likho. — Write your name." },
-    { id: "vb7", type: "vocab", punjabi: "dekhna",  english: "to see / to watch",
-      definition: "Use your eyes.",
-      related: "akh, samajhna",
-      example: "Eh dekho! — Look at this!" },
-    { id: "vb8", type: "vocab", punjabi: "samajhna", english: "to understand",
-      definition: "To grasp the meaning of something.",
-      related: "seekhna (to learn)",
-      example: "Mainu samajh aa gayi. — I understood." },
-    { id: "vb9", type: "vocab", punjabi: "seekhna", english: "to learn",
-      definition: "To gain knowledge or skill.",
-      related: "padhna, samajhna",
-      example: "Main Punjabi seekh reha haan. — I am learning Punjabi." },
-    { id: "vb10", type: "vocab", punjabi: "sona",   english: "to sleep",
-      definition: "Rest with eyes closed.",
-      related: "uthna (to wake/get up)",
-      example: "Raat nu sona. — Sleep at night." },
-    { id: "vb11", type: "vocab", punjabi: "khareedna", english: "to buy",
-      definition: "To purchase something.",
-      related: "vechna (to sell), paisa",
-      example: "Main roti khareed laitee. — I bought roti." },
-    { id: "vb12", type: "vocab", punjabi: "denna",  english: "to give",
-      definition: "Hand something to someone.",
-      related: "lain (to take)",
-      example: "Mainu paani de. — Give me water." },
-    { id: "vb13", type: "vocab", punjabi: "laina",   english: "to take",
-      definition: "Receive or pick up something.",
-      related: "denna",
-      example: "Eh lai lo. — Take this." },
-
-    // ===== Pronouns =====
-    { id: "pc1", type: "vocab", punjabi: "main",   english: "I",
-      definition: "First person singular pronoun. Pair with 'haan' (am).",
-      related: "asi (we), mera (my)",
-      example: "Main thakk gaya haan. — I am tired." },
-    { id: "pc2", type: "vocab", punjabi: "tu",     english: "you (informal singular)",
-      definition: "Use ONLY with close friends, kids, or younger family. Otherwise use 'tusi'.",
-      related: "tusi (formal/plural), tera (your)",
-      example: "Tu kithe hai? — Where are you? (informal)" },
-    { id: "pc3", type: "vocab", punjabi: "tusi",   english: "you (formal / plural)",
-      definition: "Polite singular OR plural 'you'. Always safe to use with adults/strangers.",
-      related: "tu, tuhada (your formal)",
-      example: "Tusi kive ho? — How are you? (polite)" },
-    { id: "pc4", type: "vocab", punjabi: "asi",    english: "we",
-      definition: "First person plural.",
-      related: "main, saada (our)",
-      example: "Asi dost haan. — We are friends." },
-    { id: "pc5", type: "vocab", punjabi: "oh",     english: "he / she / it / that / they",
-      definition: "Punjabi has no he/she gender split — 'oh' covers all third person.",
-      related: "eh (this), uda (his/her)",
-      example: "Oh aaya. — He came.  /  Oh aayi. — She came. (Verb agrees with gender.)" },
-    { id: "pc6", type: "vocab", punjabi: "eh",     english: "this",
-      definition: "Demonstrative for something near.",
-      related: "oh (that)",
-      example: "Eh ki hai? — What is this?" },
-
-    // ===== Question words =====
-    { id: "q1", type: "vocab", punjabi: "ki",     english: "what",
-      definition: "Used to ask about a thing.",
-      related: "kithe, kado, kyon",
-      example: "Eh ki hai? — What is this?" },
-    { id: "q2", type: "vocab", punjabi: "kithe",  english: "where",
-      definition: "Used to ask about a place.",
-      related: "ki, kithon",
-      example: "Tu kithe jaa reha hai? — Where are you going?" },
-    { id: "q3", type: "vocab", punjabi: "kado",   english: "when",
-      definition: "Used to ask about time.",
-      example: "Tusi kado aaoge? — When will you come?" },
-    { id: "q4", type: "vocab", punjabi: "kyon",   english: "why",
-      definition: "Used to ask about a reason.",
-      example: "Tu kyon ro reha hai? — Why are you crying?" },
-    { id: "q5", type: "vocab", punjabi: "kive",   english: "how",
-      definition: "Used to ask about manner or condition.",
-      example: "Tusi kive ho? — How are you?" },
-    { id: "q6", type: "vocab", punjabi: "kaun",   english: "who",
-      definition: "Used to ask about a person.",
-      example: "Eh kaun hai? — Who is this?" },
-    { id: "q7", type: "vocab", punjabi: "kinna",  english: "how much / how many",
-      definition: "Used for quantity. Changes form: kinna (m), kinni (f), kinne (pl).",
-      example: "Kinne paise? — How much money?" },
-
-    // ===== More phrases (greetings, courtesy, daily) =====
-    { id: "p8",  type: "phrase", punjabi: "Sat sri akaal ji",
-      english: "Hello (very respectful).",
-      definition: "The 'ji' at the end adds respect. Used by Sikhs as both greeting and goodbye.",
-      example: "Reply: 'Sat sri akaal ji' back." },
-    { id: "p9",  type: "phrase", punjabi: "Phir milange",
-      english: "See you again / goodbye.",
-      definition: "Literally 'we will meet again'. Casual goodbye.",
-      example: "Acha, phir milange! — Okay, see you later!" },
-    { id: "p10", type: "phrase", punjabi: "Rab rakha",
-      english: "Goodbye (lit. 'God protect you').",
-      definition: "A warm farewell, very common in Punjabi.",
-      example: "Chal, rab rakha. — Alright, take care." },
-    { id: "p11", type: "phrase", punjabi: "Maaf karna",
-      english: "Sorry / excuse me.",
-      definition: "Used to apologize OR to get someone's attention politely.",
-      example: "Maaf karna, mainu samajh nahin aayi. — Sorry, I didn't understand." },
-    { id: "p12", type: "phrase", punjabi: "Koi gall nahin",
-      english: "No problem / it's okay.",
-      definition: "Literally 'no matter / no issue'. Reply to an apology or thanks.",
-      example: "A: Maaf karna. B: Koi gall nahin." },
-    { id: "p13", type: "phrase", punjabi: "Mehrbaani",
-      english: "Thank you / please (kindness).",
-      definition: "More heartfelt alternative to 'shukriya'. Literally 'kindness'.",
-      example: "Bahut mehrbaani. — Many thanks." },
-    { id: "p14", type: "phrase", punjabi: "Ji haan",
-      english: "Yes (polite).",
-      definition: "'Ji' adds respect. Just 'haan' alone is more casual.",
-      example: "Ji haan, main aavaanga. — Yes, I will come." },
-    { id: "p15", type: "phrase", punjabi: "Ji nahin",
-      english: "No (polite).",
-      definition: "Polite negative.",
-      example: "Ji nahin, mainu pata nahin. — No, I don't know." },
-    { id: "p16", type: "phrase", punjabi: "Tuhanu milke khushi hoyi",
-      english: "Nice to meet you.",
-      definition: "Literally 'meeting you brought happiness'.",
-      example: "Used after first introductions." },
-    { id: "p17", type: "phrase", punjabi: "Tusi kithon ho?",
-      english: "Where are you from?",
-      definition: "Polite question asking where someone is from. 'kithon' = from where.",
-      example: "Reply: 'Main Amreeka ton haan.' — I'm from America." },
-    { id: "p18", type: "phrase", punjabi: "Main Amreeka ton haan",
-      english: "I am from America.",
-      definition: "'ton' = 'from'. Replace 'Amreeka' with your country.",
-      example: "Main Canada ton haan. — I'm from Canada." },
-    { id: "p19", type: "phrase", punjabi: "Mainu samajh nahin aayi",
-      english: "I didn't understand.",
-      definition: "Literally 'understanding did not come to me'. Note the dative 'mainu' (to me).",
-      example: "Use this to ask someone to explain again." },
-    { id: "p20", type: "phrase", punjabi: "Haule bolo",
-      english: "Please speak slowly.",
-      definition: "'haule' = slowly/softly. Useful for learners!",
-      example: "Maaf karna, haule bolo. — Sorry, please speak slowly." },
-    { id: "p21", type: "phrase", punjabi: "Phir kaho",
-      english: "Say it again.",
-      definition: "Polite request to repeat what was just said. 'phir' = again, 'kaho' = say.",
-      example: "Mainu samajh nahin aayi, phir kaho. — I didn't understand, say again." },
-    { id: "p22", type: "phrase", punjabi: "Mainu bhukh laggi hai",
-      english: "I am hungry.",
-      definition: "Literally 'hunger has struck me'. Note the dative construction.",
-      related: "Mainu pyaas laggi hai (I'm thirsty)",
-      example: "Mainu bhukh laggi hai, kuch khaana hai. — I'm hungry, I want to eat." },
-    { id: "p23", type: "phrase", punjabi: "Mainu pyaas laggi hai",
-      english: "I am thirsty.",
-      definition: "Literally 'thirst has struck me'.",
-      example: "Mainu pyaas laggi hai, paani dio. — I'm thirsty, give water." },
-    { id: "p24", type: "phrase", punjabi: "Mainu pasand hai",
-      english: "I like it.",
-      definition: "Literally 'it is liked to me'.",
-      example: "Mainu Punjabi gaane pasand han. — I like Punjabi songs." },
-    { id: "p25", type: "phrase", punjabi: "Mainu pata nahin",
-      english: "I don't know.",
-      definition: "'pata' = knowledge/awareness. Very common phrase.",
-      example: "Mainu pata nahin oh kithe hai. — I don't know where he/she is." },
-    { id: "p26", type: "phrase", punjabi: "Kinne paise?",
-      english: "How much money? / How much does it cost?",
-      definition: "Use at shops and markets.",
-      example: "Eh kinne paise da hai? — How much is this?" },
-    { id: "p27", type: "phrase", punjabi: "Bahut mehnga hai",
-      english: "It's too expensive.",
-      definition: "For bargaining at the bazaar.",
-      related: "sasta (cheap)",
-      example: "Bahut mehnga hai, ghatt karo. — Too expensive, reduce the price." },
-    { id: "p28", type: "phrase", punjabi: "Chalo!",
-      english: "Let's go! / Come on!",
-      definition: "An all-purpose energizer — 'let's go', 'okay then', 'fine'.",
-      example: "Chalo, ghar chaliye. — Come on, let's go home." },
-    { id: "p29", type: "phrase", punjabi: "Acha",
-      english: "Okay / I see / really?",
-      definition: "Multipurpose: agreement, mild surprise, transition.",
-      example: "Acha, theek hai. — Okay, fine." },
-    { id: "p30", type: "phrase", punjabi: "Khush raho",
-      english: "Stay happy / be blessed.",
-      definition: "A warm wish, often said when parting or after thanks.",
-      example: "Shukriya. Khush raho. — Thank you. Be happy." },
-
-    // ===== Grammar essentials =====
-    { id: "g5", type: "grammar", punjabi: "haan / hai / ho",
-      english: "to be (am / is / are)",
-      definition: "The Punjabi copula. main HAAN (I am), tu HAI / tusi HO (you are), oh HAI (he/she is), asi HAAN (we are), oh HAN (they are). Past forms: si, san.",
-      example: "Main thakk gaya haan. — I am tired." },
-    { id: "g6", type: "grammar", punjabi: "ling",
-      english: "gender",
-      definition: "Every Punjabi noun is masculine or feminine. Adjectives and verbs CHANGE form to agree. Common pattern: -a (m) → -i (f). Example: vadda munda (big boy), vaddi kuri (big girl).",
-      example: "Mera ghar (my house, m) vs Meri kitaab (my book, f)." },
-    { id: "g7", type: "grammar", punjabi: "tu te tusi",
-      english: "informal vs formal 'you'",
-      definition: "TU = informal (close friends, children, family younger than you). TUSI = polite singular OR plural. When unsure, ALWAYS use 'tusi'. Verb endings change: tu hai vs tusi ho.",
-      example: "Tu kithe hai? (informal) vs Tusi kithe ho? (polite)" },
-    { id: "g8", type: "grammar", punjabi: "nahin",
-      english: "not (negation)",
-      definition: "Place 'nahin' before the verb to make a sentence negative. 'Na' is also used in commands.",
-      example: "Main jaanda haan → Main NAHIN jaanda. — I go → I don't go." },
-    { id: "g9", type: "grammar", punjabi: "nu",
-      english: "to / for (postposition)",
-      definition: "Punjabi uses POSTpositions (after the noun) instead of prepositions. 'Nu' marks the indirect object or 'to'.",
-      example: "Mainu (= main + nu) paani de. — Give water TO me." },
-    { id: "g10", type: "grammar", punjabi: "ton",
-      english: "from (postposition)",
-      definition: "'Ton' comes AFTER the noun to mean 'from'.",
-      example: "Main Amreeka TON haan. — I am FROM America." },
-    { id: "g11", type: "grammar", punjabi: "vich",
-      english: "in / inside (postposition)",
-      definition: "'Vich' = in. Comes after the noun.",
-      example: "Ghar VICH. — Inside the house." },
-    { id: "g12", type: "grammar", punjabi: "te",
-      english: "on / at (postposition)",
-      definition: "'Te' = on/at. Also means 'and' in some contexts.",
-      example: "Mez TE kitaab hai. — The book is ON the table." },
-    { id: "g13", type: "grammar", punjabi: "naal",
-      english: "with (postposition)",
-      definition: "'Naal' = with / along with.",
-      example: "Mere NAAL chal. — Come WITH me." },
-    { id: "g14", type: "grammar", punjabi: "da / di / de",
-      english: "of / 's (possessive)",
-      definition: "Possessive postposition. Form changes to match the GENDER and NUMBER of the thing possessed: DA (m sg), DI (f sg/pl), DE (m pl).",
-      example: "Ravi DA ghar (Ravi's house, m). Ravi DI kitaab (Ravi's book, f)." },
-    { id: "g15", type: "grammar", punjabi: "mera / meri / mere",
-      english: "my (possessive)",
-      definition: "Like da/di/de but for 'my'. Agrees with the noun owned, not the speaker. Same pattern: tera (your), saada (our), tuhada (your formal), uda (his/her).",
-      example: "Mera bhra (my brother). Meri bhain (my sister). Mere dost (my friends)." },
-    { id: "g16", type: "grammar", punjabi: "ne",
-      english: "ergative marker (past transitive)",
-      definition: "In PAST tense with TRANSITIVE verbs, the doer takes 'ne'. The verb then agrees with the OBJECT, not the doer. A unique Punjabi/Hindi feature.",
-      example: "Ravi NE roti khaadi. — Ravi ate roti. (verb 'khaadi' is feminine to match 'roti')." },
-    { id: "g17", type: "grammar", punjabi: "vacchan",
-      english: "number (singular / plural)",
-      definition: "Plurals often add -an or change ending. Masc -a → -e (munda → munde). Fem often adds -an (kuri → kurian).",
-      example: "ikk munda (one boy) → do munde (two boys)." },
-    { id: "g18", type: "grammar", punjabi: "kal-aaj-kal",
-      english: "tense from context",
-      definition: "'Kal' means BOTH yesterday and tomorrow. The VERB tense tells you which: 'kal aaya si' (came yesterday) vs 'kal aavega' (will come tomorrow).",
-      example: "Kal milange (we'll meet tomorrow) vs Kal mile si (we met yesterday)." },
-    { id: "g19", type: "grammar", punjabi: "Gurmukhi",
-      english: "Punjabi script",
-      definition: "Punjabi is written in GURMUKHI in India ('from the mouth of the Guru', developed for Sikh scripture) and SHAHMUKHI (Perso-Arabic) in Pakistan. This app uses romanization for beginners.",
-      example: "ਪਾਣੀ = paani (water) in Gurmukhi." },
-    { id: "g20", type: "grammar", punjabi: "sur",
-      english: "tone",
-      definition: "Punjabi is one of the few Indo-European TONAL languages. Three tones: high, low, level. Tone can change meaning: kòṛa (whip) vs kora (blank/empty) vs ghora (horse). The app's romanization ignores tone for simplicity.",
-      example: "Listen carefully — tones distinguish many words!" },
-
-    // ===== Kindness & respect: the 'ji' culture =====
-    { id: "k1", type: "phrase", punjabi: "ji",
-      english: "respectful suffix (sir/ma'am).",
-      definition: "The single most important kindness word in Punjabi. Add 'ji' after a name, pronoun, or yes/no to show respect. Works for any age, gender, or status. When in doubt — add 'ji'.",
-      related: "tusi, sahib",
-      example: "Haan ji (yes sir/ma'am). Papa ji. Ravi ji. Tusi ji." },
-    { id: "k2", type: "phrase", punjabi: "Ji aaya nu",
-      english: "Welcome (warmest welcome).",
-      definition: "Literally 'welcome to your coming'. The classic Punjabi welcome at the door — said with both hands open or pressed together.",
-      example: "Ji aaya nu, andar aao. — Welcome, please come inside." },
-    { id: "k3", type: "phrase", punjabi: "Tashreef rakho",
-      english: "Please have a seat.",
-      definition: "Very polite, slightly formal. Literally 'place your honor'. Use with elders or guests.",
-      related: "baith jao (sit down, casual)",
-      example: "Tashreef rakho ji, chai aaundi hai. — Please sit, tea is coming." },
-    { id: "k4", type: "phrase", punjabi: "Baith jao ji",
-      english: "Please sit (warm).",
-      definition: "Friendlier 'please sit'. Adding 'ji' makes any command into a polite request.",
-      example: "Aao, baith jao ji. — Come, please sit." },
-    { id: "k5", type: "phrase", punjabi: "Pani peeo ji",
-      english: "Please drink some water.",
-      definition: "Offering water to a guest is sacred Punjabi hospitality. Always offer; always accept.",
-      example: "Pehlan paani peeo ji, phir gall karange. — First drink water, then we'll talk." },
-    { id: "k6", type: "phrase", punjabi: "Chah pee ke jaana",
-      english: "Have tea before you go.",
-      definition: "A near-mandatory hospitality offer. Refusing tea twice is normal; the host insists three times.",
-      example: "Chah pee ke jaana ji, jaldi ki hai? — Have tea before you go, what's the rush?" },
-    { id: "k7", type: "phrase", punjabi: "Kirpa karke",
-      english: "Please (formal 'kindly').",
-      definition: "Literally 'doing kindness'. The most formal 'please'. Use when making a real request.",
-      related: "mehrbaani karke",
-      example: "Kirpa karke darvaza band karo. — Please close the door." },
-    { id: "k8", type: "phrase", punjabi: "Mehrbaani karke",
-      english: "Please (kindly).",
-      definition: "Warmer, slightly less formal than 'kirpa karke'. Both are great everyday 'please'.",
-      example: "Mehrbaani karke mainu sunno. — Please listen to me." },
-    { id: "k9", type: "phrase", punjabi: "Bahut shukriya ji",
-      english: "Thank you very much (respectfully).",
-      definition: "Stronger than just 'shukriya'. Adding 'bahut' (very) and 'ji' makes it heartfelt.",
-      example: "Tuhadi madad layi bahut shukriya ji. — Thank you very much for your help." },
-    { id: "k10", type: "phrase", punjabi: "Dhanvaad",
-      english: "Thank you (Sikh/formal).",
-      definition: "More common in religious / formal contexts; from Sanskrit. 'Shukriya' is everyday; 'dhanvaad' is heartfelt or written.",
-      example: "Sat sri akaal, dhanvaad ji. — Hello, thank you." },
-    { id: "k11", type: "phrase", punjabi: "Mainu maaf karo",
-      english: "Please forgive me.",
-      definition: "Stronger than 'maaf karna'. Use when you've actually done wrong, not just to say 'excuse me'.",
-      example: "Mainu maaf karo, mere kolon galti ho gayi. — Please forgive me, I made a mistake." },
-    { id: "k12", type: "phrase", punjabi: "Galti ho gayi",
-      english: "I made a mistake.",
-      definition: "A humble admission. Literally 'a mistake happened' — softer than 'I was wrong'.",
-      example: "Mere kolon galti ho gayi, maaf karna. — A mistake happened from me, sorry." },
-    { id: "k13", type: "phrase", punjabi: "Tuhadi mehrbaani",
-      english: "Your kindness / much obliged.",
-      definition: "A heartfelt thanks acknowledging the OTHER person's goodness. Very Punjabi.",
-      example: "Tuhadi mehrbaani, main eh kade nahin bhulanga. — Your kindness — I'll never forget this." },
-    { id: "k14", type: "phrase", punjabi: "Rabb tuhada bhala kare",
-      english: "May God bless you.",
-      definition: "A blessing offered after someone helps you. Common across Sikhs, Muslims, Hindus.",
-      related: "Waheguru tuhada bhala kare",
-      example: "Rabb tuhada bhala kare, bahut shukriya. — May God bless you, thank you so much." },
-    { id: "k15", type: "phrase", punjabi: "Khair",
-      english: "Well-being / 'all's well'.",
-      definition: "A small word with big warmth. Use in greetings ('sab khair?' = is everything well?) and well-wishes.",
-      example: "Sab khair hai? — Is everything well?" },
-    { id: "k16", type: "phrase", punjabi: "Sab theek hai",
-      english: "Everything is fine.",
-      definition: "Standard reassurance / reply.",
-      example: "A: Ki haal hai? B: Sab theek hai ji. — How are things? All good." },
-    { id: "k17", type: "phrase", punjabi: "Ki haal hai?",
-      english: "How are things? / How's it going?",
-      definition: "More casual than 'tusi kive ho?'. Used between friends and family.",
-      related: "Tusi kive ho? (more polite)",
-      example: "Oye, ki haal hai? — Hey, how's it going?" },
-    { id: "k18", type: "phrase", punjabi: "Sab vadiya",
-      english: "All great / everything's wonderful.",
-      definition: "Upbeat reply. 'Vadiya' = excellent. A very Punjabi-flavored response.",
-      example: "A: Ki haal? B: Sab vadiya ji! — How are things? All great!" },
-    { id: "k19", type: "phrase", punjabi: "Tuhada din vadiya rahe",
-      english: "Have a great day.",
-      definition: "A kind parting wish.",
-      example: "Chalo ji, tuhada din vadiya rahe. — Alright, have a great day." },
-    { id: "k20", type: "phrase", punjabi: "Aaram naal",
-      english: "Take it easy / no rush.",
-      definition: "Literally 'with comfort'. A kind way to tell someone not to stress.",
-      example: "Aaram naal karo, koi jaldi nahin. — Take it easy, no rush." },
-    { id: "k21", type: "phrase", punjabi: "Fikar na karo",
-      english: "Don't worry.",
-      definition: "Reassuring kindness. 'Fikar' = worry.",
-      example: "Fikar na karo, sab theek ho jaayega. — Don't worry, everything will be okay." },
-    { id: "k22", type: "phrase", punjabi: "Madad chahidi hai?",
-      english: "Do you need help?",
-      definition: "Offering help politely. 'Madad' = help.",
-      example: "Ji, madad chahidi hai? — Sir/ma'am, do you need help?" },
-    { id: "k23", type: "phrase", punjabi: "Main madad karaan?",
-      english: "May I help?",
-      definition: "Even more polite — asking permission to help.",
-      example: "Main madad karaan ji? — May I help you?" },
-    { id: "k24", type: "phrase", punjabi: "Tuhada swagat hai",
-      english: "You are welcome (formal).",
-      definition: "A formal welcome OR reply to 'thank you'. 'Swagat' = welcome.",
-      example: "A: Shukriya. B: Tuhada swagat hai. — Thanks. You're welcome." },
-    { id: "k25", type: "phrase", punjabi: "Beshakk",
-      english: "Of course / certainly.",
-      definition: "A confident, kind 'yes'. 'Beshakk' literally = without doubt.",
-      example: "Beshakk ji, main aavaanga. — Of course, I will come." },
-    { id: "k26", type: "phrase", punjabi: "Zaroor",
-      english: "Definitely / sure.",
-      definition: "Warm agreement.",
-      example: "Zaroor, kal milange. — Sure, we'll meet tomorrow." },
-    { id: "k27", type: "phrase", punjabi: "Khayal rakhna",
-      english: "Take care (of yourself).",
-      definition: "A loving farewell, especially to family. 'Khayal' = thought/care.",
-      example: "Apna khayal rakhna ji. — Take care of yourself." },
-    { id: "k28", type: "phrase", punjabi: "Apna dhyan rakho",
-      english: "Look after yourself.",
-      definition: "Similar to 'khayal rakhna' — slightly more formal.",
-      example: "Safar vich apna dhyan rakho. — Take care on the journey." },
-    { id: "k29", type: "phrase", punjabi: "Vadhaiyaan!",
-      english: "Congratulations!",
-      definition: "Used for births, weddings, exams, festivals — any happy occasion.",
-      related: "mubarak",
-      example: "Vadhaiyaan ji, bahut vadhaiyaan! — Congratulations, many congrats!" },
-    { id: "k30", type: "phrase", punjabi: "Mubarak",
-      english: "Blessed / congratulations (occasion-specific).",
-      definition: "Pair with the event: 'Janamdin mubarak' (happy birthday), 'Eid mubarak', 'Vivaah mubarak' (wedding).",
-      example: "Janamdin mubarak ho! — Happy birthday!" },
-
-    // ===== Honorifics & terms of address =====
-    { id: "h1", type: "vocab", punjabi: "sahib",
-      english: "sir / mister (respectful)",
-      definition: "Polite title, often added after a name: 'Singh sahib'. Used by Sikhs/Punjabis universally.",
-      related: "ji, sardar",
-      example: "Singh sahib, tuhada phone aaya hai. — Mr. Singh, your phone is calling." },
-    { id: "h2", type: "vocab", punjabi: "sardar ji",
-      english: "respected sir (esp. Sikh men)",
-      definition: "Title for a turbaned Sikh man — but also used broadly as a respectful 'sir'. 'Sardarni' = woman.",
-      related: "sahib, ji",
-      example: "Sardar ji, kithe jaa rahe ho? — Sir, where are you going?" },
-    { id: "h3", type: "vocab", punjabi: "veer ji",
-      english: "respected brother (also: any older man)",
-      definition: "Literally 'brother', but used kindly for any older/peer male — even strangers. Adds warmth instantly.",
-      related: "bhra, paaji",
-      example: "Veer ji, raasta dasso. — Brother, please tell me the way." },
-    { id: "h4", type: "vocab", punjabi: "paaji",
-      english: "older brother (very warm)",
-      definition: "Northern Punjabi term of endearment, especially in cities. Can address any older male respectfully.",
-      related: "veer ji, bhra",
-      example: "Paaji, ki haal? — Brother, how's it going?" },
-    { id: "h5", type: "vocab", punjabi: "bhain ji",
-      english: "respected sister (also: any woman)",
-      definition: "Used for any older or peer woman to show respect — like calling a stranger 'sister'.",
-      related: "didi, behen",
-      example: "Bhain ji, eh kithe milda hai? — Sister, where can I find this?" },
-    { id: "h6", type: "vocab", punjabi: "beta",
-      english: "child / 'son' (affectionate, gender-neutral)",
-      definition: "Used by elders for ANY child or younger person, regardless of gender. Warm and kind.",
-      related: "puttar, beti",
-      example: "Beta, eh kha lo. — Child, eat this." },
-    { id: "h7", type: "vocab", punjabi: "puttar ji",
-      english: "dear son / dear child",
-      definition: "Tender form of 'puttar'. Used by parents and elders — pure affection.",
-      example: "Puttar ji, padhai karo. — Dear child, please study." },
-    { id: "h8", type: "vocab", punjabi: "buzurg",
-      english: "elder / elderly person",
-      definition: "Respectful word for older people. NEVER call an elder 'old' (purana) — use 'buzurg'.",
-      related: "vadda, dada/dadi",
-      example: "Buzurgaan da satkaar karo. — Respect your elders." },
-    { id: "h9", type: "vocab", punjabi: "satkaar",
-      english: "respect / honor",
-      definition: "A core Punjabi value. Showing satkaar to elders, guests, and teachers is fundamental.",
-      related: "izzat, adab",
-      example: "Maa-pyo da satkaar karo. — Respect your parents." },
-    { id: "h10", type: "vocab", punjabi: "izzat",
-      english: "honor / dignity / respect",
-      definition: "Closely tied to family honor in Punjabi culture. To 'give izzat' is to treat with full respect.",
-      related: "satkaar",
-      example: "Tuhadi izzat hai mere dil vich. — You have honor in my heart." },
-
-    // ===== Feelings & inner life =====
-    { id: "fe1", type: "vocab", punjabi: "khush",
-      english: "happy",
-      definition: "Joyful, glad. 'Khushi' = happiness (the noun).",
-      related: "udaas (sad), khushi",
-      example: "Main bahut khush haan. — I am very happy." },
-    { id: "fe2", type: "vocab", punjabi: "udaas",
-      english: "sad",
-      definition: "Feeling down or melancholy.",
-      related: "khush, dukh",
-      example: "Tu udaas kyon hai? — Why are you sad?" },
-    { id: "fe3", type: "vocab", punjabi: "gussa",
-      english: "anger",
-      definition: "Anger or irritation. 'Gussa aana' = to get angry (lit. 'anger comes').",
-      related: "shaant (calm)",
-      example: "Mainu gussa aaya. — I got angry." },
-    { id: "fe4", type: "vocab", punjabi: "shaant",
-      english: "calm / peaceful",
-      definition: "A peaceful state — mind, place, or person. A virtue.",
-      related: "aaram, gussa",
-      example: "Shaant raho, sab theek hai. — Stay calm, all is well." },
-    { id: "fe5", type: "vocab", punjabi: "darr",
-      english: "fear",
-      definition: "Being scared. 'Darr lagda hai' = to feel afraid.",
-      example: "Mainu darr lagda hai. — I feel scared." },
-    { id: "fe6", type: "vocab", punjabi: "thakk",
-      english: "tiredness / fatigue",
-      definition: "The state of being tired. As an adjective use 'thakkeya' (m.) / 'thakkeyi' (f.). 'Thakk gaya' (m.) / 'thakk gayi' (f.) = (I) got tired.",
-      related: "aaram (rest)",
-      example: "Main thakk gaya haan. — I am tired." },
-    { id: "fe7", type: "vocab", punjabi: "pyar",
-      english: "love",
-      definition: "Deep affection. 'Pyar karna' = to love.",
-      related: "muhabbat, ishq",
-      example: "Main tenu pyar karda haan. — I love you." },
-    { id: "fe8", type: "vocab", punjabi: "yaad",
-      english: "memory / missing someone",
-      definition: "Remembering, OR missing someone. 'Tuhadi yaad aayi' = I missed you (lit. 'your memory came').",
-      example: "Tuhadi bahut yaad aayi. — I missed you a lot." },
-    { id: "fe9", type: "vocab", punjabi: "dukh",
-      english: "sorrow / pain",
-      definition: "Deep sadness or hardship — emotional or physical. The opposite of 'sukh'.",
-      related: "sukh, udaas",
-      example: "Tuhade dukh vich main shaamil haan. — I share in your sorrow." },
-    { id: "fe10", type: "vocab", punjabi: "sukh",
-      english: "well-being / comfort / peace",
-      definition: "More than 'happy' — a state of ease and blessing. 'Sukh-shanti' = peace and well-being.",
-      related: "dukh, shaant",
-      example: "Rabb sukh deve. — May God grant peace." },
-    { id: "fe11", type: "vocab", punjabi: "umeed",
-      english: "hope",
-      definition: "Wishing for something good. 'Umeed hai' = I hope.",
-      example: "Umeed hai tusi changi sehat vich ho. — I hope you are in good health." },
-    { id: "fe12", type: "vocab", punjabi: "sehat",
-      english: "health",
-      definition: "Physical well-being. Asking about sehat is kind.",
-      example: "Tuhadi sehat kive hai? — How is your health?" },
-
-    // ===== Hospitality & sharing (very Punjabi values) =====
-    { id: "hp1", type: "phrase", punjabi: "Khaana khaa ke jaana",
-      english: "Eat before you leave.",
-      definition: "Refusing food at a Punjabi home is hard — the host genuinely wants to feed you. A core hospitality phrase.",
-      example: "Bina khaana khaaye nahin jaana. — Don't go without eating." },
-    { id: "hp2", type: "phrase", punjabi: "Hor lo ji",
-      english: "Have some more (please).",
-      definition: "Said while serving more food. Hosts often serve extra without asking — declining politely is an art.",
-      example: "Hor roti lo ji, bas ikk hor. — Have one more roti, just one more." },
-    { id: "hp3", type: "phrase", punjabi: "Bas ji, bahut ho gaya",
-      english: "That's enough, thank you (when offered more food).",
-      definition: "The polite 'I'm full'. Pat your stomach gently to seal the deal.",
-      example: "Bas ji, pet bhar gaya. — That's enough, my stomach is full." },
-    { id: "hp4", type: "phrase", punjabi: "Apna ghar samjho",
-      english: "Consider this your own home.",
-      definition: "The ultimate Punjabi welcome — said to guests so they feel completely at ease.",
-      example: "Aao ji, apna ghar samjho. — Come, treat this as your own home." },
-    { id: "hp5", type: "phrase", punjabi: "Mehmaan rabb da roop",
-      english: "A guest is the form of God.",
-      definition: "A traditional Punjabi/Sikh saying — guests are sacred. Explains why hospitality is so intense.",
-      example: "Often quoted to children to teach respect for guests." },
-    { id: "hp6", type: "phrase", punjabi: "Langar",
-      english: "free community kitchen meal.",
-      definition: "The Sikh tradition of free meals served to ALL at the gurdwara — rich, poor, any religion. Started by Guru Nanak. Embodies equality and seva (selfless service).",
-      related: "gurudwara, seva",
-      example: "Langar chhako ji. — Please partake of langar." },
-    { id: "hp7", type: "phrase", punjabi: "Seva",
-      english: "selfless service.",
-      definition: "Voluntary work done for others without expectation — a central Sikh and Punjabi value. Cleaning, cooking langar, helping strangers.",
-      related: "langar, satkaar",
-      example: "Seva karna sabh ton vadda dharam hai. — Service is the highest duty." },
-    { id: "hp8", type: "phrase", punjabi: "Sangat",
-      english: "good company / community.",
-      definition: "The community of good people. 'Sangat' shapes you — a core Punjabi belief.",
-      example: "Changi sangat vich raho. — Stay in good company." },
-
-    // ===== Daily essentials =====
-    { id: "de1", type: "vocab", punjabi: "paisa",
-      english: "money",
-      definition: "Currency. 'Paise' (plural) is more common.",
-      related: "rupaye, dukaan",
-      example: "Mere kol paise nahin han. — I don't have money." },
-    { id: "de2", type: "vocab", punjabi: "kamm",
-      english: "work / job",
-      definition: "Both 'work' (the activity) and 'job'. 'Kamm karna' = to work.",
-      related: "naukri (job), mehnat (effort)",
-      example: "Main kamm te jaa reha haan. — I'm going to work." },
-    { id: "de3", type: "vocab", punjabi: "samaan",
-      english: "stuff / belongings / goods",
-      definition: "All-purpose word for things, luggage, or shop merchandise.",
-      example: "Apna samaan le lo. — Take your stuff." },
-    { id: "de4", type: "vocab", punjabi: "kapra",
-      english: "cloth / clothing",
-      definition: "'Kapre' (plural) = clothes.",
-      related: "kameez, salwar",
-      example: "Navey kapre paao. — Wear new clothes." },
-    { id: "de5", type: "vocab", punjabi: "rasta",
-      english: "road / way / path",
-      definition: "Both literal road and figurative 'way'.",
-      related: "saddak (road), jaana",
-      example: "Eh rasta sidha hai. — This road is straight." },
-    { id: "de6", type: "vocab", punjabi: "samaa",
-      english: "time",
-      definition: "Time in general. 'Vele' / 'vela' is used for specific times.",
-      related: "vele, ghanta",
-      example: "Samaa nahin hai. — There's no time." },
-    { id: "de7", type: "vocab", punjabi: "vele",
-      english: "time / occasion",
-      definition: "Used for points in time: 'kis vele' (at what time).",
-      related: "samaa",
-      example: "Kis vele aaoge? — At what time will you come?" },
-    { id: "de8", type: "vocab", punjabi: "phon",
-      english: "phone",
-      definition: "Borrowed from English. 'Phone karna' = to call. 'Phone chukna' = to pick up.",
-      example: "Mainu phone karo. — Call me." },
-    { id: "de9", type: "vocab", punjabi: "gall",
-      english: "talk / matter / thing (said)",
-      definition: "Extremely versatile: a conversation, a topic, or 'a thing' as in 'koi gall nahin' (no matter).",
-      related: "bolna, gall karna",
-      example: "Eh vakhri gall hai. — That's a different matter." },
-    { id: "de10", type: "vocab", punjabi: "saval",
-      english: "question",
-      definition: "'Saval puchna' = to ask a question.",
-      related: "javaab (answer)",
-      example: "Mera ikk saval hai. — I have a question." },
-    { id: "de11", type: "vocab", punjabi: "javaab",
-      english: "answer / reply",
-      definition: "'Javaab denna' = to give an answer.",
-      related: "saval",
-      example: "Mainu javaab dio. — Give me an answer." },
-    { id: "de12", type: "vocab", punjabi: "sach",
-      english: "truth",
-      definition: "A core value — truthfulness is celebrated in Punjabi/Sikh tradition.",
-      related: "jhooth (lie)",
-      example: "Sach bolo. — Speak the truth." },
-    { id: "de13", type: "vocab", punjabi: "jhooth",
-      english: "lie / falsehood",
-      definition: "The opposite of sach. 'Jhooth bolna' = to lie — strongly disapproved of.",
-      related: "sach",
-      example: "Jhooth na bolo. — Don't lie." },
-    { id: "de14", type: "vocab", punjabi: "mehnat",
-      english: "hard work / effort",
-      definition: "A celebrated Punjabi value. 'Mehnati' = hardworking person — high praise.",
-      related: "kamm",
-      example: "Mehnat da phal mitha hunda hai. — The fruit of hard work is sweet." },
-    { id: "de15", type: "vocab", punjabi: "himmat",
-      english: "courage / spirit",
-      definition: "Inner strength. 'Himmat rakh' = keep your courage. Often said to encourage someone.",
-      example: "Himmat rakho, sab theek ho jaayega. — Keep courage, all will be well." },
-
-    // ===== More polite phrases (the kind speaker's toolkit) =====
-    { id: "p31", type: "phrase", punjabi: "Tuhanu takleef nahin?",
-      english: "Is this not a trouble for you?",
-      definition: "Asked when accepting help — a sign of consideration. 'Takleef' = inconvenience/trouble.",
-      example: "Tuhanu takleef nahin? Main aap hi kar laanga. — Not too much trouble? I can do it myself." },
-    { id: "p32", type: "phrase", punjabi: "Koi takleef nahin",
-      english: "It's no trouble at all.",
-      definition: "Reassuring reply when someone hesitates to ask for help.",
-      example: "Maango ji, koi takleef nahin. — Please ask, it's no trouble." },
-    { id: "p33", type: "phrase", punjabi: "Tuhada bahut bahut shukriya",
-      english: "Many many thanks to you.",
-      definition: "Doubling 'bahut' (very) makes thanks even warmer — very Punjabi.",
-      example: "Madad layi tuhada bahut bahut shukriya. — Many many thanks for your help." },
-    { id: "p34", type: "phrase", punjabi: "Mehrbaani karke ikk minute",
-      english: "One minute, please.",
-      definition: "Polite way to ask someone to wait briefly.",
-      example: "Mehrbaani karke ikk minute, main hun aaya. — One minute please, I'm coming." },
-    { id: "p35", type: "phrase", punjabi: "Pehlaan tusi",
-      english: "You first.",
-      definition: "Polite gesture — letting someone go first through a door, in line, or to speak.",
-      example: "Nahin nahin, pehlaan tusi ji. — No no, you first please." },
-    { id: "p36", type: "phrase", punjabi: "Jiven tuhadi marzi",
-      english: "As you wish.",
-      definition: "Respectful deference. 'Marzi' = wish/will.",
-      example: "Jiven tuhadi marzi ji. — As you wish." },
-    { id: "p37", type: "phrase", punjabi: "Mainu tuhade naal gall karni hai",
-      english: "I'd like to talk with you.",
-      definition: "Polite way to start an important conversation.",
-      example: "Ikk minute, mainu tuhade naal gall karni hai. — One moment, I'd like to talk with you." },
-    { id: "p38", type: "phrase", punjabi: "Sun rahe ho?",
-      english: "Are you listening?",
-      definition: "Gentle check-in during conversation — softer than English 'are you listening?'.",
-      example: "Ji, sun rahe ho? — Yes, are you listening?" },
-    { id: "p39", type: "phrase", punjabi: "Mainu samajh aa gayi",
-      english: "I understood.",
-      definition: "Confirms comprehension. Note: 'samajh' is feminine, so verb is 'aa GAYI'.",
-      related: "Mainu samajh nahin aayi",
-      example: "Acha, mainu samajh aa gayi. — Okay, I understood." },
-    { id: "p40", type: "phrase", punjabi: "Ki main puch sakda haan?",
-      english: "May I ask?",
-      definition: "Polite permission to ask a question. (Female: 'sakdi haan'.)",
-      example: "Ki main puch sakda haan tuhada naam? — May I ask your name?" },
-    { id: "p41", type: "phrase", punjabi: "Tuhadi gall theek hai",
-      english: "You're right / what you say is correct.",
-      definition: "Validating someone politely — a kind way to agree.",
-      example: "Haan ji, tuhadi gall theek hai. — Yes, what you say is right." },
-    { id: "p42", type: "phrase", punjabi: "Mainu lagda hai",
-      english: "I think / it seems to me.",
-      definition: "Soft way to share an opinion — humbler than 'main sochda haan' (I think).",
-      example: "Mainu lagda hai eh theek nahin. — It seems to me this isn't right." },
-    { id: "p43", type: "phrase", punjabi: "Bura na manno",
-      english: "Please don't take offense / no offense.",
-      definition: "Said before disagreeing or giving honest feedback — softens the blow.",
-      example: "Bura na manno, par mainu eh theek nahin lagda. — No offense, but this doesn't seem right to me." },
-    { id: "p45", type: "phrase", punjabi: "Koi nahin",
-      english: "It's nothing / no worries.",
-      definition: "Common short reassurance — like English 'no worries'.",
-      example: "Koi nahin ji, sab theek hai. — No worries, it's all fine." },
-    { id: "p46", type: "phrase", punjabi: "Aaja ji",
-      english: "Please come / come on.",
-      definition: "Warm invitation. 'Ji' makes the command kind.",
-      example: "Aaja ji, baith ja. — Please come, sit down." },
-    { id: "p47", type: "phrase", punjabi: "Kuch kha lo",
-      english: "Please eat something.",
-      definition: "A near-reflexive Punjabi offer — guests must be fed.",
-      example: "Kuch kha lo ji, khaali pet nahin jaana. — Eat something, don't go on an empty stomach." },
-    { id: "p48", type: "phrase", punjabi: "Rabb mehr kare",
-      english: "May God show grace.",
-      definition: "A blessing — wishing divine kindness on someone in difficulty.",
-      example: "Tuhade kamm vich Rabb mehr kare. — May God grace your work." },
-    { id: "p49", type: "phrase", punjabi: "Waheguru",
-      english: "'Wonderful Lord' (Sikh name for God).",
-      definition: "The Sikh primary name for God. Used in greetings ('Waheguru ji ka khalsa, Waheguru ji ki fateh') and as a heartfelt exclamation.",
-      example: "Waheguru! Eh kinna sohna hai! — God! How beautiful this is!" },
-    { id: "p50", type: "phrase", punjabi: "Chardi kala",
-      english: "rising spirit / unshakable optimism.",
-      definition: "The Sikh concept of staying in high spirits no matter what life brings. A core Punjabi mindset.",
-      example: "Chardi kala vich raho. — Stay in rising spirits." },
-
-    // ===== Soft commands & requests (kind imperatives) =====
-    { id: "sc1", type: "phrase", punjabi: "Dasso ji",
-      english: "Please tell me.",
-      definition: "From 'dassna' (to tell) + 'ji'. Kind way to ask for information.",
-      example: "Dasso ji, ki gall hai? — Please tell me, what's the matter?" },
-    { id: "sc2", type: "phrase", punjabi: "Sunno ji",
-      english: "Please listen.",
-      definition: "Polite 'listen'. Often used to start an important point.",
-      example: "Sunno ji, mainu kuch kehna hai. — Please listen, I have something to say." },
-    { id: "sc3", type: "phrase", punjabi: "Vekhho ji",
-      english: "Please look / please see.",
-      definition: "From 'vekhna' (to see). Kindly draw attention.",
-      example: "Vekhho ji, eh kinna sohna hai. — Please look, how lovely this is." },
-    { id: "sc4", type: "phrase", punjabi: "Karo ji",
-      english: "Please do / go ahead.",
-      definition: "Encouraging permission — 'go ahead'.",
-      example: "Karo ji, koi gall nahin. — Go ahead, no problem." },
-    { id: "sc5", type: "phrase", punjabi: "Lao ji",
-      english: "Please bring / here you are.",
-      definition: "When handing something over OR asking for it, depending on context.",
-      example: "Paani lao ji. — Please bring water.  /  Lao ji, eh tuhada hai. — Here you are, this is yours." },
-    { id: "sc6", type: "phrase", punjabi: "Andar aao ji",
-      english: "Please come inside.",
-      definition: "Warm invitation at the door.",
-      example: "Bahar kyon khade ho? Andar aao ji. — Why are you standing outside? Please come in." },
-
-    // ===== More grammar essentials for kind speech =====
-    { id: "g21", type: "grammar", punjabi: "command levels",
-      english: "polite vs casual commands",
-      definition: "Punjabi commands have THREE levels: TU form (kar = do, harsh), TUSI form (karo = please do, polite), and infinitive (karna = should do, soft request). Always default to 'karo' with 'ji' added.",
-      example: "Aa! (come, harsh) → Aao! (please come) → Aao ji (please come, kindly)." },
-    { id: "g22", type: "grammar", punjabi: "ji as a particle",
-      english: "the universal respect marker",
-      definition: "'Ji' can go after almost anything: pronouns (tusi ji), names (Ravi ji), yes/no (haan ji / nahin ji), titles (papa ji, sardar ji), commands (aao ji). It instantly adds warmth and respect.",
-      example: "Anything + ji = kinder version. When in doubt, add ji." },
-    { id: "g23", type: "grammar", punjabi: "dative experiencer",
-      english: "feelings come TO you",
-      definition: "In Punjabi, feelings, hunger, cold, knowledge etc. are NOT things you 'have' — they 'come to you'. Use 'mainu' (to me): mainu bhukh laggi (hunger struck me), mainu pata hai (knowledge is to me = I know), mainu thand lagdi hai (cold strikes me).",
-      example: "Mainu khushi hoyi. — I felt happy (lit. happiness happened TO me)." },
-    { id: "g24", type: "grammar", punjabi: "verb agrees with subject gender",
-      english: "verbs change form by gender",
-      definition: "Past and many present forms change for masculine/feminine: gaya (m) vs gayi (f), aaya vs aayi, khaada vs khaadi. So 'I went' = main gaya (male) or main gayi (female).",
-      example: "Main school gaya (boy). Main school gayi (girl)." },
-    { id: "g25", type: "grammar", punjabi: "plural for respect",
-      english: "use plural verbs for elders",
-      definition: "When speaking ABOUT elders or respected people, use PLURAL verb forms even if singular: 'Papa ji aaye han' (lit. 'father has come', plural verb) — singular 'aaya' would be disrespectful.",
-      example: "Dadi ji keh rahe han (plural, respectful) vs Munda keh reha hai (singular, neutral)." },
-    { id: "g26", type: "grammar", punjabi: "sakda/sakdi (can / be able)",
-      english: "expressing ability politely",
-      definition: "Add 'sakda haan' (m) / 'sakdi haan' (f) after a verb stem to mean 'I can'. Useful for polite offers and requests.",
-      example: "Main madad kar sakda haan. — I can help. / Ki main puch sakdi haan? — May I ask?" },
-    { id: "g27", type: "grammar", punjabi: "chahida hai",
-      english: "should / need",
-      definition: "Expresses 'need' or 'should'. With 'mainu': 'mainu paani chahida hai' = I need water. Form changes by gender of the thing wanted: chahida (m), chahidi (f).",
-      example: "Mainu madad chahidi hai. — I need help (madad is feminine)." },
-    { id: "g28", type: "grammar", punjabi: "particle 'na'",
-      english: "softening tag (right? / isn't it?)",
-      definition: "Adding 'na' at the end softens statements or invites agreement, like English 'right?' or 'no?'.",
-      example: "Tusi aaoge na? — You'll come, right?" },
-
-    // ===== Numbers 11–19 (the tricky teens) =====
-    { id: "n11", type: "vocab", punjabi: "gyaarah", english: "eleven",
-      definition: "The number 11. Punjabi teens are unique words, not 'ten-one'.",
-      related: "das (10), baarah (12)",
-      example: "Gyaarah vaje. — Eleven o'clock." },
-    { id: "n12", type: "vocab", punjabi: "baarah", english: "twelve",
-      definition: "The number 12.",
-      related: "gyaarah, terah",
-      example: "Baarah mahine. — Twelve months." },
-    { id: "n13", type: "vocab", punjabi: "terah", english: "thirteen",
-      definition: "The number 13.",
-      example: "Terah saal da. — Thirteen years old." },
-    { id: "n14", type: "vocab", punjabi: "chaudah", english: "fourteen",
-      definition: "The number 14.",
-      example: "Chaudah din. — Fourteen days." },
-    { id: "n15", type: "vocab", punjabi: "pandrah", english: "fifteen",
-      definition: "The number 15.",
-      example: "Pandrah minit. — Fifteen minutes." },
-    { id: "n16", type: "vocab", punjabi: "solah", english: "sixteen",
-      definition: "The number 16.",
-      example: "Solah saal. — Sixteen years." },
-    { id: "n17", type: "vocab", punjabi: "satarah", english: "seventeen",
-      definition: "The number 17.",
-      example: "Satarah rupaye. — Seventeen rupees." },
-    { id: "n18", type: "vocab", punjabi: "atharah", english: "eighteen",
-      definition: "The number 18 — age of adulthood in many places.",
-      example: "Atharah saal da. — Eighteen years old." },
-    { id: "n19", type: "vocab", punjabi: "unni", english: "nineteen",
-      definition: "The number 19.",
-      example: "Unni rupaye. — Nineteen rupees." },
-    { id: "n30", type: "vocab", punjabi: "tee", english: "thirty",
-      definition: "The number 30.",
-      example: "Tee din. — Thirty days." },
-    { id: "n40", type: "vocab", punjabi: "chaali", english: "forty",
-      definition: "The number 40.",
-      example: "Chaali saal. — Forty years." },
-    { id: "n50", type: "vocab", punjabi: "panjah", english: "fifty",
-      definition: "The number 50.",
-      example: "Panjah rupaye. — Fifty rupees." },
-
-    // ===== Ordinals (first, second, third...) =====
-    { id: "no1", type: "vocab", punjabi: "pehla", english: "first",
-      definition: "First (m). Feminine: 'pehli'.",
-      related: "doja, teeja",
-      example: "Pehla din. — The first day." },
-    { id: "no2", type: "vocab", punjabi: "doja", english: "second",
-      definition: "Second (m). Feminine: 'doji'.",
-      example: "Doja maukha. — The second chance." },
-    { id: "no3", type: "vocab", punjabi: "teeja", english: "third",
-      definition: "Third (m). Feminine: 'teeji'.",
-      example: "Teeja saal. — The third year." },
-    { id: "no4", type: "vocab", punjabi: "akhri", english: "last",
-      definition: "Final, last in a sequence.",
-      related: "pehla",
-      example: "Akhri vaari. — The last time." },
-
-    // ===== Weather & nature =====
-    { id: "w1", type: "vocab", punjabi: "mausam", english: "weather",
-      definition: "The general state of the atmosphere.",
-      related: "garmi, sardi, baarish",
-      example: "Aaj mausam vadiya hai. — The weather is great today." },
-    { id: "w2", type: "vocab", punjabi: "garmi", english: "heat / summer",
-      definition: "Hot weather, or the summer season.",
-      related: "garam, sardi",
-      example: "Garmi bahut hai. — It's very hot." },
-    { id: "w3", type: "vocab", punjabi: "sardi", english: "cold / winter",
-      definition: "Cold weather, or the winter season; also 'a cold' (illness).",
-      related: "thanda, garmi",
-      example: "Sardi laggi hai. — I've caught a cold / I feel cold." },
-    { id: "w4", type: "vocab", punjabi: "baarish", english: "rain",
-      definition: "Water falling from the sky. 'Baarish ho rahi hai' = it's raining.",
-      related: "paani, baddal",
-      example: "Baarish pai rahi hai. — It is raining." },
-    { id: "w5", type: "vocab", punjabi: "baddal", english: "cloud",
-      definition: "A puff of water vapor in the sky.",
-      related: "aasman, baarish",
-      example: "Aasman vich baddal han. — There are clouds in the sky." },
-    { id: "w6", type: "vocab", punjabi: "aasman", english: "sky",
-      definition: "The space above the earth.",
-      related: "baddal, suraj, chand",
-      example: "Aasman neela hai. — The sky is blue." },
-    { id: "w7", type: "vocab", punjabi: "suraj", english: "sun",
-      definition: "The bright star that gives us day.",
-      related: "din, chamakda",
-      example: "Suraj chamakda hai. — The sun shines." },
-    { id: "w8", type: "vocab", punjabi: "chand", english: "moon",
-      definition: "The bright disk in the night sky. Also a term of endearment.",
-      related: "raat, taare",
-      example: "Chand sohna hai. — The moon is beautiful." },
-    { id: "w9", type: "vocab", punjabi: "taare", english: "stars",
-      definition: "The tiny lights in the night sky. Singular: 'taara'.",
-      related: "chand, raat",
-      example: "Taare chamakde han. — The stars twinkle." },
-    { id: "w10", type: "vocab", punjabi: "hawa", english: "wind / air",
-      definition: "Moving air.",
-      related: "saans, mausam",
-      example: "Hawa changi hai. — The breeze is nice." },
-    { id: "w11", type: "vocab", punjabi: "barf", english: "snow / ice",
-      definition: "Frozen water — both snow and ice.",
-      related: "thanda, sardi",
-      example: "Pahaadan te barf hai. — There is snow on the mountains." },
-    { id: "w12", type: "vocab", punjabi: "phul", english: "flower",
-      definition: "The colorful part of a plant. Plural: 'phul' (same).",
-      related: "gulaab, patta",
-      example: "Eh phul sohna hai. — This flower is beautiful." },
-    { id: "w13", type: "vocab", punjabi: "rukh", english: "tree",
-      definition: "A large plant with a trunk.",
-      related: "patta, jangle",
-      example: "Vadda rukh. — A big tree." },
-
-    // ===== House & rooms =====
-    { id: "ho1", type: "vocab", punjabi: "kamra", english: "room",
-      definition: "A space inside a house.",
-      related: "ghar, darvaza",
-      example: "Mera kamra upar hai. — My room is upstairs." },
-    { id: "ho2", type: "vocab", punjabi: "rasoi", english: "kitchen",
-      definition: "Where food is cooked.",
-      related: "khaana, chulha",
-      example: "Maa rasoi vich hai. — Mother is in the kitchen." },
-    { id: "ho3", type: "vocab", punjabi: "darvaza", english: "door",
-      definition: "The opening to enter a room or house.",
-      related: "khirki, kunji",
-      example: "Darvaza band karo. — Close the door." },
-    { id: "ho4", type: "vocab", punjabi: "khirki", english: "window",
-      definition: "An opening in a wall, usually with glass.",
-      related: "darvaza",
-      example: "Khirki khol do. — Open the window." },
-    { id: "ho5", type: "vocab", punjabi: "mez", english: "table",
-      definition: "Furniture with a flat top and legs.",
-      related: "kursi",
-      example: "Mez te kitaab hai. — The book is on the table." },
-    { id: "ho6", type: "vocab", punjabi: "kursi", english: "chair",
-      definition: "Furniture for sitting.",
-      related: "mez, baithna",
-      example: "Kursi te baith jao. — Please sit on the chair." },
-    { id: "ho7", type: "vocab", punjabi: "palang", english: "bed",
-      definition: "Furniture for sleeping.",
-      related: "sona, kamra",
-      example: "Palang te so jao. — Go to sleep on the bed." },
-    { id: "ho8", type: "vocab", punjabi: "ghadi", english: "clock / watch",
-      definition: "A device that tells time.",
-      related: "vele, samaa",
-      example: "Ghadi vekho. — Look at the clock." },
-    { id: "ho9", type: "vocab", punjabi: "batti", english: "light / lamp",
-      definition: "A source of light. 'Batti' also = electricity in everyday speech.",
-      related: "andhera, batti band",
-      example: "Batti band karo. — Turn off the light." },
-    { id: "ho10", type: "vocab", punjabi: "chaabi", english: "key",
-      definition: "Used to lock or unlock a door.",
-      related: "darvaza, taala",
-      example: "Mainu chaabi do. — Give me the key." },
-
-    // ===== Body & health =====
-    { id: "b11", type: "vocab", punjabi: "dand", english: "tooth / teeth",
-      definition: "What you chew with.",
-      related: "mooh, brush",
-      example: "Dand saaf karo. — Brush your teeth." },
-    { id: "b12", type: "vocab", punjabi: "jeebh", english: "tongue",
-      definition: "The muscle in your mouth that helps you taste and speak.",
-      related: "mooh, sawaad",
-      example: "Jeebh bahar kado. — Stick out your tongue." },
-    { id: "b13", type: "vocab", punjabi: "gala", english: "throat",
-      definition: "The front of your neck where you swallow and speak.",
-      related: "awaaz, khaansi",
-      example: "Mera gala kharab hai. — My throat hurts." },
-    { id: "b14", type: "vocab", punjabi: "ungal", english: "finger",
-      definition: "One of the five digits on your hand.",
-      related: "hath, anguthha",
-      example: "Ungal te lag gayi. — I hurt my finger." },
-    { id: "h11", type: "vocab", punjabi: "dawai", english: "medicine",
-      definition: "Something you take to feel better when sick.",
-      related: "doctor, sehat",
-      example: "Dawai khaa lo. — Take your medicine." },
-    { id: "h12", type: "vocab", punjabi: "daktar", english: "doctor",
-      definition: "A person who treats illnesses. Borrowed from English.",
-      related: "dawai, hospital",
-      example: "Doctor kol jaana hai. — We have to go to the doctor." },
-    { id: "h13", type: "vocab", punjabi: "bimaar", english: "sick / ill",
-      definition: "Not feeling well. 'Bimaari' = the illness itself.",
-      related: "dawai, sehat",
-      example: "Main bimaar haan. — I am sick." },
-    { id: "h14", type: "vocab", punjabi: "dukhna", english: "to hurt / to ache",
-      definition: "When part of you hurts. 'Mera sir dukhda hai' = my head hurts.",
-      related: "dard, bimaar",
-      example: "Mera pet dukhda hai. — My stomach hurts." },
-    { id: "h15", type: "vocab", punjabi: "aaram", english: "rest / comfort",
-      definition: "Resting; relaxation.",
-      related: "sona, thakk",
-      example: "Aaram karo. — Take some rest." },
-
-    // ===== School & learning =====
-    { id: "s1", type: "vocab", punjabi: "ustaad", english: "teacher",
-      definition: "A person who teaches. Also 'master' of a craft.",
-      related: "school, vidyaarthi",
-      example: "Mere ustaad changey han. — My teachers are good." },
-    { id: "s2", type: "vocab", punjabi: "vidyaarthi", english: "student",
-      definition: "A person who learns.",
-      related: "ustaad, padhna",
-      example: "Main vidyaarthi haan. — I am a student." },
-    { id: "s3", type: "vocab", punjabi: "sabaq", english: "lesson",
-      definition: "A unit of learning.",
-      related: "padhna, kitaab",
-      example: "Aaj da sabaq sokha hai. — Today's lesson is easy." },
-    { id: "s4", type: "vocab", punjabi: "imtihaan", english: "exam / test",
-      definition: "A test of knowledge.",
-      related: "padhna, mehnat",
-      example: "Imtihaan kal hai. — The exam is tomorrow." },
-    { id: "s5", type: "vocab", punjabi: "kalam", english: "pen",
-      definition: "A writing tool.",
-      related: "kaagaz, likhna",
-      example: "Mainu kalam do. — Give me a pen." },
-    { id: "s6", type: "vocab", punjabi: "kaagaz", english: "paper",
-      definition: "What you write on.",
-      related: "kalam, kitaab",
-      example: "Kaagaz te likho. — Write on the paper." },
-
-    // ===== Travel & directions =====
-    { id: "tr1", type: "vocab", punjabi: "safar", english: "journey / travel",
-      definition: "Going from one place to another.",
-      related: "rasta, jaana",
-      example: "Safar changa rahe. — May the journey go well." },
-    { id: "tr2", type: "vocab", punjabi: "saddak", english: "road / street",
-      definition: "A road for vehicles.",
-      related: "rasta, gaddi",
-      example: "Eh saddak vaddi hai. — This road is wide." },
-    { id: "tr3", type: "vocab", punjabi: "stationer", english: "station",
-      definition: "Bus or train station. Borrowed from English.",
-      related: "bus, rail",
-      example: "Stationer te milange. — We'll meet at the station." },
-    { id: "tr4", type: "vocab", punjabi: "sajje", english: "right (direction)",
-      definition: "The right side. Used for directions.",
-      related: "khabbe, sidha",
-      example: "Sajje muddo. — Turn right." },
-    { id: "tr5", type: "vocab", punjabi: "khabbe", english: "left (direction)",
-      definition: "The left side.",
-      related: "sajje, sidha",
-      example: "Khabbe muddo. — Turn left." },
-    { id: "tr6", type: "vocab", punjabi: "sidha", english: "straight",
-      definition: "Going straight ahead; also 'simple/honest'.",
-      related: "rasta",
-      example: "Sidha jaao. — Go straight." },
-    { id: "tr7", type: "vocab", punjabi: "nere", english: "near",
-      definition: "Close by.",
-      related: "door",
-      example: "Bazaar nere hai. — The market is near." },
-    { id: "tr8", type: "vocab", punjabi: "door", english: "far",
-      definition: "Distant; not close.",
-      related: "nere",
-      example: "Mera ghar door hai. — My house is far." },
-    { id: "tr9", type: "phrase", punjabi: "Rasta dasso ji",
-      english: "Please tell me the way.",
-      definition: "Polite way to ask for directions.",
-      example: "Maaf karna, rasta dasso ji. — Excuse me, please tell the way." },
-    { id: "tr10", type: "phrase", punjabi: "Eh kithe hai?",
-      english: "Where is this?",
-      definition: "Useful for asking about a place.",
-      example: "Eh dukaan kithe hai? — Where is this shop?" },
-
-    // ===== Common professions =====
-    { id: "pc7", type: "vocab", punjabi: "kisaan", english: "farmer",
-      definition: "Someone who farms — central to Punjabi identity.",
-      related: "khet, mehnat",
-      example: "Mera pyo kisaan hai. — My father is a farmer." },
-    { id: "pc8", type: "vocab", punjabi: "dukandaar", english: "shopkeeper",
-      definition: "Person who runs a shop.",
-      related: "dukaan, paisa",
-      example: "Dukandaar bahut changa hai. — The shopkeeper is very nice." },
-    { id: "pr9", type: "vocab", punjabi: "draivar", english: "driver",
-      definition: "Person who drives a vehicle. Borrowed from English.",
-      related: "gaddi, bus",
-      example: "Driver sahib, ruk jao. — Driver sir, please stop." },
-    { id: "pr10", type: "vocab", punjabi: "injineer", english: "engineer",
-      definition: "Person who designs and builds things. Borrowed from English.",
-      example: "Mera bhra engineer hai. — My brother is an engineer." },
-
-    // ===== More verbs =====
-    { id: "vb14", type: "vocab", punjabi: "khaana (verb)", english: "to eat",
-      definition: "Same word as 'food'. 'Khaada' (m) / 'khaadi' (f) = ate.",
-      related: "peena, roti",
-      example: "Roti khaani hai? — Do you want to eat roti?" },
-    { id: "vb15", type: "vocab", punjabi: "peena", english: "to drink",
-      definition: "To consume liquid. 'Peeta' (m) / 'peeti' (f) = drank.",
-      related: "paani, chah",
-      example: "Paani peeo. — Drink water." },
-    { id: "vb16", type: "vocab", punjabi: "khelna", english: "to play",
-      definition: "To engage in games or sports.",
-      related: "khel, dost",
-      example: "Asin khel rahe haan. — We are playing." },
-    { id: "vb17", type: "vocab", punjabi: "hassna", english: "to laugh",
-      definition: "To express joy with sound.",
-      related: "khush, khushi",
-      example: "Bachche hass rahe han. — The children are laughing." },
-    { id: "vb18", type: "vocab", punjabi: "rona", english: "to cry",
-      definition: "To weep.",
-      related: "udaas, dard",
-      example: "Na ro, sab theek hai. — Don't cry, all is well." },
-    { id: "vb19", type: "vocab", punjabi: "turna", english: "to walk",
-      definition: "Move on foot. 'Turna' is the infinitive; 'tur' is the bare stem.",
-      related: "pair, daurna",
-      example: "Asin tur ke jaavange. — We will walk." },
-    { id: "vb20", type: "vocab", punjabi: "daurna", english: "to run",
-      definition: "Move quickly on foot. (Don't confuse with 'dauran' = 'during'.)",
-      related: "turna, jaldi",
-      example: "Daurna shuru karo. — Start running." },
-    { id: "vb21", type: "vocab", punjabi: "baithna", english: "to sit",
-      definition: "Take a seat.",
-      related: "khalona, kursi",
-      example: "Idhar baith jao. — Sit here." },
-    { id: "vb22", type: "vocab", punjabi: "khalona", english: "to stand",
-      definition: "Be on your feet.",
-      related: "baithna, ruk",
-      example: "Khalo jao. — Stand up." },
-    { id: "vb23", type: "vocab", punjabi: "uthna", english: "to get up / wake up",
-      definition: "Rise from sleep or seat.",
-      related: "sona, savere",
-      example: "Savere jaldi uthna. — Wake up early in the morning." },
-    { id: "vb24", type: "vocab", punjabi: "milna", english: "to meet / to find",
-      definition: "Encounter someone, or find something.",
-      related: "dost, jaldi",
-      example: "Kal milange. — We'll meet tomorrow." },
-    { id: "vb25", type: "vocab", punjabi: "kholna", english: "to open",
-      definition: "Open a door, book, or container.",
-      related: "band, darvaza",
-      example: "Darvaza kholo. — Open the door." },
-    { id: "vb26", type: "vocab", punjabi: "band karna", english: "to close / shut",
-      definition: "Shut something. 'Band' = closed.",
-      related: "kholna",
-      example: "Khirki band karo. — Close the window." },
-    { id: "vb27", type: "vocab", punjabi: "puchna", english: "to ask",
-      definition: "Pose a question.",
-      related: "saval, javaab",
-      example: "Mainu puchho. — Ask me." },
-    { id: "vb28", type: "vocab", punjabi: "dassna", english: "to tell",
-      definition: "Share information; tell someone something.",
-      related: "bolna, gall",
-      example: "Mainu dasso. — Tell me." },
-    { id: "vb29", type: "vocab", punjabi: "sochna", english: "to think",
-      definition: "Use your mind.",
-      related: "samajhna",
-      example: "Sochke dasso. — Think and tell me." },
-    { id: "vb30", type: "vocab", punjabi: "yaad karna", english: "to remember / to memorize",
-      definition: "Hold something in memory; or actively memorize.",
-      related: "yaad, bhulna",
-      example: "Eh yaad rakho. — Remember this." },
-    { id: "vb31", type: "vocab", punjabi: "bhulna", english: "to forget",
-      definition: "Lose from memory.",
-      related: "yaad",
-      example: "Main bhul gaya. — I forgot." },
-
-    // ===== Opposites (great for vocabulary expansion) =====
-    { id: "op1", type: "vocab", punjabi: "lamba", english: "long / tall",
-      definition: "Long in length, or tall in height. Feminine: 'lambi'.",
-      related: "chhota, ucha",
-      example: "Lamba safar. — A long journey." },
-    { id: "op2", type: "vocab", punjabi: "ucha", english: "high / tall (loud)",
-      definition: "High up, or loud (for sound).",
-      related: "neeva, lamba",
-      example: "Ucha bolo. — Speak loudly." },
-    { id: "op3", type: "vocab", punjabi: "neeva", english: "low / short / soft",
-      definition: "Low in height, or quiet (for sound).",
-      related: "ucha",
-      example: "Haule, neevi awaaz vich. — Slowly, in a soft voice." },
-    { id: "op4", type: "vocab", punjabi: "tez", english: "fast / sharp / loud",
-      definition: "Fast in speed; sharp in mind; or loud in sound.",
-      related: "haule, jaldi",
-      example: "Tez gaddi. — A fast car." },
-    { id: "op5", type: "vocab", punjabi: "haule", english: "slowly / softly",
-      definition: "At a slow or gentle pace.",
-      related: "tez, aaram",
-      example: "Haule chalo. — Walk slowly." },
-    { id: "op6", type: "vocab", punjabi: "khaali", english: "empty",
-      definition: "Nothing inside.",
-      related: "bhareya",
-      example: "Glass khaali hai. — The glass is empty." },
-    { id: "op7", type: "vocab", punjabi: "bhareya", english: "full",
-      definition: "Filled completely. Feminine: 'bhari'.",
-      related: "khaali",
-      example: "Pet bhareya hoya hai. — My stomach is full." },
-    { id: "op8", type: "vocab", punjabi: "saaf", english: "clean",
-      definition: "Free of dirt; also 'clear' as in clear speech.",
-      related: "ganda",
-      example: "Hath saaf karo. — Clean your hands." },
-    { id: "op9", type: "vocab", punjabi: "ganda", english: "dirty",
-      definition: "Not clean.",
-      related: "saaf",
-      example: "Kapre gande han. — The clothes are dirty." },
-    { id: "op10", type: "vocab", punjabi: "sasta", english: "cheap (inexpensive)",
-      definition: "Low in price.",
-      related: "mehnga",
-      example: "Eh sasta hai. — This is cheap." },
-    { id: "op11", type: "vocab", punjabi: "mehnga", english: "expensive",
-      definition: "High in price.",
-      related: "sasta",
-      example: "Bahut mehnga hai. — It's very expensive." },
-
-    // ===== Sentence-building patterns (mini-grammar in action) =====
-    { id: "sb1", type: "phrase", punjabi: "Eh ___ hai",
-      english: "This is ___.",
-      definition: "Most basic sentence pattern. Fill the blank with any noun. 'Eh kitaab hai' = This is a book.",
-      example: "Eh mera dost hai. — This is my friend." },
-    { id: "sb2", type: "phrase", punjabi: "Oh ___ hai",
-      english: "That is ___ / He is ___ / She is ___.",
-      definition: "'Oh' covers he, she, that. Verb 'hai' is singular.",
-      example: "Oh mera bhra hai. — He is my brother." },
-    { id: "sb3", type: "phrase", punjabi: "Mainu ___ chahida hai",
-      english: "I need / want ___.",
-      definition: "Replace blank with what you want. Use 'chahidi' if the noun is feminine.",
-      example: "Mainu chah chahidi hai. — I want tea (chah is feminine)." },
-    { id: "sb4", type: "phrase", punjabi: "Mainu ___ pasand hai",
-      english: "I like ___.",
-      definition: "Tell people what you like. Use 'han' instead of 'hai' for plural items.",
-      example: "Mainu Punjabi gaane pasand han. — I like Punjabi songs." },
-    { id: "sb5", type: "phrase", punjabi: "Main ___ jaa reha haan",
-      english: "I am going to ___.",
-      definition: "Continuous tense. Female speaker says 'jaa rahi haan'.",
-      example: "Main school jaa reha haan. — I am going to school." },
-    { id: "sb6", type: "phrase", punjabi: "Tuhanu ___ aaunda hai?",
-      english: "Do you know how to ___?",
-      definition: "For skills. Replace blank with a verb infinitive.",
-      example: "Tuhanu Punjabi aaundi hai? — Do you know Punjabi?" },
-    { id: "sb7", type: "phrase", punjabi: "Mainu ___ aaunda hai",
-      english: "I know how to ___.",
-      definition: "Reply pattern. Use 'aaundi' if the skill is feminine (like 'Punjabi').",
-      example: "Mainu Punjabi thodi-thodi aaundi hai. — I know a little Punjabi." },
-    { id: "sb8", type: "phrase", punjabi: "Ki tusi ___ sakde ho?",
-      english: "Can you ___?",
-      definition: "Polite request. Replace blank with verb stem. Female plural: 'sakdiyaan ho'.",
-      example: "Ki tusi haule bol sakde ho? — Can you speak slowly?" },
-
-    // ===== Useful little words (the glue of speech) =====
-    { id: "lw2", type: "vocab", punjabi: "par", english: "but",
-      definition: "Used to contrast two ideas.",
-      related: "lekin",
-      example: "Mainu pasand hai par mehnga hai. — I like it but it's expensive." },
-    { id: "lw3", type: "vocab", punjabi: "vi", english: "also / too",
-      definition: "Adds 'also'. Place AFTER the noun: 'main vi' = me too.",
-      example: "Main vi aavaanga. — I will come too." },
-    { id: "lw4", type: "vocab", punjabi: "sirf", english: "only",
-      definition: "Just / only.",
-      related: "bas",
-      example: "Sirf ikk minute. — Only one minute." },
-    { id: "lw5", type: "vocab", punjabi: "bahut", english: "very / much",
-      definition: "Intensifier. 'Bahut changa' = very good.",
-      related: "thoda",
-      example: "Bahut shukriya. — Many thanks." },
-    { id: "lw6", type: "vocab", punjabi: "thoda", english: "a little / a bit",
-      definition: "Small amount. Feminine: 'thodi'.",
-      related: "bahut",
-      example: "Thoda paani. — A little water." },
-    { id: "lw7", type: "vocab", punjabi: "sab", english: "all / everyone",
-      definition: "Refers to everyone or everything.",
-      related: "kuch",
-      example: "Sab theek hai. — Everything is fine." },
-    { id: "lw8", type: "vocab", punjabi: "kuch", english: "something / some",
-      definition: "Indefinite quantity.",
-      related: "sab, kujh",
-      example: "Kuch khaa lo. — Eat something." },
-    { id: "lw9", type: "vocab", punjabi: "phir", english: "then / again",
-      definition: "Sequencing word. 'Phir milange' = we'll meet again.",
-      example: "Pehlan eh, phir oh. — First this, then that." },
-    { id: "lw10", type: "vocab", punjabi: "abhi", english: "right now / just now",
-      definition: "Used for immediacy.",
-      related: "hun",
-      example: "Abhi aaya. — Just arrived." },
-
-    // ===== Beginner conversation starters =====
-    { id: "lv1", type: "phrase", punjabi: "Tuhada kamm ki hai?",
-      english: "What is your work / job?",
-      definition: "Polite way to ask someone's profession.",
-      example: "Tuhada kamm ki hai? Main teacher haan. — What's your work? I'm a teacher." },
-    { id: "lv2", type: "phrase", punjabi: "Tusi kithe rehnde ho?",
-      english: "Where do you live?",
-      definition: "Polite question about residence.",
-      example: "Main shehar vich rehnda haan. — I live in the city." },
-    { id: "lv3", type: "phrase", punjabi: "Tuhadi umar kinni hai?",
-      english: "How old are you?",
-      definition: "Be careful — only ask kids or close friends. Considered direct for adults.",
-      example: "Mainu vee saal de haan. — I am twenty years old." },
-    { id: "lv4", type: "phrase", punjabi: "Tuhade kinne bhain-bhra han?",
-      english: "How many siblings do you have?",
-      definition: "Common Punjabi small-talk question — family is central.",
-      example: "Mere do bhra te ikk bhain hai. — I have two brothers and one sister." },
-    { id: "lv5", type: "phrase", punjabi: "Tuhanu ki pasand hai?",
-      english: "What do you like?",
-      definition: "Open-ended friendly question.",
-      example: "Mainu kitaaban padhna pasand hai. — I like reading books." },
-    { id: "lv6", type: "phrase", punjabi: "Mainu Punjabi sikhna hai",
-      english: "I want to learn Punjabi.",
-      definition: "Show your intent. Punjabis love when foreigners try to learn the language.",
-      example: "Mainu Punjabi sikhna hai, madad karo ji. — I want to learn Punjabi, please help." },
-    { id: "lv7", type: "phrase", punjabi: "Mainu thodi-thodi Punjabi aaundi hai",
-      english: "I know a little Punjabi.",
-      definition: "Humble and honest — earns kindness from native speakers.",
-      example: "Maaf karna, mainu thodi-thodi Punjabi aaundi hai. — Sorry, I know just a little Punjabi." },
-    { id: "lv8", type: "phrase", punjabi: "Phir kaho ji",
-      english: "Please say it again.",
-      definition: "Polite request for repetition. Pair with 'haule' (slowly).",
-      example: "Maaf karna, phir kaho ji, haule. — Sorry, please say it again, slowly." },
-    { id: "lv9", type: "phrase", punjabi: "Eh Punjabi vich ki kehnde han?",
-      english: "What do you call this in Punjabi?",
-      definition: "Great learner question — point at the object and ask.",
-      example: "Eh Punjabi vich ki kehnde han? — What do you call this in Punjabi?" },
-    { id: "lv10", type: "phrase", punjabi: "Mainu sikha do",
-      english: "Please teach me.",
-      definition: "Ask someone to teach you — Punjabis are usually delighted.",
-      example: "Mainu eh shabad sikha do. — Teach me this word." },
-
-    // ===== Cultural beginner gems =====
-    { id: "cu1", type: "phrase", punjabi: "Bhangra",
-      english: "Bhangra (Punjabi folk dance).",
-      definition: "Energetic Punjabi folk dance, originally celebrating the harvest. Now world-famous.",
-      related: "gidda, dhol",
-      example: "Bhangra paao! — Dance bhangra!" },
-    { id: "cu2", type: "phrase", punjabi: "Gidda",
-      english: "Gidda (women's folk dance).",
-      definition: "Lively folk dance traditionally performed by Punjabi women, with rhythmic clapping and 'bolian' (couplets).",
-      related: "bhangra",
-      example: "Kuriaan gidda paaundiyaan. — The girls dance gidda." },
-    { id: "cu3", type: "phrase", punjabi: "Dhol",
-      english: "Dhol (drum).",
-      definition: "Large two-sided Punjabi drum — the heartbeat of bhangra and weddings.",
-      related: "bhangra, gaana",
-      example: "Dhol vajda hai! — The dhol is playing!" },
-    { id: "cu4", type: "phrase", punjabi: "Vaisakhi",
-      english: "Vaisakhi (harvest / Sikh new year festival).",
-      definition: "April 13/14 celebration — harvest festival AND the founding of the Khalsa (1699). Major Punjabi/Sikh holiday.",
-      related: "khalsa, mela",
-      example: "Vaisakhi diyan vadhaiyaan! — Vaisakhi greetings!" },
-    { id: "cu5", type: "phrase", punjabi: "Lohri",
-      english: "Lohri (winter bonfire festival).",
-      definition: "Mid-January Punjabi festival — bonfires, peanuts, gachak, dancing. Marks the end of winter.",
-      example: "Lohri mubarak ho! — Happy Lohri!" },
-    { id: "cu6", type: "phrase", punjabi: "Khalsa",
-      english: "Khalsa (the Sikh community/order).",
-      definition: "The community of initiated Sikhs, founded by Guru Gobind Singh in 1699. 'Khalsa' = pure.",
-      related: "Sikh, Waheguru",
-      example: "Waheguru ji ka Khalsa, Waheguru ji ki Fateh." },
-    { id: "cu7", type: "phrase", punjabi: "Punj Pyare",
-      english: "The Five Beloved Ones.",
-      definition: "The first five Sikhs initiated into the Khalsa by Guru Gobind Singh — symbol of devotion.",
-      example: "Punj Pyare di kahaani sun. — Listen to the story of the Five Beloved." },
-    { id: "cu8", type: "phrase", punjabi: "Pind di hawa",
-      english: "Air of the village (homeland feeling).",
-      definition: "A poetic phrase Punjabis use to describe the special feeling of returning to their ancestral village.",
-      example: "Pind di hawa naal jind aa jandi hai. — Village air brings the soul back." },
-
-    // ===== Shopping / market dialogue helpers =====
-    { id: "sh1", type: "phrase", punjabi: "Eh kinne da hai?",
-      english: "How much does this cost?",
-      definition: "Standard market question. 'Da' agrees with item gender.",
-      related: "Kinne paise?",
-      example: "Eh kameez kinni di hai? — How much is this shirt?" },
-    { id: "sh2", type: "phrase", punjabi: "Thoda ghatt karo",
-      english: "Please reduce the price a bit.",
-      definition: "Bargaining is normal in Punjabi bazaars. Always polite — never aggressive.",
-      example: "Bhai sahib, thoda ghatt karo ji. — Brother, please reduce a bit." },
-    { id: "sh3", type: "phrase", punjabi: "Mainu eh chahida hai",
-      english: "I want this one.",
-      definition: "Make your selection. Use 'chahidi' if the item is feminine.",
-      example: "Mainu eh laal vali chahidi hai. — I want this red one." },
-    { id: "sh4", type: "phrase", punjabi: "Bas, hor nahin chahida",
-      english: "That's all, nothing more is needed.",
-      definition: "Wrap up the purchase politely.",
-      example: "Bas ji, hor nahin chahida, shukriya. — That's all, nothing more, thanks." },
-    { id: "sh5", type: "phrase", punjabi: "Paisa kithe daiye?",
-      english: "Where do I pay?",
-      definition: "Useful at a busy shop with multiple counters.",
-      example: "Maaf karna, paisa kithe daiye? — Excuse me, where do I pay?" },
-
-    // ===== Common encouragements (build confidence in others) =====
-    { id: "en1", type: "phrase", punjabi: "Shabaash!",
-      english: "Well done! / Bravo!",
-      definition: "The classic Punjabi praise. Say it loud and proud — kids especially love hearing it.",
-      example: "Shabaash puttar! — Well done, child!" },
-    { id: "en2", type: "phrase", punjabi: "Vadiya kamm!",
-      english: "Great work!",
-      definition: "Encourage anyone after a job well done.",
-      example: "Vadiya kamm kita ji! — Great work done!" },
-    { id: "en3", type: "phrase", punjabi: "Lage raho",
-      english: "Keep at it / keep going.",
-      definition: "Cheer someone on through hard work.",
-      example: "Lage raho, manzil door nahin. — Keep going, the goal isn't far." },
-    { id: "en4", type: "phrase", punjabi: "Tu kar sakda hai",
-      english: "You can do it.",
-      definition: "Belief-building phrase. (Female: 'kar sakdi'.)",
-      example: "Himmat rakh, tu kar sakda hai. — Have courage, you can do it." },
-    { id: "en5", type: "phrase", punjabi: "Koshish karo",
-      english: "Please try.",
-      definition: "Encourage attempt rather than perfection — very Punjabi mindset.",
-      example: "Koshish karo, galti ho jaaye taan koi nahin. — Try; if a mistake happens, no problem." },
-
-    // ===== Pronunciation & learner tips (taught as cards) =====
-    { id: "pn1", type: "grammar", punjabi: "aspirated vs plain",
-      english: "h-sounds matter (kh, gh, ch, jh, th, dh, ph, bh)",
-      definition: "Punjabi distinguishes 'k' vs 'kh', 'p' vs 'ph', etc. The 'h' is a puff of breath. 'Pal' = moment, 'phal' = fruit. Practice by holding a hand near your mouth — the 'h' versions push air.",
-      example: "kal (yesterday/tomorrow) vs khal (skin) — listen for the puff!" },
-    { id: "pn2", type: "grammar", punjabi: "retroflex sounds",
-      english: "the 'curled-tongue' t and d (ṭ, ḍ)",
-      definition: "Punjabi has T/D sounds made with the tongue curled BACK against the roof of the mouth — different from English T/D. In romanization sometimes shown as ṭ/ḍ. They sound 'harder' and more crisp.",
-      example: "roti has the retroflex T — tongue curled, crisp." },
-    { id: "pn3", type: "grammar", punjabi: "nasal vowels",
-      english: "vowels with a hum (aan, een, oon)",
-      definition: "Punjabi often nasalizes vowels — air flows through the nose. 'Haan' (yes) ends with a nasal hum. In writing it's marked with a tippi/bindi.",
-      example: "haan (yes), naheen (no) — feel the hum at the end." },
-    { id: "pn4", type: "grammar", punjabi: "tones in Punjabi",
-      english: "high, low, level — pitch changes meaning",
-      definition: "Unlike Hindi or English, Punjabi is TONAL. The pitch of a word changes its meaning. 'kòṛa' (low tone, whip) vs 'koṛa' (level, blank). For now, just imitate native speakers carefully.",
-      example: "Listening practice is the best way to feel tones." },
-    { id: "pn5", type: "grammar", punjabi: "emphasis with doubling",
-      english: "double a word for emphasis",
-      definition: "Repeating a word intensifies it: 'jaldi-jaldi' (very fast), 'thoda-thoda' (just a little), 'changa-changa' (good good = okay okay). Very Punjabi flavor.",
-      example: "Haule-haule bolo. — Speak slowly slowly (= very slowly)." },
-
-    // ===== Beginner mini-dialogues (whole exchanges) =====
-    { id: "md1", type: "phrase", punjabi: "A: Sat sri akaal ji. B: Sat sri akaal, ki haal hai?",
-      english: "A: Hello respected one. B: Hello, how are things?",
-      definition: "Standard polite greeting exchange. The full version uses 'ji' both times.",
-      example: "Use this opening for any meeting with a Punjabi adult." },
-    { id: "md2", type: "phrase", punjabi: "A: Tuhada naam ki hai? B: Mera naam ___ hai. Tuhada?",
-      english: "A: What's your name? B: My name is ___. And yours?",
-      definition: "Reciprocate the question with 'Tuhada?' — turning the conversation back is polite.",
-      example: "Practicing this is the perfect first conversation." },
-    { id: "md3", type: "phrase", punjabi: "A: Chah peeoge? B: Bas thodi ji, shukriya.",
-      english: "A: Will you have tea? B: Just a little please, thanks.",
-      definition: "Tea will always be offered. Accept — at least 'thodi' (a little).",
-      example: "Refusing tea outright can hurt feelings; sip slowly." },
-    { id: "md4", type: "phrase", punjabi: "A: Eh kinne da hai? B: Sau rupaye. A: Thoda ghatt karo. B: Acha, assi.",
-      english: "A: How much? B: One hundred. A: Reduce a bit. B: Okay, eighty.",
-      definition: "Friendly bazaar haggle. Always smile, never argue.",
-      example: "Final price often lands 15-25% below asking — that's the fun." },
-    { id: "md5", type: "phrase", punjabi: "A: Mainu samajh nahin aayi. B: Koi gall nahin, phir kehnda haan haule.",
-      english: "A: I didn't understand. B: No problem, I'll say it again slowly.",
-      definition: "The kindest exchange a Punjabi learner can have. Both sides showing patience.",
-      example: "Most Punjabis love helping learners — never be shy to ask." },
-
-    // ===== Numbers 21–29 + 60/70/80/90 (finishes 1–100) =====
-    { id: "n21", type: "vocab", punjabi: "ikkee",   english: "twenty-one",
-      definition: "The number 21. Punjabi tens-and-ones are usually a single fused word.",
-      related: "vee (20), bee (22)",
-      example: "Ikkee saal da. — Twenty-one years old." },
-    { id: "n22", type: "vocab", punjabi: "bee",     english: "twenty-two",
-      definition: "The number 22.",
-      related: "ikkee, teyee",
-      example: "Bee tareek. — The 22nd date." },
-    { id: "n23", type: "vocab", punjabi: "teyee",   english: "twenty-three",
-      definition: "The number 23.",
-      example: "Teyee minit. — Twenty-three minutes." },
-    { id: "n24", type: "vocab", punjabi: "chaubi",  english: "twenty-four",
-      definition: "The number 24.",
-      example: "Chaubi ghante. — Twenty-four hours." },
-    { id: "n25", type: "vocab", punjabi: "panjee",  english: "twenty-five",
-      definition: "The number 25 (a quarter of 100).",
-      example: "Panjee rupaye. — Twenty-five rupees." },
-    { id: "n26", type: "vocab", punjabi: "chhabi",  english: "twenty-six",
-      definition: "The number 26.",
-      example: "Chhabi tareek. — The 26th." },
-    { id: "n27", type: "vocab", punjabi: "sataai",  english: "twenty-seven",
-      definition: "The number 27.",
-      example: "Sataai din. — Twenty-seven days." },
-    { id: "n28", type: "vocab", punjabi: "athaai",  english: "twenty-eight",
-      definition: "The number 28.",
-      example: "Athaai vidyaarthi. — Twenty-eight students." },
-    { id: "n29", type: "vocab", punjabi: "untee",   english: "twenty-nine",
-      definition: "The number 29.",
-      example: "Untee saal. — Twenty-nine years." },
-    { id: "n60", type: "vocab", punjabi: "satth",   english: "sixty",
-      definition: "The number 60.",
-      example: "Satth minit ikk ghanta. — Sixty minutes is one hour." },
-    { id: "n70", type: "vocab", punjabi: "sattar",  english: "seventy",
-      definition: "The number 70.",
-      example: "Sattar saal. — Seventy years." },
-    { id: "n80", type: "vocab", punjabi: "assi",    english: "eighty",
-      definition: "The number 80.",
-      example: "Assi rupaye. — Eighty rupees." },
-    { id: "n90", type: "vocab", punjabi: "nabbe",   english: "ninety",
-      definition: "The number 90.",
-      example: "Nabbe percent. — Ninety percent." },
-
-    // ===== Punjabi months (Nanakshahi / desi calendar) =====
-    { id: "mo1",  type: "vocab", punjabi: "Chet",    english: "Chet (March–April)",
-      definition: "First month of the Punjabi calendar; spring begins.",
-      related: "Vaisakh, bahaar",
-      example: "Chet vich phul khilde han. — Flowers bloom in Chet." },
-    { id: "mo2",  type: "vocab", punjabi: "Vaisakh", english: "Vaisakh (April–May)",
-      definition: "Second month; harvest season; Vaisakhi falls in this month.",
-      related: "Vaisakhi",
-      example: "Vaisakh vich kanak kattenge. — Wheat is harvested in Vaisakh." },
-    { id: "mo3",  type: "vocab", punjabi: "Jeth",    english: "Jeth (May–June)",
-      definition: "Third month; very hot.",
-      example: "Jeth di garmi. — The heat of Jeth." },
-    { id: "mo4",  type: "vocab", punjabi: "Harh",    english: "Harh (June–July)",
-      definition: "Fourth month; pre-monsoon heat.",
-      example: "Harh maheene baarish da intzar. — Waiting for rain in Harh." },
-    { id: "mo5",  type: "vocab", punjabi: "Saavan",  english: "Saavan (July–August)",
-      definition: "Fifth month; the famous monsoon month celebrated in songs and poetry.",
-      related: "barsaat",
-      example: "Saavan di baarish. — Saavan rain." },
-    { id: "mo6",  type: "vocab", punjabi: "Bhadon",  english: "Bhadon (August–September)",
-      definition: "Sixth month; humid late monsoon.",
-      example: "Bhadon vich umas hundi hai. — Humidity in Bhadon." },
-    { id: "mo7",  type: "vocab", punjabi: "Assu",    english: "Assu (September–October)",
-      definition: "Seventh month; weather begins to cool.",
-      example: "Assu maheene mausam vadiya. — Weather is great in Assu." },
-    { id: "mo8",  type: "vocab", punjabi: "Katak",   english: "Katak (October–November)",
-      definition: "Eighth month; Diwali / Bandi Chhor Divas often falls here.",
-      related: "Diwali",
-      example: "Katak di pooranmashi. — The full moon of Katak." },
-    { id: "mo9",  type: "vocab", punjabi: "Maghar",  english: "Maghar (November–December)",
-      definition: "Ninth month; cold settles in.",
-      example: "Maghar maheene sardi shuru. — Cold begins in Maghar." },
-    { id: "mo10", type: "vocab", punjabi: "Poh",     english: "Poh (December–January)",
-      definition: "Tenth month; deep winter.",
-      example: "Poh di raat lammi te thandi. — Poh nights are long and cold." },
-    { id: "mo11", type: "vocab", punjabi: "Magh",    english: "Magh (January–February)",
-      definition: "Eleventh month; Lohri ends Poh, Magh begins with Maghi.",
-      related: "Lohri, Maghi",
-      example: "Magh di sangraand. — The first day of Magh." },
-    { id: "mo12", type: "vocab", punjabi: "Phagun",  english: "Phagun (February–March)",
-      definition: "Twelfth month; Holi falls here; spring colors return.",
-      related: "Holi, bahaar",
-      example: "Phagun vich rang udde. — Colors fly in Phagun." },
-
-    // ===== Seasons =====
-    { id: "se1", type: "vocab", punjabi: "rut",     english: "season",
-      definition: "A season of the year. Punjab traditionally counts six rutaan.",
-      related: "mausam",
-      example: "Rut badal gayi. — The season has changed." },
-    { id: "se2", type: "vocab", punjabi: "bahaar",  english: "spring",
-      definition: "Season of flowers and new growth. Beloved in Punjabi poetry.",
-      related: "Phagun, Chet, phul",
-      example: "Bahaar aa gayi. — Spring has arrived." },
-    { id: "se3", type: "vocab", punjabi: "barsaat", english: "monsoon / rainy season",
-      definition: "The wet season — Saavan / Bhadon. Major celebration in Punjab.",
-      related: "Saavan, baarish",
-      example: "Barsaat da mausam vadiya. — The monsoon weather is lovely." },
-    { id: "se4", type: "vocab", punjabi: "patjhad", english: "autumn / fall",
-      definition: "Season when leaves fall.",
-      related: "patta",
-      example: "Patjhad vich patte digde han. — Leaves fall in autumn." },
-
-    // ===== Telling time =====
-    { id: "tm1", type: "vocab", punjabi: "vaja",    english: "o'clock (singular)",
-      definition: "Used with one o'clock: 'Ikk vaja hai' = It's one o'clock.",
-      related: "vaje",
-      example: "Hun ikk vaja hai. — It's one o'clock now." },
-    { id: "tm2", type: "vocab", punjabi: "vaje",    english: "o'clock (plural)",
-      definition: "Used with 2 and above: 'Tinn vaje han' = It's three o'clock.",
-      related: "vaja",
-      example: "Panj vaje han. — It's five o'clock." },
-    { id: "tm3", type: "vocab", punjabi: "savaa",   english: "quarter past",
-      definition: "Add before the hour: 'Savaa do' = quarter past two (2:15).",
-      related: "saadhe, paune",
-      example: "Savaa char vaje aana. — Come at quarter past four." },
-    { id: "tm4", type: "vocab", punjabi: "saadhe",  english: "half past",
-      definition: "Add before the hour: 'Saadhe tinn' = half past three (3:30). Note: 'half past one' is 'derh', 'half past two' is 'dhaayi'.",
-      related: "savaa, paune, derh, dhaayi",
-      example: "Saadhe satt vaje milange. — We'll meet at 7:30." },
-    { id: "tm5", type: "vocab", punjabi: "paune",   english: "quarter to",
-      definition: "Add before the hour: 'Paune panj' = quarter to five (4:45).",
-      related: "savaa, saadhe",
-      example: "Paune nau vaje. — At quarter to nine." },
-    { id: "tm6", type: "vocab", punjabi: "derh",    english: "one and a half (1:30)",
-      definition: "The special word for 'half past one'. 'Derh vaja hai' = It's 1:30.",
-      related: "dhaayi",
-      example: "Derh vaje khaana. — Lunch at 1:30." },
-    { id: "tm7", type: "vocab", punjabi: "dhaayi",  english: "two and a half (2:30)",
-      definition: "The special word for 'half past two'. 'Dhaayi vaje' = at 2:30.",
-      related: "derh",
-      example: "Dhaayi vaje milange. — We'll meet at 2:30." },
-    { id: "tm8", type: "vocab", punjabi: "minit",   english: "minute",
-      definition: "Borrowed from English. Same word for minute and small wait.",
-      example: "Ikk minit ruko ji. — Please wait one minute." },
-    { id: "tm9", type: "vocab", punjabi: "ghanta",  english: "hour",
-      definition: "60 minutes. Plural: 'ghante'.",
-      example: "Do ghante hor. — Two more hours." },
-    { id: "tm10", type: "phrase", punjabi: "Kinne vaje han?",
-      english: "What time is it?",
-      definition: "The standard way to ask the time.",
-      related: "vaje, vaja",
-      example: "Maaf karna, kinne vaje han? — Excuse me, what time is it?" },
-
-    // ===== Money & banking =====
-    { id: "mn1", type: "vocab", punjabi: "rupaya",  english: "rupee",
-      definition: "Indian/Pakistani currency unit. Plural: 'rupaye'.",
-      related: "paisa, note",
-      example: "Sau rupaye. — One hundred rupees." },
-    { id: "mn2", type: "vocab", punjabi: "chillar", english: "loose change / coins",
-      definition: "Small coin money. 'Chillar nahin hai' = no change available.",
-      related: "rupaya, note",
-      example: "Chillar do ji. — Please give change." },
-    { id: "mn3", type: "vocab", punjabi: "note",    english: "currency note / bill",
-      definition: "Paper money. 'Sau da note' = a hundred-rupee note.",
-      related: "rupaya, chillar",
-      example: "Pachas da note. — A fifty-rupee note." },
-    { id: "mn4", type: "vocab", punjabi: "baink",    english: "bank",
-      definition: "A place where money is kept. Borrowed from English.",
-      related: "ATM, khaata",
-      example: "Bank kithe hai? — Where is the bank?" },
-    { id: "mn5", type: "vocab", punjabi: "khaata",  english: "account / ledger",
-      definition: "A bank account, or a shop's running tab. 'Khaata kholna' = open an account.",
-      related: "bank",
-      example: "Mera bank khaata. — My bank account." },
-    { id: "mn6", type: "vocab", punjabi: "udhaar",  english: "loan / borrowed",
-      definition: "Money or items taken on credit. 'Udhaar denna' = to lend.",
-      related: "paisa",
-      example: "Udhaar nahin lainda. — I don't take loans." },
-    { id: "mn7", type: "vocab", punjabi: "muft",    english: "free (no cost)",
-      definition: "Without charge. 'Muft vich' = for free.",
-      related: "sasta, paisa",
-      example: "Eh muft hai. — This is free." },
-    { id: "mn8", type: "vocab", punjabi: "kharcha", english: "expense / spending",
-      definition: "Money spent. 'Kharcha karna' = to spend.",
-      related: "paisa, kamana",
-      example: "Mahine da kharcha. — Monthly expenses." },
-
-    // ===== Clothing =====
-    { id: "cl1",  type: "vocab", punjabi: "kapre",     english: "clothes",
-      definition: "Plural of 'kapra'. The general word for clothing.",
-      related: "kameez, salwar",
-      example: "Saaf kapre paao. — Wear clean clothes." },
-    { id: "cl2",  type: "vocab", punjabi: "kameez",    english: "shirt / tunic",
-      definition: "Long shirt; the top half of a salwar-kameez outfit.",
-      related: "salwar, kurta",
-      example: "Navi kameez. — A new shirt." },
-    { id: "cl3",  type: "vocab", punjabi: "salwar",    english: "loose trousers (Punjabi)",
-      definition: "Loose pants, traditionally paired with kameez.",
-      related: "kameez",
-      example: "Salwar-kameez Punjabi paharaava hai. — Salwar-kameez is Punjabi attire." },
-    { id: "cl4",  type: "vocab", punjabi: "kurta",     english: "kurta (loose tunic)",
-      definition: "A loose, knee-length tunic worn by men and women.",
-      related: "pajama, kameez",
-      example: "Chitta kurta paaya. — Wore a white kurta." },
-    { id: "cl5",  type: "vocab", punjabi: "pajama",    english: "pajama (loose trousers)",
-      definition: "Loose-fit trousers worn with a kurta. (English 'pajamas' came from this word.)",
-      related: "kurta",
-      example: "Kurta-pajama vadiya lagda. — Kurta-pajama looks great." },
-    { id: "cl6",  type: "vocab", punjabi: "dupatta",   english: "long scarf / shawl",
-      definition: "A long rectangular scarf worn over the shoulders or head — paired with salwar-kameez.",
-      related: "chunni, kameez",
-      example: "Sohna dupatta. — A pretty dupatta." },
-    { id: "cl7",  type: "vocab", punjabi: "chunni",    english: "head scarf / dupatta (Punjabi)",
-      definition: "A Punjabi term for a long colorful dupatta, often worn over the head.",
-      related: "dupatta",
-      example: "Laal chunni. — A red chunni." },
-    { id: "cl8",  type: "vocab", punjabi: "pagg",      english: "turban (Sikh)",
-      definition: "The turban worn by Sikh men (and many Punjabi men). A symbol of pride and identity.",
-      related: "sardar, dastar",
-      example: "Pagg sardari di nishaani hai. — The turban is a mark of dignity." },
-    { id: "cl9",  type: "vocab", punjabi: "juti",      english: "shoe / footwear",
-      definition: "Shoe. 'Punjabi juti' = the famous embroidered Punjabi shoe.",
-      related: "pair, jurab",
-      example: "Juti utaar ke andar aao. — Take off your shoes and come in." },
-    { id: "cl10", type: "vocab", punjabi: "jurab",     english: "sock",
-      definition: "Worn on feet inside shoes.",
-      related: "juti",
-      example: "Jurab paao. — Wear socks." },
-    { id: "cl11", type: "vocab", punjabi: "topi",      english: "cap / hat",
-      definition: "A small hat. Different from 'pagg' (turban).",
-      related: "pagg, sir",
-      example: "Sardi vich topi paao. — Wear a cap in winter." },
-    { id: "cl12", type: "vocab", punjabi: "chasme",    english: "glasses / spectacles",
-      definition: "Eye glasses. Singular: 'chasma' — also means 'spring' (water).",
-      related: "akh",
-      example: "Chasme laa lo. — Put on your glasses." },
-
-    // ===== Kitchen & cooking =====
-    { id: "kc1",  type: "vocab", punjabi: "chulha",   english: "stove / hearth",
-      definition: "A traditional cooking stove. Modern stoves are also called chulha.",
-      related: "rasoi, aag",
-      example: "Chulhe te roti pak rahi hai. — Roti is cooking on the stove." },
-    { id: "kc2",  type: "vocab", punjabi: "tava",     english: "flat griddle",
-      definition: "Flat iron pan used to cook roti.",
-      related: "roti, chulha",
-      example: "Tave te roti laao. — Put the roti on the tava." },
-    { id: "kc3",  type: "vocab", punjabi: "bartan",   english: "utensils / dishes",
-      definition: "All cookware and dishware.",
-      related: "plate, glass",
-      example: "Bartan dho lo. — Wash the dishes." },
-    { id: "kc4",  type: "vocab", punjabi: "chamcha",  english: "spoon / ladle",
-      definition: "A spoon or large serving ladle.",
-      related: "kanda, chaaku",
-      example: "Chamcha laao. — Bring a spoon." },
-    { id: "kc5",  type: "vocab", punjabi: "chaaku",   english: "knife",
-      definition: "A cutting tool. Use carefully!",
-      related: "chamcha, sabzi",
-      example: "Chaaku tikha hai. — The knife is sharp." },
-    { id: "kc6",  type: "vocab", punjabi: "plet",    english: "plate",
-      definition: "Borrowed from English. Also called 'thali' (a steel plate).",
-      related: "thali, bartan",
-      example: "Plate vich daal. — Daal in the plate." },
-    { id: "kc7",  type: "vocab", punjabi: "glass",    english: "glass (cup)",
-      definition: "Borrowed from English. A drinking glass.",
-      related: "paani, doodh",
-      example: "Paani da glass. — A glass of water." },
-    { id: "kc8",  type: "vocab", punjabi: "atta",     english: "wheat flour",
-      definition: "The flour used to make roti.",
-      related: "roti, tava",
-      example: "Atta gunno. — Knead the flour." },
-    { id: "kc9",  type: "vocab", punjabi: "ghee",     english: "clarified butter",
-      definition: "A staple Punjabi cooking fat — golden, fragrant.",
-      related: "makhan, tadka",
-      example: "Roti te ghee. — Ghee on the roti." },
-    { id: "kc10", type: "vocab", punjabi: "makhan",   english: "butter",
-      definition: "Soft butter — famously paired with sarson da saag and makki di roti.",
-      related: "ghee, doodh",
-      example: "Makki di roti te makhan. — Corn roti with butter." },
-    { id: "kc11", type: "vocab", punjabi: "masala",   english: "spice mix",
-      definition: "Any blend of spices. Punjabi cooking is built on masale.",
-      related: "mirch, namak",
-      example: "Garam masala paao. — Add garam masala." },
-    { id: "kc12", type: "vocab", punjabi: "tadka",    english: "tempering (sizzled spice)",
-      definition: "Hot ghee/oil with spices poured over a dish for flavor — the soul of daal.",
-      related: "daal, ghee",
-      example: "Daal te tadka. — Tempering on the daal." },
-
-    // ===== More food: vegetables & sweets =====
-    { id: "fd12", type: "vocab", punjabi: "gobhi",        english: "cauliflower",
-      definition: "A white vegetable; aloo gobhi is a classic Punjabi dish.",
-      related: "aaloo, sabzi",
-      example: "Aaloo-gobhi banai. — Made aloo-gobhi." },
-    { id: "fd13", type: "vocab", punjabi: "mooli",        english: "radish",
-      definition: "A long white root vegetable; famous in mooli paronthe.",
-      related: "paronthe, sabzi",
-      example: "Mooli de paronthe. — Radish parathas." },
-    { id: "fd14", type: "vocab", punjabi: "gajar",        english: "carrot",
-      definition: "An orange root vegetable. Gajar da halwa is a winter sweet.",
-      related: "halwa, sabzi",
-      example: "Gajar khaao, akhaan tez. — Eat carrots, sharp eyes." },
-    { id: "fd15", type: "vocab", punjabi: "palak",        english: "spinach",
-      definition: "Leafy green; palak paneer is famous.",
-      related: "paneer, sabzi",
-      example: "Palak paneer. — Spinach with paneer." },
-    { id: "fd16", type: "vocab", punjabi: "methi",        english: "fenugreek leaves",
-      definition: "Bitter-fragrant green; aloo-methi is a Punjabi favorite.",
-      related: "sabzi",
-      example: "Methi di sabzi. — Methi vegetable." },
-    { id: "fd17", type: "vocab", punjabi: "bhindi",       english: "okra",
-      definition: "Long green pods, often cooked dry with masale.",
-      related: "sabzi",
-      example: "Bhindi sukhi. — Dry okra." },
-    { id: "fd18", type: "vocab", punjabi: "paneer",       english: "Indian cheese",
-      definition: "Fresh cottage-style cheese. Star of palak paneer, paneer tikka.",
-      related: "doodh, palak",
-      example: "Paneer di sabzi. — Paneer dish." },
-    { id: "fd19", type: "vocab", punjabi: "gulab jamun",  english: "gulab jamun (sweet)",
-      definition: "Soft fried dough balls in sugar syrup. Festival favorite.",
-      related: "mithai, jalebi",
-      example: "Garam gulab jamun. — Hot gulab jamun." },
-    { id: "fd20", type: "vocab", punjabi: "jalebi",       english: "jalebi (sweet)",
-      definition: "Crispy spiral sweet soaked in syrup. Often eaten with milk.",
-      related: "mithai, doodh",
-      example: "Doodh-jalebi. — Milk and jalebi." },
-    { id: "fd21", type: "vocab", punjabi: "kheer",        english: "rice pudding",
-      definition: "Sweet milk-and-rice pudding cooked slowly.",
-      related: "doodh, chaaval",
-      example: "Kheer thandi karke khaao. — Eat kheer chilled." },
-    { id: "fd22", type: "vocab", punjabi: "ladoo",        english: "ladoo (sweet ball)",
-      definition: "Round Indian sweet, common at celebrations and temples.",
-      related: "mithai, vadhaiyaan",
-      example: "Khushi vich ladoo vandde. — Ladoos handed out in joy." },
-    { id: "fd23", type: "vocab", punjabi: "mithai",       english: "sweets / desserts",
-      definition: "General term for Indian sweets.",
-      related: "ladoo, jalebi, gulab jamun",
-      example: "Mithai laao. — Bring sweets." },
-    { id: "fd24", type: "vocab", punjabi: "masala chai",  english: "spiced tea",
-      definition: "Tea brewed with milk, sugar, and warming spices (cardamom, ginger).",
-      related: "chah, doodh",
-      example: "Masala chai laao ji. — Bring masala chai please." },
-    { id: "fd25", type: "vocab", punjabi: "doodh patti",  english: "milky tea (no water)",
-      definition: "Tea boiled in pure milk — strong and creamy. Popular Punjabi style.",
-      related: "chah",
-      example: "Doodh patti pee lo. — Have some doodh patti." },
-
-    // ===== Fruits expansion =====
-    { id: "fr1",  type: "vocab", punjabi: "seb",        english: "apple",
-      definition: "A round red, green, or yellow fruit.",
-      related: "phal",
-      example: "Roz ikk seb. — An apple a day." },
-    { id: "fr2",  type: "vocab", punjabi: "kela",       english: "banana",
-      definition: "A long yellow fruit.",
-      related: "phal",
-      example: "Kela peela hai. — The banana is yellow." },
-    { id: "fr3",  type: "vocab", punjabi: "angoor",     english: "grapes",
-      definition: "Small round fruits in a bunch.",
-      related: "phal",
-      example: "Angoor mitthay han. — The grapes are sweet." },
-    { id: "fr4",  type: "vocab", punjabi: "santra",     english: "orange",
-      definition: "A round citrus fruit.",
-      related: "phal, rang",
-      example: "Santre da juice. — Orange juice." },
-    { id: "fr5",  type: "vocab", punjabi: "tarbooz",    english: "watermelon",
-      definition: "A big green fruit with red watery flesh; perfect for summer.",
-      related: "garmi, phal",
-      example: "Garmi vich tarbooz. — Watermelon in summer." },
-    { id: "fr6",  type: "vocab", punjabi: "anaar",      english: "pomegranate",
-      definition: "A red fruit full of seed jewels.",
-      related: "phal",
-      example: "Anaar da rang. — The color of pomegranate." },
-    { id: "fr7",  type: "vocab", punjabi: "papita",     english: "papaya",
-      definition: "A soft orange tropical fruit.",
-      related: "phal",
-      example: "Papita pet layi changa. — Papaya is good for the stomach." },
-    { id: "fr8",  type: "vocab", punjabi: "ananas",     english: "pineapple",
-      definition: "A tropical fruit with spiky skin.",
-      related: "phal",
-      example: "Ananas khatta-mittha. — Pineapple is sweet-sour." },
-    { id: "fr9",  type: "vocab", punjabi: "naashpaati", english: "pear",
-      definition: "A green or yellow fruit, sweet and crunchy.",
-      related: "phal, seb",
-      example: "Naashpaati narm hai. — The pear is soft." },
-    { id: "fr10", type: "vocab", punjabi: "kharbooja",  english: "muskmelon / cantaloupe",
-      definition: "A summer melon, sweet and fragrant.",
-      related: "tarbooz, garmi",
-      example: "Kharbooja thanda khaao. — Eat muskmelon chilled." },
-
-    // ===== More animals & insects =====
-    { id: "a7",  type: "vocab", punjabi: "bakri",   english: "goat",
-      definition: "A small farm animal, gives milk and wool.",
-      related: "gaan, doodh",
-      example: "Bakri ghaa khaandi hai. — The goat eats grass." },
-    { id: "a8",  type: "vocab", punjabi: "chooha",  english: "mouse / rat",
-      definition: "A small rodent.",
-      related: "billi",
-      example: "Chooha bhajj gaya. — The mouse ran away." },
-    { id: "a9",  type: "vocab", punjabi: "kaan",    english: "crow",
-      definition: "A common black bird; in folklore, brings news of guests.",
-      related: "pakhi",
-      example: "Kaan bolda hai. — The crow is calling." },
-    { id: "a10", type: "vocab", punjabi: "kabootar", english: "pigeon / dove",
-      definition: "A common city bird; symbol of peace.",
-      related: "pakhi",
-      example: "Kabootar udda. — The pigeon flew." },
-    { id: "a11", type: "vocab", punjabi: "maccha",  english: "fish",
-      definition: "An animal that lives in water.",
-      related: "paani, naddi",
-      example: "Maccha paani vich. — The fish is in water." },
-    { id: "a12", type: "vocab", punjabi: "titli",   english: "butterfly",
-      definition: "A pretty winged insect.",
-      related: "phul",
-      example: "Titli phul te. — A butterfly on the flower." },
-    { id: "a13", type: "vocab", punjabi: "makkhi",  english: "fly",
-      definition: "A small flying insect that bothers food.",
-      related: "machhar",
-      example: "Makkhi udaao. — Shoo the fly away." },
-    { id: "a14", type: "vocab", punjabi: "machhar", english: "mosquito",
-      definition: "A biting insect, especially in monsoon.",
-      related: "makkhi, baarish",
-      example: "Machhar kattda hai. — The mosquito bites." },
-    { id: "a15", type: "vocab", punjabi: "saap",    english: "snake",
-      definition: "A long crawling reptile.",
-      related: "darr, jangle",
-      example: "Saap khatarnaak hai. — The snake is dangerous." },
-    { id: "a16", type: "vocab", punjabi: "hathi",   english: "elephant",
-      definition: "The largest land animal.",
-      related: "vadda, jangle",
-      example: "Hathi bahut vadda hai. — The elephant is very big." },
-
-    // ===== Nature extension =====
-    { id: "na1",  type: "vocab", punjabi: "pahaad",   english: "mountain",
-      definition: "A very tall landform.",
-      related: "barf, ucha",
-      example: "Pahaadan te barf. — Snow on the mountains." },
-    { id: "na2",  type: "vocab", punjabi: "jangle",   english: "forest / jungle",
-      definition: "A large area covered with trees.",
-      related: "rukh, sher",
-      example: "Jangle vich jaanvar. — Animals in the forest." },
-    { id: "na3",  type: "vocab", punjabi: "samandar", english: "ocean / sea",
-      definition: "A huge body of salt water.",
-      related: "naddi, paani",
-      example: "Samandar gehra hai. — The ocean is deep." },
-    { id: "na4",  type: "vocab", punjabi: "jheel",    english: "lake",
-      definition: "A still body of water surrounded by land.",
-      related: "naddi, paani",
-      example: "Jheel da paani saaf. — The lake's water is clear." },
-    { id: "na5",  type: "vocab", punjabi: "ret",      english: "sand",
-      definition: "Tiny grains found at beaches and deserts.",
-      related: "samandar",
-      example: "Ret te chalna. — Walking on sand." },
-    { id: "na6",  type: "vocab", punjabi: "mitti",    english: "soil / earth",
-      definition: "The dirt that plants grow in. Also poetic 'homeland'.",
-      related: "khet, beej",
-      example: "Apni mitti. — Our own soil (homeland)." },
-    { id: "na7",  type: "vocab", punjabi: "patta",    english: "leaf",
-      definition: "Part of a plant. Plural: 'patte'.",
-      related: "rukh, hara",
-      example: "Hare patte. — Green leaves." },
-    { id: "na8",  type: "vocab", punjabi: "beej",     english: "seed",
-      definition: "A small thing that grows into a plant.",
-      related: "rukh, mitti",
-      example: "Beej bo do. — Sow the seed." },
-    { id: "na9",  type: "vocab", punjabi: "bagh",     english: "garden",
-      definition: "A planted area with flowers or trees.",
-      related: "phul, rukh",
-      example: "Bagh vich gulaab. — Roses in the garden." },
-    { id: "na10", type: "vocab", punjabi: "aag",      english: "fire",
-      definition: "Hot bright flames.",
-      related: "garam, chulha",
-      example: "Aag naal door raho. — Stay away from fire." },
-
-    // ===== Sports & games =====
-    { id: "sp1",  type: "vocab", punjabi: "khel",          english: "game / sport",
-      definition: "Any game or sport.",
-      related: "khelna",
-      example: "Mera pasandida khel. — My favorite sport." },
-    { id: "sp2",  type: "vocab", punjabi: "kabaddi",       english: "kabaddi (Punjabi sport)",
-      definition: "A traditional Punjabi contact sport — players raid the opposing side while chanting 'kabaddi'. Hugely popular in Punjab.",
-      related: "khel, mela",
-      example: "Pind vich kabaddi da match. — A kabaddi match in the village." },
-    { id: "sp3",  type: "vocab", punjabi: "kriket",        english: "cricket",
-      definition: "Bat-and-ball sport, beloved across the subcontinent.",
-      related: "khel",
-      example: "Cricket khedanga. — I'll play cricket." },
-    { id: "sp4",  type: "vocab", punjabi: "hockey",        english: "field hockey",
-      definition: "India's traditional national sport — Punjab has produced many stars.",
-      related: "khel",
-      example: "Punjab hockey vich aage. — Punjab is ahead in hockey." },
-    { id: "sp5",  type: "vocab", punjabi: "football",      english: "soccer / football",
-      definition: "A worldwide sport with a ball and net.",
-      related: "khel",
-      example: "Football match vekhange. — We'll watch the football match." },
-    { id: "sp6",  type: "vocab", punjabi: "gulli-danda",   english: "gulli-danda (street game)",
-      definition: "Traditional Punjabi street game with a small wooden 'gulli' and a stick 'danda'. Like cricket's ancestor.",
-      example: "Gulli-danda khedde si. — We used to play gulli-danda." },
-    { id: "sp7",  type: "vocab", punjabi: "kho-kho",       english: "kho-kho (chase game)",
-      definition: "A traditional tag-style chasing game.",
-      example: "Kho-kho da match. — A kho-kho match." },
-    { id: "sp8",  type: "vocab", punjabi: "patang",        english: "kite",
-      definition: "Paper kite. Punjabis fly kites on Lohri and Basant.",
-      related: "Lohri, Basant",
-      example: "Patang udaao. — Fly the kite." },
-    { id: "sp9",  type: "vocab", punjabi: "taas",          english: "playing cards",
-      definition: "A pack of playing cards. 'Taas khedna' = to play cards.",
-      example: "Sham nu taas khedde. — We played cards in the evening." },
-    { id: "sp10", type: "vocab", punjabi: "ludo",          english: "Ludo (board game)",
-      definition: "A board game with dice and tokens, popular in homes.",
-      example: "Bachche ludo khelde han. — The kids are playing Ludo." },
-
-    // ===== Music & arts =====
-    { id: "mu1",  type: "vocab", punjabi: "gaana",     english: "song",
-      definition: "A piece of music with words. 'Gaana gauna' = to sing.",
-      related: "geet, gauna",
-      example: "Punjabi gaana laao. — Play a Punjabi song." },
-    { id: "mu2",  type: "vocab", punjabi: "geet",      english: "song / poem (lyrical)",
-      definition: "A more lyrical/poetic word for song.",
-      related: "gaana, kavita",
-      example: "Lok geet. — Folk song." },
-    { id: "mu3",  type: "vocab", punjabi: "dhun",      english: "tune / melody",
-      definition: "The musical melody of a song.",
-      related: "gaana, vaja",
-      example: "Sohni dhun. — A lovely tune." },
-    { id: "mu5",  type: "vocab", punjabi: "tabla",     english: "tabla (drums)",
-      definition: "A pair of small hand drums; rhythm of Indian classical music.",
-      related: "dhol, sangeet",
-      example: "Tabla taal vich. — The tabla in rhythm." },
-    { id: "mu6",  type: "vocab", punjabi: "harmonia", english: "harmonium",
-      definition: "A small keyboard instrument with bellows; central to Sikh kirtan.",
-      related: "vaja, kirtan",
-      example: "Harmonium te bhajan. — A bhajan on the harmonium." },
-    { id: "mu7",  type: "vocab", punjabi: "sitar",     english: "sitar (string instrument)",
-      definition: "A long-necked plucked string instrument.",
-      related: "vaja, sangeet",
-      example: "Sitar di awaaz. — The sound of the sitar." },
-    { id: "mu8",  type: "vocab", punjabi: "naach",     english: "dance",
-      definition: "Dancing. 'Naachna' = to dance.",
-      related: "bhangra, gidda",
-      example: "Naach paao! — Let's dance!" },
-    { id: "mu9",  type: "vocab", punjabi: "kavi",      english: "poet",
-      definition: "Someone who writes poetry. Punjab has a deep poetic tradition.",
-      related: "kavita, geet",
-      example: "Mera pasandida kavi. — My favorite poet." },
-    { id: "mu10", type: "vocab", punjabi: "kavita",    english: "poem / poetry",
-      definition: "Lines of verse. 'Kavita likhna' = to write poetry.",
-      related: "kavi, geet",
-      example: "Sohni kavita. — A beautiful poem." },
-
-    // ===== Religion / Sikh terms =====
-    { id: "rl1",  type: "vocab", punjabi: "Guru",                english: "Guru / spiritual teacher",
-      definition: "A spiritual teacher. In Sikhism, the ten human Gurus and the eternal Guru Granth Sahib.",
-      related: "Sikh, Granth",
-      example: "Guru Nanak Dev Ji. — Guru Nanak (founder of Sikhi)." },
-    { id: "rl2",  type: "vocab", punjabi: "Granth",              english: "scripture / holy book",
-      definition: "Holy book. 'Sri Guru Granth Sahib' is the eternal Sikh scripture.",
-      related: "Guru, paath",
-      example: "Granth Sahib di hazoori. — In the presence of the Granth Sahib." },
-    { id: "rl3",  type: "vocab", punjabi: "Ardas",               english: "Sikh prayer (standing supplication)",
-      definition: "The formal Sikh prayer offered while standing, recalling the Gurus and asking blessings.",
-      related: "Guru, Waheguru",
-      example: "Ardas karan toon baad. — After offering Ardas." },
-    { id: "rl4",  type: "vocab", punjabi: "Paath",               english: "scripture reading",
-      definition: "Recitation from the Guru Granth Sahib. 'Paath karna' = to do recitation.",
-      related: "Granth, Akhand Paath",
-      example: "Ghar vich paath. — A paath at home." },
-    { id: "rl5",  type: "vocab", punjabi: "Kirtan",              english: "devotional singing",
-      definition: "Singing of the Guru's hymns, usually with harmonium and tabla.",
-      related: "harmonium, gurudwara",
-      example: "Kirtan sun ke man shaant. — Mind feels peace listening to kirtan." },
-    { id: "rl6",  type: "vocab", punjabi: "Simran",              english: "meditation / remembrance",
-      definition: "Remembering God's name silently or through chanting.",
-      related: "Naam, Waheguru",
-      example: "Naam Simran karo. — Practice Naam Simran." },
-    { id: "rl8",  type: "vocab", punjabi: "Pangat",              english: "row of equal seating (langar)",
-      definition: "Sitting in equal rows on the floor for langar — symbol of equality.",
-      related: "langar, sangat",
-      example: "Pangat vich baith ke khaana. — Eating while seated in pangat." },
-    { id: "rl9",  type: "vocab", punjabi: "Khanda",              english: "Sikh emblem (double-edged sword)",
-      definition: "The Sikh symbol — central double-edged sword with a chakkar and two kirpans. Symbolizes oneness, justice, and balance.",
-      related: "Khalsa",
-      example: "Khanda Sikhi da nishaan hai. — Khanda is the symbol of Sikhi." },
-    { id: "rl10", type: "vocab", punjabi: "mandir",              english: "Hindu temple",
-      definition: "A Hindu place of worship.",
-      related: "gurudwara, masjid",
-      example: "Mandir vich aarti. — Aarti in the temple." },
-    { id: "rl11", type: "vocab", punjabi: "masjid",              english: "mosque",
-      definition: "A Muslim place of worship.",
-      related: "gurudwara, mandir",
-      example: "Masjid vich namaaz. — Namaaz in the mosque." },
-    { id: "rl12", type: "vocab", punjabi: "girja",               english: "church",
-      definition: "A Christian place of worship.",
-      related: "gurudwara, mandir, masjid",
-      example: "Girja ghar. — Church." },
-
-    // ===== Festivals =====
-    { id: "fs1",  type: "vocab", punjabi: "Diwali",            english: "Diwali / Bandi Chhor Divas",
-      definition: "Festival of lights — for Sikhs also Bandi Chhor Divas (Guru Hargobind's release of 52 kings).",
-      related: "Bandi Chhor, mela",
-      example: "Diwali diyaan vadhaiyaan! — Diwali greetings!" },
-    { id: "fs2",  type: "vocab", punjabi: "Holi",              english: "Holi (festival of colors)",
-      definition: "Spring festival of colors and play.",
-      related: "rang, bahaar",
-      example: "Holi mubarak ho! — Happy Holi!" },
-    { id: "fs3",  type: "vocab", punjabi: "Hola Mohalla",      english: "Hola Mohalla (Sikh martial festival)",
-      definition: "A Sikh festival started by Guru Gobind Singh — martial arts displays, processions, poetry, the day after Holi.",
-      related: "Khalsa",
-      example: "Hola Mohalla Anandpur Sahib vich. — Hola Mohalla at Anandpur Sahib." },
-    { id: "fs4",  type: "vocab", punjabi: "Gurpurab",          english: "Guru's birth/death anniversary",
-      definition: "A day commemorating a Sikh Guru — especially Guru Nanak's birth (Kartik Purnima).",
-      related: "Guru",
-      example: "Gurpurab diyaan vadhaiyaan. — Gurpurab greetings." },
-    { id: "fs5",  type: "vocab", punjabi: "Eid",               english: "Eid (Muslim festival)",
-      definition: "Major Muslim festival. Eid-ul-Fitr after Ramadan; Eid-ul-Adha later in the year.",
-      related: "mubarak",
-      example: "Eid mubarak! — Blessed Eid!" },
-    { id: "fs6",  type: "vocab", punjabi: "Karva Chauth",      english: "Karva Chauth (women's fast day)",
-      definition: "A day when married women fast for their husbands' long life.",
-      example: "Karva Chauth da chand. — The Karva Chauth moon." },
-    { id: "fs7",  type: "vocab", punjabi: "Raksha Bandhan",    english: "Raksha Bandhan (sister-brother day)",
-      definition: "Sisters tie a 'rakhi' on brothers' wrists; brothers vow protection.",
-      related: "bhain, bhra",
-      example: "Bhain ne rakhi bandhi. — Sister tied a rakhi." },
-    { id: "fs8",  type: "vocab", punjabi: "vivaah",            english: "wedding",
-      definition: "A wedding ceremony. Sikh weddings are called 'Anand Karaj'.",
-      related: "Anand Karaj, barat",
-      example: "Bhra da vivaah hai. — My brother's wedding is on." },
-    { id: "fs9",  type: "vocab", punjabi: "janamdin",          english: "birthday",
-      definition: "Day someone was born. 'Janamdin mubarak' = happy birthday.",
-      related: "mubarak",
-      example: "Janamdin mubarak ho! — Happy birthday!" },
-    { id: "fs10", type: "vocab", punjabi: "mela",              english: "fair / festival gathering",
-      definition: "A fair — food stalls, rides, music, games. Common at festivals.",
-      related: "festival, bhangra",
-      example: "Pind da mela. — The village fair." },
-
-    // ===== Wedding-specific =====
-    { id: "wd1", type: "vocab", punjabi: "barat",       english: "groom's wedding procession",
-      definition: "The groom's family procession arriving at the wedding venue, often with dhol and dancing.",
-      related: "vivaah, dhol",
-      example: "Barat aa gayi. — The barat has arrived." },
-    { id: "wd2", type: "vocab", punjabi: "doli",        english: "bride's farewell ride",
-      definition: "The bride's send-off in a decorated palanquin/car, leaving her parents' home.",
-      related: "vidaai, vivaah",
-      example: "Doli turi. — The doli set off." },
-    { id: "wd3", type: "vocab", punjabi: "sagan",       english: "wedding gift / blessing",
-      definition: "A small monetary gift placed in an envelope for blessings.",
-      related: "vivaah, vadhaiyaan",
-      example: "Sagan deo ji. — Please give the sagan." },
-    { id: "wd4", type: "vocab", punjabi: "milni",       english: "introduction ceremony",
-      definition: "Formal introduction of the two families at a Punjabi wedding — relatives meet their counterparts.",
-      related: "vivaah",
-      example: "Milni de baad chai. — Tea after the milni." },
-    { id: "wd5", type: "vocab", punjabi: "Anand Karaj", english: "Sikh marriage ceremony",
-      definition: "Sikh wedding ceremony performed in the gurdwara, with four lavaan (rounds).",
-      related: "lavaan, gurudwara",
-      example: "Anand Karaj sham nu. — Anand Karaj in the evening." },
-    { id: "wd6", type: "vocab", punjabi: "lavaan",      english: "the four wedding rounds",
-      definition: "The four hymns walked around the Guru Granth Sahib during a Sikh wedding.",
-      related: "Anand Karaj",
-      example: "Lavaan padhe gaye. — The lavaan were recited." },
-    { id: "wd7", type: "vocab", punjabi: "vidaai",      english: "bride's send-off (tearful)",
-      definition: "Emotional moment when the bride leaves her parents' home.",
-      related: "doli",
-      example: "Vidaai vele aansoo. — Tears at the time of vidaai." },
-    { id: "wd8", type: "vocab", punjabi: "nikkah",      english: "Muslim marriage contract",
-      definition: "The Islamic marriage ceremony.",
-      related: "vivaah",
-      example: "Nikkah hoya. — The nikkah took place." },
-
-    // ===== City life / transport =====
-    { id: "ct1",  type: "vocab", punjabi: "bas",          english: "bus",
-      definition: "Public transport vehicle. Borrowed from English.",
-      related: "rail, ticket",
-      example: "Bus chhutt gayi. — The bus left." },
-    { id: "ct2",  type: "vocab", punjabi: "rail",         english: "train",
-      definition: "Train. Also 'gaddi' in everyday speech.",
-      related: "stationer, ticket",
-      example: "Rail late hai. — The train is late." },
-    { id: "ct3",  type: "vocab", punjabi: "rickshaw",     english: "cycle rickshaw",
-      definition: "A three-wheel pedal-powered taxi.",
-      related: "auto",
-      example: "Rickshaw walaa bhai. — Mr. Rickshaw driver." },
-    { id: "ct4",  type: "vocab", punjabi: "auto",         english: "auto-rickshaw (three-wheeler)",
-      definition: "Motorized three-wheel taxi — common across India.",
-      related: "rickshaw",
-      example: "Auto laao. — Get an auto." },
-    { id: "ct5",  type: "vocab", punjabi: "traiktar",     english: "tractor",
-      definition: "Farm vehicle — central to Punjab's agriculture.",
-      related: "khet, kisaan",
-      example: "Tractor khet vich. — The tractor is in the field." },
-    { id: "ct6",  type: "vocab", punjabi: "hawai jahaaz", english: "airplane",
-      definition: "A flying machine. Literally 'air ship'.",
-      related: "airport, ticket",
-      example: "Hawai jahaaz uddya. — The plane took off." },
-    { id: "ct7",  type: "vocab", punjabi: "erport",       english: "airport",
-      definition: "Where airplanes take off and land. Borrowed from English.",
-      related: "hawai jahaaz",
-      example: "Airport jaana hai. — I have to go to the airport." },
-    { id: "ct8",  type: "vocab", punjabi: "tikat",        english: "ticket",
-      definition: "A pass for travel. Borrowed from English.",
-      related: "bus, rail",
-      example: "Do ticket lao. — Get two tickets." },
-    { id: "ct9",  type: "vocab", punjabi: "saikal",       english: "bicycle",
-      definition: "A two-wheel pedal vehicle.",
-      related: "gaddi",
-      example: "Bachchey saikal sikhde han. — The kids are learning to cycle." },
-    { id: "ct10", type: "vocab", punjabi: "trafic",       english: "traffic",
-      definition: "Vehicles on the road. Borrowed from English.",
-      related: "saddak, gaddi",
-      example: "Bahut trafic hai. — There's a lot of traffic." },
-
-    // ===== Work & business =====
-    { id: "wk1",  type: "vocab", punjabi: "daftar",   english: "office",
-      definition: "A workplace.",
-      related: "kamm, naukri",
-      example: "Daftar jaana hai. — I have to go to the office." },
-    { id: "wk2",  type: "vocab", punjabi: "naukri",   english: "job",
-      definition: "Paid employment. 'Naukri karna' = to be employed.",
-      related: "kamm, daftar",
-      example: "Navi naukri laggi. — Got a new job." },
-    { id: "wk3",  type: "vocab", punjabi: "bos",      english: "boss",
-      definition: "Manager / boss. Borrowed from English.",
-      related: "daftar",
-      example: "Bos da phone. — A call from the boss." },
-    { id: "wk4",  type: "vocab", punjabi: "mulazim",  english: "employee / worker",
-      definition: "Someone employed by another.",
-      related: "naukri, bos",
-      example: "Daftar de mulazim. — The office employees." },
-    { id: "wk5",  type: "vocab", punjabi: "tanqaah",  english: "salary",
-      definition: "Monthly pay.",
-      related: "paisa, kamm",
-      example: "Tanqaah aa gayi. — The salary has come in." },
-    { id: "wk6",  type: "vocab", punjabi: "chutti",   english: "leave / holiday / vacation",
-      definition: "Time off work or school.",
-      related: "school, daftar",
-      example: "Aaj chutti hai. — Today is a holiday." },
-    { id: "wk7",  type: "vocab", punjabi: "meting",   english: "meeting",
-      definition: "A scheduled discussion. Borrowed from English.",
-      related: "daftar",
-      example: "Meeting nau vaje. — Meeting at nine." },
-    { id: "wk8",  type: "vocab", punjabi: "file",     english: "file / document folder",
-      definition: "A folder of papers. Borrowed from English.",
-      related: "kaagaz, daftar",
-      example: "File mez te hai. — The file is on the table." },
-    { id: "wk9",  type: "vocab", punjabi: "kampyootar", english: "computer",
-      definition: "An electronic machine for work and play. Borrowed from English.",
-      related: "internet, file",
-      example: "Computer chalu karo. — Turn on the computer." },
-    { id: "wk10", type: "vocab", punjabi: "eemel",    english: "email",
-      definition: "Electronic mail. Borrowed from English.",
-      related: "computer, message",
-      example: "Email bhej do. — Send the email." },
-
-    // ===== Technology =====
-    { id: "tc1",  type: "vocab", punjabi: "mobile",   english: "mobile phone",
-      definition: "A cell phone. Borrowed from English.",
-      related: "phone, charger",
-      example: "Mera mobile kithe hai? — Where is my mobile?" },
-    { id: "tc2",  type: "vocab", punjabi: "intarnet", english: "internet",
-      definition: "The global network. Borrowed from English.",
-      related: "computer",
-      example: "Internet chalda nahin. — The internet isn't working." },
-    { id: "tc3",  type: "vocab", punjabi: "vidio",    english: "video",
-      definition: "A moving picture recording.",
-      related: "photo, mobile",
-      example: "Video bhej do. — Send the video." },
-    { id: "tc4",  type: "vocab", punjabi: "message",  english: "message / text",
-      definition: "A written message. Borrowed from English.",
-      related: "phone, email",
-      example: "Message likh do. — Type the message." },
-    { id: "tc5",  type: "vocab", punjabi: "foto",     english: "photo",
-      definition: "A still picture. Borrowed from English.",
-      related: "camera",
-      example: "Photo khich lo. — Take the photo." },
-    { id: "tc6",  type: "vocab", punjabi: "kemara",   english: "camera",
-      definition: "A device for taking photos. Borrowed from English.",
-      related: "photo",
-      example: "Camera laao. — Bring the camera." },
-    { id: "tc7",  type: "vocab", punjabi: "TV",       english: "television / TV",
-      definition: "A screen for watching shows.",
-      related: "video",
-      example: "TV band karo. — Turn off the TV." },
-    { id: "tc8",  type: "vocab", punjabi: "redio",    english: "radio",
-      definition: "A device that plays broadcast audio.",
-      related: "gaana",
-      example: "Radio te gaana. — A song on the radio." },
-    { id: "tc9",  type: "vocab", punjabi: "chaarjar", english: "charger",
-      definition: "Cable to charge devices. Borrowed from English.",
-      related: "mobile, batti",
-      example: "Charger laao. — Bring the charger." },
-    { id: "tc10", type: "vocab", punjabi: "aip",      english: "app",
-      definition: "A program on your phone. Borrowed from English.",
-      related: "mobile",
-      example: "Eh app vadiya hai. — This app is great." },
-
-    // ===== Body & health extension =====
-    { id: "b15", type: "vocab", punjabi: "bahn",   english: "arm",
-      definition: "From shoulder to wrist.",
-      related: "hath, kohni",
-      example: "Bahn dukhdi hai. — My arm hurts." },
-    { id: "b16", type: "vocab", punjabi: "gardan", english: "neck",
-      definition: "Connects head to body.",
-      related: "sir, gala",
-      example: "Gardan akkad gayi. — My neck is stiff." },
-    { id: "b17", type: "vocab", punjabi: "pith",   english: "back",
-      definition: "The back of the body.",
-      related: "ghutna, bahn",
-      example: "Pith te bojh. — Weight on the back." },
-    { id: "b18", type: "vocab", punjabi: "ghutna", english: "knee",
-      definition: "The middle joint of the leg.",
-      related: "pair, kohni",
-      example: "Ghutna dukhda hai. — My knee hurts." },
-    { id: "b19", type: "vocab", punjabi: "kohni",  english: "elbow",
-      definition: "The middle joint of the arm.",
-      related: "bahn, ghutna",
-      example: "Kohni te chot. — Injury on the elbow." },
-    { id: "b20", type: "vocab", punjabi: "khoon",  english: "blood",
-      definition: "Red liquid in the body.",
-      related: "dil, chot",
-      example: "Khoon vagda hai. — Blood is flowing." },
-    { id: "b21", type: "vocab", punjabi: "saans",  english: "breath",
-      definition: "Air in and out of lungs.",
-      related: "nakk, hawa",
-      example: "Gehri saans lo. — Take a deep breath." },
-    { id: "h16", type: "vocab", punjabi: "bukhaar", english: "fever",
-      definition: "A high body temperature when sick.",
-      related: "bimaar, dawai",
-      example: "Mainu bukhaar hai. — I have a fever." },
-    { id: "h17", type: "vocab", punjabi: "khaansi", english: "cough",
-      definition: "A reflex from a tickle in the throat.",
-      related: "gala, zukam",
-      example: "Khaansi nahin rukdi. — The cough won't stop." },
-    { id: "h18", type: "vocab", punjabi: "zukam",   english: "cold (illness)",
-      definition: "A runny nose and stuffy head.",
-      related: "khaansi, bimaar",
-      example: "Mainu zukam laggya. — I caught a cold." },
-    { id: "h19", type: "vocab", punjabi: "chot",    english: "injury / wound",
-      definition: "Hurt to the body. 'Chot lagna' = to get hurt.",
-      related: "khoon, dukhna",
-      example: "Pair te chot laggi. — I hurt my foot." },
-    { id: "h20", type: "vocab", punjabi: "dard",    english: "pain",
-      definition: "Physical pain. 'Dard hona' = to be in pain.",
-      related: "dukhna, dawai",
-      example: "Sir vich dard. — Pain in the head." },
-    { id: "h21", type: "vocab", punjabi: "haspataal", english: "hospital",
-      definition: "Where sick people get treatment. Borrowed from English.",
-      related: "doctor, dawai",
-      example: "Hospital lai chalo. — Take to the hospital." },
-    { id: "h22", type: "vocab", punjabi: "tabiyat",  english: "health / state of well-being",
-      definition: "How you're feeling. 'Tabiyat kive hai?' = How is your health?",
-      related: "sehat, bimaar",
-      example: "Tabiyat theek nahin. — My health isn't good." },
-
-    // ===== Emotions extension =====
-    { id: "fe13", type: "vocab", punjabi: "sharminda", english: "embarrassed / ashamed",
-      definition: "Feeling shy from a mistake or attention. 'Sharminda hona' = to feel embarrassed.",
-      related: "udaas",
-      example: "Main sharminda haan. — I am embarrassed." },
-    { id: "fe14", type: "vocab", punjabi: "hairaan",   english: "surprised",
-      definition: "Caught off guard. 'Hairaani' = the noun (surprise).",
-      related: "khush",
-      example: "Main hairaan reh gaya. — I was left surprised." },
-    { id: "fe15", type: "vocab", punjabi: "garv",      english: "pride (positive)",
-      definition: "Healthy pride. 'Garv hai' = I'm proud.",
-      related: "khush, izzat",
-      example: "Mainu tuhade te garv hai. — I'm proud of you." },
-    { id: "fe16", type: "vocab", punjabi: "shaqq",     english: "doubt / suspicion",
-      definition: "Uncertainty. 'Shaqq pena' = to suspect.",
-      related: "bharosa",
-      example: "Mainu shaqq hai. — I have doubts." },
-    { id: "fe17", type: "vocab", punjabi: "bharosa",   english: "trust / faith",
-      definition: "Confidence in someone. 'Bharosa karna' = to trust.",
-      related: "shaqq, pyar",
-      example: "Mainu tuhade te bharosa hai. — I trust you." },
-    { id: "fe18", type: "vocab", punjabi: "mafi",      english: "forgiveness / pardon",
-      definition: "'Mafi mangna' = to ask forgiveness.",
-      related: "Mainu maaf karo",
-      example: "Mafi mango. — Apologize." },
-    { id: "fe19", type: "vocab", punjabi: "shaanti",   english: "peace",
-      definition: "Stillness; calm; absence of conflict. 'Sukh-shaanti' = well-being and peace.",
-      related: "shaant, sukh",
-      example: "Ghar vich shaanti rakho. — Keep peace at home." },
-    { id: "fe20", type: "vocab", punjabi: "khauf",     english: "fear / dread",
-      definition: "Stronger than 'darr' — deep fear.",
-      related: "darr",
-      example: "Khauf na khao. — Don't be terrified." },
-
-    // ===== Personality adjectives =====
-    { id: "pa1",  type: "vocab", punjabi: "siyaana",   english: "wise / clever",
-      definition: "Smart and sensible. Used as praise.",
-      related: "samajhdar, bewakoof",
-      example: "Bahut siyaana munda. — A very wise boy." },
-    { id: "pa2",  type: "vocab", punjabi: "bewakoof",  english: "foolish / silly",
-      definition: "Without sense. Mild insult — use carefully.",
-      related: "siyaana",
-      example: "Bewakoof na bano. — Don't be foolish." },
-    { id: "pa3",  type: "vocab", punjabi: "imaandar",  english: "honest",
-      definition: "Truthful and trustworthy. Major compliment.",
-      related: "sach, bharosa",
-      example: "Imaandar bando. — Be honest." },
-    { id: "pa4",  type: "vocab", punjabi: "bahadur",   english: "brave",
-      definition: "Courageous. 'Bahaduri' = bravery (the noun).",
-      related: "himmat, darpok",
-      example: "Bahadur sipaahi. — A brave soldier." },
-    { id: "pa5",  type: "vocab", punjabi: "darpok",    english: "cowardly / scared",
-      definition: "Lacking courage. Mild insult.",
-      related: "bahadur, darr",
-      example: "Darpok na bano. — Don't be a coward." },
-    { id: "pa6",  type: "vocab", punjabi: "ameer",     english: "rich / wealthy",
-      definition: "Has lots of money.",
-      related: "paisa, gareeb",
-      example: "Ameer ghar. — A wealthy household." },
-    { id: "pa7",  type: "vocab", punjabi: "gareeb",    english: "poor",
-      definition: "Without much money. Use with respect.",
-      related: "ameer",
-      example: "Gareebaan di madad karo. — Help the poor." },
-    { id: "pa8",  type: "vocab", punjabi: "mehnati",   english: "hardworking",
-      definition: "From 'mehnat' (effort). Top compliment in Punjabi culture.",
-      related: "mehnat, aalsi",
-      example: "Mehnati bachcha. — A hardworking child." },
-    { id: "pa9",  type: "vocab", punjabi: "aalsi",     english: "lazy",
-      definition: "Doesn't like to work.",
-      related: "mehnati",
-      example: "Aalsi na bano. — Don't be lazy." },
-    { id: "pa10", type: "vocab", punjabi: "pyaara",    english: "lovable / dear",
-      definition: "Beloved. Feminine: 'pyaari'. Plural: 'pyaare'.",
-      related: "pyar",
-      example: "Mera pyaara puttar. — My dear son." },
-    { id: "pa11", type: "vocab", punjabi: "dushman",   english: "enemy",
-      definition: "An opponent or enemy.",
-      related: "dost",
-      example: "Dushman naal vi pyar. — Love even your enemy." },
-    { id: "pa12", type: "vocab", punjabi: "apna",      english: "one's own",
-      definition: "Belonging to oneself. Feminine: 'apni'. Used for family, friends, and home.",
-      related: "mera, parivaar",
-      example: "Apna ghar. — One's own home." },
-
-    // ===== More verbs =====
-    { id: "vb32", type: "vocab", punjabi: "banauna",       english: "to make / build",
-      definition: "Make something. 'Khaana banauna' = to cook food.",
-      related: "karna, todna",
-      example: "Roti banai. — Made roti." },
-    { id: "vb33", type: "vocab", punjabi: "todna",         english: "to break",
-      definition: "Break something.",
-      related: "jodna, banauna",
-      example: "Glass todh dittha. — The glass broke." },
-    { id: "vb34", type: "vocab", punjabi: "jodna",         english: "to join / to attach",
-      definition: "Join two things together.",
-      related: "todna",
-      example: "Hath jod ke. — With folded hands." },
-    { id: "vb35", type: "vocab", punjabi: "sambhalna",     english: "to take care of / handle",
-      definition: "Care for or manage. 'Apne aap nu sambhalo' = take care of yourself.",
-      related: "khayal rakhna",
-      example: "Bachchey nu sambhalo. — Take care of the child." },
-    { id: "vb36", type: "vocab", punjabi: "naachna",       english: "to dance",
-      definition: "Move to music.",
-      related: "naach, bhangra",
-      example: "Sab naach rahe han. — Everyone is dancing." },
-    { id: "vb37", type: "vocab", punjabi: "gaauna",        english: "to sing",
-      definition: "Sing a song.",
-      related: "gaana, geet",
-      example: "Mainu gaana gaauna pasand. — I like to sing songs." },
-    { id: "vb38", type: "vocab", punjabi: "dhona",         english: "to wash",
-      definition: "Wash something.",
-      related: "saaf",
-      example: "Hath dho lo. — Wash your hands." },
-    { id: "vb39", type: "vocab", punjabi: "intezaar karna",  english: "to wait",
-      definition: "Wait for someone or something. 'Intezaar' is the Urdu loan for 'wait'.",
-      related: "ruk",
-      example: "Intezaar karo. — Please wait." },
-    { id: "vb40", type: "vocab", punjabi: "shuru karna",   english: "to start / begin",
-      definition: "Begin something. 'Shuru' = beginning.",
-      related: "khatam karna",
-      example: "Kamm shuru karo. — Start the work." },
-    { id: "vb41", type: "vocab", punjabi: "khatam karna",  english: "to finish / end",
-      definition: "Complete something. 'Khatam' = finished.",
-      related: "shuru karna",
-      example: "Khaana khatam. — Food is finished." },
-    { id: "vb42", type: "vocab", punjabi: "chunna",        english: "to choose / pick",
-      definition: "Pick from options.",
-      related: "pasand",
-      example: "Ikk chuno. — Pick one." },
-    { id: "vb43", type: "vocab", punjabi: "labhna",        english: "to find / search",
-      definition: "Look for or find.",
-      related: "milna",
-      example: "Mainu chaabi labh nahin rahi. — I can't find the key." },
-    { id: "vb44", type: "vocab", punjabi: "chhupna",       english: "to hide",
-      definition: "Conceal yourself or something.",
-      related: "labhna",
-      example: "Bachche chhup gaye. — The kids hid." },
-    { id: "vb45", type: "vocab", punjabi: "maarna",        english: "to hit / strike",
-      definition: "Strike something. Often metaphorical too: 'phone maarna' = to call.",
-      related: "chot",
-      example: "Maaro mat! — Don't hit!" },
-    { id: "vb46", type: "vocab", punjabi: "jagauna",       english: "to wake (someone) up",
-      definition: "Wake someone up. (Compare 'uthna' = to get up oneself.)",
-      related: "uthna, sona",
-      example: "Mainu satt vaje jagao. — Wake me at seven." },
-    { id: "vb47", type: "vocab", punjabi: "kamana",        english: "to earn",
-      definition: "Earn money. 'Kamana' is a celebrated value.",
-      related: "paisa, kamm",
-      example: "Mehnat naal kamana. — Earn through hard work." },
-    { id: "vb49", type: "vocab", punjabi: "vechna",        english: "to sell",
-      definition: "Give in exchange for money.",
-      related: "khareedna, dukaan",
-      example: "Ghar vech ditta. — Sold the house." },
-    { id: "vb50", type: "vocab", punjabi: "ghussa karna",  english: "to get angry",
-      definition: "Express anger. 'Ghussa' is the feeling.",
-      related: "gussa, shaant",
-      example: "Ghussa na karo. — Don't get angry." },
-
-    // ===== Postpositions extension =====
-    { id: "g29", type: "grammar", punjabi: "layi",  english: "for (postposition)",
-      definition: "'Layi' = 'for' / 'in order to'. Comes after the noun.",
-      related: "nu, naal",
-      example: "Tuhade LAYI eh tohfa. — This gift is FOR you." },
-    { id: "g30", type: "grammar", punjabi: "wargi", english: "like / similar to",
-      definition: "Used to compare. Form changes by gender: warga (m), wargi (f), warge (pl).",
-      example: "Maa WARGI. — Like a mother." },
-    { id: "g31", type: "grammar", punjabi: "bina",  english: "without (postposition)",
-      definition: "'Bina' = without. Comes after the noun.",
-      related: "naal",
-      example: "Paani BINA jeevan nahin. — No life WITHOUT water." },
-    { id: "g32", type: "grammar", punjabi: "tak",   english: "until / up to",
-      definition: "'Tak' marks the end-point of time or distance.",
-      example: "Sham TAK aa jaana. — Come UNTIL evening (i.e., by evening)." },
-    { id: "g33", type: "grammar", punjabi: "siwa",  english: "besides / except",
-      definition: "'De siwa' = besides / except.",
-      example: "Tuhade DE SIWA koi nahin. — There's no one BESIDES you." },
-    { id: "g34", type: "grammar", punjabi: "vaste", english: "for the sake of",
-      definition: "Stronger version of 'layi'. 'Tere vaste' = for your sake.",
-      related: "layi",
-      example: "Bachchey de VASTE. — FOR THE SAKE of the child." },
-
-    // ===== Question patterns =====
-    { id: "qp1", type: "phrase", punjabi: "Ki ___ hai?",
-      english: "What is ___? / Is ___?",
-      definition: "Yes/no question pattern. Add a noun in the blank.",
-      example: "Ki paani hai? — Is there water? / Is it water?" },
-    { id: "qp2", type: "phrase", punjabi: "Kithe ___?",
-      english: "Where is ___?",
-      definition: "Asking location.",
-      example: "Kithe bazaar hai? — Where is the market?" },
-    { id: "qp3", type: "phrase", punjabi: "Kis vele?",
-      english: "At what time?",
-      definition: "Asking specific time.",
-      related: "Kinne vaje han?",
-      example: "Kis vele aaoge? — At what time will you come?" },
-    { id: "qp5", type: "phrase", punjabi: "Kithon aaye ho?",
-      english: "Where have you come from?",
-      definition: "Used for arrivals. 'Kithon' = from where.",
-      related: "Tusi kithon ho?",
-      example: "Kithon aaye ho ji? — Where have you come from, please?" },
-    { id: "qp6", type: "phrase", punjabi: "Ki kar rahe ho?",
-      english: "What are you doing?",
-      definition: "Continuous tense question. Friendly check-in.",
-      example: "Hun ki kar rahe ho? — What are you doing now?" },
-
-    // ===== Time-of-day greetings =====
-    { id: "gr1", type: "phrase", punjabi: "Subah bakhair",
-      english: "Good morning.",
-      definition: "Common across Hindi/Urdu/Punjabi. 'Bakhair' = with goodness.",
-      related: "savere",
-      example: "Subah bakhair ji! — Good morning!" },
-    { id: "gr2", type: "phrase", punjabi: "Shubh subah",
-      english: "Good morning (auspicious).",
-      definition: "Slightly more formal/devotional. 'Shubh' = auspicious.",
-      example: "Shubh subah ji. — Good morning." },
-    { id: "gr3", type: "phrase", punjabi: "Shaam vadiya",
-      english: "Good evening.",
-      definition: "A friendly evening greeting. (More common: 'Sat sri akaal' any time of day.)",
-      related: "sham",
-      example: "Shaam vadiya ji. — Good evening." },
-    { id: "gr4", type: "phrase", punjabi: "Shubh raat",
-      english: "Good night.",
-      definition: "Said at bedtime farewells.",
-      related: "raat",
-      example: "Shubh raat, mithe sapne. — Good night, sweet dreams." },
-    { id: "gr5", type: "phrase", punjabi: "Sat sri akaal — har vele",
-      english: "Hello — at any time of day.",
-      definition: "Reminder: Sikhs use 'Sat sri akaal' as morning, evening, AND goodbye. When unsure, use it.",
-      related: "Sat sri akaal",
-      example: "Always safe: 'Sat sri akaal ji'." },
-
-    // ===== Polite refusals =====
-    { id: "nf1", type: "phrase", punjabi: "Nahin ji, shukriya",
-      english: "No thank you (polite).",
-      definition: "The standard polite decline. Adding 'ji' and 'shukriya' softens 'no'.",
-      example: "Hor chai? Nahin ji, shukriya. — More tea? No thank you." },
-    { id: "nf2", type: "phrase", punjabi: "Kade phir",
-      english: "Some other time.",
-      definition: "Soft postponement. 'Kade phir milaange' = we'll meet some other time.",
-      example: "Aaj nahin, kade phir. — Not today, some other time." },
-    { id: "nf3", type: "phrase", punjabi: "Aaj nahin ji",
-      english: "Not today, please.",
-      definition: "Polite decline for today specifically.",
-      example: "Aaj nahin ji, kal aavaanga. — Not today, I'll come tomorrow." },
-    { id: "nf4", type: "phrase", punjabi: "Bahut shukriya, par bas",
-      english: "Many thanks, but enough.",
-      definition: "When declining more food/drink politely.",
-      related: "Bas ji bahut ho gaya",
-      example: "Bahut shukriya, par bas, pet bhar gaya. — Thanks so much, but enough, I'm full." },
-    { id: "nf5", type: "phrase", punjabi: "Mainu maaf karo, main nahin kar sakda",
-      english: "Sorry, I cannot do that.",
-      definition: "Polite firm refusal. (Female: 'sakdi'.)",
-      example: "Maaf karo ji, main nahin kar sakda. — Sorry, I can't do it." },
-    { id: "nf6", type: "phrase", punjabi: "Sochke dasaanga",
-      english: "I'll think about it and let you know.",
-      definition: "Buy time politely instead of saying no immediately.",
-      example: "Sochke dasaanga ji. — I'll think and tell you." },
-
-    // ===== Phone call etiquette =====
-    { id: "ph1", type: "phrase", punjabi: "Hello ji",
-      english: "Hello (on phone).",
-      definition: "Standard phone opening. 'Ji' makes it warm.",
-      example: "Hello ji, kaun? — Hello, who is this?" },
-    { id: "ph2", type: "phrase", punjabi: "Kaun bol reha hai?",
-      english: "Who is speaking?",
-      definition: "Asking the caller's identity. (Female speaker: 'bol rahi hai'.)",
-      example: "Maaf karna, kaun bol reha hai? — Excuse me, who's speaking?" },
-    { id: "ph3", type: "phrase", punjabi: "Ravi naal gall karaani hai",
-      english: "I'd like to speak with Ravi.",
-      definition: "Pattern: '___ naal gall karaani hai'. Replace name as needed.",
-      example: "Mami ji naal gall karaani hai. — I'd like to speak with Auntie." },
-    { id: "ph4", type: "phrase", punjabi: "Ikk minute hold karo",
-      english: "One minute, please hold.",
-      definition: "Asking the caller to wait. 'Hold' borrowed from English.",
-      related: "Mehrbaani karke ikk minute",
-      example: "Ji, ikk minute hold karo. — Yes, hold one minute please." },
-    { id: "ph5", type: "phrase", punjabi: "Baad vich phone karaanga",
-      english: "I'll call later.",
-      definition: "Polite postponement of a call. (Female: 'karaangi'.)",
-      example: "Baad vich phone karaanga, hun busy haan. — I'll call later, I'm busy now." },
-    { id: "ph6", type: "phrase", punjabi: "Awaaz nahin aa rahi",
-      english: "I can't hear (your voice).",
-      definition: "When the line is bad. 'Awaaz' = voice/sound.",
-      example: "Awaaz nahin aa rahi, phir karo. — I can't hear, call again." },
-
-    // ===== Classroom commands =====
-    { id: "cr1", type: "phrase", punjabi: "Khol lo kitaab",
-      english: "Please open your book.",
-      definition: "Common teacher instruction.",
-      related: "kholna, kitaab",
-      example: "Khol lo kitaab, panna 10. — Open your book, page 10." },
-    { id: "cr2", type: "phrase", punjabi: "Likh lo",
-      english: "Please write it down.",
-      definition: "Asking students to take notes.",
-      related: "likhna",
-      example: "Eh shabad likh lo. — Write down this word." },
-    { id: "cr3", type: "phrase", punjabi: "Suno te dohrao",
-      english: "Listen and repeat.",
-      definition: "Classic language-class instruction.",
-      related: "sunna",
-      example: "Hun suno te dohrao. — Now listen and repeat." },
-    { id: "cr4", type: "phrase", punjabi: "Sawaal puchho",
-      english: "Please ask questions.",
-      definition: "Inviting questions.",
-      related: "saval",
-      example: "Koi sawaal puchho? — Any questions to ask?" },
-    { id: "cr5", type: "phrase", punjabi: "Theek hai?",
-      english: "Is that okay? / Got it?",
-      definition: "Quick check-in question.",
-      related: "samajh aayi?",
-      example: "Theek hai? Aage chaliye. — Okay? Let's continue." },
-    { id: "cr6", type: "phrase", punjabi: "Samajh aayi?",
-      english: "Did you understand?",
-      definition: "Asks if a learner caught the lesson. Note the feminine ending matching 'samajh'.",
-      related: "Mainu samajh aa gayi",
-      example: "Samajh aayi ji? — Did you understand?" },
-    { id: "cr7", type: "phrase", punjabi: "Phir koshish karo",
-      english: "Try again, please.",
-      definition: "Encouraging another attempt.",
-      related: "Koshish karo",
-      example: "Galat? Koi gall nahin, phir koshish karo. — Wrong? No problem, try again." },
-    { id: "cr8", type: "phrase", punjabi: "Bahut vadiya!",
-      english: "Excellent! / Very good!",
-      definition: "Highest classroom praise.",
-      related: "Shabaash, Vadiya kamm",
-      example: "Bahut vadiya, shabaash! — Excellent, well done!" },
-
-    // ===== Survival / emergency =====
-    { id: "em1", type: "phrase", punjabi: "Madad!",
-      english: "Help!",
-      definition: "Single-word call for help.",
-      related: "Madad chahidi hai?",
-      example: "Madad! Koi aao! — Help! Someone come!" },
-    { id: "em2", type: "phrase", punjabi: "Doctor bulao",
-      english: "Call a doctor.",
-      definition: "Emergency request.",
-      related: "doctor, hospital",
-      example: "Jaldi doctor bulao! — Quickly call a doctor!" },
-    { id: "em3", type: "phrase", punjabi: "Aag laggi hai!",
-      english: "There's a fire!",
-      definition: "Fire emergency alert.",
-      related: "aag",
-      example: "Bahar nikalo, aag laggi hai! — Get out, there's a fire!" },
-    { id: "em4", type: "phrase", punjabi: "Police bulao",
-      english: "Call the police.",
-      definition: "Emergency request.",
-      example: "Police bulao, jaldi! — Call the police, quickly!" },
-    { id: "em5", type: "phrase", punjabi: "Mainu chot laggi",
-      english: "I am hurt.",
-      definition: "Reporting injury. (Female: same; gender shows on the verb only when extended.)",
-      related: "chot, dard",
-      example: "Mainu chot laggi, madad karo. — I'm hurt, please help." },
-    { id: "em6", type: "phrase", punjabi: "Hospital kithe hai?",
-      english: "Where is the hospital?",
-      definition: "Critical question to know.",
-      related: "hospital",
-      example: "Mainu dasso, hospital kithe hai? — Tell me, where is the hospital?" },
-    { id: "em7", type: "phrase", punjabi: "Mainu darr lagda hai",
-      english: "I'm scared.",
-      definition: "Sharing fear. 'Lagda' is masculine; female speaker uses 'lagdi'.",
-      related: "darr",
-      example: "Mainu darr lagda hai, sath raho. — I'm scared, stay with me." },
-    { id: "em8", type: "phrase", punjabi: "Sambhal ke!",
-      english: "Be careful! / Watch out!",
-      definition: "Warning to someone in danger.",
-      related: "sambhalna",
-      example: "Sambhal ke! Gaddi aa rahi! — Watch out! A car is coming!" },
-
-    // ===== Idioms & sayings (beginner-safe) =====
-    { id: "id1",  type: "phrase", punjabi: "Mehnat da phal mitha",
-      english: "The fruit of hard work is sweet.",
-      definition: "Classic Punjabi proverb. Effort eventually rewards you.",
-      related: "mehnat",
-      example: "Padhai jaari rakh — mehnat da phal mitha. — Keep studying — hard work's fruit is sweet." },
-    { id: "id2",  type: "phrase", punjabi: "Sukh vele Rabb yaad",
-      english: "We remember God only in good times (irony).",
-      definition: "A wry saying — people forget God when comfortable. Reminds us to be grateful always.",
-      related: "Rabb, sukh",
-      example: "Quoted to remind someone to be grateful in easy times too." },
-    { id: "id3",  type: "phrase", punjabi: "Naam vadda, darshan chhote",
-      english: "Big name, small substance.",
-      definition: "Used when something/someone has more reputation than reality.",
-      example: "Eh dukaan da naam vadda, darshan chhote. — This shop's name is big, but reality is small." },
-    { id: "id4",  type: "phrase", punjabi: "Hath joran",
-      english: "To fold hands (= to plead / beg humbly).",
-      definition: "Literally folding hands in prayer-like gesture; figuratively pleading.",
-      related: "Mainu maaf karo",
-      example: "Main hath jod ke benti karda haan. — I plead with folded hands." },
-    { id: "id5",  type: "phrase", punjabi: "Pair pakadne",
-      english: "To touch (someone's) feet (= to seek forgiveness/blessing).",
-      definition: "Highest gesture of humility — touching elder's feet for blessing or apology.",
-      related: "satkaar",
-      example: "Bachche ne dada ji de pair pakade. — The child touched grandfather's feet." },
-    { id: "id6",  type: "phrase", punjabi: "Akhaan vich paani",
-      english: "Tears in the eyes (lit.).",
-      definition: "Used when someone is moved emotionally — happy or sad.",
-      related: "rona, dukh",
-      example: "Vidaai vele akhaan vich paani aa gaya. — Tears came at the farewell." },
-    { id: "id7",  type: "phrase", punjabi: "Dil te hath rakhke",
-      english: "With your hand on your heart (= honestly).",
-      definition: "Used when asking for an honest answer.",
-      related: "sach, imaandar",
-      example: "Dil te hath rakh ke das. — Tell me honestly." },
-    { id: "id8",  type: "phrase", punjabi: "Apni-apni dhol",
-      english: "Everyone plays their own drum (= everyone praises themselves).",
-      definition: "Used when people talk only of their own merits.",
-      related: "dhol, garv",
-      example: "Sab apni-apni dhol vajaande han. — Everyone is beating their own drum." },
-    { id: "id9",  type: "phrase", punjabi: "Munh nu lagam",
-      english: "A bridle on the mouth (= speak less / hold your tongue).",
-      definition: "Advice to think before speaking.",
-      related: "bolna, sach",
-      example: "Munh nu lagam de — soch ke bol. — Bridle your mouth — think before speaking." },
-    { id: "id10", type: "phrase", punjabi: "Chardi kala vich rahe",
-      english: "Stay in rising spirits.",
-      definition: "Sikh blessing/farewell — stay optimistic and upbeat through everything.",
-      related: "Chardi kala",
-      example: "Hamesha chardi kala vich raho. — Always stay in rising spirits." },
-
-    // ===== Round 3: Be-verb full paradigm (hona) =====
-    { id: "bv1", type: "grammar", punjabi: "haan",
-      english: "am (with main / asin)",
-      definition: "Present 'be' for 1st person. 'Main haan' = I am. 'Asin haan' = we are.",
-      related: "hain, hai, han",
-      example: "Main theek HAAN. — I AM fine." },
-    { id: "bv2", type: "grammar", punjabi: "hain",
-      english: "are (with tu — informal you)",
-      definition: "Present 'be' for informal singular 'you'. 'Tu kithe hain?' = Where are you?",
-      related: "haan, ho, han",
-      example: "Tu kithe HAIN? — Where ARE you?" },
-    { id: "bv3", type: "grammar", punjabi: "ho",
-      english: "are (with tusi — polite/plural you)",
-      definition: "Present 'be' for polite or plural 'you'. 'Tusi kithon ho?' = Where are you from?",
-      related: "haan, hain, han",
-      example: "Tusi kive HO? — How ARE you (polite)?" },
-    { id: "bv4", type: "grammar", punjabi: "hai",
-      english: "is (singular 3rd person)",
-      definition: "Present 'be' for 'he/she/it'. 'Oh ghar hai' = He/she is at home.",
-      related: "han, haan",
-      example: "Eh kitaab HAI. — This IS a book." },
-    { id: "bv5", type: "grammar", punjabi: "han",
-      english: "are (plural 3rd person)",
-      definition: "Present 'be' for 'they' / plural. 'Oh ghar han' = They are at home.",
-      related: "hai",
-      example: "Bachche school HAN. — The kids ARE at school." },
-    { id: "bv6", type: "grammar", punjabi: "si",
-      english: "was (masculine singular)",
-      definition: "Past 'be' for masculine singular. 'Main ghar si' = I was at home (male).",
-      related: "sigi, sigee, san",
-      example: "Oh kal ithe SI. — He WAS here yesterday." },
-    { id: "bv7", type: "grammar", punjabi: "sigi",
-      english: "was (feminine singular)",
-      definition: "Past 'be' for feminine singular. 'Main ghar sigi' = I was at home (female).",
-      related: "si, sigeean, san",
-      example: "Oh kal ithe SIGI. — She WAS here yesterday." },
-    { id: "bv8", type: "grammar", punjabi: "san",
-      english: "were (plural)",
-      definition: "Past 'be' plural. 'Asin ghar san' = We were at home.",
-      related: "si, sigi",
-      example: "Bachche school SAN. — The kids WERE at school." },
-    { id: "bv9", type: "grammar", punjabi: "nahin hai / nahin han",
-      english: "is not / are not",
-      definition: "Negate present 'be' by adding 'nahin' before the form. 'Oh ghar nahin hai.'",
-      related: "nahin",
-      example: "Paani NAHIN HAI. — There IS NO water." },
-    { id: "bv10", type: "grammar", punjabi: "nahin si / nahin sigi",
-      english: "was not",
-      definition: "Negate past 'be' the same way. Match gender on 'si/sigi'.",
-      related: "si, sigi",
-      example: "Main kal ithe NAHIN SI. — I WAS NOT here yesterday." },
-
-    // ===== Pronoun cases full table =====
-    { id: "pcs1", type: "grammar", punjabi: "main / mainu / mera",
-      english: "I / to-me / my (m.)",
-      definition: "Subject / object / possessive. Feminine possessive = 'meri'; plural = 'mere'.",
-      related: "asin, sanu, saada",
-      example: "MAIN aaya, MAINU bhukh, MERA ghar. — I came, I'm hungry, my home." },
-    { id: "pcs2", type: "grammar", punjabi: "asin / sanu / saada",
-      english: "we / to-us / our (m.)",
-      definition: "1st person plural set. Fem. = 'saadi'; pl. = 'saade'.",
-      related: "main",
-      example: "ASIN jaa rahe, SANU dasso, SAADA pind. — We are going, tell us, our village." },
-    { id: "pcs3", type: "grammar", punjabi: "tu / tainu / tera",
-      english: "you (informal) / to-you / your",
-      definition: "Informal singular — used with kids, close friends, God. Fem. = 'teri'; pl. = 'tere'.",
-      related: "tusi, tuhanu",
-      example: "TU aa, TAINU dasaan, TERA naam. — You come, I'll tell you, your name." },
-    { id: "pcs4", type: "grammar", punjabi: "tusi / tuhanu / tuhada",
-      english: "you (polite/plural) / to-you / your",
-      definition: "Default polite 'you'. Use unless you know each other well. Fem. = 'tuhadi'.",
-      related: "tu",
-      example: "TUSI baitho, TUHANU chai?, TUHADA ghar. — Please sit, tea for you?, your home." },
-    { id: "pcs5", type: "grammar", punjabi: "oh / ohnu / ohda",
-      english: "he·she·that / to-him·her / his·her",
-      definition: "3rd person singular (he/she/it/that). No gender split on the pronoun itself; only on possessive: ohda (m.) / ohdi (f.).",
-      related: "ehnu, ehda",
-      example: "OH aaya, OHNU dasso, OHDA ghar. — He came, tell him, his home." },
-    { id: "pcs6", type: "grammar", punjabi: "eh / ehnu / ehda",
-      english: "this / to-this / of-this",
-      definition: "3rd person 'this' (close). Parallel to oh/ohnu/ohda but for nearby person/thing.",
-      related: "oh",
-      example: "EH meri bhain, EHNU bulao, EHDA naam Simran. — This is my sister, call her, her name is Simran." },
-    { id: "pcs7", type: "grammar", punjabi: "oh (plural) / ohnaan / ohnaan da",
-      english: "they / to-them / their",
-      definition: "Plural 3rd person. 'Ohnaan' is the oblique form. Possessive: 'ohnaan da' (m.) / 'di' (f.).",
-      related: "oh",
-      example: "OH aaye, OHNAAN nu pucho, OHNAAN DA ghar. — They came, ask them, their home." },
-    { id: "pcs8", type: "grammar", punjabi: "kaun / kis / kis da",
-      english: "who / whom / whose",
-      definition: "Question pronoun set. 'Kis' is oblique. 'Kis da' = whose (m.) / 'kis di' (f.).",
-      related: "ki",
-      example: "KAUN hai? KIS nu chahidi? KIS DA mobile? — Who is it? Whom does it belong to? Whose mobile?" },
-
-    // ===== Present-tense verb conjugation (model: karna = to do) =====
-    { id: "vc1", type: "grammar", punjabi: "main karda haan / kardi haan",
-      english: "I do / I am doing (m./f.)",
-      definition: "Habitual present. Pattern: stem + da/di/de + 'be' verb. Match gender (-da m., -di f.).",
-      related: "karna, haan",
-      example: "Main roz kamm KARDA HAAN. — I do work daily (male speaker)." },
-    { id: "vc2", type: "grammar", punjabi: "tu karda hain / kardi hain",
-      english: "you (informal) do",
-      definition: "Singular informal. Match gender of subject.",
-      related: "tu, hain",
-      example: "Tu ki KARDA HAIN? — What do you do?" },
-    { id: "vc3", type: "grammar", punjabi: "tusi karde ho / kardiyaan ho",
-      english: "you (polite) do",
-      definition: "Polite/plural. Plural ending '-de' (m.) or '-diyaan' (f.).",
-      related: "tusi, ho",
-      example: "Tusi kithe kamm KARDE HO? — Where do you (polite) work?" },
-    { id: "vc4", type: "grammar", punjabi: "oh karda hai / kardi hai",
-      english: "he/she does",
-      definition: "Singular 3rd person. 'Hai' for both genders; '-da/-di' carries the gender.",
-      related: "oh, hai",
-      example: "Oh roz yoga KARDI HAI. — She does yoga daily." },
-    { id: "vc5", type: "grammar", punjabi: "oh karde han / kardiyaan han",
-      english: "they do",
-      definition: "Plural 3rd person. Plural verb form + 'han'.",
-      related: "han",
-      example: "Bachche school vich padhai KARDE HAN. — The kids study at school." },
-    { id: "vc6", type: "grammar", punjabi: "main jaanda / jaandi haan",
-      english: "I go / I am going",
-      definition: "Same pattern with 'jaana' (to go). Stem 'jaa' → jaanda (m.) / jaandi (f.).",
-      related: "jaana",
-      example: "Main daftar JAANDA HAAN. — I go to the office." },
-    { id: "vc7", type: "grammar", punjabi: "main khaanda / khaandi haan",
-      english: "I eat",
-      definition: "From 'khaana'. Stem 'khaa' → khaanda / khaandi.",
-      related: "khaana",
-      example: "Main mass nahin KHAANDA. — I don't eat meat." },
-
-    // ===== Past-tense verb conjugation =====
-    { id: "vc8", type: "grammar", punjabi: "main kita / kiti",
-      english: "I did (m./f.)",
-      definition: "Simple past of 'karna'. 'Kita' (m. speaker), 'Kiti' (f. speaker). For transitive past, the verb agrees with the OBJECT, not subject — advanced point.",
-      related: "karna",
-      example: "Main kamm KITA. — I did the work." },
-    { id: "vc9", type: "grammar", punjabi: "main gaya / gayi",
-      english: "I went",
-      definition: "Simple past of 'jaana'. Match gender of subject (intransitive).",
-      related: "jaana",
-      example: "Main bazaar GAYA. — I went to the market (male)." },
-    { id: "vc10", type: "grammar", punjabi: "main aaya / aayi",
-      english: "I came",
-      definition: "Simple past of 'aana'. Aaya (m.) / Aayi (f.).",
-      related: "aana",
-      example: "Main hune AAYI. — I just came (female)." },
-    { id: "vc11", type: "grammar", punjabi: "main khaada / khaadi",
-      english: "I ate",
-      definition: "Past of 'khaana'. The food (object) decides gender: 'roti khaadi', 'aam khaada'.",
-      related: "khaana",
-      example: "Main roti KHAADI. — I ate roti." },
-    { id: "vc12", type: "grammar", punjabi: "main pita / piti",
-      english: "I drank (m./f. of object)",
-      definition: "Past of 'peena'. The OBJECT picks the gender: 'paani pita' (paani is masc.), 'chai piti' (chai is fem.).",
-      related: "peena",
-      example: "Main chai PITI. — I drank tea." },
-
-    // ===== Future-tense verb conjugation =====
-    { id: "vc13", type: "grammar", punjabi: "main karaanga / karaangi",
-      english: "I will do",
-      definition: "Future tense. Add '-aanga' (m.) or '-aangi' (f.) to stem.",
-      related: "karna",
-      example: "Main kal kamm KARAANGA. — I will do the work tomorrow." },
-    { id: "vc14", type: "grammar", punjabi: "tu karenga / karengi",
-      english: "you (informal) will do",
-      definition: "Informal singular future. '-enga' / '-engi'.",
-      related: "tu",
-      example: "Tu ki KARENGA? — What will you do?" },
-    { id: "vc15", type: "grammar", punjabi: "tusi karoge / karogiyaan",
-      english: "you (polite) will do",
-      definition: "Polite/plural future. '-oge' (m.) / '-ogiyaan' (f.).",
-      related: "tusi",
-      example: "Tusi aaoge? — Will you (polite) come?" },
-    { id: "vc16", type: "grammar", punjabi: "oh karega / karegi",
-      english: "he/she will do",
-      definition: "Singular 3rd person future. '-ega' (m.) / '-egi' (f.).",
-      related: "oh",
-      example: "Oh kal AAYEGA. — He will come tomorrow." },
-    { id: "vc17", type: "grammar", punjabi: "oh karange / karangiyaan",
-      english: "they will do",
-      definition: "Plural 3rd person future.",
-      related: "han",
-      example: "Bachche khelange. — The kids will play." },
-    { id: "vc18", type: "grammar", punjabi: "main jaaonga / jaaongi",
-      english: "I will go",
-      definition: "Future of 'jaana' (irregular vowel). Match gender.",
-      related: "jaana",
-      example: "Main pind JAAONGA. — I will go to the village." },
-
-    // ===== Imperative & polite request forms =====
-    { id: "im1", type: "grammar", punjabi: "kar",
-      english: "do! (most informal)",
-      definition: "Bare stem = command to a child or close friend. Avoid with strangers — sounds rude.",
-      related: "karna",
-      example: "Kamm KAR. — Do the work (informal)." },
-    { id: "im2", type: "grammar", punjabi: "karo",
-      english: "do (please) — polite/plural",
-      definition: "Default polite imperative. Used in most situations.",
-      related: "karna",
-      example: "Mehrbaani karke kamm KARO. — Please do the work." },
-    { id: "im4", type: "grammar", punjabi: "karna ji",
-      english: "(would you) do, please",
-      definition: "Even softer — uses the infinitive as a polite request. Common Punjabi style.",
-      example: "Eh chithi pohanchaa dena JI. — Please deliver this letter." },
-    { id: "im5", type: "phrase", punjabi: "Mehrbaani karke ___",
-      english: "Please ___ (formal).",
-      definition: "Formal request opener. Fill in any verb.",
-      related: "Kirpa karke",
-      example: "Mehrbaani karke darvaaza band karo. — Please close the door." },
-    { id: "im6", type: "phrase", punjabi: "Kirpa karke ___",
-      english: "Kindly ___.",
-      definition: "More devotional/formal version. Common in announcements.",
-      related: "Mehrbaani karke",
-      example: "Kirpa karke shaant raho. — Kindly remain quiet." },
-
-    // ===== Compound verbs — completion (light verbs) =====
-    { id: "lvb1", type: "grammar", punjabi: "kar lo",
-      english: "go ahead and do (it)",
-      definition: "Adding 'lo/lai' adds the sense of 'completion FOR yourself'. Friendly, encouraging.",
-      related: "karna, lena",
-      example: "Khaana KHA LO. — Go ahead and eat (for yourself)." },
-    { id: "lvb2", type: "grammar", punjabi: "de do",
-      english: "give (it away)",
-      definition: "'Do/de' adds 'completion FOR someone else'. 'De do' = give (to them).",
-      related: "denna",
-      example: "Eh ohnu DE DO. — Give this to him." },
-    { id: "lvb3", type: "grammar", punjabi: "ho gaya",
-      english: "(it) happened / is done",
-      definition: "'Ho gaya' = completed. Very common. Feminine: 'ho gayi'.",
-      related: "hona, jaana",
-      example: "Kamm HO GAYA. — The work is done." },
-    { id: "lvb4", type: "grammar", punjabi: "aa gaya",
-      english: "(he) has come / arrived",
-      definition: "'Aa gaya' = arrived. The 'gaya' adds completion to 'aa' (come).",
-      related: "aana, jaana",
-      example: "Bus AA GAYI. — The bus has arrived." },
-    { id: "lvb5", type: "grammar", punjabi: "kha lo",
-      english: "go ahead and eat",
-      definition: "Friendly invitation to eat. The 'lo' is warm — 'for yourself'.",
-      related: "khaana",
-      example: "Garam roti KHA LO. — Eat the warm roti." },
-    { id: "lvb6", type: "grammar", punjabi: "pee lo",
-      english: "go ahead and drink",
-      definition: "Same pattern with 'peena'.",
-      related: "peena",
-      example: "Chai PEE LO. — Drink your tea." },
-    { id: "lvb7", type: "grammar", punjabi: "le lo",
-      english: "take (it for yourself)",
-      definition: "Offering. 'Le lo' = please take (it).",
-      related: "lena",
-      example: "Eh tohfa LE LO. — Take this gift." },
-    { id: "lvb8", type: "grammar", punjabi: "dass do",
-      english: "tell (someone)",
-      definition: "'Do' adds direction toward the listener. 'Dass do' = tell (to them).",
-      related: "dassna",
-      example: "Mainu DASS DO. — Tell me." },
-
-    // ===== Compound verbs — direction / benefit =====
-    { id: "lvb9", type: "grammar", punjabi: "le aao",
-      english: "bring (it)",
-      definition: "'Le' (take) + 'aao' (come) = bring. A frequent compound.",
-      related: "lena, aana",
-      example: "Paani LE AAO. — Bring water." },
-    { id: "lvb10", type: "grammar", punjabi: "le jao",
-      english: "take (it away)",
-      definition: "'Le' + 'jao' (go) = take away.",
-      related: "lena, jaana",
-      example: "Eh chithi LE JAO. — Take this letter (away)." },
-    { id: "lvb11", type: "grammar", punjabi: "suna do",
-      english: "tell / make (someone) hear",
-      definition: "Causative + completion. 'Suna do' = make me hear it.",
-      related: "sunna",
-      example: "Apna gaana SUNA DO. — Sing me your song." },
-    { id: "lvb12", type: "grammar", punjabi: "dikha do",
-      english: "show (it)",
-      definition: "'Dikha' (show) + 'do' (give-direction).",
-      related: "vekhna",
-      example: "Tasveer DIKHA DO. — Show me the picture." },
-    { id: "lvb13", type: "grammar", punjabi: "bana do",
-      english: "make (it for someone)",
-      definition: "'Bana' (make) + 'do' = make for me/them.",
-      related: "banauna",
-      example: "Chai BANA DO. — Make tea (for me/us)." },
-    { id: "lvb14", type: "grammar", punjabi: "rakh do",
-      english: "place (it down)",
-      definition: "'Rakh' (place) + 'do' = put it down (for someone or just complete it).",
-      related: "rakhna",
-      example: "Mez te RAKH DO. — Place it on the table." },
-
-    // ===== Continuous aspect =====
-    { id: "cs1", type: "grammar", punjabi: "main kar reha haan / rahi haan",
-      english: "I am doing (right now)",
-      definition: "Present continuous. Stem + 'reha/rahi/rahe' + 'be' verb. Match gender.",
-      related: "karna",
-      example: "Main padhai KAR REHA HAAN. — I am studying right now." },
-    { id: "cs2", type: "grammar", punjabi: "tu kar reha hain / rahi hain",
-      english: "you (informal) are doing",
-      definition: "Informal singular continuous.",
-      related: "tu",
-      example: "Tu ki KAR REHA HAIN? — What are you doing?" },
-    { id: "cs3", type: "grammar", punjabi: "tusi kar rahe ho",
-      english: "you (polite) are doing",
-      definition: "Polite/plural continuous. Plural form 'rahe' (m.) / 'rahiyaan' (f.).",
-      related: "tusi",
-      example: "Tusi ki KAR RAHE HO? — What are you doing (polite)?" },
-    { id: "cs4", type: "grammar", punjabi: "oh kar reha hai / rahi hai",
-      english: "he/she is doing",
-      definition: "3rd person singular continuous. 'Hai' for both; 'reha/rahi' carries gender.",
-      related: "oh",
-      example: "Oh khaana BANA RAHI HAI. — She is making food." },
-    { id: "cs5", type: "grammar", punjabi: "main ja raha si",
-      english: "I was going",
-      definition: "Past continuous. Stem + 'raha/rahi' + 'si/sigi'. Match gender.",
-      related: "jaana, si",
-      example: "Main bazaar JA RAHA SI jadon barish hoyi. — I was going to the market when it rained." },
-    { id: "cs6", type: "grammar", punjabi: "kar reha hovega",
-      english: "(he) will be doing / probably is doing",
-      definition: "Future / probable continuous. Used to guess what someone is doing.",
-      related: "hovega",
-      example: "Hun oh so REHA HOVEGA. — He's probably sleeping now." },
-
-    // ===== Conditional & hypothetical =====
-    { id: "cd1", type: "grammar", punjabi: "Je ___, taan ___",
-      english: "If ___, then ___",
-      definition: "Basic conditional pattern. 'Je' = if, 'taan' = then.",
-      related: "agar",
-      example: "JE meeh peya, TAAN ghar reh javaange. — IF it rains, THEN we'll stay home." },
-    { id: "cd2", type: "grammar", punjabi: "Je ___ hunda, taan ___ hunda",
-      english: "If ___ had been, then ___ would have been",
-      definition: "Past unreal conditional ('hunda' = would have been).",
-      example: "Je main jaanda, TAAN dass ditta HUNDA. — If I had known, I would have told you." },
-    { id: "cd3", type: "grammar", punjabi: "agar",
-      english: "if (Urdu/Hindi loan)",
-      definition: "Synonym of 'je'. Both are used. 'Agar… magar…' = if… but…",
-      related: "je",
-      example: "AGAR tusi aaoge taan acha hovega. — If you come, that'll be nice." },
-    { id: "cd4", type: "grammar", punjabi: "magar",
-      english: "but (conditional contrast)",
-      definition: "Stronger contrast than 'par'. Often paired with 'agar'.",
-      related: "par, agar",
-      example: "Main aavaanga MAGAR der naal. — I'll come BUT late." },
-    { id: "cd5", type: "phrase", punjabi: "shayad",
-      english: "perhaps / maybe.",
-      definition: "Used to soften a claim or guess.",
-      related: "ho sakda",
-      example: "SHAYAD oh kal aavega. — He'll PERHAPS come tomorrow." },
-    { id: "cd6", type: "phrase", punjabi: "ho sakda hai",
-      english: "it's possible / could be.",
-      definition: "'Ho sakda hai ki…' = it's possible that…",
-      related: "shayad",
-      example: "HO SAKDA HAI ki barish hove. — It's possible that it might rain." },
-
-    // ===== Conjunctions =====
-    { id: "cj2", type: "grammar", punjabi: "ate",
-      english: "and (formal)",
-      definition: "More formal/written form of 'te'.",
-      related: "te",
-      example: "Punjabi ATE Hindi. — Punjabi AND Hindi." },
-    { id: "cj4", type: "grammar", punjabi: "lekin",
-      english: "but (formal)",
-      definition: "Formal/written 'but'. From Urdu.",
-      related: "par",
-      example: "Acha plan, LEKIN mehnga. — Good plan, BUT expensive." },
-    { id: "cj5", type: "grammar", punjabi: "ya",
-      english: "or",
-      definition: "Choosing between options.",
-      example: "Chai YA coffee? — Tea OR coffee?" },
-    { id: "cj6", type: "grammar", punjabi: "kyunki",
-      english: "because",
-      definition: "Gives a reason. Comes between two clauses.",
-      related: "is layi",
-      example: "Main nahin aaya KYUNKI bimaar si. — I didn't come BECAUSE I was sick." },
-    { id: "cj7", type: "grammar", punjabi: "is layi",
-      english: "therefore / so",
-      definition: "Result connector. 'Bimaar si, IS LAYI nahin aaya.'",
-      related: "kyunki",
-      example: "Barish hoyi, IS LAYI ghar reh gaye. — It rained, SO we stayed home." },
-    { id: "cj8", type: "grammar", punjabi: "bhaaven",
-      english: "although / even though",
-      definition: "Concession connector.",
-      related: "phir vi",
-      example: "BHAAVEN thakeya, PHIR VI aaya. — EVEN THOUGH tired, he came anyway." },
-    { id: "cj9", type: "grammar", punjabi: "phir vi",
-      english: "even so / still",
-      definition: "Pairs with 'bhaaven' or stands alone.",
-      related: "bhaaven",
-      example: "Mehnga hai, PHIR VI khareedan. — It's expensive, STILL I'll buy it." },
-    { id: "cj10", type: "grammar", punjabi: "jadon",
-      english: "when (relative)",
-      definition: "Used inside sentences ('when X, Y'). Different from question 'kadon?'.",
-      related: "kadon",
-      example: "JADON main pohanchaan, phone karaanga. — WHEN I arrive, I'll call." },
-    { id: "cj11", type: "grammar", punjabi: "jithe",
-      english: "where (relative)",
-      definition: "Inside sentences. Different from question 'kithe?'.",
-      related: "kithe",
-      example: "JITHE tusi raho, oh ghar saaf hai. — WHEREVER you stay, that home is clean." },
-    { id: "cj12", type: "grammar", punjabi: "jo",
-      english: "who / which / that",
-      definition: "Relative pronoun introducing a clause.",
-      example: "Oh banda JO kal aaya si. — The man WHO came yesterday." },
-
-    // ===== Discourse markers / fillers =====
-    { id: "dm1", type: "phrase", punjabi: "oye",
-      english: "hey! / oh! (informal).",
-      definition: "Casual attention-getter. Use with friends only — can sound rude with strangers.",
-      example: "OYE, kithe ja reha? — HEY, where are you going?" },
-    { id: "dm2", type: "phrase", punjabi: "lai",
-      english: "here, take this / well then.",
-      definition: "Filler when handing something over or starting a new thought.",
-      example: "LAI, eh paisa rakh. — HERE, keep this money." },
-    { id: "dm3", type: "phrase", punjabi: "chal",
-      english: "come on / let's go / okay.",
-      definition: "Multipurpose: 'let's go', 'okay fine', 'come on'.",
-      related: "chalo",
-      example: "CHAL phir milange. — OK then, see you later." },
-    { id: "dm4", type: "phrase", punjabi: "bas",
-      english: "enough / just / that's it.",
-      definition: "Marks completion or limit. 'Bas ho gaya' = that's enough.",
-      example: "BAS ji bahut. — THAT'S enough, thank you." },
-    { id: "dm5", type: "phrase", punjabi: "hor",
-      english: "more / what else (filler).",
-      definition: "'Hor ki?' is the classic Punjabi 'so what's up?' check-in.",
-      example: "HOR ki haal? — WHAT ELSE is up?" },
-    { id: "dm7", type: "phrase", punjabi: "sahi",
-      english: "right / correct / true.",
-      definition: "Quick agreement.",
-      related: "theek",
-      example: "SAHI gall! — RIGHT said!" },
-    { id: "dm8", type: "phrase", punjabi: "yaar",
-      english: "buddy / pal / man.",
-      definition: "Term of friendly address — like 'man' or 'dude'. Used between close friends.",
-      example: "YAAR, sun. — Listen, MAN." },
-    { id: "dm9", type: "phrase", punjabi: "dekh",
-      english: "look / see (informal).",
-      definition: "Attention-getter. 'Dekho' for polite.",
-      related: "vekhna",
-      example: "DEKH, ainj kar. — LOOK, do it like this." },
-    { id: "dm10", type: "phrase", punjabi: "suno",
-      english: "listen / hey.",
-      definition: "Polite attention-getter. Common to address strangers.",
-      related: "sunna",
-      example: "SUNO ji, station kithe? — LISTEN please, where's the station?" },
-
-    // ===== Storytelling connectors =====
-    { id: "st1", type: "phrase", punjabi: "ikk vaari",
-      english: "once / one time.",
-      definition: "Story opener — like 'once upon a time'.",
-      example: "IKK VAARI di gall hai. — IT'S a story FROM ONE TIME." },
-    { id: "st3", type: "phrase", punjabi: "achanak",
-      english: "suddenly.",
-      definition: "Adds drama to a story.",
-      example: "ACHANAK barish shuru ho gayi. — SUDDENLY rain started." },
-    { id: "st4", type: "phrase", punjabi: "akhir vich",
-      english: "in the end / finally.",
-      definition: "Closing the story.",
-      related: "akhri",
-      example: "AKHIR VICH sab khush. — IN THE END everyone was happy." },
-    { id: "st5", type: "phrase", punjabi: "us toon baad",
-      english: "after that.",
-      definition: "Sequence connector. 'Us' = that.",
-      related: "phir",
-      example: "US TOON BAAD asin ghar gaye. — AFTER THAT we went home." },
-    { id: "st6", type: "phrase", punjabi: "pehlaan",
-      english: "first / before.",
-      definition: "Opens the first event. 'Pehlaan-pehlaan' = at first.",
-      related: "pehla",
-      example: "PEHLAAN chai banai, phir nashta. — FIRST I made tea, then breakfast." },
-    { id: "st7", type: "phrase", punjabi: "is to ilawa",
-      english: "besides this / additionally.",
-      definition: "Adds another point.",
-      example: "IS TO ILAWA oh gaana vi gaunda. — BESIDES THIS, he also sings." },
-
-    // ===== Hundreds & thousands =====
-    { id: "nh2", type: "vocab", punjabi: "do sau",
-      english: "two hundred (200)",
-      definition: "Pattern: number + 'sau'. Works for 100s.",
-      related: "sau",
-      example: "Do sau bachche. — Two hundred children." },
-    { id: "nh3", type: "vocab", punjabi: "panj sau",
-      english: "five hundred (500)",
-      definition: "500.",
-      related: "sau, hazaar",
-      example: "Panj sau da note. — A 500-rupee note." },
-    { id: "nh5", type: "vocab", punjabi: "das hazaar",
-      english: "ten thousand (10,000)",
-      definition: "10,000.",
-      related: "hazaar, lakh",
-      example: "Das hazaar log. — Ten thousand people." },
-    { id: "nh6", type: "vocab", punjabi: "lakh",
-      english: "one hundred thousand (100,000)",
-      definition: "South Asian counting unit = 100,000. NOT a million.",
-      related: "hazaar, crore",
-      example: "Ikk lakh rupaye. — One hundred thousand rupees." },
-    { id: "nh7", type: "vocab", punjabi: "crore",
-      english: "ten million (10,000,000)",
-      definition: "South Asian unit = 10 million = 100 lakh.",
-      related: "lakh",
-      example: "Ikk crore. — Ten million." },
-    { id: "nh8", type: "vocab", punjabi: "sava sau",
-      english: "one hundred twenty-five (125)",
-      definition: "'Sava' (1¼) + sau = 125. Common in money/age.",
-      related: "savaa, dhaayi sau",
-      example: "Sava sau saal. — 125 years." },
-    { id: "nh9", type: "vocab", punjabi: "dhaayi sau",
-      english: "two hundred fifty (250)",
-      definition: "'Dhaayi' (2½) + sau = 250.",
-      related: "dhaayi",
-      example: "Dhaayi sau gram. — 250 grams." },
-    { id: "nh10", type: "vocab", punjabi: "adha",
-      english: "half",
-      definition: "'Adha' (m.) / 'adhi' (f.). 'Adha kilo' = half a kilo.",
-      related: "savaa, derh",
-      example: "Adha glass paani. — Half a glass of water." },
-
-    // ===== Ordinals =====
-    { id: "or4", type: "vocab", punjabi: "chautha",
-      english: "fourth",
-      definition: "4th. Fem. 'chauthi'.",
-      related: "char",
-      example: "Chautha mahina. — The fourth month." },
-    { id: "or5", type: "vocab", punjabi: "panjvaan",
-      english: "fifth",
-      definition: "5th. From 'panj'. Pattern: number + 'vaan'.",
-      related: "panj",
-      example: "Panjvaan saal. — The fifth year." },
-
-    // ===== Directions & navigation =====
-    { id: "dr4", type: "vocab", punjabi: "modh",
-      english: "turn / bend",
-      definition: "A turn. 'Modh lao' = take a turn.",
-      example: "Agle MODH te ruko. — Stop at the next turn." },
-    { id: "dr5", type: "vocab", punjabi: "uttar",
-      english: "north",
-      definition: "Cardinal direction.",
-      related: "dakkhan",
-      example: "UTTAR vall jao. — Go toward the north." },
-    { id: "dr6", type: "vocab", punjabi: "dakkhan",
-      english: "south",
-      definition: "Cardinal direction.",
-      related: "uttar",
-      example: "DAKKHAN da mausam. — Southern weather." },
-    { id: "dr7", type: "vocab", punjabi: "poorab",
-      english: "east",
-      definition: "Where the sun rises.",
-      related: "pachhim, suraj",
-      example: "POORAB to suraj. — Sun from the east." },
-    { id: "dr8", type: "vocab", punjabi: "pachhim",
-      english: "west",
-      definition: "Where the sun sets.",
-      related: "poorab",
-      example: "PACHHIM vall samandar. — Ocean to the west." },
-    { id: "dr9", type: "vocab", punjabi: "najdik",
-      english: "near / close",
-      definition: "Nearby. 'Najdik hai' = it's nearby.",
-      related: "door",
-      example: "Bank NAJDIK hai. — The bank is NEAR." },
-
-    // ===== Restaurant ordering =====
-    { id: "rs1", type: "vocab", punjabi: "menu",
-      english: "menu (food list)",
-      definition: "Borrowed from English. 'Menu dikhao' = show the menu.",
-      example: "Menu LAAO ji. — Bring the menu, please." },
-    { id: "rs2", type: "vocab", punjabi: "waiter",
-      english: "waiter / server",
-      definition: "Borrowed. Polite address: 'Bhai sahab' (brother sir).",
-      example: "Waiter bhai, ikk minute. — Waiter, one minute please." },
-    { id: "rs3", type: "vocab", punjabi: "order",
-      english: "order (food)",
-      definition: "Borrowed. 'Order karna' = to place an order.",
-      example: "Asin order karange. — We'll order." },
-    { id: "rs4", type: "vocab", punjabi: "bill",
-      english: "bill / check",
-      definition: "Borrowed. 'Bill lao' = bring the bill.",
-      example: "Bill LAO ji. — Bring the bill, please." },
-    { id: "rs5", type: "phrase", punjabi: "Ikk plate ___ mil sakdi?",
-      english: "Could I get a plate of ___?",
-      definition: "Polite ordering pattern. Replace blank with the dish.",
-      example: "Ikk plate daal-makhni MIL SAKDI? — Could I get a plate of daal-makhni?" },
-    { id: "rs6", type: "phrase", punjabi: "Eh kis da swaad hai?",
-      english: "What does this taste like?",
-      definition: "Asking about flavor before ordering.",
-      related: "swaad, mitha, namkeen",
-      example: "Eh sabzi KIS DA SWAAD HAI? — What does this veggie taste like?" },
-    { id: "rs7", type: "phrase", punjabi: "Tikha nahin chahida",
-      english: "I don't want it spicy.",
-      definition: "Critical phrase. 'Halka tikha' = mildly spicy.",
-      related: "tikha",
-      example: "Mainu TIKHA NAHIN CHAHIDA. — I don't want it spicy." },
-    { id: "rs8", type: "phrase", punjabi: "Bill lao ji",
-      english: "Bring the bill, please.",
-      definition: "Standard close to a meal.",
-      example: "Bill LAO JI. — The bill, please." },
-    { id: "rs9", type: "phrase", punjabi: "Khaana bahut vadiya si",
-      english: "The food was excellent.",
-      definition: "Compliment to give before leaving.",
-      example: "Khaana BAHUT VADIYA SI, shukriya. — The food was excellent, thanks." },
-    { id: "rs10", type: "phrase", punjabi: "Paani la dyo",
-      english: "Bring water, please.",
-      definition: "Common request — Punjabi style 'la dyo' = bring (please).",
-      related: "paani",
-      example: "Thanda PAANI LA DYO. — Bring cold water, please." },
-
-    // ===== Bargaining at the bazaar =====
-    { id: "bg1", type: "phrase", punjabi: "Kinne da?",
-      english: "How much is it?",
-      definition: "Quick price question. (Same as 'Kinne paise?'.)",
-      example: "Eh KINNE DA? — How much is this?" },
-    { id: "bg2", type: "phrase", punjabi: "Bahut jyada hai",
-      english: "That's too much.",
-      definition: "Standard pushback on price. Said with a smile.",
-      related: "jyada",
-      example: "Nahin ji, BAHUT JYADA HAI. — No, that's too much." },
-    { id: "bg3", type: "phrase", punjabi: "Ghatt karo",
-      english: "Lower it / reduce the price.",
-      definition: "Direct ask for a discount. 'Thoda ghatt karo' = a little less.",
-      related: "ghatt",
-      example: "Thoda GHATT KARO ji. — Lower it a bit, please." },
-    { id: "bg4", type: "phrase", punjabi: "Akhri keemat",
-      english: "Final price.",
-      definition: "Asking for the seller's bottom line.",
-      related: "akhri, keemat",
-      example: "AKHRI KEEMAT dasso. — Tell me the final price." },
-    { id: "bg5", type: "phrase", punjabi: "Hor sasta nahin?",
-      english: "Any cheaper?",
-      definition: "Polite negotiation question.",
-      related: "sasta",
-      example: "HOR SASTA NAHIN? — Nothing cheaper?" },
-    { id: "bg6", type: "phrase", punjabi: "Theek hai, le laanga",
-      english: "Okay, I'll take it.",
-      definition: "Closing the deal. (F. speaker: 'le laangi'.)",
-      example: "THEEK HAI, LE LAANGA. — Okay, I'll take it." },
-    { id: "bg7", type: "phrase", punjabi: "Reh do",
-      english: "Leave it / never mind.",
-      definition: "Walk-away phrase. Use sparingly — sometimes the price drops!",
-      example: "Eh mehnga, REH DO. — This is expensive, leave it." },
-    { id: "bg8", type: "phrase", punjabi: "Pakka rate kya?",
-      english: "What's the firm rate?",
-      definition: "'Pakka' = firm/fixed. Asking for the no-negotiation price.",
-      related: "pakka",
-      example: "PAKKA RATE KYA hai? — What's the firm rate?" },
-
-    // ===== Doctor visit =====
-    { id: "dv1", type: "phrase", punjabi: "Ki takleef hai?",
-      english: "What's the trouble? (doctor's question).",
-      definition: "Standard doctor opener. 'Takleef' = trouble/discomfort.",
-      example: "Doctor: KI TAKLEEF HAI? — What seems to be the problem?" },
-    { id: "dv2", type: "phrase", punjabi: "Kadon toon?",
-      english: "Since when?",
-      definition: "Doctor asking about onset of symptoms.",
-      related: "kadon",
-      example: "Bukhaar KADON TOON hai? — Since when is the fever?" },
-    { id: "dv3", type: "vocab", punjabi: "parchi",
-      english: "prescription / slip",
-      definition: "The slip the doctor gives — take to the pharmacy.",
-      related: "dawai, doctor",
-      example: "Parchi LE LO. — Take the prescription." },
-    { id: "dv5", type: "phrase", punjabi: "Dard kithe hai?",
-      english: "Where does it hurt?",
-      definition: "Doctor's locator question.",
-      related: "dard",
-      example: "DARD KITHE HAI? — Where is the pain?" },
-    { id: "dv6", type: "phrase", punjabi: "Mainu ___ hai",
-      english: "I have ___.",
-      definition: "Symptom-reporting pattern. Fill in the symptom.",
-      example: "MAINU bukhaar HAI. — I have a fever." },
-    { id: "dv7", type: "phrase", punjabi: "Gehri saans lao",
-      english: "Take a deep breath.",
-      definition: "Doctor's instruction during exam.",
-      related: "saans",
-      example: "GEHRI SAANS LAO. — Take a deep breath." },
-    { id: "dv8", type: "phrase", punjabi: "Test karaana painda hai",
-      english: "(You'll) have to get a test done.",
-      definition: "Doctor recommending tests. 'Painda hai' = (it) is necessary.",
-      example: "Khoon da TEST KARAANA PAINDA HAI. — You'll need a blood test." },
-    { id: "dv9", type: "phrase", punjabi: "Aaraam karo",
-      english: "Take rest.",
-      definition: "Doctor's universal advice.",
-      related: "aaraam",
-      example: "Do din AARAAM KARO. — Rest for two days." },
-    { id: "dv10", type: "phrase", punjabi: "Theek ho jaaoge",
-      english: "You'll get well.",
-      definition: "Reassurance. 'Jaldi theek ho jaaoge' = you'll get well soon.",
-      example: "Chinta na karo, THEEK HO JAAOGE. — Don't worry, you'll get well." },
-
-    // ===== Travel & station =====
-    { id: "tv1", type: "vocab", punjabi: "platform",
-      english: "platform (railway)",
-      definition: "Borrowed from English. 'Platform number do' = platform 2.",
-      example: "Platform NUMBER tinn. — Platform 3." },
-    { id: "tv2", type: "vocab", punjabi: "gaddi number",
-      english: "train number",
-      definition: "'Gaddi' = train (here). Each train has a number.",
-      related: "rail",
-      example: "Tuhadi GADDI NUMBER 12471 hai. — Your train is number 12471." },
-    { id: "tv3", type: "vocab", punjabi: "tikat ghar",
-      english: "ticket counter",
-      definition: "Where you buy tickets. Borrowed from English.",
-      related: "ticket",
-      example: "TICKET COUNTER kithe? — Where's the ticket counter?" },
-    { id: "tv4", type: "phrase", punjabi: "Kithon chaldi hai?",
-      english: "Where does it leave from?",
-      definition: "Asking departure point.",
-      related: "kithon",
-      example: "Eh bus KITHON CHALDI HAI? — Where does this bus leave from?" },
-    { id: "tv5", type: "phrase", punjabi: "Kinne vaje chaldi?",
-      english: "What time does it leave?",
-      definition: "Asking departure time.",
-      related: "vaje",
-      example: "Gaddi KINNE VAJE CHALDI? — What time does the train leave?" },
-    { id: "tv6", type: "phrase", punjabi: "Kinna time lagega?",
-      english: "How long will it take?",
-      definition: "Asking journey duration.",
-      example: "Othe pohanchan nu KINNA TIME LAGEGA? — How long to get there?" },
-    { id: "tv7", type: "phrase", punjabi: "Eh seat khaali hai?",
-      english: "Is this seat free?",
-      definition: "Polite seat-check.",
-      example: "Maaf karo, EH SEAT KHAALI HAI? — Excuse me, is this seat free?" },
-    { id: "tv8", type: "phrase", punjabi: "Mainu ___ jaana hai",
-      english: "I need to go to ___.",
-      definition: "Telling driver/agent your destination.",
-      example: "MAINU Amritsar JAANA HAI. — I need to go to Amritsar." },
-    { id: "tv9", type: "vocab", punjabi: "saaman",
-      english: "luggage / belongings",
-      definition: "Your bags. 'Saaman rakho' = put the luggage.",
-      related: "bag",
-      example: "SAAMAN sambhalo. — Watch your luggage." },
-    { id: "tv10", type: "phrase", punjabi: "Akhri stop kithe?",
-      english: "Where's the last stop?",
-      definition: "Useful on buses.",
-      related: "akhri",
-      example: "Eh bus da AKHRI STOP KITHE? — Where's this bus's last stop?" },
-
-    // ===== Extended kinship =====
-    { id: "fk2", type: "vocab", punjabi: "mami",
-      english: "maternal uncle's wife",
-      definition: "Wife of mama (mother's brother).",
-      related: "mama",
-      example: "MAMI ne kheer banai. — Mami made kheer." },
-    { id: "fk4", type: "vocab", punjabi: "chachi",
-      english: "chacha's wife",
-      definition: "Wife of chacha.",
-      related: "chacha",
-      example: "CHACHI ne pyar kita. — Chachi showed love." },
-    { id: "fk5", type: "vocab", punjabi: "taya",
-      english: "father's elder brother",
-      definition: "Paternal uncle OLDER than your father. Different word from chacha!",
-      related: "tayi, chacha, papa",
-      example: "TAYA ji vadde han. — Taya ji is older." },
-    { id: "fk6", type: "vocab", punjabi: "tayi",
-      english: "taya's wife",
-      definition: "Wife of taya.",
-      related: "taya",
-      example: "TAYI ji da khaana. — Tayi ji's food." },
-    { id: "fk7", type: "vocab", punjabi: "mausi",
-      english: "maternal aunt (mother's sister)",
-      definition: "Mother's sister. Like a second mother.",
-      related: "maa, bua",
-      example: "MAUSI gharon aayi. — Mausi came from her home." },
-    { id: "fk8", type: "vocab", punjabi: "bua",
-      english: "paternal aunt (father's sister)",
-      definition: "Father's sister. Special bond — buaji often dotes on nieces/nephews.",
-      related: "papa, mausi",
-      example: "BUA da pyar. — Bua's love." },
-
-    // ===== Punjabi farming life =====
-    { id: "fm1", type: "vocab", punjabi: "kheti",
-      english: "farming / agriculture",
-      definition: "The traditional backbone of Punjab. 'Kheti karna' = to farm.",
-      related: "kisaan, khet",
-      example: "Punjab di KHETI mashoor hai. — Punjab's farming is famous." },
-    { id: "fm2", type: "vocab", punjabi: "fasal",
-      english: "crop / harvest",
-      definition: "What's grown in the field.",
-      related: "kanak, kheti",
-      example: "Eh saal di FASAL vadiya. — This year's crop is good." },
-    { id: "fm3", type: "vocab", punjabi: "kanak",
-      english: "wheat",
-      definition: "The main rabi crop of Punjab. Harvested at Vaisakhi.",
-      related: "fasal, atta, Vaisakh",
-      example: "KANAK di fasal pakk gayi. — The wheat crop has ripened." },
-    { id: "fm4", type: "vocab", punjabi: "basmati",
-      english: "basmati rice",
-      definition: "Famous long-grain fragrant rice grown in Punjab.",
-      related: "chaaval",
-      example: "BASMATI chaaval. — Basmati rice." },
-    { id: "fm6", type: "vocab", punjabi: "mandi",
-      english: "marketplace (esp. for crops)",
-      definition: "Where farmers sell their produce.",
-      related: "bazaar, fasal",
-      example: "MANDI vich fasal vechi. — Sold the crop at the mandi." },
-    { id: "fm7", type: "vocab", punjabi: "kothi",
-      english: "large house / mansion",
-      definition: "A big house — often what successful Punjabis build in their village.",
-      related: "ghar, pind",
-      example: "Pind vich KOTHI banai. — Built a kothi in the village." },
-    { id: "fm8", type: "vocab", punjabi: "dhaaba",
-      english: "highway/roadside eatery",
-      definition: "Punjabi roadside restaurant — famous for daal, roti, and lassi.",
-      related: "khaana, lassi",
-      example: "DHAABE da khaana. — Dhaba food." },
-
-    // ===== Diaspora & code-switching =====
-    { id: "ds1", type: "vocab", punjabi: "vilayat",
-      english: "foreign land (esp. UK)",
-      definition: "Old-school Punjabi for 'abroad', historically the UK. Source of English 'Blighty'.",
-      related: "pardes, des",
-      example: "Mere mama VILAYAT vich. — My uncle is abroad." },
-    { id: "ds2", type: "vocab", punjabi: "pardes",
-      english: "foreign country / abroad",
-      definition: "General term for living away from one's homeland. Tinged with longing.",
-      related: "vilayat, des",
-      example: "PARDES vich saal beet gaya. — A year passed in pardes." },
-    { id: "ds3", type: "vocab", punjabi: "des",
-      english: "homeland / country",
-      definition: "Your country (often: India/Punjab). 'Apna des' = our own land.",
-      related: "pardes",
-      example: "DES yaad aanda hai. — I miss my homeland." },
-    { id: "ds4", type: "vocab", punjabi: "NRI",
-      english: "non-resident Indian",
-      definition: "Used widely. Often refers to the Punjabi diaspora (UK, Canada, US, Australia).",
-      related: "pardes",
-      example: "Bahut NRI Vaisakhi te aande. — Many NRIs come for Vaisakhi." },
-    { id: "ds5", type: "phrase", punjabi: "Call back karaanga",
-      english: "I'll call back. (code-switched).",
-      definition: "Common diaspora pattern: English verbs + Punjabi 'karna/karaanga'.",
-      related: "phone, karna",
-      example: "Hun busy haan, CALL BACK KARAANGA. — Busy now, will call back." },
-    { id: "ds6", type: "phrase", punjabi: "Drop kar dyo",
-      english: "Please drop (me/it) off.",
-      definition: "English 'drop' + Punjabi 'kar dyo'. Used in cabs, with friends.",
-      related: "karna",
-      example: "Mainu station DROP KAR DYO. — Please drop me at the station." },
-    { id: "ds7", type: "phrase", punjabi: "Update kar dyo",
-      english: "Please update (me).",
-      definition: "Modern code-switched request. Hugely common with NRIs.",
-      example: "Khabar miln te UPDATE KAR DYO. — Update me when you have news." },
-
-    // ===== Reduplication patterns =====
-    { id: "rd1", type: "phrase", punjabi: "chhoti-moti",
-      english: "small / minor / trivial.",
-      definition: "Reduplication for vagueness — 'small-and-such'. Casual.",
-      related: "chhota",
-      example: "CHHOTI-MOTI cheezaan. — Little odds and ends." },
-    { id: "rd2", type: "phrase", punjabi: "jaldi-jaldi",
-      english: "quickly! quickly!",
-      definition: "Doubled for emphasis. Urgency.",
-      related: "jaldi",
-      example: "JALDI-JALDI karo. — Quickly, quickly do it." },
-    { id: "rd3", type: "phrase", punjabi: "theek-theek",
-      english: "exactly / properly.",
-      definition: "Doubled for precision.",
-      related: "theek",
-      example: "THEEK-THEEK dasso. — Tell me exactly." },
-    { id: "rd4", type: "phrase", punjabi: "alag-alag",
-      english: "separate / different.",
-      definition: "Distributive — 'each one separate'.",
-      related: "alag",
-      example: "ALAG-ALAG plates. — Separate plates each." },
-    { id: "rd5", type: "phrase", punjabi: "dhire-dhire",
-      english: "slowly slowly / gradually.",
-      definition: "Doubled — gentle pace.",
-      related: "haule",
-      example: "DHIRE-DHIRE bolo. — Speak slowly." },
-    { id: "rd6", type: "phrase", punjabi: "ghar-ghar",
-      english: "house-to-house / every home.",
-      definition: "Distributive — implies all/each.",
-      related: "ghar",
-      example: "GHAR-GHAR vich Diwali. — Diwali in every home." },
-    { id: "rd7", type: "phrase", punjabi: "phir-phir",
-      english: "again and again.",
-      definition: "Doubled — repeated action.",
-      related: "phir",
-      example: "PHIR-PHIR mat puchho. — Don't ask again and again." },
-    { id: "rd8", type: "phrase", punjabi: "sohna-sohna",
-      english: "really lovely / just beautiful.",
-      definition: "Doubled adjective — affectionate intensifier.",
-      related: "sohna",
-      example: "SOHNA-SOHNA bachcha. — A really lovely child." },
-
-    // ===== Daily-routine narrative (connected first-person paragraph) =====
-    { id: "dn1", type: "phrase", punjabi: "Main savere chhe vaje uthda haan.",
-      english: "I get up at six in the morning.",
-      definition: "Routine sentence #1. Use 'uthdi' if female.",
-      related: "savere, uthna",
-      example: "Practice this as part of a connected paragraph." },
-    { id: "dn2", type: "phrase", punjabi: "Phir munh dho ke chai peenda haan.",
-      english: "Then I wash my face and drink tea.",
-      definition: "Routine #2. 'Dho ke' = having washed. Connector: 'phir'.",
-      related: "phir, dhona, peena",
-      example: "Sequence link to the previous sentence." },
-    { id: "dn3", type: "phrase", punjabi: "Nashta karke kamm te jaanda haan.",
-      english: "After breakfast I go to work.",
-      definition: "Routine #3. 'Karke' = having done.",
-      related: "nashta, kamm",
-      example: "'Karke' is a key sequence connector — do this, then that." },
-    { id: "dn4", type: "phrase", punjabi: "Dupehre baarah vaje khaana khaanda haan.",
-      english: "I eat lunch at twelve noon.",
-      definition: "Routine #4. 'Dupehre' = at midday.",
-      related: "dupehre, khaana",
-      example: "Time + activity pattern." },
-    { id: "dn5", type: "phrase", punjabi: "Sham nu dostaan naal milda haan.",
-      english: "In the evening I meet friends.",
-      definition: "Routine #5. 'Sham nu' = in the evening. 'Naal' = with.",
-      related: "sham, dost, milna",
-      example: "Time-of-day phrase." },
-    { id: "dn6", type: "phrase", punjabi: "Raat nu khaana khaake TV vekhda haan.",
-      english: "At night I eat dinner and watch TV.",
-      definition: "Routine #6. 'Khaake' = having eaten.",
-      related: "raat, vekhna",
-      example: "Two actions linked by '-ke'." },
-    { id: "dn7", type: "phrase", punjabi: "Soun toon pehlaan kitaab padhda haan.",
-      english: "Before sleeping I read a book.",
-      definition: "Routine #7. 'Toon pehlaan' = before. 'Sona' = to sleep.",
-      related: "pehlaan, sona, padhna",
-      example: "'Toon pehlaan' / 'toon baad' time pattern." },
-    { id: "dn8", type: "phrase", punjabi: "Aainj mera ikk din khatam ho jaanda hai.",
-      english: "And so my day comes to an end.",
-      definition: "Routine #8 — closing line. 'Aainj' = like this.",
-      related: "khatam, akhir vich",
-      example: "Use this entire 8-card set as a shadowing paragraph." },
-
-    // ===== Round 4: Colors — full palette =====
-    { id: "co8",  type: "vocab", punjabi: "baingani", english: "purple / violet",
-      definition: "Purple. From 'baingan' (eggplant).",
-      related: "rang",
-      example: "BAINGANI phul. — PURPLE flower." },
-    { id: "co10", type: "vocab", punjabi: "sleti",    english: "grey",
-      definition: "Grey. From 'slate'. Same for m./f.",
-      related: "rang",
-      example: "SLETI baal. — GREY hair." },
-    { id: "co11", type: "vocab", punjabi: "sunehri",  english: "golden",
-      definition: "Golden. Same for m./f. The Sri Harimandir Sahib is called the 'Sunehri Mandir'.",
-      related: "rang, sona",
-      example: "SUNEHRI gumbad. — GOLDEN dome." },
-
-    // ===== Shapes & sizes =====
-    { id: "sz1",  type: "vocab", punjabi: "gol",       english: "round / circular",
-      definition: "Round shape. Same for m./f.",
-      related: "chowkor",
-      example: "GOL roti. — ROUND roti." },
-    { id: "sz2",  type: "vocab", punjabi: "chowkor",   english: "square",
-      definition: "Square shape. From 'four corners'.",
-      related: "gol",
-      example: "CHOWKOR mez. — SQUARE table." },
-    { id: "sz3",  type: "vocab", punjabi: "tikona",    english: "triangular",
-      definition: "Three-cornered. Like a samosa.",
-      related: "samosa",
-      example: "TIKONA samosa. — TRIANGULAR samosa." },
-    { id: "sz4",  type: "vocab", punjabi: "lamma",     english: "long / tall (m.)",
-      definition: "Long or tall. Fem. 'lammi'.",
-      related: "ucha",
-      example: "LAMMA raasta. — A LONG road." },
-    { id: "sz5",  type: "vocab", punjabi: "chaurra",   english: "wide (m.)",
-      definition: "Wide. Fem. 'chaurri'.",
-      related: "lamma, sankra",
-      example: "CHAURRA darvaaza. — WIDE door." },
-    { id: "sz6",  type: "vocab", punjabi: "patla",     english: "thin / slim (m.)",
-      definition: "Thin. Fem. 'patli'. Used for objects and people.",
-      related: "motta",
-      example: "PATLI roti. — THIN roti." },
-    { id: "sz7",  type: "vocab", punjabi: "motta",     english: "thick / fat (m.)",
-      definition: "Thick or fat. Fem. 'motti'. Be careful — calling a person 'motta' is rude.",
-      related: "patla",
-      example: "MOTTI kitaab. — THICK book." },
-
-    // ===== Tastes & textures =====
-    { id: "tx1",  type: "vocab", punjabi: "mitha",     english: "sweet (m.)",
-      definition: "Sweet taste. Fem. 'mithi'. Also used for kind speech.",
-      related: "swaad",
-      example: "MITHI lassi. — SWEET lassi." },
-    { id: "tx2",  type: "vocab", punjabi: "namkeen",   english: "salty",
-      definition: "Salty. Same word for snacks (savory snacks).",
-      related: "namak",
-      example: "NAMKEEN lassi. — SALTY lassi." },
-    { id: "tx3",  type: "vocab", punjabi: "khatta",    english: "sour (m.)",
-      definition: "Sour. Fem. 'khatti'. Used for tamarind, lemon.",
-      related: "swaad",
-      example: "KHATTA nimboo. — SOUR lemon." },
-    { id: "tx4",  type: "vocab", punjabi: "kaira",     english: "bitter (m.)",
-      definition: "Bitter. Fem. 'kairi'. Used for karela (bitter gourd), bitter speech.",
-      related: "swaad",
-      example: "KAIRA karela. — BITTER gourd." },
-    { id: "tx5",  type: "vocab", punjabi: "tikha",     english: "spicy / hot (m.)",
-      definition: "Spicy hot. Fem. 'tikhi'. Critical word at any restaurant.",
-      related: "mirch",
-      example: "TIKHA khaana. — SPICY food." },
-    { id: "tx6",  type: "vocab", punjabi: "pheeka",    english: "bland / unsalted (m.)",
-      definition: "Lacking flavor / unsalted. Fem. 'pheeki'.",
-      related: "namkeen",
-      example: "PHEEKI sabzi. — BLAND vegetable." },
-    { id: "tx7",  type: "vocab", punjabi: "narm",      english: "soft",
-      definition: "Soft to touch. Same for m./f.",
-      related: "sakht",
-      example: "NARM bistar. — SOFT bed." },
-    { id: "tx8",  type: "vocab", punjabi: "sakht",     english: "hard / strict",
-      definition: "Hard texture, or a strict person.",
-      related: "narm",
-      example: "SAKHT pathar. — HARD stone." },
-    { id: "tx9",  type: "vocab", punjabi: "geela",     english: "wet (m.)",
-      definition: "Wet. Fem. 'geeli'.",
-      related: "sukha",
-      example: "GEELE kapre. — WET clothes." },
-    { id: "tx10", type: "vocab", punjabi: "sukha",     english: "dry (m.)",
-      definition: "Dry. Fem. 'sukhi'.",
-      related: "geela",
-      example: "SUKHI lakkad. — DRY wood." },
-    { id: "tx11", type: "vocab", punjabi: "chikna",    english: "smooth / oily (m.)",
-      definition: "Smooth or oily. Fem. 'chikni'.",
-      related: "khurdura",
-      example: "CHIKNA farsh. — SMOOTH floor." },
-    { id: "tx12", type: "vocab", punjabi: "khurdura",  english: "rough (m.)",
-      definition: "Rough texture. Fem. 'khurduri'.",
-      related: "chikna",
-      example: "KHURDURI deewar. — ROUGH wall." },
-
-    // ===== Senses — smell / sound / sight =====
-    { id: "sn1", type: "vocab", punjabi: "khushboo", english: "fragrance / good smell",
-      definition: "Pleasant smell. 'Khush' (happy) + 'boo' (smell).",
-      related: "badboo",
-      example: "Phulaan di KHUSHBOO. — Fragrance of flowers." },
-    { id: "sn2", type: "vocab", punjabi: "badboo",   english: "bad smell / stink",
-      definition: "Unpleasant smell. 'Bad' + 'boo'.",
-      related: "khushboo",
-      example: "BADBOO aa rahi hai. — A bad smell is coming." },
-    { id: "sn3", type: "vocab", punjabi: "awaaz",    english: "voice / sound",
-      definition: "Voice or sound. 'Tuhadi awaaz vadiya' = your voice is great.",
-      related: "shor, gaana",
-      example: "AWAAZ uchi karo. — Raise the volume." },
-    { id: "sn4", type: "vocab", punjabi: "shor",     english: "noise (loud)",
-      definition: "Disturbing noise. 'Shor mat machao' = don't make noise.",
-      related: "awaaz, shaant",
-      example: "Bahut SHOR hai. — There's too much noise." },
-    { id: "sn5", type: "vocab", punjabi: "chamak",   english: "shine / sparkle",
-      definition: "Brightness or sparkle. 'Chamakda' = shining.",
-      related: "rosni",
-      example: "Akhaan vich CHAMAK. — Sparkle in the eyes." },
-    { id: "sn6", type: "vocab", punjabi: "dhundla",  english: "blurry / dim",
-      definition: "Unclear, hazy. Fem. 'dhundli'.",
-      related: "saaf",
-      example: "DHUNDLA tasveer. — Blurry picture." },
-
-    // ===== Quantity & quality words =====
-    { id: "qy3",  type: "grammar", punjabi: "kuchh",  english: "some / something",
-      definition: "Some indefinite amount or thing. 'Kuchh nahin' = nothing.",
-      related: "koi, sab",
-      example: "KUCHH khaa lo. — Eat something." },
-    { id: "qy4",  type: "grammar", punjabi: "sara",   english: "all / entire (m.)",
-      definition: "All of it. Fem. 'saari'. 'Sara din' = the whole day.",
-      related: "sab",
-      example: "SARA khaana khatam. — All the food is finished." },
-    { id: "qy5",  type: "grammar", punjabi: "koi",    english: "any / someone",
-      definition: "An indefinite person or thing. 'Koi nahin' = nobody / no problem.",
-      related: "kuchh",
-      example: "KOI hai? — Is anyone there?" },
-    { id: "qy6",  type: "grammar", punjabi: "har",    english: "every",
-      definition: "'Har din' = every day, 'har koi' = everyone.",
-      related: "sab",
-      example: "HAR insaan alag hai. — Every person is different." },
-    { id: "qy8",  type: "grammar", punjabi: "kaafi",  english: "enough / quite",
-      definition: "Sufficient or 'quite a lot'. Same for m./f.",
-      related: "bas, bahut",
-      example: "KAAFI ho gaya. — That's enough." },
-    { id: "qy9",  type: "grammar", punjabi: "jyada",  english: "more / too much",
-      definition: "More than needed. 'Jyada nahin' = not too much.",
-      related: "ghatt, bahut",
-      example: "JYADA mat khaao. — Don't eat too much." },
-    { id: "qy10", type: "grammar", punjabi: "ghatt",  english: "less / few",
-      definition: "Less. 'Ghatt karo' = reduce.",
-      related: "jyada",
-      example: "Namak GHATT paao. — Add less salt." },
-
-    // ===== Function words: vi / hi / sirf / bhi =====
-    { id: "fw2", type: "grammar", punjabi: "bhi",
-      english: "also / too (Hindi loan)",
-      definition: "Same as 'vi'. Both are heard in Punjab — 'vi' is more native.",
-      related: "vi",
-      example: "Main BHI jaaonga. — I'll go TOO." },
-    { id: "fw3", type: "grammar", punjabi: "hi",
-      english: "only / itself (emphatic)",
-      definition: "Adds emphasis after a word. 'Tu hi karna' = only YOU do it.",
-      related: "sirf",
-      example: "Aaj HI kar lo. — Do it TODAY itself." },
-    { id: "fw5", type: "grammar", punjabi: "kewal",
-      english: "only (formal)",
-      definition: "Formal/written 'only'. Same as 'sirf'.",
-      related: "sirf",
-      example: "KEWAL membraan layi. — For members ONLY." },
-    { id: "fw6", type: "grammar", punjabi: "khaas",
-      english: "special / particular",
-      definition: "'Khaas tor te' = especially.",
-      related: "vishesh",
-      example: "KHAAS tohfa. — A SPECIAL gift." },
-
-    // ===== Frequency adverbs =====
-    { id: "fa1", type: "vocab", punjabi: "hamesha",   english: "always",
-      definition: "All the time, every time.",
-      related: "kade nahin",
-      example: "Main HAMESHA tuhade naal. — I'm always with you." },
-    { id: "fa2", type: "vocab", punjabi: "aksar",     english: "often",
-      definition: "Frequently but not always.",
-      related: "kade-kade",
-      example: "AKSAR shaam nu sair. — Often a walk in the evening." },
-    { id: "fa3", type: "vocab", punjabi: "kade-kade", english: "sometimes",
-      definition: "Occasionally. The doubled 'kade' softens it.",
-      related: "aksar",
-      example: "KADE-KADE mil lainde. — We meet sometimes." },
-    { id: "fa4", type: "vocab", punjabi: "kade nahin", english: "never",
-      definition: "Not ever. 'Kade' alone = ever; 'kade nahin' = never.",
-      related: "hamesha",
-      example: "Main KADE NAHIN jhooth boldi. — I never lie (f.)." },
-    { id: "fa5", type: "vocab", punjabi: "roz",       english: "every day / daily",
-      definition: "Daily. Same as 'rozaana'.",
-      related: "har din",
-      example: "ROZ yoga karo. — Do yoga daily." },
-    { id: "fa6", type: "vocab", punjabi: "har vele",  english: "all the time / every moment",
-      definition: "Every single moment. Stronger than 'hamesha'.",
-      related: "hamesha",
-      example: "HAR VELE phone te. — On the phone all the time." },
-    { id: "fa8", type: "vocab", punjabi: "fauran",    english: "immediately / at once",
-      definition: "Right away. From Urdu, common in spoken Punjabi.",
-      related: "jaldi",
-      example: "FAURAN aao! — Come immediately!" },
-
-    // ===== Manner adverbs =====
-    { id: "ma1", type: "vocab", punjabi: "chhetee",      english: "quickly",
-      definition: "Quickly. Same as 'jaldi' but very Punjabi.",
-      related: "jaldi, haule",
-      example: "CHHETEE karo. — Do it quickly." },
-    { id: "ma3", type: "vocab", punjabi: "dhyan naal",   english: "with attention / carefully",
-      definition: "'Dhyan' = attention. Used to advise care.",
-      related: "sambhal ke",
-      example: "DHYAN NAAL chalo. — Walk carefully." },
-    { id: "ma4", type: "vocab", punjabi: "ainj",         english: "this way / like this",
-      definition: "Indicates a manner. 'Ainj karo' = do it this way.",
-      related: "ainven",
-      example: "AINJ likho. — Write it this way." },
-    { id: "ma5", type: "vocab", punjabi: "ainven",       english: "just / for no reason",
-      definition: "Casually, without purpose. 'Ainven hi' = just because.",
-      related: "ainj",
-      example: "AINVEN puch reha si. — Was just asking." },
-    { id: "ma6", type: "vocab", punjabi: "asaani naal",  english: "easily",
-      definition: "'Asaani' = ease.",
-      related: "mushkil naal",
-      example: "ASAANI NAAL ho jaaega. — It'll happen easily." },
-    { id: "ma7", type: "vocab", punjabi: "mushkil naal", english: "with difficulty",
-      definition: "'Mushkil' = difficulty.",
-      related: "asaani naal",
-      example: "MUSHKIL NAAL pohanche. — We barely arrived." },
-
-    // ===== Question-word gendered forms =====
-    { id: "qg2", type: "grammar", punjabi: "konsa / konsi / konse",
-      english: "which",
-      definition: "Match noun gender. 'Konsa rang?' (m.) / 'Konsi kitaab?' (f.).",
-      related: "ki",
-      example: "KONSA gaana? — Which song?" },
-    { id: "qg3", type: "grammar", punjabi: "kaisa / kaisi / kaise",
-      english: "how (= what kind of)",
-      definition: "Asks about quality/type. Different from 'kive' (how = in what way).",
-      related: "kive",
-      example: "KAISA mausam? — How is the weather?" },
-    { id: "qg4", type: "grammar", punjabi: "kis tarha",
-      english: "in what manner / how",
-      definition: "Formal 'how'. 'Tarha' = manner.",
-      related: "kive",
-      example: "Eh KIS TARHA hoya? — How did this happen?" },
-
-    // ===== Days of the week =====
-
-    // ===== Measure words & units =====
-    { id: "mw1",  type: "vocab", punjabi: "kilo",    english: "kilogram",
-      definition: "Borrowed. 'Ikk kilo aaloo' = one kilo of potatoes.",
-      related: "gram",
-      example: "Do KILO atta. — Two kilos of flour." },
-    { id: "mw2",  type: "vocab", punjabi: "graam",   english: "gram",
-      definition: "1/1000 kilo.",
-      related: "kilo",
-      example: "Sau GRAM. — 100 grams." },
-    { id: "mw3",  type: "vocab", punjabi: "litre",   english: "liter",
-      definition: "Used for milk, oil, petrol.",
-      related: "doodh",
-      example: "Ikk LITRE doodh. — One liter of milk." },
-    { id: "mw4",  type: "vocab", punjabi: "meetar",  english: "meter",
-      definition: "Length. Borrowed.",
-      related: "lamma",
-      example: "Char METER kapra. — Four meters of cloth." },
-    { id: "mw5",  type: "vocab", punjabi: "foot",    english: "foot (length unit)",
-      definition: "Borrowed. 'Panj foot lamma' = 5 feet tall.",
-      related: "meter",
-      example: "Chhe FOOT lamma. — Six feet tall." },
-    { id: "mw6",  type: "vocab", punjabi: "dabba",   english: "box / container",
-      definition: "Any small box. 'Tiffin dabba' = lunch box.",
-      related: "peti, dabbi",
-      example: "Mithai da DABBA. — Box of sweets." },
-    { id: "mw7",  type: "vocab", punjabi: "paiket", english: "packet",
-      definition: "Borrowed.",
-      related: "dabba",
-      example: "Doodh da PACKET. — Milk packet." },
-    { id: "mw8",  type: "vocab", punjabi: "jodi",    english: "pair",
-      definition: "A pair of two. 'Juti di jodi' = pair of shoes.",
-      related: "do",
-      example: "Ikk JODI juti. — One pair of shoes." },
-    { id: "mw9",  type: "vocab", punjabi: "do-do",   english: "two each",
-      definition: "Reduplicated number = distributive ('two each'). Works for any number.",
-      related: "do",
-      example: "DO-DO laddoo lao. — Take two each (laddoos)." },
-    { id: "mw10", type: "vocab", punjabi: "darjan",  english: "dozen",
-      definition: "12 pieces. Borrowed via Hindi.",
-      example: "Ikk DARJAN ande. — One dozen eggs." },
-
-    // ===== Containers & vessels =====
-    { id: "vs1", type: "vocab", punjabi: "katora", english: "small bowl",
-      definition: "A small round bowl, often steel. For daal or sabzi.",
-      related: "thali, bartan",
-      example: "Daal da KATORA. — Bowl of daal." },
-    { id: "vs2", type: "vocab", punjabi: "thali",  english: "metal plate (round)",
-      definition: "A round metal serving plate. Also a meal layout.",
-      related: "plate, katora",
-      example: "Punjabi THALI. — A Punjabi thali meal." },
-    { id: "vs3", type: "vocab", punjabi: "lota",   english: "spouted water pot",
-      definition: "A small water vessel — used for pouring water (esp. in bathroom or rituals).",
-      related: "paani",
-      example: "LOTA bhar lao. — Fill the lota." },
-    { id: "vs4", type: "vocab", punjabi: "botal", english: "bottle",
-      definition: "Borrowed. Water/oil bottle.",
-      related: "paani",
-      example: "Paani di BOTTLE. — Water bottle." },
-    { id: "vs5", type: "vocab", punjabi: "jhola",  english: "cloth bag / sack",
-      definition: "Cloth shopping bag. The classic Punjabi market companion.",
-      related: "bag, peti",
-      example: "JHOLA lai ke jaao. — Take a bag with you." },
-    { id: "vs6", type: "vocab", punjabi: "peti",   english: "trunk / large box",
-      definition: "Big storage box. Also suitcase.",
-      related: "saaman, dabba",
-      example: "Vivah di PETI. — Wedding trunk." },
-    { id: "vs7", type: "vocab", punjabi: "tokri",  english: "basket",
-      definition: "Woven basket. For fruits, vegetables.",
-      related: "phal, sabzi",
-      example: "Phulaan di TOKRI. — Basket of flowers." },
-    { id: "vs8", type: "vocab", punjabi: "balti",  english: "bucket",
-      definition: "Bucket — for water, washing.",
-      related: "paani",
-      example: "BALTI bhar paani. — Bucketful of water." },
-
-    // ===== Body parts extension 2 =====
-    { id: "bx4",  type: "vocab", punjabi: "angootha", english: "thumb",
-      definition: "Thumb. Also 'big toe' for the foot.",
-      related: "ungal, hath",
-      example: "ANGOOTHA dikha. — Show your thumb." },
-    { id: "bx5",  type: "vocab", punjabi: "nahun",    english: "fingernail / toenail",
-      definition: "Nails. 'Nahun katte' = trim your nails.",
-      related: "ungal",
-      example: "NAHUN vaddh gaye. — Nails have grown." },
-    { id: "bx7",  type: "vocab", punjabi: "dhaadi",   english: "beard",
-      definition: "Beard. Sikh men keep dhaadi as a religious commitment.",
-      related: "Sikh, mucchaan",
-      example: "DHAADI lammi. — Long beard." },
-    { id: "bx8",  type: "vocab", punjabi: "mucchaan", english: "moustache",
-      definition: "Moustache. A symbol of pride in Punjabi culture.",
-      related: "dhaadi",
-      example: "Ucchi MUCCHAAN. — A grand moustache." },
-    { id: "bx9",  type: "vocab", punjabi: "kandh",    english: "shoulder",
-      definition: "Shoulder. 'Kandh te' = on the shoulder.",
-      related: "bahn",
-      example: "Bachcha KANDH te. — Child on the shoulder." },
-    { id: "bx10", type: "vocab", punjabi: "chhati",   english: "chest",
-      definition: "Chest. Also figurative 'heart/courage'.",
-      related: "dil, pith",
-      example: "CHHATI vich dard. — Pain in the chest." },
-
-    // ===== Bathroom & hygiene =====
-    { id: "hg1", type: "vocab", punjabi: "ghuslkhana", english: "bathroom",
-      definition: "The bathroom — for bathing. Different from 'pakhana' (toilet).",
-      related: "pakhana, sabun",
-      example: "GHUSLKHANE vich naha reha. — Bathing in the bathroom." },
-    { id: "hg2", type: "vocab", punjabi: "pakhana",    english: "toilet",
-      definition: "The toilet. Also 'tatti' (very informal/crude).",
-      related: "ghuslkhana",
-      example: "PAKHANA jaana hai. — Need to use the toilet." },
-    { id: "hg3", type: "vocab", punjabi: "sabun",      english: "soap",
-      definition: "Bar soap or liquid.",
-      related: "shampoo, hath",
-      example: "SABUN naal hath dho. — Wash hands with soap." },
-    { id: "hg4", type: "vocab", punjabi: "brush",      english: "toothbrush",
-      definition: "Borrowed. For teeth.",
-      related: "dand, manjan",
-      example: "BRUSH karo. — Brush your teeth." },
-    { id: "hg5", type: "vocab", punjabi: "manjan",     english: "toothpaste / tooth powder",
-      definition: "Old word for tooth-cleaning paste/powder.",
-      related: "brush, dand",
-      example: "MANJAN laao. — Apply toothpaste." },
-    { id: "hg6", type: "vocab", punjabi: "tauliya",    english: "towel",
-      definition: "For drying after bath.",
-      related: "ghuslkhana",
-      example: "TAULIYA fado. — Pass the towel." },
-    { id: "hg7", type: "vocab", punjabi: "shaimpoo",   english: "shampoo",
-      definition: "Borrowed. For hair.",
-      related: "baal, sabun",
-      example: "SHAMPOO khatam. — Shampoo is finished." },
-    { id: "hg8", type: "vocab", punjabi: "kanghi",     english: "comb",
-      definition: "For combing hair. Sikhs carry a kangha as one of the five Ks.",
-      related: "baal",
-      example: "KANGHI naal baal sambhalo. — Manage your hair with a comb." },
-
-    // ===== Speech-act verbs =====
-    { id: "sv4", type: "vocab", punjabi: "samajhauna",    english: "to explain",
-      definition: "Causative of 'samajhna'. To make someone understand.",
-      related: "samajhna",
-      example: "Mainu SAMAJHAO. — Explain to me." },
-    { id: "sv6", type: "vocab", punjabi: "jawab denna",   english: "to answer / reply",
-      definition: "'Jawab' = answer. 'Denna' = to give.",
-      related: "puchhna",
-      example: "JAWAB DEO ji. — Please answer." },
-    { id: "sv7", type: "vocab", punjabi: "sun-na",        english: "to listen / hear",
-      definition: "To listen. 'Suno' = listen (polite imperative).",
-      related: "awaaz, gaana",
-      example: "Gaur naal SUN-NA. — Listen carefully." },
-    { id: "sv8", type: "vocab", punjabi: "chup karna",    english: "to be quiet",
-      definition: "'Chup' = silent. 'Chup karo' = be quiet (firm).",
-      related: "shaant",
-      example: "CHUP KARO ji. — Please be quiet." },
-
-    // ===== Body-action verbs =====
-    { id: "bv23", type: "vocab", punjabi: "chalna",   english: "to walk / to move",
-      definition: "To walk; also 'to function' (machines).",
-      related: "daudna",
-      example: "CHALO! — Let's go!" },
-    { id: "bv25", type: "vocab", punjabi: "leytna",   english: "to lie down",
-      definition: "To lie down (recline).",
-      related: "sona, baithna",
-      example: "Bistar te LEYT jao. — Lie down on the bed." },
-    { id: "bv26", type: "vocab", punjabi: "jhukna",   english: "to bend / to bow",
-      definition: "Bend forward. Used in greeting elders.",
-      related: "satkaar",
-      example: "Sir JHUKAO. — Bow your head." },
-    { id: "bv27", type: "vocab", punjabi: "uthauna",  english: "to lift / pick up",
-      definition: "Causative — lift something. (Compare 'uthna' = to get up.)",
-      related: "rakhna",
-      example: "Bag UTHAO. — Pick up the bag." },
-    { id: "bv28", type: "vocab", punjabi: "sutna",    english: "to throw / to toss",
-      definition: "To throw (away or toward).",
-      related: "fadna",
-      example: "Ball SUT. — Throw the ball." },
-    { id: "bv29", type: "vocab", punjabi: "fadna",    english: "to catch / hold",
-      definition: "To catch or grab. 'Hath fad' = hold my hand.",
-      related: "sutna, lena",
-      example: "Ball FAD! — Catch the ball!" },
-    { id: "bv30", type: "vocab", punjabi: "hilauna",  english: "to shake / move",
-      definition: "Causative — shake something. 'Hilna' = to move oneself.",
-      related: "uthauna",
-      example: "Sir HILAO. — Shake your head." },
-
-    // ===== Emotion-action verbs =====
-    { id: "ev3", type: "vocab", punjabi: "muskurana",    english: "to smile",
-      definition: "To smile (gentler than laughing).",
-      related: "hasna",
-      example: "MUSKURAO! — Smile!" },
-    { id: "ev4", type: "vocab", punjabi: "chillauna",    english: "to shout / scream",
-      definition: "To yell. 'Mat chillao' = don't shout.",
-      related: "shor, awaaz",
-      example: "Mat CHILLAO. — Don't shout." },
-    { id: "ev5", type: "vocab", punjabi: "ghabraauna",   english: "to panic / be nervous",
-      definition: "To get anxious. 'Mat ghabrao' = don't panic.",
-      related: "darna, shaant",
-      example: "GHABRAO mat. — Don't panic." },
-    { id: "ev6", type: "vocab", punjabi: "sharmana",     english: "to feel shy",
-      definition: "To feel shy or bashful.",
-      related: "sharminda",
-      example: "Mat SHARMAO. — Don't be shy." },
-    { id: "ev7", type: "vocab", punjabi: "pyar karna",   english: "to love",
-      definition: "'Pyar' = love. 'Pyar karna' = to love.",
-      related: "pyar, dil",
-      example: "Main tuhanu PYAR KARDA HAAN. — I love you." },
-
-    // ===== Public places =====
-    { id: "pp1",  type: "vocab", punjabi: "paark",        english: "park",
-      definition: "Public park. Borrowed.",
-      related: "bagh",
-      example: "PARK vich sair. — A walk in the park." },
-    { id: "pp2",  type: "vocab", punjabi: "laibreri",     english: "library",
-      definition: "Borrowed. 'Pustakalaya' is the formal Hindi.",
-      related: "kitaab",
-      example: "LIBRARY vich kitaaban. — Books in the library." },
-    { id: "pp3",  type: "vocab", punjabi: "dak ghar",     english: "post office",
-      definition: "'Dak' = post / mail; 'ghar' = house.",
-      related: "chithi",
-      example: "DAK GHAR jaa raha. — Going to the post office." },
-    { id: "pp4",  type: "vocab", punjabi: "petrol pump",  english: "petrol / gas station",
-      definition: "Borrowed. Where you fill fuel.",
-      related: "gaddi",
-      example: "PETROL PUMP najdik hai. — Gas station is nearby." },
-    { id: "pp5",  type: "vocab", punjabi: "ATM",          english: "ATM machine",
-      definition: "Borrowed. 'ATM mashin'.",
-      related: "bank, paisa",
-      example: "ATM kithe? — Where's the ATM?" },
-    { id: "pp6",  type: "vocab", punjabi: "thaana",       english: "police station",
-      definition: "The police station.",
-      related: "police",
-      example: "THAANE riport karo. — Report at the police station." },
-    { id: "pp7",  type: "vocab", punjabi: "court",        english: "court (legal)",
-      definition: "Borrowed. Also 'kachehri' (older word).",
-      example: "COURT vich peshi. — Hearing in court." },
-    { id: "pp8",  type: "vocab", punjabi: "stedium",      english: "stadium",
-      definition: "Borrowed. Sports venue.",
-      related: "khel",
-      example: "STADIUM vich match. — Match at the stadium." },
-    { id: "pp9",  type: "vocab", punjabi: "cinema",       english: "movie theater / cinema",
-      definition: "Borrowed.",
-      related: "film",
-      example: "CINEMA jaa rahe. — Going to the cinema." },
-    { id: "pp10", type: "vocab", punjabi: "mall",         english: "shopping mall",
-      definition: "Borrowed. Modern Indian cities are full of malls.",
-      related: "bazaar",
-      example: "MALL vich shopping. — Shopping at the mall." },
-
-    // ===== House interior extension =====
-    { id: "hi1",  type: "vocab", punjabi: "chhat",            english: "roof / ceiling",
-      definition: "Top of the house. Punjabi homes traditionally have flat roofs you can sit on.",
-      related: "ghar",
-      example: "CHHAT te baith ke chai. — Tea sitting on the roof." },
-    { id: "hi2",  type: "vocab", punjabi: "deewar",           english: "wall",
-      definition: "A wall.",
-      related: "ghar, parda",
-      example: "DEEWAR te tasveer. — Picture on the wall." },
-    { id: "hi3",  type: "vocab", punjabi: "farsh",            english: "floor",
-      definition: "The floor of a room.",
-      related: "chhat",
-      example: "FARSH saaf karo. — Clean the floor." },
-    { id: "hi4",  type: "vocab", punjabi: "balkani",         english: "balcony",
-      definition: "Borrowed. A balcony or veranda.",
-      related: "chhat",
-      example: "BALCONY vich khade. — Standing on the balcony." },
-    { id: "hi5",  type: "vocab", punjabi: "baithak",          english: "living room / sitting room",
-      definition: "Where guests are received.",
-      related: "ghar",
-      example: "BAITHAK vich aao. — Come into the living room." },
-    { id: "hi6",  type: "vocab", punjabi: "sone wala kamra",  english: "bedroom",
-      definition: "Literally 'the room for sleeping'. Also 'bedroom' (borrowed).",
-      related: "kamra, sona",
-      example: "SONE WALA KAMRA upar hai. — The bedroom is upstairs." },
-    { id: "hi7",  type: "vocab", punjabi: "almari",           english: "cupboard / wardrobe",
-      definition: "Storage cabinet for clothes or dishes.",
-      related: "kapre",
-      example: "ALMARI vich kapre. — Clothes in the cupboard." },
-    { id: "hi8",  type: "vocab", punjabi: "parda",            english: "curtain",
-      definition: "Window curtain. Also figurative 'veil/secrecy'.",
-      related: "deewar",
-      example: "PARDA hata. — Pull aside the curtain." },
-
-    // ===== Digital / online vocab =====
-    { id: "dg1",  type: "vocab", punjabi: "WiFi",          english: "Wi-Fi",
-      definition: "Borrowed. 'WiFi da password?' = What's the WiFi password?",
-      related: "internet",
-      example: "WiFi DA password ki? — What's the WiFi password?" },
-    { id: "dg2",  type: "vocab", punjabi: "paasvard",     english: "password",
-      definition: "Borrowed.",
-      related: "WiFi, login",
-      example: "Apna PASSWORD nahin dasso. — Don't share your password." },
-    { id: "dg3",  type: "vocab", punjabi: "link",          english: "link / URL",
-      definition: "Borrowed. 'Link bhejo' = send the link.",
-      related: "internet",
-      example: "LINK bhejo. — Send the link." },
-    { id: "dg4",  type: "vocab", punjabi: "OTP",           english: "OTP (one-time password)",
-      definition: "Borrowed. Used for verification.",
-      related: "password",
-      example: "OTP aaya? — Did the OTP arrive?" },
-    { id: "dg5",  type: "vocab", punjabi: "account",       english: "account (online)",
-      definition: "Borrowed. Bank, email, social media.",
-      related: "khaata, login",
-      example: "Account banao. — Make an account." },
-    { id: "dg6",  type: "vocab", punjabi: "lagin",         english: "login",
-      definition: "Borrowed. 'Login karo' = log in.",
-      related: "password, account",
-      example: "LOGIN karo. — Log in." },
-    { id: "dg7",  type: "vocab", punjabi: "skreenshot",   english: "screenshot",
-      definition: "Borrowed. 'Screenshot lao' = take a screenshot.",
-      related: "photo",
-      example: "SCREENSHOT bhejo. — Send a screenshot." },
-    { id: "dg8",  type: "vocab", punjabi: "vidio kaal",   english: "video call",
-      definition: "Borrowed.",
-      related: "phone, video",
-      example: "VIDEO CALL karo. — Make a video call." },
-    { id: "dg9",  type: "vocab", punjabi: "group",         english: "group (chat / WhatsApp)",
-      definition: "Borrowed. Used for WhatsApp groups, friend groups.",
-      related: "WhatsApp",
-      example: "Family GROUP vich pao. — Add to family group." },
-    { id: "dg10", type: "vocab", punjabi: "share karna",   english: "to share (online)",
-      definition: "Code-switched. Sharing photos, links, etc.",
-      related: "bhejna",
-      example: "Photo SHARE KARO. — Share the photo." },
-
-    // ===== Greetings & farewells extension =====
-    { id: "gx1", type: "phrase", punjabi: "Namaste ji",
-      english: "Hello (Hindu greeting).",
-      definition: "Universal Indian greeting — folded hands. Used by Hindus and many others.",
-      related: "Sat sri akaal",
-      example: "NAMASTE JI! — Hello!" },
-    { id: "gx2", type: "phrase", punjabi: "Ram Ram",
-      english: "Greeting (Hindu, esp. rural).",
-      definition: "Common village/rural greeting between Hindus.",
-      example: "RAM RAM bhai sahab. — Ram Ram, brother sir." },
-    { id: "gx3", type: "phrase", punjabi: "Adaab",
-      english: "Greeting (Muslim, courteous).",
-      definition: "Polite Muslim/Urdu greeting — right hand raised toward forehead.",
-      related: "Salaam",
-      example: "ADAAB arz hai. — Respectful greetings." },
-    { id: "gx4", type: "phrase", punjabi: "Salaam",
-      english: "Salutations (Muslim).",
-      definition: "Short for 'Assalam-o-alaikum' (peace be upon you).",
-      related: "Adaab",
-      example: "SALAAM walekum. — Peace upon you (reply)." },
-    { id: "gx5", type: "phrase", punjabi: "Alvida",
-      english: "Goodbye (formal/poetic).",
-      definition: "A formal/dramatic farewell. From Urdu.",
-      related: "Phir milange",
-      example: "ALVIDA, dost. — Farewell, friend." },
-    { id: "gx7", type: "phrase", punjabi: "Jaldi miln di umeed",
-      english: "Hope to meet you soon.",
-      definition: "Warm closing line.",
-      related: "Phir milange",
-      example: "JALDI MILN DI UMEED. — Hope to see you soon." },
-
-    // ===== Yes / No / Okay variations =====
-    { id: "yn3", type: "phrase", punjabi: "Bilkul",
-      english: "Absolutely / certainly.",
-      definition: "Strong yes / total agreement.",
-      related: "ekdam",
-      example: "BILKUL theek. — Absolutely right." },
-    { id: "yn4", type: "phrase", punjabi: "Ekdam",
-      english: "Exactly / completely.",
-      definition: "Used to intensify. 'Ekdam sahi' = exactly right.",
-      related: "bilkul",
-      example: "EKDAM sahi. — Exactly correct." },
-    { id: "yn5", type: "phrase", punjabi: "Galat",
-      english: "Wrong / incorrect.",
-      definition: "Opposite of 'sahi'.",
-      related: "sahi",
-      example: "Eh GALAT hai. — This is wrong." },
-    { id: "yn6", type: "phrase", punjabi: "Pakka",
-      english: "For sure / confirmed.",
-      definition: "'Pakka?' = for sure? 'Pakka!' = definitely!",
-      related: "bilkul",
-      example: "PAKKA aaonga. — Will definitely come." },
-    { id: "yn7", type: "phrase", punjabi: "Mushkil",
-      english: "Difficult / hard.",
-      definition: "'Mushkil hai' = it's hard. Opposite: 'asaan'.",
-      related: "asaan",
-      example: "Eh MUSHKIL hai. — This is difficult." },
-    { id: "yn8", type: "phrase", punjabi: "Asaan",
-      english: "Easy.",
-      definition: "Opposite of 'mushkil'.",
-      related: "mushkil",
-      example: "Punjabi ASAAN hai. — Punjabi is easy." },
-
-    // ===== Compliments & encouragement =====
-    { id: "cm2", type: "phrase", punjabi: "Mubarak ho",
-      english: "Blessed / congratulations (Urdu).",
-      definition: "Used for festivals, weddings, big news.",
-      related: "Vadhaiyaan",
-      example: "Eid MUBARAK HO. — Blessed Eid." },
-    { id: "cm3", type: "phrase", punjabi: "Kamaal!",
-      english: "Wonderful! / Amazing!",
-      definition: "Single-word exclamation of admiration.",
-      related: "Vadiya, Bahut khoob",
-      example: "KAMAAL ho gaya! — Amazing!" },
-    { id: "cm4", type: "phrase", punjabi: "Bahut khoob",
-      english: "Very well done.",
-      definition: "Compliment from Urdu, common in formal speech.",
-      related: "Shabaash",
-      example: "BAHUT KHOOB ji! — Very well done!" },
-    { id: "cm5", type: "phrase", punjabi: "Dil khush ho gaya",
-      english: "My heart is delighted.",
-      definition: "Heartfelt compliment after enjoying something.",
-      related: "khush, dil",
-      example: "Tuhada gaana sun ke DIL KHUSH HO GAYA. — Heart is delighted hearing your song." },
-    { id: "cm6", type: "phrase", punjabi: "Kya baat!",
-      english: "What a thing! (admiration).",
-      definition: "Punjabi/Hindi exclamation of admiration. Often doubled: 'Kya baat, kya baat!'",
-      example: "KYA BAAT! Bahut sohna. — What a thing! Very beautiful." },
-    { id: "cm7", type: "phrase", punjabi: "Tuhada jawab nahin",
-      english: "You're unmatched.",
-      definition: "Literal 'there's no answer to you' — high praise.",
-      example: "TUHADA JAWAB NAHIN. — You're one of a kind." },
-
-    // ===== Apology & gratitude variations =====
-    { id: "ag3", type: "phrase", punjabi: "Bahut shukriya",
-      english: "Many thanks.",
-      definition: "Stronger than 'shukriya'.",
-      related: "Dhanvaad",
-      example: "BAHUT SHUKRIYA tuhada. — Many thanks to you." },
-    { id: "ag6", type: "phrase", punjabi: "Tuhada ehsaan",
-      english: "I owe you.",
-      definition: "Literally 'your favor' — heartfelt thanks for a big help.",
-      example: "TUHADA EHSAAN hamesha yaad rahega. — I'll always remember your favor." },
-
-    // ===== "I'm learning Punjabi" toolkit =====
-    { id: "lm5", type: "phrase", punjabi: "Eh shabad da matlab ki?",
-      english: "What does this word mean?",
-      definition: "'Shabad' = word; 'matlab' = meaning.",
-      related: "shabad",
-      example: "EH SHABAD DA MATLAB KI hai? — What does this word mean?" },
-    { id: "lm6", type: "phrase", punjabi: "Spelling dasso ji",
-      english: "Please tell me the spelling.",
-      definition: "Borrowed 'spelling'. Useful when writing things down.",
-      example: "SPELLING DASSO JI. — Please tell me the spelling." },
-    { id: "lm7", type: "phrase", punjabi: "Galti ho gayi taan theek karo",
-      english: "If I make a mistake, please correct me.",
-      definition: "Open invitation for corrections — turbocharges your learning.",
-      related: "galti",
-      example: "GALTI HO GAYI TAAN THEEK KARO ji. — If I'm wrong, please correct me." },
-    { id: "lm8", type: "phrase", punjabi: "Mainu thodi thodi Punjabi aandi hai",
-      english: "I know just a little Punjabi.",
-      definition: "Honest learner-disclaimer. Locks in goodwill from native speakers. ('Punjabi' is feminine, so 'thodi thodi' agrees.)",
-      example: "MAINU THODI THODI PUNJABI AANDI HAI. — I know a little Punjabi." },
-    { id: "lm9", type: "phrase", punjabi: "Tuhadi madad chahidi hai",
-      english: "I need your help.",
-      definition: "Polite request. 'Madad' = help.",
-      related: "madad",
-      example: "TUHADI MADAD CHAHIDI HAI ji. — I need your help, please." },
-    { id: "lm10", type: "phrase", punjabi: "Sikhauna shuru karange",
-      english: "Let's begin learning.",
-      definition: "Encouraging opener for a practice session.",
-      related: "shuru karna, sikhna",
-      example: "Chalo, SIKHAUNA SHURU KARANGE! — Come on, let's begin learning!" },
-
-    // ===== Health & Wellness expansion =====
-    // Symptoms & body
-    { id: "hw1", type: "vocab", punjabi: "sirdard",  english: "headache",
-      definition: "Literally 'head-pain'. The most-used complaint in any Punjabi household.",
-      related: "sir + dard",
-      example: "Mainu sirdard ho reha hai. — I have a headache." },
-    { id: "hw2", type: "vocab", punjabi: "petdard",  english: "stomachache",
-      definition: "'Pet' (stomach) + 'dard' (pain). Often blamed on 'thanda paani' (cold water).",
-      example: "Bachhe nu petdard hai. — The child has a stomachache." },
-    { id: "hw3", type: "vocab", punjabi: "thakaavat", english: "tiredness / fatigue",
-      definition: "A heavier word than 'thakk' — bone-deep tired, the kind sleep can't fix in one night.",
-      related: "thakk",
-      example: "Ajj badi thakaavat hai. — I'm very tired today." },
-    { id: "hw4", type: "vocab", punjabi: "neend",    english: "sleep",
-      definition: "Used as a noun. 'Neend aa rahi hai' = 'sleep is coming' = I'm getting sleepy.",
-      example: "Mainu neend nahin aa rahi. — I can't fall asleep." },
-    { id: "hw5", type: "vocab", punjabi: "araam",    english: "rest / comfort",
-      definition: "Both 'rest' (the activity) and 'comfort' (the feeling). 'Araam karo' is the universal Punjabi prescription.",
-      related: "aaram naal",
-      example: "Do din araam karo. — Rest for two days." },
-    { id: "hw6", type: "vocab", punjabi: "kasrat",   english: "exercise / workout",
-      definition: "From Arabic. Covers gym, jogging, push-ups — any deliberate physical effort.",
-      example: "Roz kasrat karni chahidi. — One should exercise daily." },
-    { id: "hw7", type: "vocab", punjabi: "yog",      english: "yoga",
-      definition: "Modern Punjabi keeps the Sanskrit root. 'Yog karna' = to do yoga.",
-      related: "aasan, pranayam",
-      example: "Sviere yog karna sehat layi changa hai. — Doing yoga in the morning is good for health." },
-    { id: "hw8", type: "vocab", punjabi: "saans",    english: "breath",
-      definition: "Both inhale and exhale. 'Lambi saans lao' = take a deep breath.",
-      example: "Gehri saans lao. — Take a deep breath." },
-    { id: "hw9", type: "vocab", punjabi: "dhyaan",   english: "attention / meditation",
-      definition: "Two meanings: focus ('dhyaan naal') OR meditation ('dhyaan lagana'). Context decides.",
-      example: "Dhyaan lagao. — Concentrate / meditate." },
-    { id: "hw10", type: "vocab", punjabi: "shaant",  english: "calm / peaceful",
-      definition: "An adjective for a calm person, place, or mind. Related to noun 'shaanti' (peace).",
-      related: "shaanti",
-      example: "Mann shaant rakho. — Keep your mind calm." },
-    { id: "hw11", type: "vocab", punjabi: "tanaav",  english: "stress / tension",
-      definition: "Modern Punjabi for psychological stress. Older speakers may say 'fikar' or 'pareshani'.",
-      example: "Bahut tanaav hai ajj-kal. — There's a lot of stress these days." },
-    { id: "hw12", type: "vocab", punjabi: "chinta",  english: "worry / anxiety",
-      definition: "A more bookish word for worry. Everyday speech uses 'fikar' more.",
-      related: "fikar",
-      example: "Chinta na karo. — Don't worry." },
-    { id: "hw13", type: "vocab", punjabi: "khurak",  english: "diet / appetite",
-      definition: "Both 'what one eats regularly' AND 'desire to eat'. 'Khurak nahin lagdi' = no appetite.",
-      example: "Sehatmand khurak khao. — Eat a healthy diet." },
-    { id: "hw14", type: "vocab", punjabi: "sehat",   english: "health",
-      definition: "The all-purpose word for health. 'Sehatmand' = healthy.",
-      related: "sehatmand, tabiyat",
-      example: "Sehat sab ton vaddi daulat hai. — Health is the greatest wealth." },
-    { id: "hw15", type: "vocab", punjabi: "goli",    english: "pill / tablet",
-      definition: "Literally 'a small ball'. Same word for bullets — context disambiguates.",
-      example: "Eh goli khaane ton baad lao. — Take this pill after meals." },
-    { id: "hw16", type: "vocab", punjabi: "syrup",   english: "syrup (cough syrup)",
-      definition: "English loanword, fully naturalized. Pharmacies use it daily.",
-      example: "Khaansi da syrup do chamche pio. — Take two spoons of cough syrup." },
-    { id: "hw17", type: "vocab", punjabi: "khuraak", english: "dose",
-      definition: "Same root as 'khurak' (diet) — here it means 'a serving' of medicine.",
-      example: "Din vich tinn khuraak. — Three doses a day." },
-    { id: "hw18", type: "vocab", punjabi: "teeka",   english: "injection / vaccine",
-      definition: "Same word for both shot and vaccine. Kids dread the word.",
-      example: "Bachhe nu teeka lavauna hai. — The child needs a vaccine." },
-    { id: "hw19", type: "vocab", punjabi: "guurda",  english: "kidney",
-      definition: "Anatomy. Two of them: 'do guurde'.",
-      example: "Guurde di taklif hai. — There's a kidney problem." },
-    { id: "hw20", type: "vocab", punjabi: "phephre", english: "lungs",
-      definition: "Always plural in everyday speech. Singular 'phephra' is rare.",
-      example: "Phephre saaf rakho. — Keep your lungs clean." },
-    { id: "hw21", type: "vocab", punjabi: "jigar",   english: "liver",
-      definition: "Also a poetic word for 'beloved' (jigar = my heart/liver). Punjabi loves the body-as-emotion idea.",
-      example: "Jigar di jaanch karva lao. — Get a liver test done." },
-    { id: "hw22", type: "vocab", punjabi: "chamri",  english: "skin",
-      definition: "Plain skin (not 'leather' — that's 'chamda' from the same root).",
-      example: "Chamri sukk gayi hai. — The skin has dried out." },
-    { id: "hw23", type: "vocab", punjabi: "alarji",  english: "allergy",
-      definition: "English loan. 'Mainu ___ ton alarji hai' = I'm allergic to ___.",
-      example: "Mainu mungphali ton alarji hai. — I'm allergic to peanuts." },
-    { id: "hw24", type: "vocab", punjabi: "chakkar", english: "dizziness",
-      definition: "Literally 'a spin'. 'Chakkar aa reha hai' = I feel dizzy.",
-      example: "Mainu chakkar aa reha hai. — I'm feeling dizzy." },
-    { id: "hw25", type: "vocab", punjabi: "ulti",    english: "vomiting",
-      definition: "'Ulti aana' = to feel like throwing up. 'Ulti karna' = to throw up.",
-      example: "Mainu ulti aa rahi hai. — I feel nauseous." },
-    { id: "hw26", type: "vocab", punjabi: "dast",    english: "diarrhea / loose motion",
-      definition: "Polite household term. Stronger 'pechish' is also used.",
-      example: "Bachhe nu dast lagge ne. — The child has diarrhea." },
-    { id: "hw27", type: "vocab", punjabi: "kamzori", english: "weakness",
-      definition: "Used for both physical weakness and a personal flaw.",
-      example: "Bimaari ton baad kamzori hai. — There's weakness after the illness." },
-    { id: "hw28", type: "vocab", punjabi: "marham",  english: "ointment / balm",
-      definition: "From Persian. The thing your dadi rubs on every bruise.",
-      example: "Chot te marham lagao. — Apply ointment on the wound." },
-    { id: "hw29", type: "vocab", punjabi: "patti",   english: "bandage",
-      definition: "Literally 'a strip'. Same word for strips of cloth or paper.",
-      example: "Patti bann do. — Tie a bandage." },
-    { id: "hw30", type: "vocab", punjabi: "tabiyat", english: "health condition / how one feels",
-      definition: "More immediate than 'sehat'. 'Tabiyat theek nahin' = I don't feel well right now.",
-      related: "sehat",
-      example: "Tuhadi tabiyat kive hai? — How are you feeling?" },
-
-    // Health phrases & dialogue lines
-    { id: "hwp1", type: "phrase", punjabi: "Mainu sirdard ho reha hai",
-      english: "I have a headache.",
-      definition: "Standard complaint. Replace 'sirdard' with any pain word: petdard, kammar dard, etc.",
-      example: "Doctor sahib, mainu sirdard ho reha hai. — Doctor, I have a headache." },
-    { id: "hwp2", type: "phrase", punjabi: "Mainu bukhaar hai",
-      english: "I have a fever.",
-      definition: "'Bukhaar' = fever. Add a number: 'sau-do bukhaar' = 102° fever.",
-      example: "Do din ton mainu bukhaar hai. — I've had a fever for two days." },
-    { id: "hwp3", type: "phrase", punjabi: "Khaansi nahin ruk rahi",
-      english: "The cough won't stop.",
-      definition: "Useful pharmacist line. Buys you cough syrup faster than any other phrase.",
-      example: "Raat nu khaansi nahin ruk rahi. — At night the cough won't stop." },
-    { id: "hwp4", type: "phrase", punjabi: "Khaane ton baad lao",
-      english: "Take it after meals.",
-      definition: "Standard pharmacist instruction. Variant: 'khaane ton pehlan' (before meals).",
-      example: "Eh dawa khaane ton baad lao. — Take this medicine after meals." },
-    { id: "hwp5", type: "phrase", punjabi: "Bahut paani peeo",
-      english: "Drink lots of water.",
-      definition: "Universal Punjabi medical advice. Often the only prescription needed.",
-      example: "Garmi vich bahut paani peeo. — Drink lots of water in the heat." },
-    { id: "hwp6", type: "phrase", punjabi: "Mainu araam chahida hai",
-      english: "I need rest.",
-      definition: "Polite signal that you're declining plans. Hard to argue with.",
-      example: "Ajj mainu araam chahida hai. — Today I need rest." },
-    { id: "hwp7", type: "phrase", punjabi: "Ajj behtar mehsoos kar reha haan",
-      english: "I feel better today.",
-      definition: "Recovery update. Female speaker swaps 'reha' → 'rahi'.",
-      example: "Ajj behtar mehsoos kar reha haan, shukriya. — I feel better today, thanks." },
-    { id: "hwp8", type: "phrase", punjabi: "Ambulance bulao",
-      english: "Call an ambulance.",
-      definition: "Emergency phrase. Memorize.",
-      example: "Jaldi ambulance bulao! — Quickly call an ambulance!" },
-    { id: "hwp9", type: "phrase", punjabi: "Mainu ___ ton alarji hai",
-      english: "I'm allergic to ___.",
-      definition: "Fill the blank: 'mungphali' (peanuts), 'doodh' (milk), 'antibiotic'. Critical at restaurants.",
-      example: "Mainu mungphali ton alarji hai. — I'm allergic to peanuts." },
-    { id: "hwp10", type: "phrase", punjabi: "Doctor naal appointment lain hai",
-      english: "I need to take an appointment with the doctor.",
-      definition: "Code-mix is normal here. 'Appointment' is a fully Punjabi word now.",
-      example: "Mainu doctor naal appointment lain hai. — I need a doctor's appointment." },
-    { id: "hwp11", type: "phrase", punjabi: "Test karvauna painda hai",
-      english: "We'll need to get a test done.",
-      definition: "Doctor's stock phrase. 'Karvauna' = causative — 'to get done by someone else'.",
-      example: "Khoon da test karvauna painda hai. — We'll need to do a blood test." },
-    { id: "hwp12", type: "phrase", punjabi: "Kado ton dard hai?",
-      english: "How long has it been hurting?",
-      definition: "Doctor's first question, every time. Reply with 'do din ton', 'hafte ton', etc.",
-      example: "Kado ton dard hai, dasso? — Tell me, how long has it been hurting?" },
-    { id: "hwp13", type: "phrase", punjabi: "Sehat da khayal rakho",
-      english: "Take care of your health.",
-      definition: "Caring goodbye phrase, especially to elders. 'Khayal rakhna' = to take care.",
-      example: "Sardi vich sehat da khayal rakho. — Take care of your health in the cold." },
-    { id: "hwp14", type: "phrase", punjabi: "Tanaav na lao",
-      english: "Don't take stress.",
-      definition: "The Punjabi version of 'no worries' — said with conviction, often unsolicited.",
-      example: "Bachhe di chinta hai, par tanaav na lao. — There's worry about the child, but don't stress." },
-    { id: "hwp15", type: "phrase", punjabi: "Roz kasrat karo",
-      english: "Exercise daily.",
-      definition: "Health advice from every uncle, ever.",
-      example: "Sviere uth ke roz kasrat karo. — Wake up early and exercise daily." },
-    { id: "hwp16", type: "phrase", punjabi: "Cheeni bandh kar do",
-      english: "Cut out sugar.",
-      definition: "What the doctor says when sugar levels rise. 'Bandh karna' = to stop / shut.",
-      example: "Doctor ne kiha cheeni bandh kar do. — The doctor said to cut out sugar." },
-    { id: "hwp17", type: "phrase", punjabi: "Kuch khaada hai aaj?",
-      english: "Have you eaten anything today?",
-      definition: "What every Punjabi mom asks before any conversation can begin.",
-      example: "Beta, kuch khaada hai aaj? — Son, have you eaten today?" },
-    { id: "hwp18", type: "phrase", punjabi: "Theek ho jaoge",
-      english: "You'll be fine.",
-      definition: "Reassurance. From doctor or family member. Often follows 'fikar na karo'.",
-      example: "Fikar na karo, theek ho jaoge. — Don't worry, you'll be fine." },
-    { id: "hwp19", type: "phrase", punjabi: "Mainu chakkar aa reha hai",
-      english: "I'm feeling dizzy.",
-      definition: "Common reason to ask to sit down. Often paired with 'baith jaan do'.",
-      example: "Mainu chakkar aa reha hai, baithna painda. — I'm dizzy, I need to sit." },
-    { id: "hwp20", type: "phrase", punjabi: "Saans lain vich takleef hai",
-      english: "I have trouble breathing.",
-      definition: "Important phrase. 'Takleef' = trouble / discomfort.",
-      example: "Mainu saans lain vich takleef hai. — I have trouble breathing." },
-
-    // Health dialogue mini-scenes
-    { id: "hwd1", type: "phrase", punjabi: "A: Ki taklif hai? B: Bukhaar te khaansi.",
-      english: "A: What's the trouble? B: Fever and cough.",
-      definition: "Doctor consult opener. Master this and you can answer any clinic visit.",
-      example: "Doctor: Ki taklif hai? Tussi: Bukhaar te khaansi. — Doctor: What's wrong? You: Fever and cough." },
-    { id: "hwd2", type: "phrase", punjabi: "A: Eh dawa kado lavaan? B: Khaane ton baad, din vich do vaari.",
-      english: "A: When do I take this medicine? B: After meals, twice a day.",
-      definition: "Pharmacy pickup. Memorize 'din vich do/tinn vaari' (twice/thrice a day).",
-      example: "Tussi: Eh dawa kado lavaan? Pharmacist: Khaane ton baad, din vich do vaari." },
-    { id: "hwd3", type: "phrase", punjabi: "A: Tuhadi tabiyat kive hai? B: Pehlan ton bahut behtar.",
-      english: "A: How are you feeling? B: Much better than before.",
-      definition: "Checking on a sick relative. Warm, low-pressure exchange.",
-      example: "Maa: Tuhadi tabiyat kive hai? Tussi: Pehlan ton bahut behtar." },
-    { id: "hwd4", type: "phrase", punjabi: "A: Aaram naal khao. B: Mainu khurak nahin lagdi.",
-      english: "A: Eat slowly. B: I don't have an appetite.",
-      definition: "The eternal Punjabi-mom-vs-sick-kid loop.",
-      example: "Maa: Aaram naal khao. Beta: Mainu khurak nahin lagdi." },
-    { id: "hwd5", type: "phrase", punjabi: "A: Test ki kehnda? B: Sab theek hai, fikar na karo.",
-      english: "A: What does the test say? B: Everything's fine, don't worry.",
-      definition: "Lab-results call. Best news a family can hear.",
-      example: "Bhra: Test ki kehnda? Doctor: Sab theek hai, fikar na karo." },
-
-    // ===== Hospitality expansion =====
-    // Vocab — serving & welcoming
-    { id: "hs1", type: "vocab", punjabi: "mehmaan",  english: "guest",
-      definition: "From Persian. 'Mehmaan rabb da roop hunda' — a guest is the form of God. Punjabi hospitality is sacred.",
-      related: "mehmannawazi",
-      example: "Mehmaan ghar aaye ne. — Guests have come home." },
-    { id: "hs2", type: "vocab", punjabi: "mehmannawazi", english: "hospitality",
-      definition: "The act and the art. Punjabis treat it as a competitive sport.",
-      example: "Punjabi mehmannawazi mashhoor hai. — Punjabi hospitality is famous." },
-    { id: "hs3", type: "vocab", punjabi: "swagat",   english: "welcome",
-      definition: "Formal welcome. Used in 'tuhada swagat hai'.",
-      example: "Tuhada swagat hai ji. — You are welcome." },
-    { id: "hs4", type: "vocab", punjabi: "thali",    english: "round metal plate",
-      definition: "The traditional Punjabi serving plate — steel or brass, with raised rim.",
-      example: "Thali bhar ke khana lao. — Bring a full plate of food." },
-    { id: "hs5", type: "vocab", punjabi: "tray",     english: "tray",
-      definition: "English loan. 'Chai di tray' = tea tray. The vehicle of Punjabi hospitality.",
-      example: "Chai di tray le ke aaja. — Bring the tea tray." },
-    { id: "hs6", type: "vocab", punjabi: "mithai",   english: "sweets",
-      definition: "Box of sweets. Standard gift for any visit, festival, or good news.",
-      related: "ladoo, jalebi, barfi",
-      example: "Mithai da dabba lai aaya. — He brought a box of sweets." },
-    { id: "hs7", type: "vocab", punjabi: "tohfa",    english: "gift",
-      definition: "From Arabic. Used for any present.",
-      example: "Eh chhota jeha tohfa hai. — This is a small gift." },
-    { id: "hs8", type: "vocab", punjabi: "haar",     english: "garland (of flowers)",
-      definition: "Flower garland for honored guests, weddings, religious functions.",
-      example: "Mehmaan nu haar payaayega. — He'll garland the guest." },
-    { id: "hs9", type: "vocab", punjabi: "shawl",    english: "shawl (of honor)",
-      definition: "Offering a shawl is a gesture of deep respect — common at weddings and farewells.",
-      example: "Bujurg nu shawl bhent kiti. — They presented the elder a shawl." },
-    { id: "hs10", type: "vocab", punjabi: "darvaaza-khol",  english: "open the door",
-      definition: "Imperative compound. 'Darvaaza khol' = open the door — said when guests knock.",
-      example: "Bell vajdi, darvaaza khol! — The bell's ringing, open the door!" },
-    { id: "hs11", type: "vocab", punjabi: "jutti-utar",  english: "remove shoes",
-      definition: "Cultural rule: shoes off before entering most Punjabi homes and ALL Gurdwaras.",
-      example: "Andar aaun ton pehlan jutti utaaro. — Take shoes off before entering." },
-    { id: "hs12", type: "vocab", punjabi: "gali-mohalla", english: "neighborhood",
-      definition: "'Gali' = lane, 'mohalla' = block. The whole micro-community that shows up uninvited.",
-      example: "Saara mohalla khushi vich shaamal hai. — The whole neighborhood is in the celebration." },
-    { id: "hs13", type: "vocab", punjabi: "mez-saji", english: "set the table",
-      definition: "Compound: 'mez' (table) + 'saji' (decorate). What kids are told to do before meals.",
-      example: "Mez saji ke khaana lao. — Set the table and bring the food." },
-    { id: "hs14", type: "vocab", punjabi: "parosna", english: "to serve (food)",
-      definition: "The verb for serving food onto someone's plate — a deeply Punjabi action.",
-      example: "Maa parosdi reh gayi. — Mom kept on serving and serving." },
-    { id: "hs15", type: "vocab", punjabi: "ashirvaad", english: "blessings",
-      definition: "Formal blessing from elders. Touch their feet, receive 'ashirvaad'.",
-      related: "duaa",
-      example: "Bujurgan da ashirvaad lao. — Take the elders' blessings." },
-    { id: "hs16", type: "vocab", punjabi: "duaa",    english: "prayer / blessing",
-      definition: "Lighter, more everyday than 'ashirvaad'. Mothers send 'duaa' with you anywhere.",
-      example: "Maa di duaa naal sab hunda. — Everything happens with mother's prayer." },
-    { id: "hs17", type: "vocab", punjabi: "khidmat", english: "service / care for guests",
-      definition: "Persian-origin. The honored service shown to guests, especially elders.",
-      example: "Mehmaan di khidmat karo. — Take care of the guest." },
-    { id: "hs18", type: "vocab", punjabi: "izzat",   english: "respect / honor",
-      definition: "Arguably the most-used word in Punjabi households. Family izzat is everything.",
-      example: "Vade-vadereyaan di izzat karo. — Respect the elders." },
-    { id: "hs19", type: "vocab", punjabi: "rishta",  english: "relationship / connection",
-      definition: "Both 'a connection' and a marriage proposal. Context decides which.",
-      example: "Saade chir purana rishta hai. — We have a long-old relationship." },
-    { id: "hs20", type: "vocab", punjabi: "bhent",   english: "offering / gift to a respected person",
-      definition: "More formal than 'tohfa'. Used for offerings to guests, gurus, dignitaries.",
-      example: "Guru ji nu bhent kiti. — They made an offering to the Guru." },
-
-    // Hospitality phrases
-    { id: "hsp1", type: "phrase", punjabi: "Andar aao ji",
-      english: "Please come inside.",
-      definition: "Standard doorway invitation. The 'ji' is non-negotiable for warmth.",
-      example: "Sat sri akaal, andar aao ji. — Hello, please come inside." },
-    { id: "hsp2", type: "phrase", punjabi: "Jutti baahar laho",
-      english: "Please leave your shoes outside.",
-      definition: "Polite version. Said with a smile, never as a rebuke.",
-      example: "Andar aaun ton pehlan jutti baahar laho. — Please leave shoes outside before coming in." },
-    { id: "hsp3", type: "phrase", punjabi: "Chai paani le ke jaana",
-      english: "Have tea before you go.",
-      definition: "The Punjabi 'don't leave hungry' clause. Often non-negotiable.",
-      example: "Bas, chai paani le ke jaana. — Just have tea before going." },
-    { id: "hsp4", type: "phrase", punjabi: "Khaana kha ke jana",
-      english: "Eat something before you leave.",
-      definition: "Stronger than tea. If said by a Punjabi mom, you're staying for dinner.",
-      example: "Eddan kithon, khaana kha ke jana. — Where so quickly, eat first." },
-    { id: "hsp5", type: "phrase", punjabi: "Hor lao ji",
-      english: "Have some more.",
-      definition: "Said while serving seconds. Refusing once does NOT count as a real refusal.",
-      example: "Bas thoda hor lao ji. — Just have a little more." },
-    { id: "hsp6", type: "phrase", punjabi: "Bilkul nahin chhadan ge",
-      english: "We absolutely won't let you leave.",
-      definition: "Said with a laugh while physically blocking the doorway. Pure Punjabi affection.",
-      example: "Bilkul nahin chhadan ge, ratt itthe ruk jao. — We won't let you leave, stay the night." },
-    { id: "hsp7", type: "phrase", punjabi: "Apna ghar samjho",
-      english: "Consider this your own home.",
-      definition: "The most welcoming line in Punjabi. Means: open the fridge, take a nap, you belong here.",
-      example: "Sankoch na karo, apna ghar samjho. — Don't hesitate, consider this your home." },
-    { id: "hsp8", type: "phrase", punjabi: "Bachiyaan nu vi laav agla vaari",
-      english: "Bring the kids next time too.",
-      definition: "Open invitation extended to family. Locks in another visit.",
-      example: "Bachiyaan nu vi laav agla vaari. — Bring the kids next time also." },
-    { id: "hsp9", type: "phrase", punjabi: "Bahut chir baad mile",
-      english: "We met after a very long time.",
-      definition: "Said warmly at reunions. 'Chir' = a while.",
-      example: "Sache, bahut chir baad mile aan. — Truly, we've met after so long." },
-    { id: "hsp10", type: "phrase", punjabi: "Hun ainvi na ghum jaayo",
-      english: "Now don't disappear like that.",
-      definition: "Friendly scolding for not visiting. 'Ghum jaana' = to vanish.",
-      example: "Hun ainvi na ghum jaayo, mildi raho. — Don't vanish, keep meeting." },
-    { id: "hsp11", type: "phrase", punjabi: "Ratt itthe ruk jao",
-      english: "Stay the night here.",
-      definition: "Hospitality push. Common when guests visit from another city.",
-      example: "Hun raat ho gayi, ratt itthe ruk jao. — It's late, stay the night here." },
-    { id: "hsp12", type: "phrase", punjabi: "Kuch chahida hove te dasso",
-      english: "If you need anything, tell me.",
-      definition: "Open-ended hospitality. Said as the guest sits down.",
-      example: "Beta, kuch chahida hove te dasso. — Son, if you need anything tell me." },
-    { id: "hsp13", type: "phrase", punjabi: "Tuhadi mehrbani hai aaye",
-      english: "It is your kindness that you came.",
-      definition: "Humble greeting to guests. Reframes their visit as their generosity to you.",
-      example: "Tuhadi mehrbani hai aaye, ji aaya nu. — Your kindness that you came, welcome." },
-    { id: "hsp14", type: "phrase", punjabi: "Pehlan tussi lao",
-      english: "You take it first.",
-      definition: "Said while passing food. Punjabi version of 'after you'.",
-      example: "Pehlan tussi lao, baad vich main. — You take it first, then me." },
-    { id: "hsp15", type: "phrase", punjabi: "Mehmaan rabb da roop hunda",
-      english: "A guest is the form of God.",
-      definition: "Cultural saying. Explains why refusing food is so hard.",
-      example: "Saanu sikhaya gaya — mehmaan rabb da roop hunda. — We were taught — a guest is God's form." },
-    { id: "hsp16", type: "phrase", punjabi: "Kade vi aa jaao",
-      english: "Come over anytime.",
-      definition: "The most Punjabi sentence. Genuinely meant; the door is always open.",
-      example: "Phone karke nahin, kade vi aa jaao. — No need to call, come anytime." },
-    { id: "hsp17", type: "phrase", punjabi: "Muh meetha karo",
-      english: "Sweeten your mouth.",
-      definition: "Said while offering sweets — at weddings, festivals, or good news.",
-      example: "Khabar sun ke muh meetha karo. — Hear the news, sweeten your mouth." },
-    { id: "hsp18", type: "phrase", punjabi: "Ghar di yaad aayegi",
-      english: "You'll miss home.",
-      definition: "Said to a guest you've spoiled with food and care. Half-warning, half-affection.",
-      example: "Eddan khaa ke jaayoge, ghar di yaad aayegi. — Eating like this, you'll miss home." },
-    { id: "hsp19", type: "phrase", punjabi: "Aaye ho, bahut khushi hoyi",
-      english: "I'm so happy you came.",
-      definition: "Warm thank-you for the visit itself.",
-      example: "Aaye ho, bahut khushi hoyi ji. — You came, I'm so happy." },
-    { id: "hsp20", type: "phrase", punjabi: "Dobaara zaroor aaiyo",
-      english: "Definitely come again.",
-      definition: "Parting hospitality phrase. Stronger than 'phir milange'.",
-      example: "Chalo ji, dobaara zaroor aaiyo. — Alright, definitely come again." },
-
-    // Hospitality dialogues
-    { id: "hsd1", type: "phrase", punjabi: "A: Sat sri akaal ji! B: Aao aao, andar aao, jutti baahar laho.",
-      english: "A: Hello! B: Come, come in, leave your shoes outside.",
-      definition: "Door-opening scene. Memorize the rhythm.",
-      example: "Mehmaan: Sat sri akaal ji! Mejbaan: Aao aao, andar aao." },
-    { id: "hsd2", type: "phrase", punjabi: "A: Bas, hor nahin chahida. B: Thoda jeha hor lao, mehrbani karke.",
-      english: "A: Enough, I don't want more. B: A little more, please.",
-      definition: "The eternal dinner-table push and polite refusal — and the inevitable 'thoda jeha hor'.",
-      example: "Tussi: Bas, hor nahin chahida. Aunti: Thoda jeha hor lao." },
-    { id: "hsd3", type: "phrase", punjabi: "A: Hun chaliye. B: Ratt itthe ruk jao, savere chale jaana.",
-      english: "A: Now I should go. B: Stay the night, leave in the morning.",
-      definition: "Late-night farewell trap. Resistance is usually futile.",
-      example: "Tussi: Hun chaliye. Mejbaan: Ratt itthe ruk jao." },
-    { id: "hsd4", type: "phrase", punjabi: "A: Eh chhoti si bhent hai. B: Iddi taklif kaahde layi?",
-      english: "A: This is a small gift. B: Why so much trouble?",
-      definition: "Gift-giving exchange. The host always protests, then accepts warmly.",
-      example: "Tussi: Eh chhoti si bhent hai. Mejbaan: Iddi taklif kaahde layi?" },
-    { id: "hsd5", type: "phrase", punjabi: "A: Phir kado milange? B: Jaldi aana, ghar tuhada hi hai.",
-      english: "A: When will we meet again? B: Come soon, this is your home too.",
-      definition: "Parting blessing. The most-Punjabi line you'll hear all day.",
-      example: "Tussi: Phir kado milange? Daadi: Jaldi aana, ghar tuhada hi hai." },
-
-    // ===== Business Conversations expansion =====
-    // Vocab — bazaar + corporate mix
-    { id: "bz1", type: "vocab", punjabi: "kaarobaar", english: "business / trade",
-      definition: "The all-purpose word for any business or trade. 'Kaarobaar kive hai?' = how's business?",
-      example: "Saadi family da kaarobaar hai. — We have a family business." },
-    { id: "bz2", type: "vocab", punjabi: "graahak",  english: "customer",
-      definition: "Standard Punjabi word for customer. Shop-keepers' favorite person.",
-      related: "client",
-      example: "Graahak hi rabb hai. — The customer is god." },
-    { id: "bz3", type: "vocab", punjabi: "saudaa",   english: "deal / transaction",
-      definition: "'Saudaa pakka' = the deal is set. Used in markets, real estate, weddings.",
-      example: "Saudaa pakka ho gaya. — The deal is done." },
-    { id: "bz4", type: "vocab", punjabi: "munafaa",  english: "profit",
-      definition: "Persian origin. Opposite is 'nuksaan' (loss).",
-      related: "nuksaan",
-      example: "Es saal vadda munafaa hoya. — There was big profit this year." },
-    { id: "bz5", type: "vocab", punjabi: "nuksaan",  english: "loss / damage",
-      definition: "Used for both financial loss AND physical damage.",
-      example: "Nuksaan ho gaya, par seekh layi. — There was loss, but I learned." },
-    { id: "bz6", type: "vocab", punjabi: "keemat",   english: "price / value",
-      definition: "Both market price AND human worth. 'Tuhadi keemat hai' = you have value.",
-      example: "Es di keemat ki hai? — What's the price of this?" },
-    { id: "bz7", type: "vocab", punjabi: "thekedaar", english: "contractor",
-      definition: "From 'theka' (contract). Construction, transport, supply — anyone holding a contract.",
-      example: "Thekedaar naal gall karo. — Speak with the contractor." },
-    { id: "bz8", type: "vocab", punjabi: "supplier", english: "supplier",
-      definition: "English loan, fully naturalized. Older alternative: 'maal denvala'.",
-      example: "Supplier kal aayega. — The supplier will come tomorrow." },
-    { id: "bz9", type: "vocab", punjabi: "client",   english: "client",
-      definition: "Used in modern offices. Shopkeepers still prefer 'graahak'.",
-      example: "Client ne reply nahin keeta. — The client didn't reply." },
-    { id: "bz10", type: "vocab", punjabi: "deadline", english: "deadline",
-      definition: "Pure code-mix. 'Deadline tight hai' is normal Punjabi office speech.",
-      example: "Deadline kal di hai. — The deadline is tomorrow." },
-    { id: "bz11", type: "vocab", punjabi: "bill",    english: "bill / invoice",
-      definition: "English loan. 'Bill banao' = make the invoice.",
-      example: "Bill bana ke bhejo. — Make the bill and send it." },
-    { id: "bz12", type: "vocab", punjabi: "raseed",  english: "receipt",
-      definition: "Persian origin. Always ask for the 'raseed' so you can return goods.",
-      example: "Raseed sambhaal ke rakho. — Keep the receipt safely." },
-    { id: "bz13", type: "vocab", punjabi: "udhaar",  english: "credit / loan",
-      definition: "Money taken on trust. Bazaars run on it. 'Udhaar mohabbat di kainchi hai' — credit is the scissors of love.",
-      example: "Udhaar nahin dinda. — I don't give credit." },
-    { id: "bz14", type: "vocab", punjabi: "naqdi",   english: "cash",
-      definition: "Cash in hand. Also 'cash' as a loan is fully accepted.",
-      related: "cash",
-      example: "Naqdi vich denge ki card te? — Will you pay in cash or card?" },
-    { id: "bz15", type: "vocab", punjabi: "dastkhat", english: "signature",
-      definition: "Persian. Required on every Indian form, contract, and complaint.",
-      example: "Itthe dastkhat karo. — Sign here." },
-    { id: "bz16", type: "vocab", punjabi: "thappa",  english: "stamp / seal",
-      definition: "Office rubber-stamp. The bureaucracy can't move without it.",
-      example: "Thappa lavao baad vich. — Get it stamped afterwards." },
-    { id: "bz17", type: "vocab", punjabi: "kharcha", english: "expense",
-      definition: "Single expense or running cost. 'Kharche jiada ne' = expenses are too high.",
-      related: "kamai",
-      example: "Es mahine da kharcha vadh gaya. — This month's expense increased." },
-    { id: "bz18", type: "vocab", punjabi: "kamai",   english: "earning / income",
-      definition: "Money you earn through work. 'Mehnat di kamai' = earnings from hard work — sacred to Sikhs.",
-      example: "Imandari di kamai hai. — It's honest earning." },
-    { id: "bz19", type: "vocab", punjabi: "discount", english: "discount",
-      definition: "Loanword. 'Thoda discount lao ji' = give me a little discount please.",
-      example: "Mainu discount mil sakda? — Can I get a discount?" },
-    { id: "bz20", type: "vocab", punjabi: "thok-bhaa",  english: "wholesale rate",
-      definition: "'Thok' = bulk, 'bhaa' = price. Wholesalers' favorite phrase.",
-      example: "Thok-bhaa ki hai? — What's the wholesale rate?" },
-
-    // Business phrases — bazaar register
-    { id: "bzp1", type: "phrase", punjabi: "Eh kinne da hai?",
-      english: "How much is this?",
-      definition: "The first phrase any market shopper learns. Variant: 'kee bhaa hai?'",
-      example: "Bhajee, eh kinne da hai? — Brother, how much is this?" },
-    { id: "bzp2", type: "phrase", punjabi: "Pakka rate dasso",
-      english: "Tell me the firm price.",
-      definition: "Cuts through bargaining games. 'Pakka' = solid / final.",
-      example: "Bhajee, pakka rate dasso. — Brother, tell me the firm price." },
-    { id: "bzp3", type: "phrase", punjabi: "Thoda discount kar do",
-      english: "Give a small discount.",
-      definition: "Soft request. Almost always works for at least 5%.",
-      example: "Bahut le rahe han, thoda discount kar do. — Taking a lot, give a small discount." },
-    { id: "bzp4", type: "phrase", punjabi: "Kal de denna",
-      english: "I'll give it tomorrow.",
-      definition: "Classic delay phrase. Sometimes truth, sometimes ritual.",
-      example: "Paise kal de denna ji. — I'll give the money tomorrow." },
-    { id: "bzp5", type: "phrase", punjabi: "Bill bana do",
-      english: "Make me a bill.",
-      definition: "Always ask. No bill = no return, no warranty.",
-      example: "Bill bana do, te thappa vi lavao. — Make a bill, and stamp it." },
-    { id: "bzp6", type: "phrase", punjabi: "Udhaar nahin chalda",
-      english: "We don't do credit.",
-      definition: "Sign at every Indian shop. The most-quoted shopkeeper line.",
-      example: "Maaf karna, udhaar nahin chalda. — Sorry, we don't do credit." },
-    { id: "bzp7", type: "phrase", punjabi: "Maal vadhiya hai",
-      english: "The product is excellent.",
-      definition: "Selling line. 'Maal' = goods / merchandise.",
-      example: "Le lao ji, maal vadhiya hai. — Take it sir, the product is great." },
-    { id: "bzp8", type: "phrase", punjabi: "Phir aaiyo",
-      english: "Come again.",
-      definition: "Closing line of any market interaction. Doubles as a thank-you.",
-      example: "Phir aaiyo, bhajee. — Come again, brother." },
-    { id: "bzp9", type: "phrase", punjabi: "Aaj da bhaa ki hai?",
-      english: "What's today's rate?",
-      definition: "Used in vegetable, gold, and currency markets. Rates change daily.",
-      example: "Sone da aaj da bhaa ki hai? — What's today's gold rate?" },
-    { id: "bzp10", type: "phrase", punjabi: "Maal dekh ke lao",
-      english: "Look at the goods before taking.",
-      definition: "Buyer's caution. Especially for fruit, fabric, electronics.",
-      example: "Pehlan maal dekh ke lao, phir paise. — Look at the goods first, then pay." },
-
-    // Business phrases — corporate / office register
-    { id: "bzp11", type: "phrase", punjabi: "Meeting set kar lao",
-      english: "Set up a meeting.",
-      definition: "Office Punjabi. Pure code-mix and totally normal.",
-      example: "Kal layi meeting set kar lao. — Set a meeting for tomorrow." },
-    { id: "bzp12", type: "phrase", punjabi: "Email te confirm karo",
-      english: "Confirm by email.",
-      definition: "Corporate ritual. 'Te' = on (postposition).",
-      example: "Mehrbani karke email te confirm karo. — Please confirm by email." },
-    { id: "bzp13", type: "phrase", punjabi: "Quote kal bhej deyaanga",
-      english: "I'll send the quote tomorrow.",
-      definition: "Sales follow-up. 'Quote' = price quotation.",
-      example: "Fikar na karo, quote kal bhej deyaanga. — Don't worry, I'll send the quote tomorrow." },
-    { id: "bzp14", type: "phrase", punjabi: "Saade naal kaam karne layi shukriya",
-      english: "Thank you for working with us.",
-      definition: "Closing line of business correspondence. Genuine even if formal.",
-      example: "Ji, saade naal kaam karne layi shukriya. — Sir, thank you for working with us." },
-    { id: "bzp15", type: "phrase", punjabi: "Bulk te discount mil sakda",
-      english: "We can offer a discount on bulk.",
-      definition: "Negotiating phrase. 'Bulk te' = on bulk.",
-      example: "Sau ton vadh lai jao, bulk te discount mil sakda. — Take more than 100, you can get a bulk discount." },
-    { id: "bzp16", type: "phrase", punjabi: "Late hone layi maafi",
-      english: "Apologies for being late.",
-      definition: "Mixed-register apology. Equally fine in offices and family WhatsApp.",
-      example: "Late hone layi maafi, traffic vich phasiya. — Sorry for being late, was stuck in traffic." },
-    { id: "bzp17", type: "phrase", punjabi: "Main mere colleague nu loop vich rakhna",
-      english: "I'll loop in my colleague.",
-      definition: "Modern code-mix. 'Loop vich rakhna' = to keep in the loop. Familiar to anyone in office WhatsApp groups.",
-      example: "Eh kaam layi, main mere colleague nu loop vich rakhna. — For this, I'll loop in my colleague." },
-    { id: "bzp18", type: "phrase", punjabi: "Payment kado milegi?",
-      english: "When will payment come?",
-      definition: "The phrase every freelancer rehearses. Direct, polite, unavoidable.",
-      example: "Mehrbani karke dasso, payment kado milegi? — Please tell me, when will payment come?" },
-    { id: "bzp19", type: "phrase", punjabi: "Contract sign karna painda",
-      english: "We'll need to sign the contract.",
-      definition: "Locking in a deal. 'Painda' = needs to / has to.",
-      example: "Pehlan contract sign karna painda. — First we'll need to sign the contract." },
-    { id: "bzp20", type: "phrase", punjabi: "Order confirm ho gaya",
-      english: "The order is confirmed.",
-      definition: "Standard supply-chain update.",
-      example: "Khabar do — order confirm ho gaya. — Update — the order is confirmed." },
-    { id: "bzp21", type: "phrase", punjabi: "Delivery date fix karo",
-      english: "Fix a delivery date.",
-      definition: "Mixed register. 'Fix karo' = settle / finalize.",
-      example: "Pehlan delivery date fix karo. — First fix the delivery date." },
-    { id: "bzp22", type: "phrase", punjabi: "Final price ki hai?",
-      english: "What's the final price?",
-      definition: "Negotiation closer. Cuts the back-and-forth.",
-      example: "Bas dasso, final price ki hai? — Just tell me, what's the final price?" },
-    { id: "bzp23", type: "phrase", punjabi: "Saanu reference dewo",
-      english: "Give us a reference.",
-      definition: "Asking for a referral / past-client. 'Reference' is fully Punjabi now.",
-      example: "Saanu kise da reference dewo. — Give us someone's reference." },
-    { id: "bzp24", type: "phrase", punjabi: "Sample bhejo pehlan",
-      english: "Send a sample first.",
-      definition: "Standard B2B ask before placing a big order.",
-      example: "Order ton pehlan sample bhejo. — Before the order, send a sample." },
-    { id: "bzp25", type: "phrase", punjabi: "Deal pakki samjho",
-      english: "Consider the deal done.",
-      definition: "Closing phrase, both bazaar and boardroom. 'Samjho' = consider.",
-      example: "Hath milao, deal pakki samjho. — Shake hands, the deal is done." },
-
-    // Business mini-dialogues
-    { id: "bzd1", type: "phrase", punjabi: "A: Eh kinne da? B: Sau rupae. A: Assi vich de devo. B: Acha, le jao.",
-      english: "A: How much? B: 100 rupees. A: Give it for 80. B: OK, take it.",
-      definition: "Classic bazaar negotiation. Three-line haggle, deal closed.",
-      example: "Graahak: Eh kinne da? Dukandar: Sau rupae. Graahak: Assi vich de devo." },
-    { id: "bzd2", type: "phrase", punjabi: "A: Saade naal kaam karoge? B: Pehlan saanu sample te quote bhejo.",
-      english: "A: Will you work with us? B: First send us a sample and quote.",
-      definition: "First-call sales script. Polite, professional, classic.",
-      example: "Sales: Saade naal kaam karoge? Client: Pehlan sample te quote bhejo." },
-    { id: "bzd3", type: "phrase", punjabi: "A: Delivery kal hovegi? B: Maafi, pasoon din lagange.",
-      english: "A: Will delivery happen tomorrow? B: Apologies, it'll take five days.",
-      definition: "Vendor delay handling. Direct apology, real timeline.",
-      example: "Buyer: Delivery kal hovegi? Vendor: Maafi, panj din lagange." },
-    { id: "bzd4", type: "phrase", punjabi: "A: Payment kado? B: Bill milte sar, do din vich.",
-      english: "A: Payment when? B: As soon as we get the bill, within two days.",
-      definition: "Cash-flow conversation. Useful in any small-business setup.",
-      example: "Vendor: Payment kado? Client: Bill milte sar, do din vich." },
-    { id: "bzd5", type: "phrase", punjabi: "A: Contract pasand aaya? B: Haan ji, sirf timeline thoda lammbaa kar lao.",
-      english: "A: Did you like the contract? B: Yes, just extend the timeline a bit.",
-      definition: "Closing-the-deal exchange. Polite negotiation of a final term.",
-      example: "Sales: Contract pasand aaya? Client: Haan ji, sirf timeline thoda lammbaa kar lao." },
-  ];
+  const DECK = window.PPZ_DECK;
+  if (!Array.isArray(DECK)) {
+    throw new Error('PPZ: deck.data.js must load before script.js');
+  }
 
   // ---------- Ranks -----------------------------------------------------------
-  const RANKS = [
-    { level: 1,        title: "Peshtigo Beginner",          badge: "🥋" },
-    { level: 50,       title: "Punjabi Trainee",            badge: "🧑‍🎓" },
-    { level: 500,      title: "Village Warrior",            badge: "🛡️" },
-    { level: 5000,     title: "Saiyan Speaker",             badge: "🔥" },
-    { level: 25000,    title: "Super Saiyan Student",       badge: "⚡" },
-    { level: 100000,   title: "Super Saiyan Scholar",       badge: "🌟" },
-    { level: 500000,   title: "Ultra Instinct Translator",  badge: "🌀" },
-    { level: 1000000,  title: "Legendary Super Saiyan Linguist", badge: "👑" },
-  ];
+  const RANKS = window.PPZ_CONFIG.RANKS;
 
   function getRank(level) {
     let r = RANKS[0];
@@ -5408,181 +43,39 @@
   }
 
   // ---------- Enemies ---------------------------------------------------------
-  // Tiers: 'minion' (emoji), 'elite' (emoji + purple aura), 'boss' (uses enemy.png)
-  const ENEMIES = [
-    { name: "Training Bot",  emoji: "🤖", baseHp: 60,  tier: "minion", flavor: "A friendly first opponent. Warm up.",
-      flavorAlts: ["Wakes up. Already disappointed in you.", "Beep boop. Boring boop."] },
-    { name: "Saibaman",      emoji: "👽", baseHp: 90,  tier: "minion", flavor: "Small but tricky. Watch your timing." },
-    { name: "Goblin Scout",  emoji: "👺", baseHp: 110, tier: "minion", flavor: "Fast on its feet — answer quickly." },
-    { name: "Frieza Minion", emoji: "🦖", baseHp: 140, tier: "elite",  flavor: "Elite mook. Hits harder than it looks." },
-    { name: "Cell Mini-Boss",emoji: "🐉", baseHp: 220, tier: "boss",   flavor: "A perfect copy. Only perfect answers will do.",
-      flavorAlts: ["He copied you, then improved on it."],
-      quote: "Show me your perfect form.",
-      koQuote: "Imperfect... but worthy." },
-    { name: "Cell Jr.",      emoji: "🐲", baseHp: 170, tier: "minion", flavor: "Energetic and dangerous in packs." },
-    { name: "Phantom Wraith",emoji: "👻", baseHp: 190, tier: "elite",  flavor: "Its telegraphs are louder. Listen." },
-    { name: "Storm Djinn",   emoji: "🌪️", baseHp: 210, tier: "minion", flavor: "Whirlwind attacks come fast." },
-    { name: "Frost Lich",    emoji: "🧟", baseHp: 230, tier: "elite",  flavor: "Chills your timer. Stay sharp.",
-      flavorAlts: ["Breath like January in Manali."] },
-    { name: "Buu Spawn",     emoji: "🟣", baseHp: 270, tier: "boss",   flavor: "Stretchy and stubborn. Big reward.",
-      flavorAlts: ["Pink, stretchy, rude."],
-      quote: "Mmm... candy or fight?",
-      koQuote: "Sticky end." },
-    { name: "Shadow Naga",   emoji: "🐍", baseHp: 290, tier: "minion", flavor: "Strikes from the dark." },
-    { name: "Final Tyrant",  emoji: "💀", baseHp: 380, tier: "boss",   flavor: "The end of the arena. Everything you've trained for.",
-      flavorAlts: ["You've trained 1,000 cards for this moment. Don't choke."],
-      quote: "Kneel, learner.",
-      koQuote: "You... earned it." },
-    // ---- New roster (Section A) ----
-    { name: "Tea Slug",          emoji: "🐌", baseHp: 75,  tier: "minion", flavor: "Slow drip, sticky leaves." },
-    { name: "Bazaar Thief",      emoji: "🦝", baseHp: 100, tier: "minion", flavor: "Snatches your focus mid-answer." },
-    { name: "Pind Crow",         emoji: "🐦", baseHp: 95,  tier: "minion", flavor: "Caws your wrong answers back at you." },
-    { name: "Mango Imp",         emoji: "🥭", baseHp: 120, tier: "minion", flavor: "Sweet outside, savage inside." },
-    { name: "Gym Bro Saiyan",    emoji: "💪", baseHp: 160, tier: "elite",  flavor: "All sets, no rest day." },
-    { name: "Frieza Lieutenant", emoji: "🦎", baseHp: 200, tier: "elite",  flavor: "Cold-blooded and well-paid." },
-    { name: "Dhol Demon",        emoji: "🥁", baseHp: 175, tier: "elite",  flavor: "Hits on every beat." },
-    { name: "Kali-Yuga Warrior", emoji: "⚔️", baseHp: 220, tier: "elite",  flavor: "Born for the worst age. Thrives in it." },
-    { name: "Jungle Tigress",    emoji: "🐅", baseHp: 240, tier: "elite",  flavor: "Stalks your hesitation." },
-    { name: "Cyber Naga",        emoji: "🐍", baseHp: 260, tier: "elite",  flavor: "Bytes harder than it bites." },
-    { name: "Ghost Pandit",      emoji: "👳", baseHp: 250, tier: "boss",   flavor: "Recites your mistakes back as mantra.",
-      quote: "Your roots forgot you.",
-      koQuote: "Your roots remember." },
-    { name: "Mahishasura",       emoji: "🐃", baseHp: 320, tier: "boss",   flavor: "A bull-demon king. No mortal weapon will do.",
-      quote: "No mortal weapon. No chance.",
-      koQuote: "A mortal felled me?!" },
-    { name: "Shadow Guru",       emoji: "🕯️", baseHp: 340, tier: "boss",   flavor: "Teaches one lesson: humility.",
-      quote: "Unlearn, then bow.",
-      koQuote: "Lesson learned. By me." },
-    { name: "Cell Perfect Form", emoji: "🧬", baseHp: 360, tier: "boss",   flavor: "Every cell has improved. Yours haven't.",
-      quote: "I am completion itself.",
-      koQuote: "Perfection... has a flaw." },
-    { name: "Zero Saiyan",       emoji: "🌌", baseHp: 420, tier: "boss",   flavor: "Beyond the arena. Beyond you.",
-      quote: "Beyond the arena. Beyond you.",
-      koQuote: "Beyond... defeated." },
-  ];
+  const ENEMIES = window.PPZ_CONFIG.ENEMIES;
 
   // ---------- Tuning constants (random training interrupts) ------------------
-  const INTERRUPT = {
-    MIN_CARDS_BETWEEN: 5,
-    MAX_CARDS_BETWEEN: 12,
-    BASE_CHANCE: 0.30,
-    WEIGHTS: { speed: 35, recall: 40, incoming: 25 },
-    SPEED_DURATION_MS: 20000,
-    INCOMING_DURATION_MS: 6000,
-    RECALL_DURATION_MS: 8000,
-    IDLE_MS: 25000,
-    REPEAT_MISS_THRESHOLD: 2,
-    RECENT_BUFFER_SIZE: 15,
-    SHIELD_CAP: 3,
-  };
+  const INTERRUPT = window.PPZ_CONFIG.INTERRUPT;
 
   // ---------- Tuning constants (battle) --------------------------------------
-  const BATTLE = {
-    QUESTION_MS_BASE: 9000,
-    QUESTION_MS_MIN: 5500,
-    SPEED_BONUS_MAX: 0.5,        // up to +50% damage for very fast answers
-    TELEGRAPH_EVERY: 4,          // enemy charges special every N questions
-    TELEGRAPH_TURNS: 2,          // turns to charge
-    TELEGRAPH_DAMAGE_MULT: 2.4,  // multiplier on enemyAttack() damage
-    // 9-tier DBZ transformation ladder (streak thresholds, dmg mults, names).
-    // Index 0 is base form. Thresholds are ascending streak counts.
-    TIER_THRESHOLDS: [5, 10, 15, 20, 30, 45, 60, 80, 100],
-    TIER_DMG_MULT:   [1.0, 1.10, 1.20, 1.30, 1.40, 1.55, 1.70, 1.90, 2.10, 2.35],
-    TIER_NAMES:      [
-      "",
-      "Kaioken",
-      "Super Saiyan",
-      "Super Saiyan 2",
-      "Super Saiyan 3",
-      "Super Saiyan 4",
-      "Super Saiyan God",
-      "Super Saiyan Blue",
-      "Ultra Instinct Sign",
-      "Mastered Ultra Instinct",
-    ],
-    KI_SPECIAL_COST: 100,
-    KI_SPECIAL_DMG_BASE: 30,
-    KI_SPECIAL_DMG_PER_LVL: 1.2,
+  const BATTLE = window.PPZ_CONFIG.BATTLE;
+
+  // ---------- Tuning constants (Training↔Battle learning loop) --------------
+  const LEARNING_LOOP = window.PPZ_CONFIG.LEARNING_LOOP || {
+    SESSION_RECENCY_WEIGHT: 2.5, RECENCY_WINDOW_MS: 30 * 60_000, RECENCY_WEIGHT: 1.5,
+    SESSION_BUFFER: 50, SESSION_GAP_MS: 30 * 60_000,
+    BATTLE_MISS_DUE_PUSHFORWARD_MS: 60_000, SHAKY_BATTLE_BONUS_MS: 6 * 3600_000,
+    BATTLE_MISS_BUFFER: 12,
+    FOCUS_INTERRUPT_BASE_CHANCE: 0.18, FOCUS_INTERRUPT_MIN_BETWEEN: 8, FOCUS_INTERRUPT_MIN_GRADUATED: 30,
+    FOCUS_INTRO_MINION_MS: 350, FOCUS_INTRO_BOSS_MS: 2800,
   };
+  // Convenience: is the learner in Focus Mode? Reads settings each call so
+  // toggling at runtime takes effect immediately.
+  function isFocusMode() { return !!(state && state.settings && state.settings.focusMode); }
+  function isBossSpecialsOn() {
+    if (!state || !state.settings) return true;
+    return state.settings.bossSpecials !== false;
+  }
 
   // Per-difficulty tuning. Modifiers applied at run start in startBattle().
-  const DIFFICULTY = {
-    easy:    { label: "Easy",    desc: "Easy — 7 fights, gentle timer, fewer specials.",   fights: 7,  timerMult: 1.30, dmgMult: 0.75, telegraphEvery: 6, healPerKO: 25,  endless: false },
-    normal:  { label: "Normal",  desc: "Normal — 10 fights, classic timer.",                fights: 10, timerMult: 1.00, dmgMult: 1.00, telegraphEvery: 4, healPerKO: 20,  endless: false },
-    hard:    { label: "Hard",    desc: "Hard — 12 fights, tight timer, no inter-fight heal.", fights: 12, timerMult: 0.85, dmgMult: 1.20, telegraphEvery: 3, healPerKO: 0,   endless: false },
-    endless: { label: "Endless", desc: "Endless — survive as long as you can. Heal every 3 KOs.", fights: Infinity, timerMult: 1.00, dmgMult: 1.00, telegraphEvery: 4, healPerKO: 0, healEveryNKOs: 3, healAmount: 18, endless: true },
-  };
+  const DIFFICULTY = window.PPZ_CONFIG.DIFFICULTY;
 
   // ---------- Spaced-Repetition tuning --------------------------------------
-  // All SRS knobs in one place. Modeled after Anki: explicit learning steps,
-  // gentle lapse handling (interval halves rather than full reset), interval
-  // fuzz, and a separate "shaky cards" channel fed by Battle Mode without
-  // polluting review timing.
-  const SRS = {
-    SCHEMA_VERSION: 3,
-    // Learning steps for brand-new cards. Minutes.
-    LEARNING_STEPS_MIN: [1, 10, 60 * 24], // 1m, 10m, 1d
-    // Relearning steps after a "again" on a graduated card. Minutes.
-    RELEARNING_STEPS_MIN: [10, 60 * 24], // 10m, 1d
-    // First two graduated intervals (days) before SM-2 takes over.
-    GRAD_INTERVAL_GOOD: 1,
-    GRAD_INTERVAL_EASY: 4,
-    // Ease bounds + starting ease.
-    EASE_MIN: 1.3,
-    EASE_MAX: 2.8,
-    EASE_START: 2.3,
-    // Interval multipliers in review queue.
-    HARD_MULT: 1.2,
-    EASY_BONUS: 1.3,
-    // Fuzz applied to review intervals (±FUZZ_PCT). Deterministic per card.
-    FUZZ_PCT: 0.05,
-    // After a lapse, new interval = max(1, oldInterval * LAPSE_MULT).
-    LAPSE_MULT: 0.5,
-    // Hard upper bound on any single interval (days). Prevents cards from
-    // disappearing into multi-year intervals.
-    MAX_INTERVAL_DAYS: 365,
-    // Mastery threshold for the "Mastered" badge.
-    MASTERY_INTERVAL_DAYS: 21,
-    MASTERY_MAX_LAPSES: 1,
-    // Adaptive new-card pacing. Not user-tunable: we want every learner on
-    // a research-backed schedule (5/day baseline, ~10 cards/day max for a
-    // language deck this size, scaled down by recent backlog/lapses).
-    NEW_PER_DAY_BASE: 5,
-    NEW_PER_DAY_MIN: 1,
-    NEW_PER_DAY_MAX: 10,
-    BACKLOG_SOFT_CAP: 30,           // reviews beyond this start shrinking new cap
-    LAPSE_LOOKBACK_MS: 7 * 86400_000,
-    // Battle soft-writeback ease deltas.
-    BATTLE_EASE_FAST: 0.02,
-    BATTLE_EASE_SLOW: 0.01,
-    BATTLE_EASE_MISS: -0.05,
-    BATTLE_FAST_MS: 2000,
-    // Shaky-card boost: training reviews from shakyCards get sorted earlier.
-    SHAKY_PRIORITY_BONUS: 1,
-    // Auto-clear shaky flag if the card hasn't been seen in this long.
-    SHAKY_DECAY_MS: 14 * 86400_000,
-    // Leech: a card with this many lapses is auto-suspended from training
-    // and battle until the user explicitly resets it.
-    LEECH_LAPSE_THRESHOLD: 8,
-    // "Day" rolls over at 4 AM local so late-night sessions stay on the
-    // same study day.
-    STUDY_DAY_OFFSET_HOURS: 4,
-  };
+  const SRS = window.PPZ_CONFIG.SRS;
 
   // ---------- Content difficulty tiers --------------------------------------
-  // Every DECK card is classified into a tier 1..5 (foundations -> advanced).
-  // Tiers gate which NEW cards Training will introduce based on player level,
-  // and act as a fallback for Battle when the player hasn't been introduced
-  // to enough cards yet. Existing seen/scheduled cards always remain in play.
-  const CARD_TIERS = {
-    // Player level required to unlock each tier's NEW cards. Aligned with
-    // the rank table (Beginner / Trainee / Village Warrior / Saiyan Speaker
-    // / Super Saiyan Student) so each early rank-up actually unlocks new
-    // content instead of being purely cosmetic.
-    UNLOCK_AT: { 1: 1, 2: 50, 3: 500, 4: 5000, 5: 25000 },
-    NAMES:     { 1: "Foundations", 2: "Daily Life", 3: "Communication", 4: "Grammar Basics", 5: "Advanced" },
-    MAX: 5,
-  };
+  const CARD_TIERS = window.PPZ_CONFIG.CARD_TIERS;
 
   function cardTier(card) {
     if (!card) return 3;
@@ -6191,81 +684,105 @@
     lm9: "ਤੁਹਾਡੀ ਮਦਦ ਚਾਹੀਦੀ ਹੈ",
     // Religion proper nouns repeats already covered above
 
-    // ===== Health & Wellness expansion =====
-    hw1: "ਸਿਰਦਰਦ", hw2: "ਪੇਟਦਰਦ", hw3: "ਥਕਾਵਟ", hw4: "ਨੀਂਦ", hw5: "ਆਰਾਮ",
-    hw6: "ਕਸਰਤ", hw7: "ਯੋਗ", hw8: "ਸਾਹ", hw9: "ਧਿਆਨ", hw10: "ਸ਼ਾਂਤ",
-    hw11: "ਤਣਾਅ", hw12: "ਚਿੰਤਾ", hw13: "ਖ਼ੁਰਾਕ", hw14: "ਸਿਹਤ", hw15: "ਗੋਲੀ",
-    hw16: "ਸੀਰਪ", hw17: "ਖ਼ੁਰਾਕ", hw18: "ਟੀਕਾ", hw19: "ਗੁਰਦਾ", hw20: "ਫੇਫੜੇ",
-    hw21: "ਜਿਗਰ", hw22: "ਚਮੜੀ", hw23: "ਅਲਰਜੀ", hw24: "ਚੱਕਰ", hw25: "ਉਲਟੀ",
-    hw26: "ਦਸਤ", hw27: "ਕਮਜ਼ੋਰੀ", hw28: "ਮਰ੍ਹਮ", hw29: "ਪੱਟੀ", hw30: "ਤਬੀਅਤ",
-    hwp1: "ਮੈਨੂੰ ਸਿਰਦਰਦ ਹੋ ਰਿਹਾ ਹੈ", hwp2: "ਮੈਨੂੰ ਬੁਖ਼ਾਰ ਹੈ",
-    hwp3: "ਖਾਂਸੀ ਨਹੀਂ ਰੁਕ ਰਹੀ", hwp4: "ਖਾਣੇ ਤੋਂ ਬਾਅਦ ਲਉ",
-    hwp5: "ਬਹੁਤ ਪਾਣੀ ਪੀਉ", hwp6: "ਮੈਨੂੰ ਆਰਾਮ ਚਾਹੀਦਾ ਹੈ",
-    hwp7: "ਅੱਜ ਬਿਹਤਰ ਮਹਿਸੂਸ ਕਰ ਰਿਹਾ ਹਾਂ", hwp8: "ਐਂਬੂਲੈਂਸ ਬੁਲਾਉ",
-    hwp9: "ਮੈਨੂੰ ___ ਤੋਂ ਅਲਰਜੀ ਹੈ", hwp10: "ਡਾਕਟਰ ਨਾਲ ਅਪੌਇੰਟਮੈਂਟ ਲੈਣੀ ਹੈ",
-    hwp11: "ਟੈਸਟ ਕਰਾਉਣਾ ਪੈਂਦਾ ਹੈ", hwp12: "ਕਦੋਂ ਤੋਂ ਦਰਦ ਹੈ?",
-    hwp13: "ਸਿਹਤ ਦਾ ਖ਼ਿਆਲ ਰੱਖੋ", hwp14: "ਤਣਾਅ ਨਾ ਲਉ",
-    hwp15: "ਰੋਜ਼ ਕਸਰਤ ਕਰੋ", hwp16: "ਚੀਨੀ ਬੰਦ ਕਰ ਦਿਉ",
-    hwp17: "ਕੁਝ ਖਾਧਾ ਹੈ ਅੱਜ?", hwp18: "ਠੀਕ ਹੋ ਜਾਉਗੇ",
-    hwp19: "ਮੈਨੂੰ ਚੱਕਰ ਆ ਰਿਹਾ ਹੈ", hwp20: "ਸਾਹ ਲੈਣ ਵਿੱਚ ਤਕਲੀਫ਼ ਹੈ",
-    hwd1: "ਏ: ਕੀ ਤਕਲੀਫ਼ ਹੈ? ਬੀ: ਬੁਖ਼ਾਰ ਤੇ ਖਾਂਸੀ।",
-    hwd2: "ਏ: ਇਹ ਦਵਾਈ ਕਦੋਂ ਲਵਾਂ? ਬੀ: ਖਾਣੇ ਤੋਂ ਬਾਅਦ, ਦਿਨ ਵਿੱਚ ਦੋ ਵਾਰੀ।",
-    hwd3: "ਏ: ਤੁਹਾਡੀ ਤਬੀਅਤ ਕਿਵੇਂ ਹੈ? ਬੀ: ਪਹਿਲਾਂ ਤੋਂ ਬਹੁਤ ਬਿਹਤਰ।",
-    hwd4: "ਏ: ਆਰਾਮ ਨਾਲ ਖਾਉ। ਬੀ: ਮੈਨੂੰ ਖ਼ੁਰਾਕ ਨਹੀਂ ਲੱਗਦੀ।",
-    hwd5: "ਏ: ਟੈਸਟ ਕੀ ਕਹਿੰਦਾ? ਬੀ: ਸਭ ਠੀਕ ਹੈ, ਫ਼ਿਕਰ ਨਾ ਕਰੋ।",
+    // Health & wellness expansion
+    hw1: "ਖੰਘ", hw2: "ਛਿੱਕ", hw3: "ਦਰਦ", hw4: "ਸਿਰ-ਦਰਦ", hw5: "ਪੇਟ-ਦਰਦ",
+    hw6: "ਉਲਟੀ", hw7: "ਦਸਤ", hw8: "ਚੱਕਰ", hw9: "ਕਮਜ਼ੋਰੀ", hw10: "ਐਲਰਜੀ",
+    hw11: "ਖੁਜਲੀ", hw12: "ਚਮੜੀ", hw13: "ਫੇਫੜੇ", hw14: "ਗੁਰਦਾ", hw15: "ਜਿਗਰ",
+    hw16: "ਸਾਹ", hw17: "ਨੀਂਦ", hw18: "ਆਰਾਮ", hw19: "ਯੋਗ", hw20: "ਧਿਆਨ",
+    hw21: "ਕਸਰਤ", hw22: "ਸਿਹਤ", hw23: "ਤੰਦਰੁਸਤੀ", hw24: "ਖੁਰਾਕ", hw25: "ਪਾਣੀ-ਭਰੇ",
+    hw26: "ਤਣਾਅ", hw27: "ਚਿੰਤਾ", hw28: "ਗੋਲੀ", hw29: "ਸ਼ਰਬਤ", hw30: "ਨੁਸਖਾ",
+    hwp1: "ਮੇਰੇ ਸਿਰ ਚ ਦਰਦ ਹੈ",
+    hwp2: "ਕਿੰਨਾ ਚਿਰ ਤੋਂ ਦਰਦ ਹੈ?",
+    hwp3: "ਖਾਣੇ ਬਾਅਦ ਦਵਾਈ ਲਾਓ",
+    hwp4: "ਬਹੁਤ ਪਾਣੀ ਪੀਓ",
+    hwp5: "ਮੈਨੂੰ ਆਰਾਮ ਦੀ ਲੋੜ ਹੈ",
+    hwp6: "ਅੱਜ ਮੈਨੂੰ ਚੰਗਾ ਲੱਗ ਰਿਹਾ ਹੈ",
+    hwp7: "ਐਂਬੂਲੈਂਸ ਬੁਲਾਓ!",
+    hwp8: "ਮੈਨੂੰ ਮੂੰਗਫਲੀ ਤੋਂ ਐਲਰਜੀ ਹੈ",
+    hwp9: "ਬੁਖਾਰ ਉਤਰ ਗਿਆ",
+    hwp10: "ਡਾਕਟਰ ਨਾਲ ਮਿਲਣੀ ਲੈਣੀ ਹੈ",
+    hwp11: "ਖੂਨ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣੀ ਹੈ",
+    hwp12: "ਸ਼ੂਗਰ ਨਾਰਮਲ ਹੈ",
+    hwp13: "ਲੰਬੀ ਸਾਹ ਲਾਓ",
+    hwp14: "ਰੋਜ਼ ਸੈਰ ਕਰੋ",
+    hwp15: "ਤਿੱਖਾ ਨਾ ਖਾਓ",
+    hwp16: "ਹਸਪਤਾਲ ਲੈ ਚਲੋ",
+    hwp17: "ਤਬੀਅਤ ਢਿੱਲੀ ਹੈ",
+    hwp18: "ਯੋਗ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ",
+    hwp19: "ਧਿਆਨ ਨਾਲ ਸਿਹਤ ਚੰਗੀ ਰਹਿੰਦੀ ਹੈ",
+    hwp20: "ਆਪਣਾ ਖਿਆਲ ਰੱਖੋ",
+    hwd1: "ਕੀ ਤਕਲੀਫ ਹੈ? / ਸਿਰ-ਦਰਦ ਤੇ ਬੁਖਾਰ।",
+    hwd2: "ਇਹ ਗੋਲੀ ਦਿਨ ਚ ਤਿੰਨ ਵਾਰ ਲਾਓ, ਖਾਣੇ ਬਾਅਦ।",
+    hwd3: "ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ? / ਹੁਣ ਪਹਿਲਾਂ ਤੋਂ ਚੰਗੇ।",
+    hwd4: "ਸਾਹ ਅੰਦਰ, ਹੱਥ ਉੱਪਰ — ਬਾਹਰ, ਹੱਥ ਨੀਚੇ।",
+    hwd5: "ਖਾਣਾ ਖਾ ਕੇ ਗੋਲੀ ਲਾਓ, ਤੇ ਜਲਦੀ ਸੌਂ ਜਾਓ।",
 
-    // ===== Hospitality expansion =====
-    hs1: "ਮਹਿਮਾਨ", hs2: "ਮਹਿਮਾਨਨਵਾਜ਼ੀ", hs3: "ਸਵਾਗਤ", hs4: "ਥਾਲੀ",
-    hs5: "ਟਰੇ", hs6: "ਮਿਠਾਈ", hs7: "ਤੋਹਫ਼ਾ", hs8: "ਹਾਰ", hs9: "ਸ਼ਾਲ",
-    hs10: "ਦਰਵਾਜ਼ਾ ਖੋਲ੍ਹ", hs11: "ਜੁੱਤੀ ਉਤਾਰ", hs12: "ਗਲੀ-ਮੁਹੱਲਾ",
-    hs13: "ਮੇਜ਼ ਸਜਾਉ", hs14: "ਪਰੋਸਣਾ", hs15: "ਆਸ਼ੀਰਵਾਦ", hs16: "ਦੁਆ",
-    hs17: "ਖ਼ਿਦਮਤ", hs18: "ਇੱਜ਼ਤ", hs19: "ਰਿਸ਼ਤਾ", hs20: "ਭੇਂਟ",
-    hsp1: "ਅੰਦਰ ਆਉ ਜੀ", hsp2: "ਜੁੱਤੀ ਬਾਹਰ ਲਾਹੋ",
-    hsp3: "ਚਾਹ ਪਾਣੀ ਲੈ ਕੇ ਜਾਣਾ", hsp4: "ਖਾਣਾ ਖਾ ਕੇ ਜਾਣਾ",
-    hsp5: "ਹੋਰ ਲਉ ਜੀ", hsp6: "ਬਿਲਕੁਲ ਨਹੀਂ ਛੱਡਣਗੇ",
-    hsp7: "ਆਪਣਾ ਘਰ ਸਮਝੋ", hsp8: "ਬੱਚਿਆਂ ਨੂੰ ਵੀ ਲਿਆਉ ਅਗਲੀ ਵਾਰੀ",
-    hsp9: "ਬਹੁਤ ਚਿਰ ਬਾਅਦ ਮਿਲੇ", hsp10: "ਹੁਣ ਐਵੇਂ ਨਾ ਗੁੰਮ ਜਾਇਉ",
-    hsp11: "ਰਾਤ ਇੱਥੇ ਰੁਕ ਜਾਉ", hsp12: "ਕੁਝ ਚਾਹੀਦਾ ਹੋਵੇ ਤਾਂ ਦੱਸੋ",
-    hsp13: "ਤੁਹਾਡੀ ਮਿਹਰਬਾਨੀ ਹੈ ਆਏ", hsp14: "ਪਹਿਲਾਂ ਤੁਸੀਂ ਲਉ",
-    hsp15: "ਮਹਿਮਾਨ ਰੱਬ ਦਾ ਰੂਪ ਹੁੰਦਾ", hsp16: "ਕਦੇ ਵੀ ਆ ਜਾਉ",
-    hsp17: "ਮੂੰਹ ਮਿੱਠਾ ਕਰੋ", hsp18: "ਘਰ ਦੀ ਯਾਦ ਆਏਗੀ",
-    hsp19: "ਆਏ ਹੋ, ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ", hsp20: "ਦੁਬਾਰਾ ਜ਼ਰੂਰ ਆਇਉ",
-    hsd1: "ਏ: ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਬੀ: ਆਉ ਆਉ, ਅੰਦਰ ਆਉ, ਜੁੱਤੀ ਬਾਹਰ ਲਾਹੋ।",
-    hsd2: "ਏ: ਬਸ, ਹੋਰ ਨਹੀਂ ਚਾਹੀਦਾ। ਬੀ: ਥੋੜਾ ਜਿਹਾ ਹੋਰ ਲਉ, ਮਿਹਰਬਾਨੀ ਕਰਕੇ।",
-    hsd3: "ਏ: ਹੁਣ ਚੱਲੀਏ। ਬੀ: ਰਾਤ ਇੱਥੇ ਰੁਕ ਜਾਉ, ਸਵੇਰੇ ਚਲੇ ਜਾਣਾ।",
-    hsd4: "ਏ: ਇਹ ਛੋਟੀ ਜਿਹੀ ਭੇਂਟ ਹੈ। ਬੀ: ਏਡੀ ਤਕਲੀਫ਼ ਕਾਹਦੇ ਲਈ?",
-    hsd5: "ਏ: ਫਿਰ ਕਦੋਂ ਮਿਲਾਂਗੇ? ਬੀ: ਜਲਦੀ ਆਉਣਾ, ਘਰ ਤੁਹਾਡਾ ਹੀ ਹੈ।",
+    // Hospitality expansion
+    hs1: "ਮਹਿਮਾਨ", hs2: "ਸਵਾਗਤ", hs3: "ਥਾਲੀ", hs4: "ਪਤੀਲਾ", hs5: "ਤੋਹਫਾ",
+    hs6: "ਸ਼ਗਨ", hs7: "ਆਸ਼ੀਰਵਾਦ", hs8: "ਮਿਠਾਈ", hs9: "ਹਾਰ", hs10: "ਬਰਾਂਡੇ",
+    hs11: "ਬੈਠਕ", hs12: "ਦਰਵਾਜ਼ਾ", hs13: "ਜੁੱਤੀ", hs14: "ਸ਼ਾਲ", hs15: "ਦਾਵਤ",
+    hs16: "ਰਸੋਈ", hs17: "ਪਰੋਸਣਾ", hs18: "ਮੂੰਹ-ਮਿੱਠਾ", hs19: "ਲੰਗਰ", hs20: "ਫੁੱਲ",
+    hsp1: "ਅੰਦਰ ਆਓ ਜੀ, ਜੁੱਤੀ ਲਾਹੋ",
+    hsp2: "ਕੁਝ ਖਾ ਕੇ ਜਾਓ",
+    hsp3: "ਰਾਤ ਦੇ ਖਾਣੇ ਤੇ ਰੁਕੋ",
+    hsp4: "ਬੱਚੇ ਨੂੰ ਅਗਲੀ ਵਾਰ ਲਾਓ",
+    hsp5: "ਬਹੁਤ ਚਿਰ ਬਾਅਦ ਮਿਲੇ",
+    hsp6: "ਘਰ ਆਪਣਾ ਸਮਝੋ",
+    hsp7: "ਚਾਹ ਤੇ ਛੋਲੇ ਲੈ ਕੇ ਆਓ",
+    hsp8: "ਮਿਠਾਈ ਖਾਓ, ਮੂੰਹ ਮਿੱਠਾ ਕਰੋ",
+    hsp9: "ਅੱਜ ਰਹਿਣ ਦਿਓ, ਕੱਲ ਆਉਣਾ",
+    hsp10: "ਤੁਸੀਂ ਤਕਲੀਫ ਨਾ ਕਰੋ",
+    hsp11: "ਹੋਰ ਲਾਓ ਜੀ, ਸ਼ਰਮਾਓ ਨਾ",
+    hsp12: "ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ",
+    hsp13: "ਫਿਰ ਕਦੋਂ ਆਓਗੇ?",
+    hsp14: "ਜਾਂਦੇ ਹੋਏ ਸ਼ਗਨ ਲਾਓ",
+    hsp15: "ਸੁਖੀ ਰਹੋ, ਵੱਸੀ ਰਹੋ",
+    hsp16: "ਜਲਦੀ ਫਿਰ ਮਿਲਾਂਗੇ",
+    hsp17: "ਲੰਗਰ ਛਕ ਕੇ ਜਾਣਾ",
+    hsp18: "ਸ਼ਾਮ ਦੇ ਚਾਹ ਤੇ ਆਓ",
+    hsp19: "ਇਹ ਛੋਟਾ ਤੋਹਫਾ ਕਬੂਲ ਕਰੋ",
+    hsp20: "ਘਰ ਜ਼ਰੂਰ ਆਉਣਾ",
+    hsd1: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! / ਆਓ ਜੀ, ਅੰਦਰ ਤਸ਼ਰੀਫ ਰੱਖੋ।",
+    hsd2: "ਹੋਰ ਇੱਕ ਰੋਟੀ ਲਾਓ। / ਬਸ ਜੀ, ਬਹੁਤ ਹੋ ਗਈ।",
+    hsd3: "ਸੁਖੀ ਰਹੋ ਪੁੱਤ। / ਤੁਹਾਡੇ ਆਸ਼ੀਰਵਾਦ ਚਾਹੀਦੇ ਨੇ।",
+    hsd4: "ਮਿਠਾਈ ਖਾਓ। / ਸ਼ੁਕਰੀਆ ਆਂਟੀ ਜੀ!",
+    hsd5: "ਫਿਰ ਕਦੋਂ ਆਓਗੇ? / ਅਗਲੇ ਸੰਡੇ ਪੱਕਾ।",
 
-    // ===== Business Conversations expansion =====
-    bz1: "ਕਾਰੋਬਾਰ", bz2: "ਗਾਹਕ", bz3: "ਸੌਦਾ", bz4: "ਮੁਨਾਫ਼ਾ", bz5: "ਨੁਕਸਾਨ",
-    bz6: "ਕੀਮਤ", bz7: "ਠੇਕੇਦਾਰ", bz8: "ਸਪਲਾਇਰ", bz9: "ਕਲਾਇੰਟ",
-    bz10: "ਡੈੱਡਲਾਈਨ", bz11: "ਬਿੱਲ", bz12: "ਰਸੀਦ", bz13: "ਉਧਾਰ",
-    bz14: "ਨਕਦੀ", bz15: "ਦਸਤਖ਼ਤ", bz16: "ਠੱਪਾ", bz17: "ਖ਼ਰਚਾ",
-    bz18: "ਕਮਾਈ", bz19: "ਡਿਸਕਾਊਂਟ", bz20: "ਥੋਕ-ਭਾਅ",
-    bzp1: "ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ?", bzp2: "ਪੱਕਾ ਰੇਟ ਦੱਸੋ",
-    bzp3: "ਥੋੜਾ ਡਿਸਕਾਊਂਟ ਕਰ ਦਿਉ", bzp4: "ਕੱਲ੍ਹ ਦੇ ਦੇਣਾ",
-    bzp5: "ਬਿੱਲ ਬਣਾ ਦਿਉ", bzp6: "ਉਧਾਰ ਨਹੀਂ ਚੱਲਦਾ",
-    bzp7: "ਮਾਲ ਵਧੀਆ ਹੈ", bzp8: "ਫਿਰ ਆਇਉ",
-    bzp9: "ਅੱਜ ਦਾ ਭਾਅ ਕੀ ਹੈ?", bzp10: "ਮਾਲ ਦੇਖ ਕੇ ਲਉ",
-    bzp11: "ਮੀਟਿੰਗ ਸੈਟ ਕਰ ਲਉ", bzp12: "ਈਮੇਲ ਤੇ ਕਨਫਰਮ ਕਰੋ",
-    bzp13: "ਕੋਟ ਕੱਲ੍ਹ ਭੇਜ ਦੇਵਾਂਗਾ",
-    bzp14: "ਸਾਡੇ ਨਾਲ ਕੰਮ ਕਰਨ ਲਈ ਸ਼ੁਕਰੀਆ",
-    bzp15: "ਬਲਕ ਤੇ ਡਿਸਕਾਊਂਟ ਮਿਲ ਸਕਦਾ",
-    bzp16: "ਲੇਟ ਹੋਣ ਲਈ ਮਾਫ਼ੀ",
-    bzp17: "ਮੈਂ ਆਪਣੇ ਕਲੀਗ ਨੂੰ ਲੂਪ ਵਿੱਚ ਰੱਖਾਂਗਾ",
-    bzp18: "ਪੇਮੈਂਟ ਕਦੋਂ ਮਿਲੇਗੀ?",
-    bzp19: "ਕੰਟਰੈਕਟ ਸਾਈਨ ਕਰਨਾ ਪੈਂਦਾ",
-    bzp20: "ਆਰਡਰ ਕਨਫਰਮ ਹੋ ਗਿਆ",
-    bzp21: "ਡਿਲੀਵਰੀ ਡੇਟ ਫਿਕਸ ਕਰੋ",
-    bzp22: "ਫਾਈਨਲ ਪ੍ਰਾਈਸ ਕੀ ਹੈ?",
-    bzp23: "ਸਾਨੂੰ ਰੈਫਰੈਂਸ ਦਿਉ",
-    bzp24: "ਸੈਂਪਲ ਭੇਜੋ ਪਹਿਲਾਂ",
-    bzp25: "ਡੀਲ ਪੱਕੀ ਸਮਝੋ",
-    bzd1: "ਏ: ਇਹ ਕਿੰਨੇ ਦਾ? ਬੀ: ਸੌ ਰੁਪਏ। ਏ: ਅੱਸੀ ਵਿੱਚ ਦੇ ਦਿਉ। ਬੀ: ਅੱਛਾ, ਲੈ ਜਾਉ।",
-    bzd2: "ਏ: ਸਾਡੇ ਨਾਲ ਕੰਮ ਕਰੋਗੇ? ਬੀ: ਪਹਿਲਾਂ ਸਾਨੂੰ ਸੈਂਪਲ ਤੇ ਕੋਟ ਭੇਜੋ।",
-    bzd3: "ਏ: ਡਿਲੀਵਰੀ ਕੱਲ੍ਹ ਹੋਵੇਗੀ? ਬੀ: ਮਾਫ਼ੀ, ਪੰਜ ਦਿਨ ਲੱਗਣਗੇ।",
-    bzd4: "ਏ: ਪੇਮੈਂਟ ਕਦੋਂ? ਬੀ: ਬਿੱਲ ਮਿਲਦੇ ਸਾਰ, ਦੋ ਦਿਨ ਵਿੱਚ।",
-    bzd5: "ਏ: ਕੰਟਰੈਕਟ ਪਸੰਦ ਆਇਆ? ਬੀ: ਹਾਂ ਜੀ, ਸਿਰਫ਼ ਟਾਈਮਲਾਈਨ ਥੋੜਾ ਲੰਮਾ ਕਰ ਲਉ।",
+    // Business conversations expansion
+    bz1: "ਕਲਾਇੰਟ", bz2: "ਕਸਟਮਰ", bz3: "ਡੀਲ", bz4: "ਕਰਾਰ", bz5: "ਤਜਵੀਜ਼",
+    bz6: "ਡੈੱਡਲਾਈਨ", bz7: "ਬਿੱਲ", bz8: "ਪਾਰਟਨਰ", bz9: "ਸਪਲਾਇਰ", bz10: "ਰੇਟ",
+    bz11: "ਡਿਸਕਾਊਂਟ", bz12: "ਜੀ.ਐੱਸ.ਟੀ.", bz13: "ਦਸਤਖਤ", bz14: "ਮੋਹਰ", bz15: "ਦਲਾਲੀ",
+    bz16: "ਮੀਟਿੰਗ", bz17: "ਆਫਿਸ", bz18: "ਈਮੇਲ", bz19: "ਪੇਮੈਂਟ", bz20: "ਮਾਲ",
+    bzp1: "ਆਓ ਮੀਟਿੰਗ ਸੈੱਟ ਕਰ ਲਈਏ",
+    bzp2: "ਰੇਟ ਤੇ ਥੋੜੀ ਗੱਲਬਾਤ ਕਰਨੀ ਹੈ",
+    bzp3: "ਕੱਲ ਤਕਰੀਬਨ ਤਜਵੀਜ਼ ਭੇਜ ਦੇਵਾਂਗਾ",
+    bzp4: "ਈਮੇਲ ਤੇ ਕਨਫਰਮ ਕਰੋ ਜੀ",
+    bzp5: "ਤੁਹਾਡੇ ਨਾਲ ਕੰਮ ਕਰਕੇ ਖੁਸ਼ੀ ਹੋਈ",
+    bzp6: "ਬਲਕ ਤੇ ਡਿਸਕਾਊਂਟ ਮਿਲ ਸਕਦਾ ਹੈ",
+    bzp7: "ਦੇਰ ਲਈ ਮੁਆਫੀ",
+    bzp8: "ਆਪਣੇ ਕੁਲੀਗ ਨੂੰ ਲੂਪ ਚ ਲਿਆਉਂਦਾ ਹਾਂ",
+    bzp9: "ਬਿੱਲ ਭੇਜ ਦਿਓ ਅੱਜ ਹੀ",
+    bzp10: "ਪੇਮੈਂਟ ਕੱਲ ਤਕਰੀਬਨ ਆ ਜਾਏਗੀ",
+    bzp11: "ਇਹ ਸਾਡੇ ਰੇਟ ਨੇ, ਜੀ",
+    bzp12: "ਪਹਿਲਾਂ ਥੋੜੀ ਐਡਵਾਂਸ ਦੇਣੀ ਪਏਗੀ",
+    bzp13: "ਮਾਲ ਕੱਲ ਤਕਰੀਬਨ ਪਹੁੰਚ ਜਾਏਗਾ",
+    bzp14: "ਕੁਆਲਿਟੀ ਦੀ ਗਾਰੰਟੀ ਹੈ ਸਾਡੀ",
+    bzp15: "ਦਸਤਖਤ ਇੱਥੇ ਕਰੋ",
+    bzp16: "ਬੌਸ ਨਾਲ ਪੁੱਛ ਕੇ ਦੱਸਾਂਗਾ",
+    bzp17: "ਇਹ ਸਾਡੀ ਬੈਸਟ ਆਫਰ ਹੈ",
+    bzp18: "ਅਗਲੀ ਕੁਆਰਟਰ ਚ ਮਿਲਾਂਗੇ",
+    bzp19: "ਕਰਾਰ ਦੀ ਕਾਪੀ ਭੇਜ ਦਿਓ",
+    bzp20: "ਵੈਂਡਰ ਨਾਲ ਪ੍ਰਾਈਸ ਲੌਕ ਹੋ ਗਈ",
+    bzp21: "ਕਸਟਮਰ ਦੀ ਫੀਡਬੈਕ ਚਾਹੀਦੀ ਹੈ",
+    bzp22: "ਇਹ ਸਾਡੀ ਜੀ.ਐੱਸ.ਟੀ. ਦੇ ਨਾਲ ਰੇਟ ਹੈ",
+    bzp23: "ਡਿਸਕਾਊਂਟ ਤੋਂ ਬਾਅਦ ਫਾਈਨਲ ਪ੍ਰਾਈਸ ਦੱਸ ਦਿਓ",
+    bzp24: "ਸਾਡੀ ਟੀਮ ਕੰਮ ਸ਼ੁਰੂ ਕਰ ਦੇਊਗੀ",
+    bzp25: "ਤੁਹਾਡਾ ਬਿਜ਼ਨਸ ਸਾਡੇ ਨਾਲ ਪਹਿਲੀ ਵਾਰ?",
+    bzd1: "ਸਾਡੇ ਪ੍ਰੋਡਕਟ ਦੀ ਡੈਮੋ ਲੈ ਲਾਓ। / ਹਾਂਜੀ, ਟਾਈਮ ਸੈੱਟ ਕਰੋ।",
+    bzd2: "ਡਿਲੀਵਰੀ ਜਲਦੀ ਕਰਵਾਓ। / ਤਿੰਨ ਦਿਨ ਚ ਮਾਲ ਪਹੁੰਚ ਜਾਏਗਾ।",
+    bzd3: "ਇਹ ਸਾਡੀ ਬੈਸਟ ਰੇਟ ਹੈ। / ਠੀਕ ਹੈ, ਡੀਲ ਪੱਕੀ।",
+    bzd4: "ਸਰ, ਇਹ ਇਸ਼ੂ ਹੈ। / ਮੈਨੂੰ ਡੀਟੇਲ ਈਮੇਲ ਕਰੋ, ਮੈਂ ਕਲਾਇੰਟ ਨਾਲ ਗੱਲ ਕਰਦਾ ਹਾਂ।",
+    bzd5: "ਬਿੱਲ ਦਾ ਕੀ ਸਟੇਟਸ ਹੈ? / ਕੱਲ ਤਕਰੀਬਨ ਪੇਮੈਂਟ ਰਿਲੀਜ਼ ਹੋ ਜਾਏਗੀ।",
   };
 
   // Words/phrases that don't yet have a Gurmukhi mapping above will fall back
@@ -6797,6 +1314,9 @@
         wins: 0, losses: 0, runs: 0,
         bestStreak: 0, fastestKoMs: 0, perfectRuns: 0,
         bestEnemyIdx: 0, totalQuestions: 0, totalCorrect: 0, kiSpecialsUsed: 0,
+        // Map of enemy template name -> times seen. Used by Focus Mode to
+        // skip the pre-battle intro card after the first encounter.
+        enemiesSeen: {},
       },
       settings: {
         interrupts: true, ttsAutoplay: false,
@@ -6804,11 +1324,25 @@
         direction: "en2pa",
         battleHints: true,
         confirmRetreat: true,
+        // New accounts default to Focus Mode (fewer fanfare interruptions,
+        // tighter learning loop). Existing saves keep the classic feel
+        // unless the player opts in via Settings.
+        focusMode: true,
+        // Boss-special telegraphs default ON; toggle in Settings to remove
+        // the parallel "watch the charge bar" cognitive thread.
+        bossSpecials: true,
         audio: { sfx: 0.7, music: 0.4, master: 1.0, muted: false },
       },
       schemaVersion: SRS.SCHEMA_VERSION,
       dailyStats: {},
       shakyCards: {},
+      // Rolling list of cardIds graded in the current training session,
+      // used by pickBattleCard to bias toward freshly-learned vocab.
+      // Cleared automatically after LEARNING_LOOP.SESSION_GAP_MS of idle.
+      session: { startedAt: 0, lastGradeAt: 0, reviewedIds: [] },
+      // Recent battle misses for the post-battle "Cards to review" callout
+      // and the "Train these now" handoff. Capped to BATTLE_MISS_BUFFER.
+      lastBattleMisses: [],
     };
   }
 
@@ -6835,7 +1369,27 @@
         },
         dailyStats: { ...(parsed.dailyStats || {}) },
         shakyCards: { ...(parsed.shakyCards || {}) },
+        session: parsed.session && Array.isArray(parsed.session.reviewedIds)
+          ? { startedAt: parsed.session.startedAt|0, lastGradeAt: parsed.session.lastGradeAt|0,
+              reviewedIds: parsed.session.reviewedIds.slice(-LEARNING_LOOP.SESSION_BUFFER) }
+          : { startedAt: 0, lastGradeAt: 0, reviewedIds: [] },
+        lastBattleMisses: Array.isArray(parsed.lastBattleMisses)
+          ? parsed.lastBattleMisses.slice(-LEARNING_LOOP.BATTLE_MISS_BUFFER) : [],
       };
+      // Preserve "Classic" experience for existing saves: Focus Mode only
+      // defaults ON for accounts that have never seen the toggle. If the
+      // player has any prior battle history but no focusMode field, keep
+      // them on Classic (they explicitly chose nothing yet).
+      if (parsed.settings && parsed.settings.focusMode === undefined) {
+        const hasHistory = (parsed.battleStats && parsed.battleStats.runs > 0) ||
+                           Object.values(parsed.srs || {}).some(s => s && s.seen > 0);
+        merged.settings.focusMode = !hasHistory;
+      }
+      if (parsed.settings && parsed.settings.bossSpecials === undefined) {
+        merged.settings.bossSpecials = true;
+      }
+      // Backfill enemiesSeen if older save lacks it.
+      if (!merged.battleStats.enemiesSeen) merged.battleStats.enemiesSeen = {};
       merged.sessionXp = 0;
       // Per-card SRS migration: backfill new schema fields without losing
       // legacy progress (ease/interval/due/mastery/seen).
@@ -7166,7 +1720,7 @@
   }
 
   // ---------- Train mode ------------------------------------------------------
-  let train = {
+  const train = {
     current: null,
     revealed: false,
     recentIds: [],
@@ -7178,6 +1732,10 @@
     revealedAt: 0,
     forceIdleSpeed: false,
     eventActive: false,
+    // One-shot queue of cardIds the picker should serve before falling back
+    // to normal SRS scheduling. Populated by the post-battle "Train missed
+    // cards" handoff.
+    preferMissesQueue: [],
   };
 
   function logReview(cardId, wasCorrect, opts = {}) {
@@ -7212,6 +1770,16 @@
 
   function pickNextCard() {
     const now = Date.now();
+
+    // 0) Battle→Training handoff: serve recently-missed-in-battle cards
+    //    first. We pop ids one at a time and skip any that no longer exist
+    //    in the deck or are now suspended.
+    while (train.preferMissesQueue && train.preferMissesQueue.length) {
+      const id = train.preferMissesQueue.shift();
+      const card = DECK.find(c => c.id === id);
+      const srs = card && state.srs[card.id];
+      if (card && srs && !srs.suspended && !isLeech(srs)) return card;
+    }
 
     // Bucket by queue.
     const learning = [];   // due learning/relearning (sub-day timing matters)
@@ -7324,7 +1892,21 @@
     const c = train.current;
     const en2pa = isReverse(); // true => English-prompt mode (default)
     applyDirectionAttr();
-    $("#cardType").textContent = c.type;
+    const typeEl = $("#cardType");
+    if (typeEl) {
+      typeEl.textContent = c.type;
+      typeEl.dataset.type = c.type || "vocab"; // drives per-type pill color in CSS
+    }
+    // "Missed in battle" pill — makes the loop visible to the learner so
+    // they understand WHY this card surfaced again. Show only for fairly
+    // recent misses (last 24h) so the pill doesn't hang around forever.
+    const fromBattleEl = $("#cardFromBattle");
+    if (fromBattleEl) {
+      const misses = Array.isArray(state.lastBattleMisses) ? state.lastBattleMisses : [];
+      const hit = misses.find(m => m && m.cardId === c.id);
+      const fresh = hit && (Date.now() - (hit.ts || 0)) < 24 * 3600_000;
+      fromBattleEl.hidden = !fresh;
+    }
 
     // Direction-aware front face:
     //  - en2pa: front shows ENGLISH; back reveals Punjabi (Gurmukhi + roman)
@@ -7340,9 +1922,23 @@
     // Back face always carries BOTH so learners see the full mapping.
     renderPunjabi($("#cardPromptBack"), c);
     $("#cardEnglish").textContent = c.english;
-    $("#cardDef").textContent     = c.definition ? `Definition: ${c.definition}` : "";
-    $("#cardRelated").textContent = c.related    ? `Related: ${c.related}` : "";
-    $("#cardExample").textContent = c.example    ? `Example: ${c.example}` : "";
+    // Section icons + auto-hide empty rows so the back face stays clean.
+    const setMeta = (sel, icon, label, value) => {
+      const el = $(sel);
+      if (!el) return;
+      if (value) {
+        el.innerHTML = `<span class="meta-icon" aria-hidden="true">${icon}</span>`
+          + `<span class="meta-label">${label}</span>`
+          + `<span class="meta-text">${escapeHtml(value)}</span>`;
+        el.hidden = false;
+      } else {
+        el.textContent = "";
+        el.hidden = true;
+      }
+    };
+    setMeta("#cardDef",     "\u{1F4D6}", "Definition", c.definition);
+    setMeta("#cardRelated", "\u{1F517}", "Related",    c.related);
+    setMeta("#cardExample", "\u{1F4AC}", "Example",    c.example);
 
     // Standalone Gurmukhi line on back is now redundant (Gurmukhi sits inside
     // #cardPromptBack), but keep the element hidden for backwards-compat.
@@ -7421,15 +2017,25 @@
     set("#bdMastered", bdMastered);
 
     // Compact inline queue snapshot shown directly above the flashcard so
-    // users feel the queue draining as they grade.
+    // users feel the queue draining as they grade. Animates a brief flash
+    // on each counter when the value changes (green for decrement = progress,
+    // amber for increment = card got pushed back).
     const chip = $("#cardQueueChip");
     if (chip) {
+      const prev = updateTrainStats._lastQueue || {};
+      const flashClass = (key, n) => {
+        if (prev[key] == null) return "";
+        if (n < prev[key]) return " cq-flash-down";
+        if (n > prev[key]) return " cq-flash-up";
+        return "";
+      };
       chip.innerHTML =
-        `<span class="cq cq-new">New <strong>${bdNew}</strong></span>`
+        `<span class="cq cq-new${flashClass('new', bdNew)}">New <strong>${bdNew}</strong></span>`
         + `<span class="cq-sep">·</span>`
-        + `<span class="cq cq-learn">Learn <strong>${bdLearn}</strong></span>`
+        + `<span class="cq cq-learn${flashClass('learn', bdLearn)}">Learn <strong>${bdLearn}</strong></span>`
         + `<span class="cq-sep">·</span>`
-        + `<span class="cq cq-due">Due <strong>${dueCount}</strong></span>`;
+        + `<span class="cq cq-due${flashClass('due', dueCount)}">Due <strong>${dueCount}</strong></span>`;
+      updateTrainStats._lastQueue = { new: bdNew, learn: bdLearn, due: dueCount };
     }
 
     // 7-day forecast bars (lightweight CSS).
@@ -7491,17 +2097,21 @@
     set("#srsSubEasy",  formatPreview(previewGradeInterval(cardId, "easy")));
   }
 
-  // Per-card last-5 grade sparkline rendered on the back face. Glyphs are
-  // small and theme-color-driven via CSS classes so dark/light look correct.
+  // Per-card last-5 grade sparkline rendered on the back face. Hides the
+  // entire labeled row on the very first review (no glyphs yet) so the back
+  // face stays uncluttered for brand-new cards.
   function renderCardHistory(cardId) {
     const el = $("#cardHistory");
+    const row = $("#cardHistoryRow");
     if (!el) return;
     const srs = state.srs[cardId];
     const hist = (srs && Array.isArray(srs.history)) ? srs.history.slice(-5) : [];
     if (!hist.length) {
-      el.innerHTML = '<span class="h-empty">No history yet</span>';
+      if (row) row.hidden = true;
+      el.innerHTML = "";
       return;
     }
+    if (row) row.hidden = false;
     const glyph = { a: "✗", h: "◦", g: "✓", e: "★" };
     const label = { a: "Again", h: "Hard", g: "Good", e: "Easy" };
     // Pad on the LEFT so newest is always rightmost (latest-on-right reading).
@@ -7751,7 +2361,32 @@
       const name = card?.english || "card";
       toast(`Mastered ${name}! +${bonus.toLocaleString()} XP`, 1600);
     }
+    // Session-recency tracking for the Training→Battle loop. We dedupe and
+    // cap the buffer so very long sessions don't bloat localStorage. A
+    // SESSION_GAP_MS gap since the last grade resets the buffer so we
+    // only show "freshly learned" cards in the next battle.
+    trackSessionReview(cardId, now);
     return xp;
+  }
+
+  // Push a graded card into the rolling session buffer used by
+  // pickBattleCard for recency bias. Resets the buffer if the previous
+  // grade was long enough ago to count as a separate session.
+  function trackSessionReview(cardId, now) {
+    if (!state.session) state.session = { startedAt: 0, lastGradeAt: 0, reviewedIds: [] };
+    const sess = state.session;
+    if (!sess.lastGradeAt || (now - sess.lastGradeAt) > LEARNING_LOOP.SESSION_GAP_MS) {
+      sess.startedAt = now;
+      sess.reviewedIds = [];
+    }
+    sess.lastGradeAt = now;
+    // Move-to-end on duplicate so the buffer reflects most-recent ordering.
+    const i = sess.reviewedIds.indexOf(cardId);
+    if (i >= 0) sess.reviewedIds.splice(i, 1);
+    sess.reviewedIds.push(cardId);
+    if (sess.reviewedIds.length > LEARNING_LOOP.SESSION_BUFFER) {
+      sess.reviewedIds.splice(0, sess.reviewedIds.length - LEARNING_LOOP.SESSION_BUFFER);
+    }
   }
 
   // ---------- Battle mode -----------------------------------------------------
@@ -7883,6 +2518,7 @@
     const windowSize = Math.max(4, Math.min(Math.floor(all.length / 3), Math.floor(all.length / 2) - 1, 24));
     const recentSet = new Set(recent.slice(-windowSize));
 
+    const nowMs = Date.now();
     function weightFor(c) {
       const s = state.srs[c.id];
       if (!s) return 0.5;
@@ -7897,6 +2533,20 @@
       if (m < 40) w *= 1.3;
       // Shaky bias.
       if (state.shakyCards && state.shakyCards[c.id]) w *= 1.8;
+      // Recency bias — the core of the Training→Battle loop. Cards
+      // graded in the current training session show up much more often,
+      // so freshly learned vocab gets re-tested under battle's pressure.
+      const sessRecent = state.session && state.session.reviewedIds;
+      if (sessRecent && sessRecent.indexOf(c.id) >= 0) {
+        w *= LEARNING_LOOP.SESSION_RECENCY_WEIGHT;
+      } else {
+        // Softer fallback: any review (training or battle) within the
+        // recency window also gets a smaller bump. Survives reload.
+        const lastSeen = state.review && state.review[c.id] && state.review[c.id].lastSeenAt;
+        if (lastSeen && (nowMs - lastSeen) < LEARNING_LOOP.RECENCY_WINDOW_MS) {
+          w *= LEARNING_LOOP.RECENCY_WEIGHT;
+        }
+      }
       // Suspended/leech: skip entirely (training-only territory).
       if (s.suspended) w = 0;
       return w;
@@ -7971,7 +2621,27 @@
       srs.ease = clamp(srs.ease + SRS.BATTLE_EASE_MISS, SRS.EASE_MIN, SRS.EASE_MAX);
       srs.lastResult = "battle-miss";
       if (!state.shakyCards) state.shakyCards = {};
-      state.shakyCards[cardId] = Date.now();
+      const now = Date.now();
+      state.shakyCards[cardId] = now;
+      // Battle→Training writeback. For cards already in the review queue
+      // we pull the due date sharply forward so the next training session
+      // re-tests this word almost immediately. We deliberately don't touch
+      // ease beyond the existing nudge, don't increment lapses, and don't
+      // reset the interval — the SRS scheduler stays the source of truth.
+      // Cards in learning/relearning are already in a tight loop, so we
+      // leave them alone here.
+      if (srs.queue === "review") {
+        const newDue = now + LEARNING_LOOP.BATTLE_MISS_DUE_PUSHFORWARD_MS;
+        if (!srs.due || srs.due > newDue) srs.due = newDue;
+      }
+      // Track for the post-battle "Cards to review" callout.
+      if (!Array.isArray(state.lastBattleMisses)) state.lastBattleMisses = [];
+      // Dedupe — keep most-recent-first ordering.
+      state.lastBattleMisses = state.lastBattleMisses.filter(m => m && m.cardId !== cardId);
+      state.lastBattleMisses.unshift({ cardId, ts: now });
+      if (state.lastBattleMisses.length > LEARNING_LOOP.BATTLE_MISS_BUFFER) {
+        state.lastBattleMisses.length = LEARNING_LOOP.BATTLE_MISS_BUFFER;
+      }
     }
   }
 
@@ -7994,13 +2664,18 @@
     const baseDur = Math.max(BATTLE.QUESTION_MS_MIN, BATTLE.QUESTION_MS_BASE - idx * 600);
     battle.questionDuration = Math.round(baseDur * (battle.diff?.timerMult || 1));
     // Telegraph: every Nth question (per-difficulty), enemy starts charging.
-    const telegraphEvery = battle.diff?.telegraphEvery || BATTLE.TELEGRAPH_EVERY;
-    if (battle.telegraphTurns === 0 && battle.questionsThisFight % telegraphEvery === 0) {
-      battle.telegraphTurns = BATTLE.TELEGRAPH_TURNS;
-      battle.telegraphMaxTurns = BATTLE.TELEGRAPH_TURNS;
-      battle.telegraphLabel = pickTelegraphLabel();
-      Sfx.play("telegraphWarn");
-      buzz(40);
+    // Players who want a pure language-learning experience can disable
+    // the parallel "watch the charge bar" thread via Settings → Boss
+    // Specials. Ki specials and core combat are unaffected.
+    if (isBossSpecialsOn()) {
+      const telegraphEvery = battle.diff?.telegraphEvery || BATTLE.TELEGRAPH_EVERY;
+      if (battle.telegraphTurns === 0 && battle.questionsThisFight % telegraphEvery === 0) {
+        battle.telegraphTurns = BATTLE.TELEGRAPH_TURNS;
+        battle.telegraphMaxTurns = BATTLE.TELEGRAPH_TURNS;
+        battle.telegraphLabel = pickTelegraphLabel();
+        Sfx.play("telegraphWarn");
+        buzz(40);
+      }
     }
     startQuestionTimer();
   }
@@ -8142,6 +2817,17 @@
       }
     }
     if (promptEl) promptEl.classList.remove("flash-good", "flash-bad");
+    // Recency chip — shows the learner why this card surfaced in battle,
+    // closing the feedback loop on the Training→Battle handoff. Guard
+    // against the first renderBattle() call from startBattle(), which
+    // runs before nextQuestion() has set battle.currentCard.
+    const chip = $("#quizRecencyChip");
+    if (chip) {
+      const cur = battle.currentCard;
+      const recent = !!(cur && state.session && Array.isArray(state.session.reviewedIds)
+                  && state.session.reviewedIds.indexOf(cur.id) >= 0);
+      chip.hidden = !recent;
+    }
     const choicesWrap = $("#choices");
     if (choicesWrap) choicesWrap.classList.remove("locked");
     $$("#choices .choice").forEach((btn, i) => {
@@ -8200,7 +2886,12 @@
   }
 
   function computeTier(streak) {
-    const t = BATTLE.TIER_THRESHOLDS;
+    // Focus Mode collapses the 9-tier ladder down to 3 visible bands so
+    // the visual progression maps cleanly to "competent / strong / peak"
+    // rather than nine indistinguishable colour/aura swaps.
+    const t = isFocusMode() && Array.isArray(BATTLE.FOCUS_TIER_THRESHOLDS)
+      ? BATTLE.FOCUS_TIER_THRESHOLDS
+      : BATTLE.TIER_THRESHOLDS;
     for (let i = t.length - 1; i >= 0; i--) {
       if (streak >= t[i]) return i + 1;
     }
@@ -8210,15 +2901,30 @@
   function playerAttack(streak) {
     let dmg = 12 + Math.floor(state.level * 0.6);
     let label = null;
-    if (streak >= 100 && streak % 100 === 0) { dmg += 250; label = "ULTIMATE FORM!"; playFx("spiritbomb"); Sfx.play("spirit"); }
-    else if (streak >= 75 && streak % 75 === 0) { dmg += 180; label = "INSTANT TRANSMISSION KAMEHAMEHA!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
-    else if (streak >= 50 && streak % 50 === 0) { dmg += 120; label = "DRAGON FIST!"; playFx("spiritbomb"); Sfx.play("spirit"); }
-    else if (streak >= 25 && streak % 25 === 0) { dmg += 80; label = "SPIRIT BOMB!"; playFx("spiritbomb"); Sfx.play("spirit"); }
-    else if (streak >= 20 && streak % 20 === 0) { dmg += 30; label = "FINAL FLASH!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
-    else if (streak >= 15 && streak % 15 === 0) { dmg += 25; label = "GALICK GUN!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
-    else if (streak >= 10 && streak % 10 === 0) { dmg += 40; label = "KAMEHAMEHA!"; playFx("kamehameha"); Sfx.play("kameBeam"); }
-    else if (streak >= 5  && streak % 5  === 0) { dmg += 18; label = "KI BLAST!";   playFx("kiblast"); Sfx.play("crit"); }
-    if (label) toast(label);
+    let fx = null, sfx = null;
+    if (streak >= 100 && streak % 100 === 0) { dmg += 250; label = "ULTIMATE FORM!"; fx = "spiritbomb"; sfx = "spirit"; }
+    else if (streak >= 75 && streak % 75 === 0) { dmg += 180; label = "INSTANT TRANSMISSION KAMEHAMEHA!"; fx = "kamehameha"; sfx = "kameBeam"; }
+    else if (streak >= 50 && streak % 50 === 0) { dmg += 120; label = "DRAGON FIST!"; fx = "spiritbomb"; sfx = "spirit"; }
+    else if (streak >= 25 && streak % 25 === 0) { dmg += 80; label = "SPIRIT BOMB!"; fx = "spiritbomb"; sfx = "spirit"; }
+    else if (streak >= 20 && streak % 20 === 0) { dmg += 30; label = "FINAL FLASH!"; fx = "kamehameha"; sfx = "kameBeam"; }
+    else if (streak >= 15 && streak % 15 === 0) { dmg += 25; label = "GALICK GUN!"; fx = "kamehameha"; sfx = "kameBeam"; }
+    else if (streak >= 10 && streak % 10 === 0) { dmg += 40; label = "KAMEHAMEHA!"; fx = "kamehameha"; sfx = "kameBeam"; }
+    else if (streak >= 5  && streak % 5  === 0) { dmg += 18; label = "KI BLAST!";   fx = "kiblast"; sfx = "crit"; }
+    // In Focus Mode we keep the damage math (player still feels stronger
+    // on streaks) but silence the parade of named-attack toasts / FX
+    // except at the meaningful milestones — 10 (Kamehameha), 25 (Spirit
+    // Bomb), and 100 (Ultimate Form). One named celebration per stage,
+    // not one every five answers.
+    let allow = true;
+    if (isFocusMode()) {
+      const streaks = (BATTLE.FOCUS_NAMED_ATTACK_STREAKS || [10, 25, 100]);
+      allow = label != null && streaks.includes(streak);
+    }
+    if (allow) {
+      if (fx) playFx(fx);
+      if (sfx) Sfx.play(sfx);
+      if (label) toast(label);
+    }
     return dmg;
   }
 
@@ -8600,7 +3306,7 @@
       g.gain.linearRampToValueAtTime(vol, t0 + attack);
       g.gain.linearRampToValueAtTime(vol * 0.6, t0 + dur - release);
       g.gain.linearRampToValueAtTime(0, t0 + dur);
-      let node = osc;
+      const node = osc;
       if (filter) {
         const f = ctx.createBiquadFilter();
         f.type = filter.type || "lowpass";
@@ -9174,7 +3880,7 @@
   // it sits under the study session without pulling focus.
   const TrainMusic = (() => {
     let timer = null;
-    let bpm = 72;
+    const bpm = 72;
     let step = 0;
     let nextNoteTime = 0;
     const LOOKAHEAD_MS = 25;
@@ -10072,6 +4778,19 @@
   function showIntroCard(enemy, idx, onDone) {
     const card = $("#introCard");
     if (!card) { onDone && onDone(); return; }
+    // Track that we've seen this enemy template at least once. Used by
+    // Focus Mode to skip the intro entirely on subsequent encounters of
+    // the same enemy (still shows on first sight + bosses).
+    if (!state.battleStats.enemiesSeen) state.battleStats.enemiesSeen = {};
+    const seenKey = enemy.name || ("e" + idx);
+    const timesSeen = state.battleStats.enemiesSeen[seenKey] || 0;
+    state.battleStats.enemiesSeen[seenKey] = timesSeen + 1;
+    if (isFocusMode() && !enemy.isBoss && timesSeen > 0) {
+      // Skip intro card outright — player has met this minion before.
+      Music.setBoss(false);
+      onDone && onDone();
+      return;
+    }
     Music.setBoss(!!enemy.isBoss);
     $("#introTag").textContent = enemy.isBoss ? `BOSS · STAGE ${idx + 1}` : `STAGE ${idx + 1}`;
     const ie = $("#introEmoji");
@@ -10089,8 +4808,12 @@
     card.classList.toggle("boss", !!enemy.isBoss);
     card.hidden = false;
     if (enemy.isBoss) Sfx.play("telegraphWarn");
-    // Bosses get a longer beat so players can read the quote/flavor (#5).
-    const dur = enemy.isBoss ? 2800 : 800;
+    // Bosses get a longer beat so players can read the quote/flavor.
+    // Focus Mode trims the (rare) minion intro to a brief flash.
+    const focus = isFocusMode();
+    const minionMs = focus ? (LEARNING_LOOP.FOCUS_INTRO_MINION_MS || 350) : 800;
+    const bossMs = focus ? (LEARNING_LOOP.FOCUS_INTRO_BOSS_MS || 2800) : 2800;
+    const dur = enemy.isBoss ? bossMs : minionMs;
     const dismiss = () => {
       card.hidden = true;
       card.removeEventListener("click", dismiss);
@@ -10255,6 +4978,29 @@
     if (s.streakBest > 0 && s.streakBest === state.battleStats.bestStreak) callouts.push(`🏆 New best streak: ${s.streakBest}`);
     if (s.isEndless && s.stage >= state.battleStats.bestEnemyIdx) callouts.push(`🏆 New best endless stage: ${s.stage}`);
     pbs.innerHTML = callouts.map(c => `<div class="results-pb">${c}</div>`).join("");
+
+    // Cards missed in this run — the visible payoff for the
+    // Battle→Training loop. We resolve ids against the deck and skip any
+    // that aren't findable (defensive against deck edits between sessions).
+    const reviewBox = $("#resultsReview");
+    const reviewList = $("#resultsReviewList");
+    const trainBtn = $("#trainMissesBtn");
+    const misses = (Array.isArray(state.lastBattleMisses) ? state.lastBattleMisses : [])
+      .map(m => ({ m, card: DECK.find(c => c.id === m.cardId) }))
+      .filter(x => x.card);
+    if (reviewBox && reviewList && misses.length) {
+      reviewList.innerHTML = misses.slice(0, 8).map(({ card }) => {
+        const en = escapeHtml(card.english || "");
+        const pa = escapeHtml(card.punjabi || "");
+        return `<li><span class="rv-en">${en}</span><span class="rv-sep">—</span><span class="rv-pa">${pa}</span></li>`;
+      }).join("");
+      reviewBox.hidden = false;
+      if (trainBtn) trainBtn.hidden = false;
+    } else if (reviewBox) {
+      reviewBox.hidden = true;
+      if (trainBtn) trainBtn.hidden = true;
+    }
+
     // Auto-disable hints after first victory
     if (s.outcome === "victory" && state.settings?.battleHints) {
       state.settings.battleHints = false;
@@ -10352,6 +5098,20 @@
   function maybeInterrupt() {
     if (!state.settings?.interrupts) return false;
     if (train.eventActive) return false;
+    const focus = isFocusMode();
+
+    // Focus Mode: don't pile interrupts on a beginner who hasn't built
+    // up a meaningful review queue yet. Wait until they've graduated
+    // FOCUS_INTERRUPT_MIN_GRADUATED cards before any random events fire.
+    // Forced events (repeat-miss / stale) still run — they're directly
+    // pedagogical.
+    let gradCount = 0;
+    if (focus) {
+      for (const id in state.srs) {
+        const sr = state.srs[id];
+        if (sr && (sr.queue === "review" || sr.queue === "relearning")) gradCount++;
+      }
+    }
 
     // 1) Forced: same word missed twice -> Incoming Attack with that word.
     if (train.repeatMissId) {
@@ -10363,11 +5123,22 @@
       if (Math.random() < 0.7) return startInterruptEvent("recall");
     }
 
-    // 3) Probabilistic: respect cooldown window.
-    if (train.cardsSinceInterrupt < INTERRUPT.MIN_CARDS_BETWEEN) return false;
-    const window = INTERRUPT.MAX_CARDS_BETWEEN - INTERRUPT.MIN_CARDS_BETWEEN;
-    const ramp = Math.min(1, (train.cardsSinceInterrupt - INTERRUPT.MIN_CARDS_BETWEEN) / Math.max(1, window));
-    const chance = INTERRUPT.BASE_CHANCE * (0.5 + 0.5 * ramp);
+    // Beginner gate — silence random events under focus until the deck
+    // has a substantive review queue.
+    if (focus && gradCount < (LEARNING_LOOP.FOCUS_INTERRUPT_MIN_GRADUATED || 30)) return false;
+
+    // 3) Probabilistic: respect cooldown window. Focus tightens both the
+    //    cooldown floor and the per-question chance.
+    const minBetween = focus
+      ? (LEARNING_LOOP.FOCUS_INTERRUPT_MIN_BETWEEN || 8)
+      : INTERRUPT.MIN_CARDS_BETWEEN;
+    const baseChance = focus
+      ? (LEARNING_LOOP.FOCUS_INTERRUPT_BASE_CHANCE || 0.18)
+      : INTERRUPT.BASE_CHANCE;
+    if (train.cardsSinceInterrupt < minBetween) return false;
+    const window = INTERRUPT.MAX_CARDS_BETWEEN - minBetween;
+    const ramp = Math.min(1, (train.cardsSinceInterrupt - minBetween) / Math.max(1, window));
+    const chance = baseChance * (0.5 + 0.5 * ramp);
     if (Math.random() > chance && train.cardsSinceInterrupt < INTERRUPT.MAX_CARDS_BETWEEN) return false;
 
     return startInterruptEvent(pickWeightedKind());
@@ -10390,7 +5161,15 @@
     const day  = 24 * 60 * 60 * 1000;
     const fiveMin = 5 * 60 * 1000;
     const seenIds = DECK.filter(c => (state.srs[c.id]?.seen || 0) > 0);
+    // Highest-ROI targets first: cards the user has actually missed (lapses
+    // or recent misses) — these are exactly where retrieval practice pays
+    // off most. Then fall back to time-stale cards.
+    const lapsed = seenIds.filter(c => (state.srs[c.id]?.lapses || 0) > 0
+                                    || (state.review?.[c.id]?.missCount || 0) > 0);
+    const shaky  = seenIds.filter(c => state.shakyCards && state.shakyCards[c.id]);
     const tiers = [
+      shaky,
+      lapsed,
       seenIds.filter(c => now - (state.review?.[c.id]?.lastSeenAt || 0) > week),
       seenIds.filter(c => now - (state.review?.[c.id]?.lastSeenAt || 0) > day),
       seenIds.filter(c => now - (state.review?.[c.id]?.lastSeenAt || 0) > fiveMin),
@@ -10506,14 +5285,57 @@
   function nextEventQuestion() {
     let card;
     if (trainEvent.kind === "speed") {
-      // Avoid asking the same card twice within a single burst.
-      const asked = trainEvent.askedIds || new Set();
-      const fresh = DECK.filter(c => !asked.has(c.id));
-      const pool = fresh.length ? fresh : DECK;
-      if (!fresh.length) asked.clear();
-      card = pool[Math.floor(Math.random() * pool.length)];
-      asked.add(card.id);
-      trainEvent.askedIds = asked;
+      // Lag-based recall: if a card was just missed in this burst, re-ask it
+      // after ~3 intervening questions. This is one of the strongest known
+      // techniques for moving items into long-term memory.
+      const reaskQueue = trainEvent.reaskQueue || [];
+      let due = null;
+      for (let i = 0; i < reaskQueue.length; i++) {
+        reaskQueue[i].lag -= 1;
+        if (reaskQueue[i].lag <= 0 && !due) {
+          due = reaskQueue[i].card;
+          reaskQueue.splice(i, 1);
+          break;
+        }
+      }
+      trainEvent.reaskQueue = reaskQueue;
+      if (due) {
+        card = due;
+      } else {
+        // Comprehensible-input principle: only ask cards the learner has
+        // actually been introduced to. Brand-new cards thrown at the user
+        // under a 20s timer just teach "I don't know any of these".
+        const asked = trainEvent.askedIds || new Set();
+        const seenPool = DECK.filter(c => (state.srs[c.id]?.seen || 0) > 0
+                                      && !state.srs[c.id]?.suspended);
+        // Bias: weight cards by how shaky they are. Each due/lapsed card
+        // gets extra entries so they appear ~2–3× more often than mastered
+        // cards inside the same burst.
+        const weighted = [];
+        for (const c of seenPool) {
+          if (asked.has(c.id)) continue;
+          const s = state.srs[c.id] || {};
+          const r = state.review?.[c.id] || {};
+          let w = 1;
+          if (state.shakyCards && state.shakyCards[c.id]) w += 2;
+          if ((s.lapses || 0) > 0) w += 1;
+          if ((r.missCount || 0) > 0) w += 1;
+          if ((s.due || 0) <= Date.now()) w += 1;
+          for (let i = 0; i < w; i++) weighted.push(c);
+        }
+        let pool = weighted.length ? weighted
+                : seenPool.filter(c => !asked.has(c.id));
+        if (!pool.length) {
+          // Fallback: tier-gated NEW cards if no seen pool yet (very fresh save)
+          asked.clear();
+          pool = seenPool.length ? seenPool
+               : DECK.filter(c => cardTier(c) <= unlockedTierForLevel(state.level));
+          if (!pool.length) pool = DECK;
+        }
+        card = pool[Math.floor(Math.random() * pool.length)];
+        asked.add(card.id);
+        trainEvent.askedIds = asked;
+      }
     } else {
       card = trainEvent.fixedCard;
     }
@@ -10544,7 +5366,7 @@
       if (trainEvent.kind === "speed") {
         b.style.animation = "none";
         // Force reflow then re-apply so the keyframes restart.
-        // eslint-disable-next-line no-unused-expressions
+         
         b.offsetWidth;
         b.style.animation = "";
       }
@@ -10600,6 +5422,22 @@
       trainEvent.combo = 0;
       // Speed Burst is high-pressure; don't over-penalize the SRS miss counters.
       logReview(card.id, false, { light: trainEvent.kind === "speed" });
+      // Pedagogy: on a wrong answer, briefly toast the full pairing so the
+      // brain encodes the answer rather than just "I got it wrong". The
+      // colour-coded correct button alone doesn't help in reverse mode where
+      // a beginner may not know what the highlighted Punjabi word means.
+      const pa = (card.punjabi || "").trim();
+      const en = (card.english || "").trim();
+      if (pa && en) toast(`${pa} = ${en}`, 1400);
+      // Lag-based recall: re-ask this missed card later in the same Speed
+      // Burst (3 intervening questions). One of the strongest known
+      // long-term-retention techniques.
+      if (trainEvent.kind === "speed") {
+        if (!Array.isArray(trainEvent.reaskQueue)) trainEvent.reaskQueue = [];
+        if (!trainEvent.reaskQueue.some(x => x.card.id === card.id)) {
+          trainEvent.reaskQueue.push({ card, lag: 3 });
+        }
+      }
     }
 
     if (trainEvent.kind === "speed") {
@@ -10633,6 +5471,13 @@
       btns.forEach(b => { b.disabled = true; b.classList.remove("correct", "wrong"); });
       const correctBtn = btns[ev.currentCorrectIdx];
       if (correctBtn) correctBtn.classList.add("correct");
+      // Show the full pairing so timeouts still teach the answer.
+      const c = ev.currentCard;
+      if (c) {
+        const pa = (c.punjabi || "").trim();
+        const en = (c.english || "").trim();
+        if (pa && en) toast(`${pa} = ${en}`, 1400);
+      }
       setTimeout(() => {
         if (!trainEvent) return;
         finishTrainEvent(reason);
@@ -10716,8 +5561,19 @@
       switch (t.dataset.action) {
         case "goto-train":    showScreen("train"); break;
         case "goto-battle":   showScreen("battle"); break;
+        case "goto-medicine": showScreen("medicine"); break;
         case "goto-settings": showScreen("settings"); break;
         case "goto-start":    showScreen("start"); break;
+        case "train-misses": {
+          // Seed the picker queue with up to BATTLE_MISS_BUFFER recent
+          // misses, then jump to Train. The first few cards will be the
+          // missed ones; SRS resumes after.
+          const ids = (Array.isArray(state.lastBattleMisses) ? state.lastBattleMisses : [])
+            .map(m => m && m.cardId).filter(Boolean);
+          train.preferMissesQueue = ids.slice(0, LEARNING_LOOP.BATTLE_MISS_BUFFER);
+          showScreen("train");
+          break;
+        }
       }
     });
 
@@ -10729,6 +5585,41 @@
       renderCard();
       armIdleTimer();
     });
+
+    // Allow tapping anywhere on the front face to reveal — bigger hit target,
+    // matches how most flashcard apps behave on mobile.
+    $("#flashcard").addEventListener("click", (e) => {
+      if (train.revealed) return;
+      // Ignore taps on the speaker icon so audio playback doesn't double as a reveal.
+      if (e.target.closest(".speak-btn")) return;
+      // The Reveal button has its own listener; don't double-fire.
+      if (e.target.closest("#revealBtn")) return;
+      train.revealed = true;
+      train.revealedAt = Date.now();
+      renderCard();
+      armIdleTimer();
+    });
+
+    // Header "Details ▾" toggle: hides the breakdown chips + 7-day forecast
+    // by default so the Training screen opens with a clean, low-noise header.
+    const detailsToggle = $("#srsDetailsToggle");
+    const detailsWrap = $("#srsDetailsWrap");
+    if (detailsToggle && detailsWrap) {
+      // Restore last preference (default: collapsed).
+      const open = !!state.settings?.trainDetailsOpen;
+      detailsWrap.hidden = !open;
+      detailsToggle.setAttribute("aria-expanded", String(open));
+      detailsToggle.textContent = open ? "Details \u25b4" : "Details \u25be";
+      detailsToggle.addEventListener("click", () => {
+        const nextOpen = detailsWrap.hidden;
+        detailsWrap.hidden = !nextOpen;
+        detailsToggle.setAttribute("aria-expanded", String(nextOpen));
+        detailsToggle.textContent = nextOpen ? "Details \u25b4" : "Details \u25be";
+        if (!state.settings) state.settings = {};
+        state.settings.trainDetailsOpen = nextOpen;
+        saveState();
+      });
+    }
 
     $("#srsRow").addEventListener("click", (e) => {
       const btn = e.target.closest("[data-grade]");
@@ -11164,6 +6055,319 @@
   }
 
   // Boot
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wire);
+  } else {
+    wire();
+  }
+})();
+
+/* ============================================================
+ * MEDICINE — USMLE Step 3 Rapid Review (stateless quiz engine)
+ * Self-contained module; reads window.MEDICINE_BANK from medicine-bank.js.
+ * ============================================================ */
+(function () {
+  "use strict";
+
+  const $  = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  const state = {
+    items: [],          // active queue {item, choiceOrder, answerIdx}
+    idx: 0,
+    picked: null,       // shuffled-index user picked (or null)
+    correct: 0,
+    wrong: [],          // array of original items missed
+    topics: new Set(),  // topic names selected
+    length: 25,         // 10/25/50/'all'
+  };
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function bank() {
+    return Array.isArray(window.MEDICINE_BANK) ? window.MEDICINE_BANK : [];
+  }
+
+  function uniqueTopics() {
+    const set = new Set();
+    bank().forEach(it => set.add(it.topic));
+    return Array.from(set);
+  }
+
+  function poolForTopics(topicSet) {
+    if (!topicSet.size) return [];
+    return bank().filter(it => topicSet.has(it.topic));
+  }
+
+  /* ---------- Setup view ---------- */
+
+  function renderTopicChips() {
+    const wrap = $("#medTopicChips");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    const topics = uniqueTopics();
+    // default: all selected
+    if (state.topics.size === 0) topics.forEach(t => state.topics.add(t));
+    topics.forEach(t => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "med-chip" + (state.topics.has(t) ? " is-on" : "");
+      btn.textContent = t;
+      btn.dataset.topic = t;
+      btn.setAttribute("aria-pressed", state.topics.has(t) ? "true" : "false");
+      btn.addEventListener("click", () => {
+        if (state.topics.has(t)) state.topics.delete(t);
+        else state.topics.add(t);
+        btn.classList.toggle("is-on");
+        btn.setAttribute("aria-pressed", state.topics.has(t) ? "true" : "false");
+        updatePoolInfo();
+      });
+      wrap.appendChild(btn);
+    });
+    updatePoolInfo();
+  }
+
+  function updatePoolInfo() {
+    const info = $("#medPoolInfo");
+    if (!info) return;
+    const n = poolForTopics(state.topics).length;
+    info.textContent = `${n} question${n === 1 ? "" : "s"} available`;
+    const start = $("#medStartBtn");
+    if (start) start.disabled = n === 0;
+  }
+
+  function setLength(val) {
+    state.length = val;
+    $$("#medLenSegment .med-len-opt").forEach(b => {
+      b.classList.toggle("is-on", String(b.dataset.len) === String(val));
+    });
+  }
+
+  function showView(name) {
+    ["medSetup", "medQuiz", "medResults"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.hidden = (id !== name);
+    });
+  }
+
+  function resetToSetup() {
+    state.items = [];
+    state.idx = 0;
+    state.picked = null;
+    state.correct = 0;
+    state.wrong = [];
+    showView("medSetup");
+    renderTopicChips();
+  }
+
+  /* ---------- Quiz view ---------- */
+
+  function buildQueue(items) {
+    return items.map(it => {
+      const order = shuffle([0, 1, 2, 3]);
+      const answerIdx = order.indexOf(it.answer);
+      return { item: it, choiceOrder: order, answerIdx };
+    });
+  }
+
+  function startSession(items) {
+    if (!items.length) return;
+    state.items = buildQueue(items);
+    state.idx = 0;
+    state.picked = null;
+    state.correct = 0;
+    state.wrong = [];
+    showView("medQuiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = state.items[state.idx];
+    if (!q) { showResults(); return; }
+    state.picked = null;
+
+    const total = state.items.length;
+    const fill = $("#medProgressFill");
+    if (fill) fill.style.width = ((state.idx) / total * 100) + "%";
+
+    $("#medCounter").textContent = `${state.idx + 1} / ${total}`;
+    $("#medScore").textContent = `\u2713 ${state.correct} \u00b7 \u2717 ${state.wrong.length}`;
+    const tag = $("#medTopicTag");
+    tag.textContent = q.item.subtopic ? `${q.item.topic} \u00b7 ${q.item.subtopic}` : q.item.topic;
+    $("#medStem").textContent = q.item.stem;
+
+    const choiceBtns = $$("#medChoices .med-choice");
+    choiceBtns.forEach((btn, i) => {
+      btn.disabled = false;
+      btn.classList.remove("is-correct", "is-wrong", "is-picked");
+      const origIdx = q.choiceOrder[i];
+      btn.querySelector(".med-choice-text").textContent = q.item.choices[origIdx];
+    });
+
+    const pearl = $("#medPearl");
+    if (pearl) pearl.hidden = true;
+  }
+
+  function pickAnswer(shuffledIdx) {
+    if (state.picked !== null) return;
+    const q = state.items[state.idx];
+    state.picked = shuffledIdx;
+    const isRight = shuffledIdx === q.answerIdx;
+    if (isRight) state.correct++;
+    else state.wrong.push(q.item);
+
+    const choiceBtns = $$("#medChoices .med-choice");
+    choiceBtns.forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.answerIdx) btn.classList.add("is-correct");
+      if (i === shuffledIdx && !isRight) btn.classList.add("is-wrong");
+      if (i === shuffledIdx) btn.classList.add("is-picked");
+    });
+
+    $("#medScore").textContent = `\u2713 ${state.correct} \u00b7 \u2717 ${state.wrong.length}`;
+
+    const pearl = $("#medPearl");
+    const pearlText = $("#medPearlText");
+    if (pearl && pearlText) {
+      pearlText.textContent = q.item.pearl || "";
+      pearl.hidden = false;
+      const next = $("#medNextBtn");
+      if (next) {
+        next.textContent = (state.idx + 1 >= state.items.length) ? "See Results \u2192" : "Next \u2192";
+        next.focus();
+      }
+    }
+  }
+
+  function nextQuestion() {
+    state.idx++;
+    if (state.idx >= state.items.length) { showResults(); return; }
+    renderQuestion();
+  }
+
+  /* ---------- Results view ---------- */
+
+  function showResults() {
+    showView("medResults");
+    const total = state.correct + state.wrong.length;
+    const pct = total ? Math.round((state.correct / total) * 100) : 0;
+    $("#medResultsBanner").textContent = total === 0 ? "Session Ended" :
+      pct >= 80 ? "Strong Work" : pct >= 60 ? "Solid \u2014 Keep Going" : "Keep Drilling";
+    $("#medResultsScore").textContent = `${state.correct} / ${total} (${pct}%)`;
+
+    // Per-topic breakdown: tally totals per topic, then mark correct vs wrong
+    const wrongSet = new Set(state.wrong.map(w => w.id));
+    const breakdown = {};
+    state.items.forEach((q) => {
+      const t = q.item.topic;
+      if (!breakdown[t]) breakdown[t] = { correct: 0, total: 0 };
+      breakdown[t].total++;
+      if (!wrongSet.has(q.item.id)) breakdown[t].correct++;
+    });
+
+    const wrap = $("#medResultsBreakdown");
+    wrap.innerHTML = "";
+    Object.keys(breakdown).sort().forEach(t => {
+      const b = breakdown[t];
+      const row = document.createElement("div");
+      row.className = "med-bd-row";
+      const tpct = Math.round((b.correct / b.total) * 100);
+      row.innerHTML = `<span class="med-bd-topic">${t}</span>` +
+        `<span class="med-bd-score">${b.correct}/${b.total}</span>` +
+        `<span class="med-bd-bar"><span class="med-bd-bar-fill" style="width:${tpct}%"></span></span>`;
+      wrap.appendChild(row);
+    });
+
+    const reviewBtn = $("#medReviewWrongBtn");
+    if (reviewBtn) reviewBtn.disabled = state.wrong.length === 0;
+  }
+
+  /* ---------- Wiring ---------- */
+
+  function wire() {
+    if (!document.getElementById("screen-medicine")) return;
+
+    renderTopicChips();
+    setLength(25);
+
+    $("#medSelectAll").addEventListener("click", () => {
+      state.topics = new Set(uniqueTopics());
+      renderTopicChips();
+    });
+    $("#medClearAll").addEventListener("click", () => {
+      state.topics = new Set();
+      renderTopicChips();
+    });
+
+    $$("#medLenSegment .med-len-opt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const v = btn.dataset.len === "all" ? "all" : parseInt(btn.dataset.len, 10);
+        setLength(v);
+      });
+    });
+
+    $("#medStartBtn").addEventListener("click", () => {
+      const pool = poolForTopics(state.topics);
+      if (!pool.length) return;
+      const shuffled = shuffle(pool);
+      const n = state.length === "all" ? shuffled.length : Math.min(state.length, shuffled.length);
+      startSession(shuffled.slice(0, n));
+    });
+
+    $("#medChoices").addEventListener("click", (e) => {
+      const btn = e.target.closest(".med-choice");
+      if (!btn || btn.disabled) return;
+      pickAnswer(parseInt(btn.dataset.i, 10));
+    });
+
+    $("#medNextBtn").addEventListener("click", nextQuestion);
+
+    $("#medQuitBtn").addEventListener("click", () => {
+      if (state.items.length && state.picked === null && state.wrong.length + state.correct === 0) {
+        resetToSetup();
+      } else {
+        showResults();
+      }
+    });
+
+    $("#medReviewWrongBtn").addEventListener("click", () => {
+      if (!state.wrong.length) return;
+      const wrongCopy = state.wrong.slice();
+      startSession(shuffle(wrongCopy));
+    });
+
+    $("#medNewSessionBtn").addEventListener("click", resetToSetup);
+
+    // Reset to setup whenever the user navigates to Medicine fresh
+    document.body.addEventListener("click", (e) => {
+      const t = e.target.closest('[data-action="goto-medicine"]');
+      if (!t) return;
+      // Defer until after showScreen runs
+      setTimeout(resetToSetup, 0);
+    });
+
+    // Keyboard: 1-4 to pick, Enter to advance, when quiz active
+    document.addEventListener("keydown", (e) => {
+      const quizVisible = !$("#medQuiz")?.hidden;
+      const screenActive = document.querySelector(".screen.active")?.dataset.screen === "medicine";
+      if (!quizVisible || !screenActive) return;
+      if (e.key >= "1" && e.key <= "4") {
+        const idx = parseInt(e.key, 10) - 1;
+        if (state.picked === null) pickAnswer(idx);
+      } else if (e.key === "Enter" && state.picked !== null) {
+        e.preventDefault();
+        nextQuestion();
+      }
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", wire);
   } else {

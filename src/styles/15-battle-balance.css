@@ -1,0 +1,235 @@
+/* ============================================================
+   15-battle-balance.css — Battle aesthetic polish (Phase 5)
+   Symmetric combatants, aligned bars, ★ score widget, HP pill,
+   timer prominence, telegraph dock, z-index tokens.
+   Loaded LAST so it overrides 06-battle.css / 14a-stage-hud.css.
+   ============================================================ */
+
+:root {
+  /* Bar / sprite tokens shared across HP, XP, KI bars */
+  --bar-h: 14px;
+  --bar-h-sm: 10px;
+  --bar-radius: 999px;
+  --sprite-size: clamp(110px, 26vw, 150px);
+
+  /* Layering tokens (use as `z-index: var(--z-fab)` going forward) */
+  --z-arena-fx: 5;
+  --z-overlay: 50;
+  --z-fab: 65;
+  --z-toast: 70;
+  --z-splash: 80;
+}
+
+/* ---------- Symmetric arena layout ---------- */
+#screen-battle .arena.arena-v2 {
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 14px;
+}
+.arena-v2 > .vs { align-self: center; }
+
+.arena-v2 .combatant {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* Sprite slot: fixed height for both sides regardless of img/emoji/boss */
+.arena-v2 .combatant .sprite {
+  height: var(--sprite-size);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  font-size: 0;
+  margin: 0 auto;
+}
+
+/* Unified sprite size — kills the minion(emoji 160px) vs avatar(140px) gap */
+.arena-v2 .avatar-img,
+.arena-v2 .avatar-img.enemy-img {
+  width: var(--sprite-size);
+  height: var(--sprite-size);
+  max-width: 100%;
+  object-fit: contain;
+}
+.arena-v2 .enemy-emoji {
+  font-size: var(--sprite-size);
+  line-height: 1;
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+/* Stat-stack rows — enemy spacers mirror player KI + streak heights so
+   both sprites + name + HP bar share the same baseline. */
+.arena-v2 .combatant .name {
+  width: 100%;
+  min-height: 1.3em;
+  text-align: center;
+}
+.arena-v2 .combatant .hpbar {
+  width: 100%;
+  height: var(--bar-h);
+  border-radius: var(--bar-radius);
+}
+.arena-v2 .combatant .kibar,
+.arena-v2 .combatant .kibar-spacer {
+  width: 100%;
+  height: var(--bar-h-sm);
+  margin-top: 6px;
+  border-radius: var(--bar-radius);
+}
+.arena-v2 .combatant .kibar-spacer { visibility: hidden; }
+.arena-v2 .combatant .streak,
+.arena-v2 .combatant .streak-spacer {
+  min-height: 18px;
+  margin-top: 6px;
+  text-align: center;
+}
+.arena-v2 .combatant .streak-spacer { visibility: hidden; }
+
+/* HP/KI bar text legibility — dark pill behind numbers. */
+.arena-v2 .hpbar > span {
+  position: absolute;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-shadow: none;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------- Stage HUD: dots | label | ★ | pause ---------- */
+.stage-hud {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 10px;
+}
+.stage-hud .stage-dots {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  min-width: 0;
+}
+.stage-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 210, 63, 0.14);
+  border: 1px solid rgba(255, 210, 63, 0.45);
+  color: #ffe8a3;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease-snap), background 0.25s var(--ease-soft);
+}
+.stage-star .star-icon {
+  color: var(--yellow);
+  filter: drop-shadow(0 0 6px rgba(255, 210, 63, 0.55));
+  font-size: 13px;
+  line-height: 1;
+}
+.stage-star.bump {
+  animation: starBump 0.55s var(--ease-spring);
+}
+.stage-star.milestone {
+  background: rgba(255, 210, 63, 0.28);
+  border-color: rgba(255, 210, 63, 0.85);
+  box-shadow: 0 0 12px rgba(255, 210, 63, 0.5);
+}
+@keyframes starBump {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.3); filter: brightness(1.5); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Telegraph banner: dock below stage HUD instead of overlay ---------- */
+.arena-v2 .telegraph-banner {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  margin: 4px 0 0;
+  grid-column: 1 / -1;
+  align-self: center;
+  max-width: 100%;
+  order: 99;
+  z-index: var(--z-arena-fx);
+  animation: tbInV2 0.35s var(--ease-spring);
+}
+@keyframes tbInV2 {
+  from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.arena-v2 .telegraph-banner.final {
+  animation: tbPulseV2 0.42s infinite alternate;
+}
+@keyframes tbPulseV2 {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
+
+/* ---------- Quiz timer: full-width strip above the prompt ---------- */
+#screen-battle .quiz .quiz-head {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+#screen-battle .quiz .quiz-timer {
+  order: -1;
+  width: 100%;
+  max-width: none;
+  height: 5px;
+}
+#screen-battle .quiz .quiz-prompt-label {
+  margin: 0;
+}
+
+/* ---------- Mobile responsive override (≤600px arena collapses to 2 cols) ---------- */
+@media (max-width: 600px) {
+  #screen-battle .arena.arena-v2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .arena-v2 > .vs {
+    grid-column: 1 / -1;
+    order: -1;
+    align-self: center;
+  }
+  .arena-v2 .telegraph-banner {
+    grid-column: 1 / -1;
+  }
+  :root {
+    --sprite-size: clamp(96px, 28vw, 130px);
+  }
+  .stage-hud {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+  .stage-hud .stage-label {
+    display: none; /* dots + ★ + pause is enough on small screens */
+  }
+}
+
+/* ---------- prefers-reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .stage-star.bump { animation: none; }
+  .arena-v2 .telegraph-banner,
+  .arena-v2 .telegraph-banner.final { animation: none; }
+}

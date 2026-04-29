@@ -1,0 +1,28 @@
+/* ============================================================
+   Punjabi Power Z — main stylesheet
+   Aggregates the split style files in cascade order.
+   Replaces the legacy /style.css monolith. Edit the partials
+   under src/styles/ and import order here as needed.
+   ============================================================ */
+
+@import url("./01-tokens.css");
+@import url("./02-hud.css");
+@import url("./03-screens-base.css");
+@import url("./04-buttons.css");
+@import url("./05-flashcard.css");
+@import url("./06-battle.css");
+@import url("./07-overlays.css");
+@import url("./08-settings.css");
+@import url("./09-animations.css");
+@import url("./10-responsive.css");
+@import url("./11-events.css");
+@import url("./12-battle-fx.css");
+@import url("./13-transitions.css");
+@import url("./14a-stage-hud.css");
+@import url("./14b-dbz-fx.css");
+@import url("./14c-dbz-polish.css");
+@import url("./14d-anim-upgrades.css");
+@import url("./14e-ux-polish.css");
+@import url("./14f-medicine.css");
+@import url("./15-battle-balance.css");
+@import url("./16-learning-loop.css");

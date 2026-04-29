@@ -1,0 +1,113 @@
+/* ============================================================
+   01-tokens.css — Design tokens, brand palette, body, tabular numerals
+   Sliced from style.css lines 1-107 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===========================
+   Punjabi Power Z — iOS 26 / iPhone 17 styling
+   Palette: orange #ff7a1a, blue #007aff (iOS), yellow #ffd23f
+   =========================== */
+
+:root {
+  /* Brand */
+  --orange: #ff7a1a;
+  --orange-2: #ff9a45;
+  --yellow: #ffd23f;
+  --yellow-2: #ffe27a;
+  --red:    #ff3b3b;       /* logo red */
+  --gold:   #ffb300;
+
+  /* Cinematic dark palette (always-on, to frame the warm logo) */
+  --blue: #0a84ff;
+  --blue-2: #4f8bff;
+  --good: #30d158;
+  --bad:  #ff453a;
+
+  --white: #ffffff;
+  --ink:   #f5f5f7;        /* primary text on dark */
+  --ink-2: #d1d1d6;
+  --muted: #8e8e93;
+
+  --bg:        #0b0d18;    /* deep midnight */
+  --surface:   #15182b;    /* card */
+  --surface-2: #1c2042;
+  --separator: rgba(255, 255, 255, 0.10);
+
+  /* Glass */
+  --glass-bg: rgba(15, 17, 32, 0.55);
+  --glass-stroke: rgba(255, 255, 255, 0.10);
+
+  --shadow:    0 12px 40px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  --radius-xl: 28px;
+  --radius:    20px;
+  --radius-sm: 14px;
+
+  /* iOS motion (spring-feel cubic-bezier curves) */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-soft:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-snap:   cubic-bezier(0.5, 1.6, 0.4, 1);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Safe areas (iPhone 17 Dynamic Island / home indicator) */
+  --sa-top:    env(safe-area-inset-top, 0px);
+  --sa-right:  env(safe-area-inset-right, 0px);
+  --sa-bottom: env(safe-area-inset-bottom, 0px);
+  --sa-left:   env(safe-area-inset-left, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  background: #0b0d18; /* matches body so rubber-band overscroll is dark */
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Helvetica Neue", system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;            /* iOS body */
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: #0b0d18;
+  background-image:
+    radial-gradient(900px 500px at 50% 0%,   rgba(255, 122, 26, 0.32), transparent 60%),
+    radial-gradient(700px 480px at 12% 25%,  rgba(255, 60, 80, 0.18),  transparent 65%),
+    radial-gradient(800px 520px at 90% 30%,  rgba(160, 60, 220, 0.20), transparent 65%),
+    radial-gradient(1100px 700px at 50% 110%, rgba(255, 210, 63, 0.18), transparent 60%),
+    linear-gradient(180deg, #0b0d18 0%, #11142a 45%, #0a0c18 100%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+  padding-left: var(--sa-left);
+  padding-right: var(--sa-right);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* Tabular numerals & smoother number animations on HUD/stats */
+#xpText, #levelLabel, #playerHpText, #enemyHpText,
+#trainMastery, #trainSessionXp, #trainShield, #trainKi,
+#streakLabel, #battleShield, #eventCombo, #eventScore {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "ss01" 1;
+}
+

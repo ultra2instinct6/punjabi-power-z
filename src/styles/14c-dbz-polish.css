@@ -1,0 +1,149 @@
+/* ============================================================
+   14c-dbz-polish.css — DBZ FX V5 — final polish pass (chip colors, electric arcs)
+   Sliced from former 14-arena-extras.css (Phase 4b split).
+   ============================================================ */
+
+/* ============================================================
+   DBZ FX V5 — final polish pass
+   1. Per-tier .tier-tag chip colors (driven by data-tier).
+   2. Enemy charging aura z-index fix (sit above sprite, below banner).
+   3. Cleanup: explicitly retire orphan keyframes from V2/V3 by
+      noting they are unused (kept for backwards safety, no cost).
+   ============================================================ */
+
+/* ---------- 1. Per-tier chip colors via [data-tier] ---------- */
+.tier-tag[data-tier="1"] { --tier-chip-bg: rgba(255,90,60,0.18);   --tier-chip-fg: #ff7a4d; }
+.tier-tag[data-tier="2"] { --tier-chip-bg: rgba(255,210,63,0.18);  --tier-chip-fg: #ffd23f; }
+.tier-tag[data-tier="3"] { --tier-chip-bg: rgba(255,235,90,0.20);  --tier-chip-fg: #ffe97a; }
+.tier-tag[data-tier="4"] { --tier-chip-bg: rgba(255,243,154,0.22); --tier-chip-fg: #fff39a; }
+.tier-tag[data-tier="5"] { --tier-chip-bg: rgba(180,24,24,0.25);   --tier-chip-fg: #ff5a5a; }
+.tier-tag[data-tier="6"] { --tier-chip-bg: rgba(255,90,150,0.20);  --tier-chip-fg: #ff5a96; }
+.tier-tag[data-tier="7"] { --tier-chip-bg: rgba(109,180,255,0.20); --tier-chip-fg: #6db4ff; }
+.tier-tag[data-tier="8"] { --tier-chip-bg: rgba(200,184,255,0.22); --tier-chip-fg: #c8b8ff; }
+.tier-tag[data-tier="9"] { --tier-chip-bg: rgba(255,255,255,0.22); --tier-chip-fg: #ffffff; }
+
+/* Subtle pulse on the tag so it reads as "active" */
+.tier-tag[data-tier] {
+  animation: tierTagPulse 1.4s ease-in-out infinite alternate;
+}
+@keyframes tierTagPulse {
+  from { box-shadow: 0 0 4px var(--tier-chip-fg, #ffd23f); }
+  to   { box-shadow: 0 0 12px var(--tier-chip-fg, #ffd23f); }
+}
+
+/* ---------- 2. Enemy charging aura layering ---------- */
+.combatant.enemy .enemy-charge-aura {
+  z-index: 0;          /* behind the enemy avatar */
+  pointer-events: none;
+}
+.combatant.enemy .avatar-img,
+.combatant.enemy .sprite img {
+  position: relative;
+  z-index: 2;
+}
+/* The crackle ring (V2) sits in the sprite ::after — behind avatar too. */
+.combatant.enemy.charging .sprite::after { z-index: 0; }
+
+/* ---------- 3. Sprite stays a positioning context ---------- */
+.combatant .sprite { position: relative; }
+
+/* ---------- 4. Reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tier-tag[data-tier] { animation: none !important; }
+}
+
+/* Per-language speaker buttons on card back: tiny PA / EN badge. */
+.speak-btn .speak-lang {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  vertical-align: middle;
+}
+.prompt-row.prompt-row-en {
+  margin-top: 2px;
+}
+.prompt-row.prompt-row-en .card-english { margin: 0; }
+
+/* ---------- SRS meter, breakdown, and 7-day forecast ----------------------- */
+.srs-meter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.srs-chip {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  padding: 3px 9px;
+  color: #cdd2e3;
+}
+.srs-chip strong { color: #fff; margin-left: 2px; }
+
+.srs-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+}
+.bd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #b8bccd;
+}
+.bd-chip strong { color: #fff; }
+.bd-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #888;
+}
+.bd-chip.new      .bd-dot { background: #6aa2ff; }
+.bd-chip.learning .bd-dot { background: #ffb84d; }
+.bd-chip.young    .bd-dot { background: #59d29a; }
+.bd-chip.mature   .bd-dot { background: #3aa873; }
+.bd-chip.mastered .bd-dot { background: #d4af37; }
+
+.srs-forecast {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 10px;
+  color: #9ca0b3;
+}
+.forecast-label { writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.7; }
+.forecast-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 44px;
+  flex: 1;
+}
+.fc-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  height: 100%;
+  position: relative;
+}
+.fc-bar {
+  width: 100%;
+  min-height: 2px;
+  background: linear-gradient(180deg, #6aa2ff 0%, #3a72d6 100%);
+  border-radius: 2px 2px 0 0;
+}
+.fc-num { font-size: 9px; color: #cdd2e3; line-height: 1; }
+.fc-lbl { font-size: 9px; color: #6e7286; line-height: 1; }
+

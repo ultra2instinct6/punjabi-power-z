@@ -1,0 +1,94 @@
+/* ============================================================
+   07-overlays.css — FX overlay + level-up overlay
+   Sliced from style.css lines 752-839 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== FX overlay ===== */
+.fx {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+}
+.fx.show { opacity: 1; }
+.fx-inner {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: clamp(48px, 12vw, 110px);
+  font-weight: 900;
+  text-align: center;
+  color: var(--white);
+  text-shadow: 0 0 20px rgba(255, 210, 63, 0.9), 0 0 40px rgba(255, 122, 26, 0.7);
+}
+.fx.kiblast .fx-inner   { animation: kiBlast .9s ease forwards; background: radial-gradient(circle at 50% 50%, rgba(255,210,63,0.7), rgba(255,122,26,0.5) 30%, transparent 60%); }
+.fx.kamehameha .fx-inner { animation: kame 1.2s ease forwards;  background: radial-gradient(ellipse at 50% 50%, rgba(140,200,255,0.85), rgba(30,107,255,0.5) 35%, transparent 65%); }
+.fx.spiritbomb .fx-inner { animation: spirit 1.6s ease forwards; background: radial-gradient(circle at 50% 50%, rgba(180,255,210,0.85), rgba(54,194,107,0.55) 30%, rgba(30,107,255,0.4) 55%, transparent 75%); }
+@keyframes kiBlast {
+  0%   { transform: scale(0.2); opacity: 0; }
+  30%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes kame {
+  0%   { transform: scaleX(0.05) scaleY(1); opacity: 0; }
+  20%  { transform: scaleX(1.2)  scaleY(1.05); opacity: 1; }
+  100% { transform: scaleX(2.2)  scaleY(1.2); opacity: 0; }
+}
+@keyframes spirit {
+  0%   { transform: scale(0.1); opacity: 0; }
+  35%  { transform: scale(1.4); opacity: 1; }
+  70%  { transform: scale(1.7); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ===== Level up overlay ===== */
+.levelup {
+  position: fixed; inset: 0;
+  background: rgba(14, 21, 48, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: none;
+  place-items: center;
+  z-index: 60;
+}
+.levelup.show { display: grid; animation: fadeIn .25s var(--ease-soft); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.levelup-card {
+  position: relative;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-xl);
+  padding: 28px 32px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  min-width: 280px;
+  border: 0.5px solid var(--separator);
+  animation: popIn .7s var(--ease-snap) both;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.levelup-card h2 {
+  margin: 0;
+  font-size: 28px;
+  background: linear-gradient(135deg, var(--orange), var(--yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.levelup-card .rank {
+  margin: 10px 0 0;
+  color: var(--blue);
+  font-weight: 800;
+}
+.levelup-flash {
+  position: absolute; inset: -50%;
+  background: conic-gradient(from 0deg, rgba(255,210,63,0.4), rgba(30,107,255,0.4), rgba(255,122,26,0.4), rgba(255,210,63,0.4));
+  animation: spin 2.4s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+

@@ -1,0 +1,325 @@
+/* ============================================================
+   12-battle-fx.css — Per-question timer, telegraph, transformations, feedback
+   Sliced from style.css lines 1317-1635 (Phase 4 split).
+   Imported by src/styles/main.css; cascade order matters.
+   ============================================================ */
+
+/* ===== Battle: per-question timer ===== */
+.quiz-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 6px;
+}
+.quiz-timer {
+  flex: 1; max-width: 240px;
+  height: 6px; border-radius: 999px;
+  background: rgba(255,255,255,0.08); overflow: hidden;
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.06);
+}
+.quiz-timer-fill {
+  height: 100%; width: 100%;
+  background: linear-gradient(90deg, #36c26b, #ffd23f, #ff7a1a);
+  transition: width .25s linear;
+}
+.quiz-timer-fill.danger { background: linear-gradient(90deg, #ff5a5f, #ff7a1a); animation: timerPulse .5s infinite alternate; }
+@keyframes timerPulse { from { opacity: .7; } to { opacity: 1; } }
+
+/* ===== Battle: enemy charge telegraph ===== */
+.telegraph {
+  margin-top: 6px; padding: 6px 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,90,95,0.25), rgba(255,122,26,0.25));
+  border: 1px solid rgba(255,90,95,0.6);
+  color: #ffdada; font-weight: 700; font-size: 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  animation: tgPulse 1s infinite alternate;
+}
+.tg-turns { background: rgba(0,0,0,0.35); padding: 2px 8px; border-radius: 999px; }
+@keyframes tgPulse { from { transform: scale(1); } to { transform: scale(1.04); } }
+
+/* ===== Battle: player transformations ===== */
+.transform-aura, .shield-aura {
+  position: absolute; inset: -10%;
+  border-radius: 50%; pointer-events: none;
+  opacity: 0;
+}
+.player-sprite.tier-1 .transform-aura { /* Kaioken red */
+  opacity: 1;
+  background: radial-gradient(circle, rgba(255,80,80,0.55), transparent 65%);
+  animation: auraPulse 1.2s infinite alternate;
+  box-shadow: 0 0 30px rgba(255,80,80,0.6);
+}
+.player-sprite.tier-2 .transform-aura { /* SS yellow */
+  opacity: 1;
+  background: radial-gradient(circle, rgba(255,220,80,0.7), transparent 65%);
+  animation: auraPulse .8s infinite alternate;
+  box-shadow: 0 0 40px rgba(255,210,63,0.85);
+}
+.player-sprite.tier-3 .transform-aura { /* SS Blue */
+  opacity: 1;
+  background: radial-gradient(circle, rgba(120,200,255,0.75), transparent 65%);
+  animation: auraPulse .55s infinite alternate;
+  box-shadow: 0 0 50px rgba(80,170,255,0.95);
+}
+@keyframes auraPulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.12); }
+}
+.shield-aura.on {
+  opacity: 1;
+  background: radial-gradient(circle, rgba(140,200,255,0.0) 55%, rgba(140,200,255,0.5) 70%, transparent 80%);
+  border: 2px solid rgba(140,200,255,0.7);
+  box-shadow: 0 0 20px rgba(140,200,255,0.7), inset 0 0 20px rgba(140,200,255,0.4);
+  animation: shieldRot 6s linear infinite;
+}
+@keyframes shieldRot { to { transform: rotate(360deg); } }
+.shield-aura.shatter {
+  animation: shieldShatter .45s ease forwards;
+}
+@keyframes shieldShatter {
+  0%   { opacity: 1; transform: scale(1); }
+  60%  { opacity: 1; transform: scale(1.25); filter: brightness(2); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+.tier-tag {
+  display: inline-block; margin-left: 6px;
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+  background: rgba(255,210,63,0.2); color: #ffd23f;
+  border: 1px solid rgba(255,210,63,0.5);
+}
+
+/* ===== Battle feedback polish ===== */
+
+/* Floating damage / heal numbers */
+.combatant { position: relative; }
+.dmg-pop {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+  font-weight: 900;
+  font-size: clamp(22px, 5vw, 32px);
+  color: #ff5a5f;
+  text-shadow: 0 2px 0 #000, 0 0 12px rgba(255,90,95,0.85);
+  pointer-events: none;
+  animation: dmgPop 1.0s ease forwards;
+  z-index: 5;
+}
+.dmg-pop.crit { color: #ffd23f; text-shadow: 0 2px 0 #000, 0 0 16px rgba(255,210,63,1); font-size: clamp(28px, 6.5vw, 42px); }
+.dmg-pop.heal { color: #6dffa1; text-shadow: 0 2px 0 #000, 0 0 14px rgba(80,255,150,0.9); }
+.dmg-pop.miss { color: #d8ecff; text-shadow: 0 2px 0 #000; font-size: clamp(18px, 4vw, 26px); }
+@keyframes dmgPop {
+  0%   { opacity: 0; transform: translate(-50%, 10px) scale(0.7); }
+  20%  { opacity: 1; transform: translate(-50%, -10px) scale(1.15); }
+  70%  { opacity: 1; transform: translate(-50%, -45px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -70px) scale(0.95); }
+}
+
+/* HP bar flash on damage */
+.hpbar.hit { animation: hpFlash .45s ease; }
+@keyframes hpFlash {
+  0%   { box-shadow: 0 0 0 0 rgba(255,90,95,0.9), inset 0 0 0 1px rgba(255,255,255,0.2); }
+  50%  { box-shadow: 0 0 0 6px rgba(255,90,95,0.0), inset 0 0 12px rgba(255,90,95,0.7); }
+  100% { box-shadow: 0 0 0 0 rgba(255,90,95,0); }
+}
+.hpbar.heal { animation: hpHeal .45s ease; }
+@keyframes hpHeal {
+  0%   { box-shadow: inset 0 0 0 rgba(80,255,150,0); }
+  50%  { box-shadow: inset 0 0 14px rgba(80,255,150,0.7); }
+  100% { box-shadow: inset 0 0 0 rgba(80,255,150,0); }
+}
+
+/* Sprite hit flash overlay */
+.sprite { position: relative; }
+.sprite.hit-flash::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  mix-blend-mode: screen;
+  animation: hitFlash .25s ease forwards;
+  pointer-events: none;
+}
+@keyframes hitFlash {
+  0%   { opacity: 0; transform: scale(0.6); }
+  30%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1.15); }
+}
+
+/* Quiz container correct/wrong glow */
+.quiz.correct-glow { animation: quizGood .55s ease; }
+.quiz.wrong-glow   { animation: quizBad  .55s ease; }
+@keyframes quizGood {
+  0%   { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 0 rgba(54,194,107,0.6); }
+  40%  { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 8px rgba(54,194,107,0.0), inset 0 0 24px rgba(54,194,107,0.45); }
+  100% { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06); }
+}
+@keyframes quizBad {
+  0%   { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 0 rgba(255,90,95,0.6); }
+  40%  { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 8px rgba(255,90,95,0.0), inset 0 0 24px rgba(255,90,95,0.45); }
+  100% { box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06); }
+}
+
+/* Re-trigger choice entrance per question (preserves nth-child delays) */
+#choices.refresh .choice {
+  animation-name: none;
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+}
+#choices.refresh.run .choice {
+  animation-name: fadeUp;
+}
+
+/* Crit ring on sprite for kamehameha-tier hits */
+.sprite.crit-ring::before {
+  content: "";
+  position: absolute; inset: -8%;
+  border-radius: 50%;
+  border: 3px solid rgba(255,210,63,0.9);
+  box-shadow: 0 0 24px rgba(255,210,63,0.85);
+  animation: critRing .65s ease forwards;
+  pointer-events: none;
+}
+@keyframes critRing {
+  0%   { opacity: 1; transform: scale(0.7); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* Streak count pop */
+.streak strong.bump { display: inline-block; animation: pop .35s var(--ease-snap); }
+
+/* ===== Instant Battle Answer Feedback (red/green) ===== */
+
+/* Beefier choice states */
+.choice.correct {
+  background: color-mix(in srgb, var(--good) 28%, var(--surface)) !important;
+  border-color: var(--good) !important;
+  color: #eafff2 !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--good) 60%, transparent),
+    0 0 24px color-mix(in srgb, var(--good) 55%, transparent),
+    0 8px 24px rgba(0,0,0,0.35);
+  animation: choicePunchGood .55s var(--ease-spring) !important;
+  position: relative;
+  z-index: 2;
+}
+.choice.wrong {
+  background: color-mix(in srgb, var(--bad) 30%, var(--surface)) !important;
+  border-color: var(--bad) !important;
+  color: #ffeaea !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--bad) 60%, transparent),
+    0 0 24px color-mix(in srgb, var(--bad) 55%, transparent),
+    0 8px 24px rgba(0,0,0,0.35);
+  animation: choicePunchBad .5s var(--ease-spring) !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* ✓ / ✗ badge in the corner of the chosen button */
+.choice.correct::after,
+.choice.wrong::after {
+  content: "";
+  position: absolute;
+  top: 50%; right: 12px;
+  transform: translateY(-50%) scale(0);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 16px; font-weight: 900;
+  color: #0b0d12;
+  animation: badgePop .45s var(--ease-spring) .05s forwards;
+}
+.choice.correct::after {
+  content: "✓";
+  background: var(--good);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--good) 70%, transparent);
+}
+.choice.wrong::after {
+  content: "✗";
+  background: var(--bad);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--bad) 70%, transparent);
+}
+
+@keyframes choicePunchGood {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.08); }
+  45%  { transform: scale(0.98); }
+  100% { transform: scale(1.02); }
+}
+@keyframes choicePunchBad {
+  0%, 100% { transform: translateX(0) scale(1); }
+  15%      { transform: translateX(-7px) scale(1.02); }
+  30%      { transform: translateX(7px)  scale(1.02); }
+  45%      { transform: translateX(-5px) scale(1.01); }
+  60%      { transform: translateX(5px)  scale(1.01); }
+  80%      { transform: translateX(-2px); }
+}
+@keyframes badgePop {
+  0%   { transform: translateY(-50%) scale(0)   rotate(-90deg); }
+  60%  { transform: translateY(-50%) scale(1.2) rotate(0deg); }
+  100% { transform: translateY(-50%) scale(1)   rotate(0deg); }
+}
+
+/* Dim the unchosen siblings once locked — readable but clearly inactive */
+.choices.locked .choice:not(.correct):not(.wrong) {
+  opacity: 0.55;
+  filter: saturate(0.6) brightness(0.85);
+  transform: scale(0.97);
+  transition: opacity .25s ease, filter .25s ease, transform .25s ease;
+}
+/* Held states: keep chosen + correct prominent for the whole dwell */
+.choices.locked .choice.correct,
+.choices.locked .choice.wrong {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: scale(1.02);
+  transition: transform .25s ease;
+}
+
+/* Prompt tint */
+.quiz-prompt.flash-good {
+  color: var(--good) !important;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--good) 60%, transparent);
+  animation: promptFlash .5s var(--ease-spring);
+}
+.quiz-prompt.flash-bad {
+  color: var(--bad) !important;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--bad) 60%, transparent);
+  animation: promptFlash .5s var(--ease-spring);
+}
+@keyframes promptFlash {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Fullscreen vignette flash */
+.answer-flash {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0;
+}
+.answer-flash.show.good {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    color-mix(in srgb, var(--good) 45%, transparent) 100%
+  );
+  animation: flashFade .55s ease-out forwards;
+}
+.answer-flash.show.bad {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    color-mix(in srgb, var(--bad) 55%, transparent) 100%
+  );
+  animation: flashFade .55s ease-out forwards;
+}
+@keyframes flashFade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
